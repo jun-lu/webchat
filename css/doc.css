@@ -23,7 +23,7 @@ body{background:#f2f2f2;}
 	.chat-header{border-bottom:1px solid #dadada;margin-bottom:3px;}
 	.user-name{font-size:14px;color:#5ca8c8;}
 	.time{color:#c6c6c6;}
-	.post-id{float:right;}
+	.post-id{float:right;font-size:12px;font-family: Constantia, Georgia;}
 
 
 .slide-list{position:fixed;top:0;height:100%;border:1px solid #c6c6c6;right:0;width:180px;background:#fff;padding:20px 0;}

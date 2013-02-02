@@ -6,7 +6,7 @@
 	<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
 	<link rel="stylesheet" href="css/doc.css" />
 	<script type="text/javascript" src="js/jquery-1.6.js"></script>
-	<script type="text/javascript" src="js/mx."></script>
+	<script type="text/javascript" src="js/we.min.js"></script>
 </head>
 <body>
 	<div class="container">
@@ -28,11 +28,11 @@
 					<div class="timeline"></div>
 					
 					<div class="header" id="header">
-						<h1>周六骑行</h1>
-						<p>关于周六骑行活动，请大家讨论下，集思广益。</p>
+						<h1 id="topic" >周六骑行</h1>
+						<p id="directions">关于周六骑行活动，请大家讨论下，集思广益。</p>
 					</div>
 					<div class="post-box" id="postbox"><!--post-box-fixed-->
-						<div class="post-box-in">
+						<div class="post-box-in" id="postboxIn">
 							<span class="lj-in lj-right"><span class="lj-in lj-span"></span></span>
 							<span class="lj-dot"><span class="lj-d"></span></span>
 							<div class="post-text-box">
@@ -185,24 +185,11 @@
 				<li><a href="#">周立波</a></li>
 				<li><a href="#">伊能靜</a></li>
 			</ul>
-
 		</div>
 	</div>
+	<script type="text/javascript" src="js/we.page.chat.js"></script>
 	<script type="text/javascript">
-		var headerHeight = $('#header').height();
-		var isFixed = false;
-		$(window).scroll(function(){
-			var h = $(this).scrollTop();
-			if(h > headerHeight && !isFixed){
-				isFixed = true;
-				$('#postbox').addClass('post-box-fixed');
-				$('#postbox').height( $('#postbox').find('.post-box-in').height() );
-			}else if(h < headerHeight && isFixed){
-				isFixed = false;
-				$('#postbox').removeClass('post-box-fixed');
-				$('#postbox').css( {height:"auto"} );
-			}
-		});
+		WE.pageChat.init();
 	</script>
 </body>
 </html>
