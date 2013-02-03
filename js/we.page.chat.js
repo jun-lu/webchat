@@ -7,7 +7,7 @@ WE.pageChat = {
 		this.ui = {
 			header:$('#header'),
 			postBox:$('#postbox'),
-			postBoxIn:('#postboxIn')
+			postBoxIn:$('#postboxIn')
 		};
 
 		this.setPostBoxFixed();
@@ -34,7 +34,7 @@ WE.pageChat = {
 			var scrollTop = $(this).scrollTop();
 			if( scrollTop > headerHeight && !isFixed){
 				isFixed = true;
-				_this.ui.postBox.addClass('post-box-fixed').
+				_this.ui.postBox.addClass('post-box-fixed');
 				_this.ui.postBox.height( _this.ui.postBoxIn.height() ) ;
 			}
 			if( scrollTop < headerHeight && isFixed){
