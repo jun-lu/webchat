@@ -1,11 +1,15 @@
 @echo off
 set inputlist=%inputlist% --js we.js
+set inputlist=%inputlist% --js we.kit.js
 set inputlist=%inputlist% --js we.kit.dragelement.js
 set inputlist=%inputlist% --js we.kit.textarea.js
+set inputlist=%inputlist% --js we.ui.tips.js
 
 echo we.js
+echo we.kit.js
 echo we.kit.dragelement.js
 echo we.kit.textarea.js
+echo we.ui.stip.js
 
 set outputfilename= ..\..\we.min.js
 
