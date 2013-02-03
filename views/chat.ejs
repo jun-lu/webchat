@@ -28,8 +28,8 @@
 					<div class="timeline"></div>
 					
 					<div class="header" id="header">
-						<h1 id="topic" >周六骑行</h1>
-						<p id="directions">关于周六骑行活动，请大家讨论下，集思广益。</p>
+						<h1 id="topic" ><%=topic%></h1>
+						<p id="directions"><%=des%></p>
 					</div>
 					<div class="post-box" id="postbox"><!--post-box-fixed-->
 						<div class="post-box-in" id="postboxIn">
@@ -176,20 +176,16 @@
 			</div>
 		</div>
 		<div class="slide-list">
-			<ul>
-				<li><a href="#">鲁军</a></li>
-				<li><a href="#">兰枫照亮</a></li>
-				<li><a href="#">娇娇Joley</a></li>
-				<li><a href="#">emmilynana</a></li>
-				<li><a href="#">otakustay</a></li>
-				<li><a href="#">周立波</a></li>
-				<li><a href="#">伊能靜</a></li>
+			<ul id="userlist">
+				
 			</ul>
 		</div>
 	</div>
 	<script type="text/javascript" src="js/we.page.chat.js"></script>
 	<script type="text/javascript">
+
 		WE.pageChat.init();
+		WE.pageChat.userlist.init( <%- JSON.stringify(onlineUser) %> );
 	</script>
 </body>
 </html>
