@@ -31,7 +31,7 @@ WE.extend(WE.ui, {
 			//closebtn:true,
 			type:"success",
 			timeout:timeout,
-			title:WE_LANG.lj_234
+			title:"提示"
 		});
 		tip.ui.close.focus();
 		return tip;
@@ -49,7 +49,7 @@ WE.extend(WE.ui, {
 			//closebtn:false,
 			type:"notice",
 			callback:callback,
-			title:WE_LANG.lj_234
+			title:"提示"
 		});
 		tip.ui.ok.focus();
 		
@@ -70,7 +70,7 @@ WE.extend(WE.ui, {
 				action = action == "ok" ? true : false;
 				callback && callback(action);
 			},
-			title:WE_LANG.lj_234
+			title:"提示"
 		});
 		
 		this.confirm.tip = tip;
@@ -120,7 +120,7 @@ WE.extend(WE.ui, {
 		function tip( option ){
 			
 			this.option = {
-				title:WE_LANG.lj_234,
+				title:"提示",
 				context:"hello world",
 				callback:function(){},
 				timeout:0,

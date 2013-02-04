@@ -90,7 +90,7 @@ WE.At.prototype = {
 	constructor:WE.At,
 	tmpl:'<div class="mx-at-box hidden" id="mxatbox">\
 		<div class="mx-at">\
-			<div class="mx-at-title"><%=WE_LANG.lj_59%></div>\
+			<div class="mx-at-title">选择</div>\
 			<div class="mx-at-list"></div>\
 		</div>\
 	</div>',

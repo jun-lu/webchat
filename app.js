@@ -15,6 +15,9 @@ app.configure(function(){
   app.set('port', process.env.PORT || 3000);
   app.set('views', __dirname + '/views');
   app.set('view engine', 'ejs');
+  // app.set('view options', {
+  //   layout:true
+  // });
   app.use(express.favicon());
   app.use(express.logger('dev'));
   app.use(express.bodyParser());
@@ -31,10 +34,11 @@ app.configure('development', function(){
 app.get('/', routes.index);
 
 // get /\d+
-app.get(/\/\d+/, routesChat.chat);
+app.get('/:key', routesChat.chat);
 
 //get /chat
 app.get('/chat', routesChat.chat );
+
 
 
 http.createServer(app).listen(app.get('port'), function(){

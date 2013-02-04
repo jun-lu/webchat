@@ -68,7 +68,7 @@ WE.pageChat.timeLine = {
 WE.pageChat.userlist = {
 
 	tmpl:'<li id="uid_<%=id%>"><a href="#"><%=name%></a></li>',
-	
+
 	init:function( data ){
 
 		var i = 0;
@@ -77,7 +77,7 @@ WE.pageChat.userlist = {
 		if(data){
 
 			for(; i<data.length; i++){
-				html += this.tmpl;	
+				html += WE.kit.tmpl(this.tmpl, data[i]);	
 
 			}
 
