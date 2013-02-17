@@ -2,15 +2,42 @@
 <html lang="en-US">
 <head>
 	<meta charset="UTF-8">
-	<title>Web Chat</title>
+	<title><%=topic%> - Web Chat</title>
 	<% include common/links %>
 </head>
 <body>
-	
+	<style type="text/css">
+		.we-dialog{position:fixed;border:1px solid #ccc;background:#fff;z-index:100;
+			box-shadow: rgba(0,0,0,.5) 0px 0px 30px 0px;
+		}
+		.we-dialog-in{margin:10px;}
+	</style>
+<%if(!user){%>
+<div class="we-dialog" style="width:400px;left:50%;margin-left:-200px;">
+	<div class="we-dialog-in">
+		<form action="/sys/setname">
+			<ul class="reset">
+				<li>
+					<label>设置昵称先：</label>
+					<input type="text" value="" placeholder="你还是匿名" >
+				</li>
+				<li>
+					<input type="submit" value="提交" class="btn">
+				</li>
+			</ul>
+		</form>
+	</div>
+</div>
+<%}%>
 <div class="container">
 	<div class="header"></div>
 	<div class="row">
 		<div class="span3">
+			<%if(user){%>
+				<div>
+						<%=user.name || user.mail%> | <a href="#">设置</a> | <a href="/sys/out">登出</a>
+				</div>
+			<%}%>
 			<div class="time-search">
 				<ul>
 					<li><a href="#" class="time-name on">Now</a></li>
@@ -29,147 +56,25 @@
 					<h1 id="topic" ><%=topic%></h1>
 					<p id="directions"><%=des%></p>
 				</div>
+
 				<div class="post-box" id="postbox"><!--post-box-fixed-->
-					<div class="post-box-in" id="postboxIn">
-						<span class="lj-in lj-right"><span class="lj-in lj-span"></span></span>
-						<span class="lj-dot"><span class="lj-d"></span></span>
-						<div class="post-text-box">
-							<textarea class="post-text"></textarea>
+					<form  method="post" id="postForm"  action="#">
+						<input type="hidden" name="roomid" id="roomid" value="<%=id%>">
+						<div class="post-box-in" id="postboxIn">
+							<span class="lj-in lj-right"><span class="lj-in lj-span"></span></span>
+							<span class="lj-dot"><span class="lj-d"></span></span>
+							<div class="post-text-box">
+								<textarea class="post-text" id="postText" name="text"></textarea>
+							</div>
+							<div class="btns"><input type="submit" class="btn" value="发送" /></div>
 						</div>
-						<div class="btns"><input type="button" class="btn" value="发送" /></div>
-					</div>
-					
+					</form>
 				</div>
-				<div class="chat">
-				
-					<span class="lj-in lj-right"><span class="lj-in lj-span"></span></span>
-					<span class="lj-dot"><span class="lj-d"></span></span>
-					
-					<div class="chat-header">
-						<a href="#" class="user-name">鲁军</a> <span class="time">13:13:56</span>
-						<a href="#" class="post-id">#1982</a>
-					</div>
-					<div>
-						<p>注意闯红灯要罚款哦。</p>
-					</div>
+
+				<div id="timelineChats">
+
 				</div>
 				
-				<div class="chat">
-				
-					<span class="lj-in lj-right"><span class="lj-in lj-span"></span></span>
-					<span class="lj-dot"><span class="lj-d"></span></span>
-					
-					<div class="chat-header">
-						<a href="#" class="user-name">鲁军</a> <span class="time">13:13:56</span>
-					</div>
-					<div>
-						<p>注意闯红灯要罚款哦。</p>
-					</div>
-				</div>
-				
-				
-				<div class="chat">
-				
-					<span class="lj-in lj-right"><span class="lj-in lj-span"></span></span>
-					<span class="lj-dot"><span class="lj-d"></span></span>
-					
-					<div class="chat-header">
-						<a href="#" class="user-name">鲁军</a> <span class="time">13:13:56</span>
-					</div>
-					<div>
-						<p>《征服C指针》由于过年原因，延缓上市，预计各大网店2月22日可到货。这本书被称为日本最有营养的C参考书。作者是日本著名的“毒舌程序员”，其言辞犀利，观点鲜明，往往能让读者迅速领悟要领。 本书适合C语言中级学习者阅读，也可作为计算机专业学生学习C语言的参考。上市前关于本书请参见作者语录。</p>
-					</div>
-				</div>
-				
-				
-				
-				
-				<div class="chat">
-				
-					<span class="lj-in lj-right"><span class="lj-in lj-span"></span></span>
-					<span class="lj-dot"><span class="lj-d"></span></span>
-					
-					<div class="chat-header">
-						<a href="#" class="user-name">鲁军</a> <span class="time">13:13:56</span>
-					</div>
-					<div>
-						<p>有一种人，在陌生人面前是女神，在好友面前是女屌，在死党面前是资深腐女，在家人面前各种乖乖女，在男朋友面前是傻x的代名词。。。</p>
-					</div>
-				</div>
-				
-				
-				<div class="chat">
-				
-					<span class="lj-in lj-right"><span class="lj-in lj-span"></span></span>
-					<span class="lj-dot"><span class="lj-d"></span></span>
-					
-					<div class="chat-header">
-						<a href="#" class="user-name">鲁军</a> <span class="time">13:13:56</span>
-					</div>
-					<div>
-						<p>有一种人，在陌生人面前是女神，在好友面前是女屌，在死党面前是资深腐女，在家人面前各种乖乖女，在男朋友面前是傻x的代名词。。。</p>
-					</div>
-				</div>
-				
-				
-				
-				<div class="chat">
-				
-					<span class="lj-in lj-right"><span class="lj-in lj-span"></span></span>
-					<span class="lj-dot"><span class="lj-d"></span></span>
-					
-					<div class="chat-header">
-						<a href="#" class="user-name">鲁军</a> <span class="time">13:13:56</span>
-					</div>
-					<div>
-						<p>有一种人，在陌生人面前是女神，在好友面前是女屌，在死党面前是资深腐女，在家人面前各种乖乖女，在男朋友面前是傻x的代名词。。。</p>
-					</div>
-				</div>
-				
-				
-				
-				<div class="chat">
-				
-					<span class="lj-in lj-right"><span class="lj-in lj-span"></span></span>
-					<span class="lj-dot"><span class="lj-d"></span></span>
-					
-					<div class="chat-header">
-						<a href="#" class="user-name">鲁军</a> <span class="time">13:13:56</span>
-					</div>
-					<div>
-						<p>有一种人，在陌生人面前是女神，在好友面前是女屌，在死党面前是资深腐女，在家人面前各种乖乖女，在男朋友面前是傻x的代名词。。。</p>
-					</div>
-				</div>
-				
-				
-				
-				<div class="chat">
-				
-					<span class="lj-in lj-right"><span class="lj-in lj-span"></span></span>
-					<span class="lj-dot"><span class="lj-d"></span></span>
-					
-					<div class="chat-header">
-						<a href="#" class="user-name">鲁军</a> <span class="time">13:13:56</span>
-					</div>
-					<div>
-						<p>有一种人，在陌生人面前是女神，在好友面前是女屌，在死党面前是资深腐女，在家人面前各种乖乖女，在男朋友面前是傻x的代名词。。。</p>
-					</div>
-				</div>
-				
-				
-				
-				<div class="chat">
-				
-					<span class="lj-in lj-right"><span class="lj-in lj-span"></span></span>
-					<span class="lj-dot"><span class="lj-d"></span></span>
-					
-					<div class="chat-header">
-						<a href="#" class="user-name">鲁军</a> <span class="time">13:13:56</span>
-					</div>
-					<div>
-						<p> 快帮我分析我的电脑怎么了？</p>
-					</div>
-				</div>
 			</div>
 		</div>
 	</div>
@@ -182,8 +87,28 @@
 <script type="text/javascript" src="js/we.page.chat.js"></script>
 <script type="text/javascript">
 
+	WE.pageChat.onlineUserList = [
+		{
+			id:123,
+			name:"lujun"
+		},
+		{
+			id:123,
+			name:"jun"
+		},
+		{
+			id:123,
+			name:"nihao"
+		},
+		{
+			id:123,
+			name:"luyu"
+		}
+	];
+
 	WE.pageChat.init();
-	WE.pageChat.userlist.init( <%- JSON.stringify(onlineUser) %> );
+	//WE.pageChat.userlist.init( <%- JSON.stringify(onlineUser) %> );
+	WE.pageChat.timeLine.init( <%- JSON.stringify( indexChats ) %> )
 </script>
 </body>
 </html>

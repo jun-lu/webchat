@@ -22,6 +22,15 @@ WE.extend(WE.kit, {
 		  
 		return data ? fn( data ) : fn;
 	},
+	pad:function(string, length, pad){
+		var len = length - String(string).length
+		if(len < 0){
+			return string;
+		}
+		var arr = new Array( length - String(string).length || 0 )
+		arr.push(string); 
+		return arr.join(pad || '0');
+	},
 	format : function(source, pattern){// date format
 		// Jun.com.format(new Date(),"yyyy-MM-dd hh:mm:ss");
 		//Jun.com.format(new Date(),"yyyy年MM月dd日 hh时:mm分:ss秒");
@@ -49,6 +58,48 @@ WE.extend(WE.kit, {
 	},
 	longFormat:function(source){
 		return this.format(source, "yyyy-MM-dd hh:mm:ss");
-	}
+	},
+	/**
+		规则
+		 <1分钟	60*1000 刚刚
+		 <5分钟	5* 1000 * 60 5分钟
+		 <10分钟 10 * 1000 * 60 10分钟
+		 <30分钟 30 * 1000 * 60  30分钟
+		 <1小时  60 * 1000 * 60  1小时
+		 <2小时  2* 60 * 1000 * 60 2小时
+		 <5小时  5 * 60 * 1000 * 60 5小时
+		 <24小时 24 * 60 * 1000 * 60 1天前
+		 <48小时 2* 24 * 60 * 1000 * 60 2天前
+
+	*/
+	weTime:(function( ){
+
+		var times = [
+			{t:60*1000, s:"刚刚"},
+			{t:2*60*1000, s:"1分钟"},
+			{t:3*60*1000, s:"2分钟"},
+			{t:6*60*1000, s:"5分钟"},
+			{t:11*60*1000, s:"10分钟"},
+			{t:30*60*1000, s:"30分钟"},
+			{t:60*60*1000, s:"1小时"},
+			{t:2*60*60*1000, s:"2小时"},
+			{t:5*60*60*1000, s:"5小时"},
+			{t:24*60*60*1000, s:"1天前"},
+			{t:2*24*60*60*1000, s:"2天前"}
+		];
+		return function( time ){
+			var t = new Date().getTime();
+			var ct = t - time;
+			var i = 0;
+			while( i < times.length ){
+				if( times[i++].t > ct ){
+					return times[i-1].s;
+				}
+			}
+
+			return WE.kit.format( time , "hh:mm:ss");
+		}
+
+	})()
 });
 	

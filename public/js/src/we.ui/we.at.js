@@ -96,7 +96,7 @@ WE.At.prototype = {
 	</div>',
 	listTmpl:'<ul>\
 		<%for(var i=0; i<data.length; i++){%>\
-			<li data-index="<%=i%>"><a href="javascript:void(0);"><%=data[i].mx_name%></a></li>\
+			<li data-index="<%=i%>"><a href="javascript:void(0);"><%=data[i].name%></a></li>\
 		<%}%>\
 	</ul>',
 	init:function(){
@@ -191,7 +191,7 @@ WE.At.prototype = {
 		if(this.currentIndex != -1){
 			var user = this.listData[this.currentIndex];
 			this.key.length > 0 && WE.kit.textarea.del(this.textarea[0], this.key.length);
-			WE.kit.textarea.add(this.textarea[0], user.mx_name+" ");
+			WE.kit.textarea.add(this.textarea[0], user.name+" ");
 			this.hide();
 		}
 		
@@ -229,9 +229,9 @@ WE.At.prototype = {
 		}
 		*/
 		if(this.key == ""){
-			this.ui.title.text(WE_LANG.lj_59);
+			this.ui.title.text("选择最近联系人");
 		}else{
-			this.ui.title.text(WE_LANG.lj_60);
+			this.ui.title.text("选择想要AT的人，空格完成输入");
 		}
 		
 		data = data.slice(0, 10);

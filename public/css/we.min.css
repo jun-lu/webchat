@@ -42,10 +42,13 @@ cursor: pointer;display: inline-block;height:29px;line-height:29px;margin-right:
 
 /*--------------------------有透明背景层 end---------------------*/
 /** mx.at.js */
+.hidden{display:none;}
 .mx-at-box{position:absolute;width:200px;z-index:150;}
 .mx-at{color:#4f4c53;background:#f2f0f1;border:1px solid #9a9899;}
 .mx-at-title{padding:7px 6px;border-bottom:1px solid #dedcdd;color:#9a9899;}
 .mx-at-list{border-top:1px solid #fff;}
+.mx-at-list li{list-style:none;}
+.mx-at-list ul{margin:0;}
 .mx-at li a{padding:5px 12px;display:block;color:#4f4c53;border-bottom:1px solid #dedcdd;word-wrap:break-word;}
 .mx-at li a:hover{text-decoration:none;}
 .mx-at .on{background:#dedcdd;}

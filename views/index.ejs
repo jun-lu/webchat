@@ -1,11 +1,66 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-  </body>
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title>Web Chat</title>
+	<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="/css/doc.css" />
+	<script type="text/javascript" src="/js/jquery-1.6.js"></script>
+	<script type="text/javascript" src="/js/we.min.js"></script>
+</head>
+<body>
+	<div class="top-color">
+		<%if(user){%>
+			<%=user.name || user.mail%> | <a href="/sys/out">登出</a>
+		<%}else{%>
+			<a href="/sys/login">登陆</a> | <a href="/sys/reg">注册</a>
+		<%}%>
+	</div>
+	<div class="container">
+		<div class="header">
+			<h1>Web Chat</h1>
+		</div>
+		<div class="row">
+			<div class="span6">
+				<div class="create">
+					<h3>创建一个对话</h3>
+					<form action="/sys/create" method="post" >
+						<ul class="reset">
+							<li>
+								<label for="topic">主题</label>
+								<input type="text" id="topic" name="topic" placeholder="讨论主题">
+							</li>
+							<li>
+								<label for="des">描述</label>
+								<textarea placeholder="描述" name="des" id="des" > </textarea> 
+							</li>
+							<li><input type="submit" class="btn" value="创建" /></li>
+						</ul>
+					</form>
+				</div>
+			</div>
+			<div class="span5">
+				<div class="into">
+					<h3>加入一个对话</h3>
+					<form action="/sys/into" method="post" >
+						<ul class="reset">
+							<li>
+								<label for="chatid">输入对话KEY</label>
+								<input type="text" id="webchatid" name="chatid" placeholder="输入对话KEY" >
+
+							</li>
+							<li><input type="submit" class="btn"  value="进入" ></li>
+						</ul>
+					</form>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+	<div class="footer">
+		<div class="container">
+		<p><a href="/sys/about">about web chat</a></p>	
+		</div>
+	</div>
+</body>
 </html>

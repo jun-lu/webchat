@@ -1,5 +1,6 @@
 
 body{background:#f2f2f2;}
+.reset{list-style:none;margin:0;padding:0;}
 /** 主要区域 */
 .main{width:450px;margin-left:10px;}
 	.main .header{overflow:hidden;margin-bottom:20px;}
@@ -22,7 +23,7 @@ body{background:#f2f2f2;}
 .chat{padding:10px 10px 0 10px;}
 	.chat-header{border-bottom:1px solid #dadada;margin-bottom:3px;}
 	.user-name{font-size:14px;color:#5ca8c8;}
-	.time{color:#c6c6c6;}
+	.time{color:#c6c6c6;font-size:12px;}
 	.post-id{float:right;font-size:12px;font-family: Constantia, Georgia;}
 
 
@@ -46,3 +47,10 @@ body{background:#f2f2f2;}
 .lj-right .lj-span{border-right:11px solid #fff;margin:-11px 0 0 -9px;;}
 .lj-dot{border:8px solid #fff;border-radius:8px;position:absolute;left:-34px;top:5px;}
 .lj-dot .lj-d{border:5px solid #5ca8c8;border-radius:5px;position:absolute;left:-5px;top:-5px;}
+
+
+/** index.html */
+
+.footer{}
+.top-color{padding:5px 20px;text-align:right;}
+.create{border-right: 1px solid #ccc;}
