@@ -18,7 +18,7 @@ var socketServer = require('./lib/socketServer');
 var app = express();
 
 app.configure(function(){
-  app.set('port', process.env.PORT || 3000);
+  app.set('port', process.env.PORT || 80);
   app.set('views', __dirname + '/views');
   app.set('view engine', 'ejs');
 
@@ -29,13 +29,6 @@ app.configure(function(){
 
   app.use(express.cookieParser());
  
-  /*  
-  app.use(express.session({
-    secret: settings.cookieSecret, store: new MongoStore({
-        db: settings.db
-    })
-  }));
-  //*/
   app.use(app.router);
   app.use(express.static(path.join(__dirname, 'public')));
 });
