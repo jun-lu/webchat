@@ -210,7 +210,7 @@ WE.pageChat = {
 								dialog.close();
 								setTimeout(function(){
 									//console.log(window.location.host +"/"+ name);
-									window.location.href = "http://"+window.location.host+"/"+name;//reload();
+									window.location.href = "http://"+window.location.host+"/"+(name || id);//reload();
 								}, 500)
 							}
 
