@@ -5,6 +5,7 @@
 	对话页面
 */
 var Log = require('../lib/Log');
+var User = require('../lib/User');
 var Room = require('../lib/Room');
 var Chat = require('../lib/Chat');
 
