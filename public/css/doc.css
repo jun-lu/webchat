@@ -2,9 +2,10 @@
 body{background:#f2f2f2;}
 .reset{list-style:none;margin:0;padding:0;}
 /** 主要区域 */
+.header{text-align:right;padding:0 10px;}
 .main{width:450px;margin-left:10px;}
-	.main .header{overflow:hidden;margin-bottom:20px;}
-.timeline{position:fixed;width:5px;height:100%;background:#5ca8c8;margin-left:-27px;}
+	.main .head{overflow:hidden;margin-bottom:20px;}
+.timeline{position:fixed;width:5px;height:100%;background:#5ca8c8;margin-left:-27px;top:0;}
 
 .chat,.post-box-in{border:1px solid #c6c6c6;position:relative;margin-bottom:10px;background:#fff;}
 .post-box{margin:5px 0 20px 0;}
@@ -27,7 +28,7 @@ body{background:#f2f2f2;}
 	.post-id{float:right;font-size:12px;font-family: Constantia, Georgia;}
 
 
-.slide-list{position:fixed;top:0;height:100%;border:1px solid #c6c6c6;right:0;width:180px;background:#fff;padding:20px 0;}
+.slide-list{position:fixed;top:0;height:100%;border:1px solid #c6c6c6;left:0;width:180px;background:#fff;padding:20px 0;}
 /* user list */
 .time-search{margin-top:211px;position:fixed;}
 	.time-search ul{list-style:none;width:180px;}
@@ -53,4 +54,13 @@ body{background:#f2f2f2;}
 
 .footer{}
 .top-color{padding:5px 20px;text-align:right;}
-.create{border-right: 1px solid #ccc;}
+.create,.join{border-right: 1px solid #ccc;}
+.into{min-height:230px;}
+
+
+/* dialog */
+
+.we-dialog{position:fixed;border:1px solid #ccc;background:#fff;z-index:100;
+	box-shadow: rgba(0,0,0,.5) 0px 0px 30px 0px;
+}
+.we-dialog-in{margin:10px;}

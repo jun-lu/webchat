@@ -1,0 +1,16 @@
+<form action="/sys/set_user_name" method="post" id="setUserNameForm" >
+	<ul class="reset">
+		<%if(name == ""){%>
+			<li><h4>你将以临时用户身份加入对话</h4></li>
+		<%}else{%>
+			<li><h4>新的发言会使用新昵称</h4></li>
+		<%}%>
+		<li>
+			<label><%= name == "" ? "设置昵称" : "修改昵称"%>：</label>
+			<input type="text" value="<%=name%>" id="newUserName" name="name" placeholder="输入昵称" >
+		</li>
+		<li>
+			<input type="submit" value="提交" class="btn"> <a href="javascript:;" class="out" >取消</a> | <a href="/sys/login">登陆已有账号？</a>
+		</li>
+	</ul>
+</form>

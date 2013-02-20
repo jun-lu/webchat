@@ -2,6 +2,8 @@
 
 WE.pageChat = {
 
+	isLoading:0,
+	lastTime:null,
 	init:function(){
 
 		this.ui = {
@@ -62,25 +64,38 @@ WE.pageChat = {
 			return false;
 		});
 
-		var at = new WE.At( $('#postText') );
-		at.searchFirends = function( key ){
-			//
-			var list = [];
-			var dataList = WE.pageChat.onlineUserList;
-			var reg = new RegExp(key, "i");
-			for(var i=0; i<dataList.length; i++){
+		
 
-				if( reg.test( dataList[i] ) ){
+		//var isUpdateNameShow = 0;
+		$('#username').click(function(){
+			_this.setUserName( USER );
+		});
 
-					list.push( dataList[i] );
+		$('#setting').click(function(){
+			_this.setRoomInfo( ROOM );
+		});
 
-				};
-				
+
+		$(window).bind("scroll", function(){
+
+			if(_this.isLoading == 0){
+
+				var isbottom = $(window).scrollTop() + $(window).height() + 100 > $(document.body).innerHeight();
+
+				if( isbottom ){
+
+					_this.isLoading = 1;
+					_this.getMore();
+
+				}
+
 			}
-			this.showList( list );
-		};
+
+		});
 		//$('.searchFirends')
 	},
+
+	//发送信息
 	post:function(roomid, text){
 
 		var _this = this;
@@ -92,7 +107,7 @@ WE.pageChat = {
 			var data = e.data;
 			if( data.code == 0 ){//post提交成功
 
-				_this.timeLine.prepend( data.r );
+				//_this.timeLine.prepend( data.r );
 				$('#postText').val('');
 			}
 
@@ -101,6 +116,137 @@ WE.pageChat = {
 		model.addObserver( ctrl );
 
 		model.postChat( roomid, text );
+
+	},
+	//设置或者修改用户昵称
+	setUserName:function( user ){
+
+
+		WE.kit.getTmpl("update_user_name.ejs", function( data ){
+
+			var dialog = new WE.Dialog( {
+				id:"setUserName",
+				width:400,
+				html:WE.kit.tmpl(data, user)
+			});
+
+			dialog.show();
+
+
+			if(dialog.isRepeat == undefined){
+				$('#setUserNameForm').submit(function(){
+
+					var elenewUserName = $('#newUserName');
+					var name = elenewUserName.val();
+					if( name ){
+
+						var model = new WE.api.ChatModel();
+						var ctrl = new WE.Controller();
+						ctrl.update = function( e ){
+
+							var data = e.data;
+
+							if( data.code == 0 ){
+
+								dialog.close();
+								setTimeout(function(){
+									document.location.reload();
+								}, 500)
+							}
+
+						};
+						model.addObserver( ctrl );
+						model.updateUserName( name );	
+
+					}else{
+						elenewUserName.focus();
+					}
+
+					return false;
+				});
+			}
+		});
+	},
+	//修改房间信息
+	setRoomInfo:function( room ){
+
+		WE.kit.getTmpl("set_room.ejs", function( data ){
+
+			var dialog = new WE.Dialog( {
+				id:"setRoom",
+				width:500,
+				html:WE.kit.tmpl(data, room)
+			});
+
+			dialog.show();
+
+			// 第2次弹出 isRepeat 为 true
+			if(dialog.isRepeat == undefined){
+				$('#updateRoomForm').submit(function(){
+
+					var eleRoomName = $('#roomName');
+					var eleRoomTopic = $('#roomTopic');
+					var eleRoomDes = $('#roomDes');
+					var eleRoomid = $('#roomid');
+
+					var id = eleRoomid.val();
+					var name = eleRoomName.val();
+					var topic = eleRoomTopic.val();
+					var des = eleRoomDes.val();
+
+					//如果并没有设置新的访问地址
+					name = name == id ? "" : name;
+
+					if( topic && des ){
+
+						var model = new WE.api.ChatModel();
+						var ctrl = new WE.Controller();
+						ctrl.update = function( e ){
+
+							var data = e.data;
+
+							if( data.code == 0 ){
+
+								dialog.close();
+								setTimeout(function(){
+									//console.log(window.location.host +"/"+ name);
+									window.location.href = "http://"+window.location.host+"/"+name;//reload();
+								}, 500)
+							}
+
+						};
+						model.addObserver( ctrl );
+						model.updateRoom( id, name, topic, des );	
+
+					}else{
+						elenewUserName.focus();
+					}
+
+					return false;
+				});
+			}
+		});
+
+
+	},
+	getMore:function(){
+
+		var _this = this;
+		var model = new WE.api.ChatModel();
+		var ctrl = new WE.Controller();
+		ctrl.update = function( e ){
+
+			var data = e.data;
+			if(data.code == 0 && data.result.length){
+				_this.isLoading = 0;
+				WE.pageChat.timeLine.appends( data.result );
+			}else{
+				_this.isLoading = 2;//没有数据了
+			}
+
+		};
+		model.addObserver( ctrl );
+		model.getMore( ROOM.id , this.lastTime );	
 
 	}
 };
@@ -134,11 +280,42 @@ WE.pageChat.timeLine = {
 			//WE.kit.tmpl(WE.pageChat.timeLine.tmpl)
 			html += WE.kit.tmpl( this.tmpl, datas[i] );
 		}
+
 		$('#timelineChats').html( html );
+
+		if(len && datas[len-1].time){
+			WE.pageChat.lastTime = datas[len-1].time;
+		}else{
+			WE.pageChat.isLoading = 2;
+			WE.pageChat.lastTime = -1;
+			console.log( "lastTime 失败" );
+		}
 	},
 	prepend:function( data ){
 
 		$('#timelineChats').prepend( WE.kit.tmpl( this.tmpl, data ) );
+
+	},
+
+	appends:function( datas ){
+
+		var i = 0;
+		var len = datas.length;
+		var html = "";
+
+		for(; i<len; i++){
+			//WE.kit.tmpl(WE.pageChat.timeLine.tmpl)
+			html += WE.kit.tmpl( this.tmpl, datas[i] );
+		}
+
+		$('#timelineChats').append( html );
+
+		if(datas[len-1].time){
+			WE.pageChat.lastTime = datas[len-1].time;
+		}else{
+
+			console.log( "lastTime 失败" );
+		}
 
 	},
 	/*
@@ -156,8 +333,8 @@ WE.pageChat.timeLine = {
 
 WE.pageChat.userlist = {
 
-	tmpl:'<li id="uid_<%=id%>"><a href="#"><%=name%></a></li>',
-
+	tmpl:'<li id="uid_<%=_id%>"><a href="#"><%=name%></a></li>',
+	data:null,
 	init:function( data ){
 
 		var i = 0;
@@ -165,17 +342,66 @@ WE.pageChat.userlist = {
 
 		if(data){
 
+			this.data = data;
 			for(; i<data.length; i++){
 				html += WE.kit.tmpl(this.tmpl, data[i]);	
-
 			}
 
 			$('#userlist').html( html );
 		}
 
-
+		//this.regEvent();
 	},
 	regEvent:function(){
+
+		var _this = this;
+		var at = new WE.At( $('#postText') );
+		//console.log("regEvent");
+		at.searchFirends = function( key ){
+			//
+			var list = [];
+			var dataList = _this.data || [];
+			var reg = new RegExp(key, "i");
+			console.log( key );
+			for(var i=0; i<dataList.length; i++){
+
+				if( reg.test( dataList[i] ) ){
+
+					list.push( dataList[i] );
+
+				};
+				
+			}
+			this.showList( list );
+		};
+
+	},
+	append:function( data ){
+		//如果是自己就不加入到队列
+		if(data._id != USER._id){
+			if(this.data){
+				this.data.push( data )
+			}else{
+
+				this.data = [data];
+			}
+			$('#userlist').append(  WE.kit.tmpl(this.tmpl, data) );
+		}
+	},
+	remove:function( data ){
+		var list = this.data;
+
+		$('#uid_'+data._id).remove();
+
+		for(var i=0; i<list.length; i++){
+
+			if(list[i]._id == data._id){
+				list.splice( i, 1 );
+				break;
+			}
+
+		}
+		
 
 	}
 

@@ -2,42 +2,33 @@
 <html lang="en-US">
 <head>
 	<meta charset="UTF-8">
-	<title><%=topic%> - Web Chat</title>
+	<title><%=room.topic%> - Web Chat</title>
 	<% include common/links %>
+
+	<script src="/socket.io/socket.io.js"></script>
+
+	<script type="text/javascript">
+
+		var USER = <%- JSON.stringify(user)%>;
+		var ROOM = <%- JSON.stringify(room)%>;
+		
+	</script>
 </head>
 <body>
-	<style type="text/css">
-		.we-dialog{position:fixed;border:1px solid #ccc;background:#fff;z-index:100;
-			box-shadow: rgba(0,0,0,.5) 0px 0px 30px 0px;
-		}
-		.we-dialog-in{margin:10px;}
-	</style>
-<%if(!user){%>
-<div class="we-dialog" style="width:400px;left:50%;margin-left:-200px;">
-	<div class="we-dialog-in">
-		<form action="/sys/setname">
-			<ul class="reset">
-				<li>
-					<label>设置昵称先：</label>
-					<input type="text" value="" placeholder="你还是匿名" >
-				</li>
-				<li>
-					<input type="submit" value="提交" class="btn">
-				</li>
-			</ul>
-		</form>
-	</div>
-</div>
-<%}%>
-<div class="container">
-	<div class="header"></div>
-	<div class="row">
-		<div class="span3">
-			<%if(user){%>
+
+<div class="header">
+		<%if(user){%>
 				<div>
-						<%=user.name || user.mail%> | <a href="#">设置</a> | <a href="/sys/out">登出</a>
+						<a href="/" title="去首页" >首页</a> |
+						 <a href="javascript:;" title="点击修改昵称" id="username" ><%=user.name || user.mail%></a> |
+						 <% if(String(user._id) == room.masterId){%><a href="#" id="setting" >对话设置</a> |<%}%>
+						 <a href="/sys/login">切换账户</a>
 				</div>
 			<%}%>
+	</div>
+<div class="container">
+	<div class="row">
+		<div class="span3">
 			<div class="time-search">
 				<ul>
 					<li><a href="#" class="time-name on">Now</a></li>
@@ -52,14 +43,14 @@
 			
 				<div class="timeline"></div>
 				
-				<div class="header" id="header">
-					<h1 id="topic" ><%=topic%></h1>
-					<p id="directions"><%=des%></p>
+				<div class="head" id="header">
+					<h1 id="topic" ><%=room.topic%></h1>
+					<p id="directions"><%=room.des%></p>
 				</div>
 
 				<div class="post-box" id="postbox"><!--post-box-fixed-->
 					<form  method="post" id="postForm"  action="#">
-						<input type="hidden" name="roomid" id="roomid" value="<%=id%>">
+						<input type="hidden" name="roomid" id="roomid" value="<%=room.id%>">
 						<div class="post-box-in" id="postboxIn">
 							<span class="lj-in lj-right"><span class="lj-in lj-span"></span></span>
 							<span class="lj-dot"><span class="lj-d"></span></span>
@@ -87,28 +78,45 @@
 <script type="text/javascript" src="js/we.page.chat.js"></script>
 <script type="text/javascript">
 
-	WE.pageChat.onlineUserList = [
-		{
-			id:123,
-			name:"lujun"
-		},
-		{
-			id:123,
-			name:"jun"
-		},
-		{
-			id:123,
-			name:"nihao"
-		},
-		{
-			id:123,
-			name:"luyu"
-		}
-	];
-
 	WE.pageChat.init();
-	//WE.pageChat.userlist.init( <%- JSON.stringify(onlineUser) %> );
-	WE.pageChat.timeLine.init( <%- JSON.stringify( indexChats ) %> )
+	//WE.pageChat.userlist.init(WE.pageChat.onlineUserList);
+	WE.pageChat.timeLine.init( <%- JSON.stringify( indexChats ) %> );
+	//
+	WE.pageChat.userlist.regEvent();
+
+	//匿名用户
+	if(USER.name == ""){
+
+		WE.pageChat.setUserName( USER );
+
+		//匿名用户先不连接 socket
+	}else{
+
+		var socket = io.connect( document.location.host );
+		socket.emit("setting", {roomid:ROOM.id});
+
+		socket.on('userlist', function( data ){
+			//console.log( data );
+			WE.pageChat.userlist.init( data );
+		});
+
+		socket.on("online", function(data){
+
+			WE.pageChat.userlist.append( data );
+
+		});
+
+		socket.on("offline", function( data ){
+
+			WE.pageChat.userlist.remove( data );
+		});
+
+		socket.on('newChat', function(data) {
+			//console.log(data);
+			WE.pageChat.timeLine.prepend( data );
+		});
+		
+	}
 </script>
 </body>
 </html>

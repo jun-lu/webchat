@@ -9,19 +9,19 @@
 	<script type="text/javascript" src="/js/we.min.js"></script>
 </head>
 <body>
-	<div class="top-color">
+	<div class="header">
 		<%if(user){%>
-			<%=user.name || user.mail%> | <a href="/sys/out">登出</a>
+			<%=user.name || user.mail%> | <a href="/sys/login">切换账户</a>
 		<%}else{%>
 			<a href="/sys/login">登陆</a> | <a href="/sys/reg">注册</a>
 		<%}%>
 	</div>
 	<div class="container">
-		<div class="header">
+		<div class="head">
 			<h1>Web Chat</h1>
 		</div>
 		<div class="row">
-			<div class="span6">
+			<div class="span4">
 				<div class="create">
 					<h3>创建一个对话</h3>
 					<form action="/sys/create" method="post" >
@@ -39,14 +39,14 @@
 					</form>
 				</div>
 			</div>
-			<div class="span5">
-				<div class="into">
+			<div class="span4">
+				<div class="into join">
 					<h3>加入一个对话</h3>
 					<form action="/sys/into" method="post" >
 						<ul class="reset">
 							<li>
 								<label for="chatid">输入对话KEY</label>
-								<input type="text" id="webchatid" name="chatid" placeholder="输入对话KEY" >
+								<input type="text" id="webchatid" name="roomid" placeholder="输入对话KEY" >
 
 							</li>
 							<li><input type="submit" class="btn"  value="进入" ></li>
@@ -54,12 +54,39 @@
 					</form>
 				</div>
 			</div>
+			<div class="span4">
+				<div class="room-list">
+					<%
+						var keys = Object.keys( log );
+						if( keys.length ){
+					%>
+					<h3>去过的地方</h3>
+					<ul>
+						<%for(var i=0; i<keys.length; i++){%>
+							<li>
+								<a href="/<%=log[ keys[i] ].name != null ? log[ keys[i] ].name : log[ keys[i] ].id%>"><%=log[ keys[i] ].topic%></a>
+							</li>
+						<%}%>
+					</ul>
+					<%}%>
+					
+
+					<h3>推荐的对话</h3>
+					<ul>
+						<li><a href="/webchat">WebChat开发讨论</a></li>
+						<li><a href="/test">web开发测试</a></li>
+					</ul>
+
+
+					
+				</div>
+			</div>
 		</div>
 		
 	</div>
 	<div class="footer">
 		<div class="container">
-		<p><a href="/sys/about">about web chat</a></p>	
+		<p><a href="/about">about</a></p>	
 		</div>
 	</div>
 </body>

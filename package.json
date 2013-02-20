@@ -9,6 +9,8 @@
     "express": "3.1.0",
     "ejs": "*",
     "mongodb":">=0.3.6",
-    "connect-mongo": ">= 0.1.7"
+    "connect-mongo": ">= 0.1.7",
+    "socket.io":">=0.9.13",
+    "connect":"2.7.2"
   }
 }

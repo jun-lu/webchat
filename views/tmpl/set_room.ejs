@@ -1,0 +1,23 @@
+<form action="/sys/update_room" method="post" id="updateRoomForm" >
+	<ul class="reset">
+		<li><h4>修改房间信息</h4>
+			<input type="hidden" value="<%=id%>" name="id"  id="roomid" >
+		</li>
+		<li>
+			<label>访问地址</label>
+			<input type="text" value="<%= name ? name : id %>" id="roomName" name="name" >
+			<div><%=document.location.host%>/<%= name ? name : id %></div>
+		</li>
+		<li>
+			<label>主题</label>
+			<input type="text" value="<%=topic%>" id="roomTopic" name="topic" > 
+		</li>
+		<li>
+			<label>副标题</label>
+			<textarea style="width:400px;" id="roomDes" name="des"><%=des%></textarea>
+		</li>
+		<li>
+			<input type="submit" value="提交" class="btn"> <a href="javascript:;" class="out" >取消</a> 
+		</li>
+	</ul>
+</form>

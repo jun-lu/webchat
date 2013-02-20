@@ -1,6 +1,7 @@
 /*扩展 WE.kit.textarea */
 
 WE.extend(WE.kit, {
+	cache:{},
 	tmpl : function(str, data){
 		var fn = !/\W/.test(str) ?
 		  cache[str] = cache[str] ||
@@ -58,6 +59,29 @@ WE.extend(WE.kit, {
 	},
 	longFormat:function(source){
 		return this.format(source, "yyyy-MM-dd hh:mm:ss");
+	},
+	//获取一个模板
+	getTmpl:function(file, callback){
+
+		var _this = this ;
+
+		if(_this.cache[file]){
+
+			callback && callback( _this.cache[file] );
+			return ;
+		}
+
+		$.ajax({
+			url:"/sys/tmpl",
+			medthod:"get",
+			data:{path: file},
+			success:function( data ){
+				_this.cache[file] = data;
+				callback && callback( data );
+				//console.log( data );
+			}
+		})
+
 	},
 	/**
 		规则
