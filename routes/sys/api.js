@@ -7,6 +7,7 @@
 
 var fs = require("fs");
 var WebStatus = require("../../lib/WebStatus");
+var ChatModel = require("../../lib/ChatModel");
 var API = require("../../lib/api");
 
 module.exports = {
