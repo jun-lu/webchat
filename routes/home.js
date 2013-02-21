@@ -13,10 +13,12 @@ module.exports = {
 		var user = req.session.user || null;
 		var log = {};
 
+		console.log("home", user);
 		if( user ){
 
 			API.getLog( String(user._id), function( logs ){
 
+				console.log("logs", logs );
 				//console.log("logs", logs );
 				for(var i=0; i< logs.length; i++){
 

@@ -288,7 +288,7 @@ WE.pageChat.timeLine = {
 		}else{
 			WE.pageChat.isLoading = 2;
 			WE.pageChat.lastTime = -1;
-			console.log( "lastTime 失败" );
+			//console.log( "lastTime 失败" );
 		}
 	},
 	prepend:function( data ){
@@ -362,7 +362,7 @@ WE.pageChat.userlist = {
 			var list = [];
 			var dataList = _this.data || [];
 			var reg = new RegExp(key, "i");
-			console.log( key );
+			//console.log( key );
 			for(var i=0; i<dataList.length; i++){
 
 				if( reg.test( dataList[i] ) ){
