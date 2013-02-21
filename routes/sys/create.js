@@ -20,11 +20,11 @@ module.exports = {
 	post:function(req, res){
 	
 		var masterid = null;
-		var user = req.session.user  ? req.session.user._id : null;//测试时候使用管理员
+		var user = req.session.user  ? req.session.user : null;//测试时候使用管理员
 		var topic = staticHTML(req.body.topic);
 		var des = staticHTML(req.body.des);
 
-
+		//console.log("create", user );
 		if( user == null ){
 
 			API.createAnonymousUser( function(status, userjson){
