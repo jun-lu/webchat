@@ -10,6 +10,9 @@ var LogModel = require("../../lib/LogModel");
 var WebStatus = require("../../lib/WebStatus");
 var API = require("../../lib/api");
 
+function staticHTML(a){return a.replace(/<|>/g,function(a){return a=="<"?"&lt;":"&gt;"})}
+
+
 module.exports = {
 
 	get:null,
@@ -18,7 +21,10 @@ module.exports = {
 		//创建房间的人的ID
 		//console.log("create", req.body.topic, req.body.des);
 		var masterid = req.session.user._id;//测试时候使用管理员
-		if(req.body.topic){
+		var topic = staticHTML(req.body.topic);
+		var des = staticHTML(req.body.des);
+
+		if( topic ){
 
 			API.createRoom( req.body.topic, req.body.des, masterid , function(status, roomjson){
 				

@@ -13,8 +13,12 @@ var RoomModel = require('../lib/RoomModel');
 var ChatModel = require('../lib/ChatModel');
 var LogModel = require('../lib/LogModel');
 
+var socketServer = require('../lib/socketServer');
+
 var API = require("../lib/api");
 var maxIndex = {};
+
+function staticHTML(a){return a.replace(/<|>/g,function(a){return a=="<"?"&lt;":"&gt;"})}
 
 
 module.exports = {
@@ -126,7 +130,7 @@ module.exports = {
 			var user = req.session.user;
 
 			var model = new ChatModel();
-			var text = req.body.text;
+			var text = staticHTML(req.body.text);
 			var roomid = req.body.roomid;
 			//console.log(text , roomid); 
 			if(text && roomid){
