@@ -320,10 +320,9 @@ WE.pageChat = {
 	},
 	setLocal:function(){
 
-		var type = this.local.getItem("postType");
-		this.postType = type;
-
+		var type = this.local.getItem("postType") || this.postType;
 		var postTypeMenuA = $('#postTypeMenu a');
+		this.postType = type;
 		if( type == "1" ){
 			postTypeMenuA.eq(1).addClass("on");
 			postTypeMenuA.eq(0).removeClass("on");
