@@ -4,26 +4,26 @@
 	
 	对话页面
 */
-var Log = require('../lib/Log');
-var User = require('../lib/User');
-var Room = require('../lib/Room');
-var Chat = require('../lib/Chat');
 
+var UserModel = require("../lib/UserModel");
 var RoomModel = require('../lib/RoomModel');
 var ChatModel = require('../lib/ChatModel');
 var LogModel = require('../lib/LogModel');
 
 var socketServer = require('../lib/socketServer');
 
-var API = require("../lib/api");
 var maxIndex = {};
 
-function staticHTML(a){return a.replace(/<|>/g,function(a){return a=="<"?"&lt;":"&gt;"})}
 
 
 module.exports = {
 
 	
+		/**
+
+			对话首页
+		
+		*/
 		get:function(req, res){
 
 			var i = 0;
@@ -34,14 +34,16 @@ module.exports = {
 
 			if( user == null ){
 
-				API.createAnonymousUser( function(status, userjson){
+				UserModel.createAnonymousUser( function( status ){
 
 					if(status.code == 0){
-						user = User.factory( userjson );
+						user = status.result;//User.factory( userjson );
 						res.setHeader("Set-Cookie", ["sid="+user.toCookie()+";path=/;expires="+new Date("2030") ]);
 						indexData.user = user.getInfo();
-						intoPage();	
+						intoPage();
 					}else{
+
+						//  创建匿名用户错误
 						throw " createAnonymousUser error "+ status.code;
 					}
 				});
@@ -55,72 +57,52 @@ module.exports = {
 			function intoPage(){
 				//var i = 0;
 				
-				var roomkey = req.params.key;
-				var roomModel = new RoomModel();
-				var chatModel = new ChatModel();
+				var key = req.params.key;
 
-				//这里可以并行查询，但是需要修复以往数据
-				API.getRoom({"$or":[{id:roomkey},{name:roomkey}]}, function( status ){
+				//查找对话房间信息
 
-					if(status.code == 0 && status.result ){
+				RoomModel.idOrNameFind(key, key, function( status ){
 
-						//i++;	
-						room = Room.factory( status.result );
+					//console.log("idOrNameFind", status);
+					if(status.code == "0"){
+
+						var room = status.result;
+						var roomid = room.id;
 						indexData.room = room.getInfo();
-						//render();
 
-						step2_1( room );
-						step2( room );
+
+						//查找首页数据
+						ChatModel.findChats( roomid , 10, function( status ){
+
+							indexData.indexChats = status.result || [];
+							res.render('chat', indexData);
+
+						});
+
+
+
+						//读取发言id
+						if( maxIndex[room.id] === undefined ){
+							ChatModel.countChats( roomid, function( status ){
+								//console.log("countChats", status);
+								if(status.code == "0"){
+									maxIndex[roomid] = status.result;
+								}
+
+							});
+						}
+
+						//创建用户日志
+						LogModel.create( user._id, "into_room",  room.getInfo() );
 
 					}else{
 
 						res.render("404", {msg:"没有找到对话空间，请再次确认输入。"});
 						res.end();
-
 					}
+
 
 				});
-				
-				function step2_1( room ){
-
-					var logmodel = new LogModel();
-					logmodel.insert( new Log( user._id, "into_room",  room.getInfo() ).toJSON() );
-
-				}
-
-				function step2( room ){
-
-					//roomModel.findOne( {id:roomkey} )// emit --> onfind
-
-					//查找首页数据
-					chatModel.on(chatModel.onfind, function(err, chats){
-						if(chats){
-
-							indexData.indexChats = chats;
-							
-						}else{
-
-							indexData.indexChats = [];
-						}
-						res.render('chat', indexData);
-						//render();
-					});
-					//console.log("step2", room);
-					chatModel.findChats( {roomid:room.id }, 10);
-
-					//获取当前 roomid的最大发言 key 
-					if( maxIndex[room.id] === undefined ){
-						//console.log("查询roomid的最大发言");
-						chatModel.count( room.id );
-						chatModel.on( chatModel.oncount, function(err, roomid, index){
-							//console.log( "oncount", roomid, maxIndex );
-							maxIndex[roomid] = index;
-							//console.log(maxIndex);
-
-						});
-					}
-
-				}	
 			}
 
 		},
@@ -128,33 +110,29 @@ module.exports = {
 		post:function( req, res ){
 
 			var user = req.session.user;
-
-			var model = new ChatModel();
-			var text = staticHTML(req.body.text);
+			var text = req.body.text;
 			var roomid = req.body.roomid;
-			//console.log(text , roomid); 
+
+
 			if(text && roomid){
 
-				model.on( model.oninsert , function(err, chat){
-					//console.log(model.oninert, chat);
-					//res.redirect('/'+room.id);
-					var data = {
-						code:0,
-						r:chat
-					};
-					//分发消息
-					socketServer.newChat( chat );
-					res.write( JSON.stringify( data ) );
+				ChatModel.create(roomid, text, ++maxIndex[roomid], {id:user._id, name:user.name}, function( status ){
+
+					//console.log("create", status );
+					if(status.code == "0"){
+						var chat = status.result;
+						socketServer.newChat( chat );
+					}
+
+					res.write( status.toString(), "utf-8" );
 					res.end();
 
 				});
 
-				//
-				//console.log(maxIndex[roomid], maxIndex);
-				model.create(roomid, text, ++maxIndex[roomid], {id:user._id, name:user.name});
-			}else{	
+			}else{
 				res.end("{code:-1}", 'utf-8')
 			}
+
 		}
 
 

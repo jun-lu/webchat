@@ -18,7 +18,7 @@
 				<div>
 						<a href="/" title="去首页" >首页</a> |
 						 <a href="javascript:;" title="点击修改昵称" id="username" ><%=user.name || user.mail%></a> |
-						 <% if(String(user._id) == room.masterId){%><a href="#" id="setting" >对话设置</a> |<%}%>
+						 <% if(String(user._id) == room.masterId){%><a href="javascript:;" id="setting" >对话设置</a> |<%}%>
 						 <a href="/sys/login">切换账户</a>
 				</div>
 			<%}%>
@@ -46,7 +46,7 @@
 				</div>
 
 				<div class="post-box" id="postbox"><!--post-box-fixed-->
-					<form  method="post" id="postForm"  action="#">
+					<form  method="post" id="postForm"  action="/sys/post">
 						<input type="hidden" name="roomid" id="roomid" value="<%=room.id%>">
 						<div class="post-box-in" id="postboxIn">
 							<span class="lj-in lj-right"><span class="lj-in lj-span"></span></span>
@@ -54,7 +54,20 @@
 							<div class="post-text-box">
 								<textarea class="post-text" id="postText" name="text"></textarea>
 							</div>
-							<div class="btns"><input type="submit" class="btn" value="发送" /></div>
+							<div class="btns">
+
+								<div class="btn-group" id="postTypeGroup">
+					                <button class="btn" tabindex="-1" type="submit">发送</button>
+					                <button class="btn dropdown-toggle" type="botton" id="changePostType" tabindex="-1">
+					                  <span class="caret"></span>
+					                </button>
+					                <ul class="dropdown-menu" id="postTypeMenu">
+									  <li><a href="javascript:;" type="2" ><i class="icon-ok"></i> enter</a></li>
+									  <li><a href="javascript:;" class="on" type="1" ><i class="icon-ok"></i> ctrl + enter</a></li>
+					                </ul>
+					            </div> 
+								
+							</div>
 						</div>
 					</form>
 				</div>

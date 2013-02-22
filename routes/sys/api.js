@@ -8,7 +8,8 @@
 var fs = require("fs");
 var WebStatus = require("../../lib/WebStatus");
 var ChatModel = require("../../lib/ChatModel");
-var API = require("../../lib/api");
+var UserModel = require("../../lib/UserModel");
+var RoomModel = require("../../lib/RoomModel");
 
 module.exports = {
 
@@ -21,10 +22,9 @@ module.exports = {
 		
 		res.setHeader("Content-Type" ,"application/json; charset=utf-8");
 
-		//console.log(user, name);
 		if( name ){
-			//db.bson_serializer.ObjectID.createFromHexString(hex);
-			API.updateUser({_id:user._id}, {name:name}, function( status ){
+			
+			UserModel.updateName( user._id, name, function( status ){
 
 				res.write( status.toString() , "utf-8");
 				res.end();
@@ -33,7 +33,6 @@ module.exports = {
 
 		}else{
 
-			//res.setHeader("Content-Type" ,"application/json; charset=utf-8");
 			status.setCode("-1");
 			res.write( status.toString(), "utf-8" );
 			res.end();
@@ -61,17 +60,20 @@ module.exports = {
 	updateRoom:function(req, res){
 
 		var user = req.session.user;
+		var name = req.body.name;
+		var topic = req.body.topic;
+		var des = req.body.des;
 		var id = req.body.id;
 
+
 		//验证当前用户是否有修改权限
-		API.getRoom({id:id}, function( status ){
+		RoomModel.idFind( id , function( status ){
 
 			if(status.code == 0){
-
-				var data = status.result;
+				var room = status.result;
 
 				//验证成功进入第2步
-				if(data.masterId == user._id){
+				if(room.masterId == user._id){
 					update();
 					return ;
 				}
@@ -91,28 +93,21 @@ module.exports = {
 		//第2步修改信息
 		function update(){
 
-			var name = req.body.name;
-			var topic = req.body.topic;
-			var des = req.body.des;
-
-			var status = null;
+			
+			var status = new WebStatus();
 
 			//请把验证写得更详细，比如限制最长字符长度与最短字符长度
 			if(topic && des){
 
-				API.updateRoom( {id:id}, {
-					name:name,
-					topic:topic,
-					des:des	
-				}, function( status ){
+				RoomModel.update(id, name, topic, des, function( status ){
 
 					res.write( status.toString(), "utf-8" );
 					res.end();
-					
-				});	
+
+				})
+				
 			}else{
 
-				status = new WebStatus();
 				status.setCode("-1");
 				res.write( status.toString(), "utf-8" );
 				res.end();
@@ -122,7 +117,8 @@ module.exports = {
 
 	},
 
-	// time
+	// 获取时间轴上更多对话信息
+
 	getMore:function(req, res){
 
 		// 下拉数据
@@ -131,23 +127,12 @@ module.exports = {
 		var limit = req.query.limit || 10;
 		var chatModel = new ChatModel();
 
-		chatModel.on(chatModel.onfind, function(err, chats){
-			
-			var status = new WebStatus();
-
-			if(err){
-				status.setCode( "601" );
-			}else{
-				console.log("getmore", chats);
-				status.setResult( chats || [] );
-			}
+		ChatModel.findMoreChats(roomid, time, function( status ){
 
 			res.write( status.toString(), "utf-8" );
 			res.end();
 
 
 		});
-
-		chatModel.findChats( {roomid:roomid, time:{"$lt":time} }, 10);
 	}
 };

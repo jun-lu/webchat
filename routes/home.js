@@ -4,7 +4,7 @@
 	
 	首页
 */
-var API = require("../lib/api");
+var LogModel = require("../lib/LogModel");
 
 module.exports = {
 
@@ -13,21 +13,20 @@ module.exports = {
 		var user = req.session.user || null;
 		var log = {};
 
-		console.log("home", user);
 		if( user ){
 
-			API.getLog( String(user._id), function( logs ){
+			LogModel.getLog( String(user._id), function( status  ){
 
-				console.log("logs", logs );
-				//console.log("logs", logs );
-				for(var i=0; i< logs.length; i++){
+				if(status.code == "0"){
+					var logs = status.result;
+					for(var i=0; i< logs.length; i++){
 
-					if(log[logs[i].info.id] == undefined){
-
-						log[logs[i].info.id] = logs[i].info;
-
+						if(log[logs[i].info.id] == undefined){
+							log[logs[i].info.id] = logs[i].info;
+						}
 					}
 				}
+
 				res.render('index', {user:user, log:log});
 			} );
 			return ;

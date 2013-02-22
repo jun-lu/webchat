@@ -3,7 +3,10 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Web Chat</title>
-	<% include common/links %>
+	<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="/css/doc.css" />
+	<script type="text/javascript" src="/js/jquery-1.6.js"></script>
+	<script type="text/javascript" src="/js/we.min.js"></script>
 </head>
 <body>
 	<div class="header">
@@ -15,7 +18,8 @@
 	</div>
 	<div class="container">
 		<div class="head">
-			<h1>Web Chat</h1>
+			<h1>We Chat</h1>
+			<p class="subtitle" >--- 基于主题的多人对话</p>
 		</div>
 		<div class="row">
 			<div class="span4">
@@ -61,7 +65,7 @@
 					<ul>
 						<%for(var i=0; i<keys.length; i++){%>
 							<li>
-								<a href="/<%=log[ keys[i] ].name != null ? log[ keys[i] ].name : log[ keys[i] ].id%>"><%=log[ keys[i] ].topic%></a>
+								<a href="/<%=log[ keys[i] ].name ? log[ keys[i] ].name : log[ keys[i] ].id%>"><%=log[ keys[i] ].topic%></a>
 							</li>
 						<%}%>
 					</ul>
@@ -73,8 +77,6 @@
 						<li><a href="/webchat">WebChat开发讨论</a></li>
 						<li><a href="/test">web开发测试</a></li>
 					</ul>
-
-
 					
 				</div>
 			</div>

@@ -4,14 +4,11 @@
 	
 	登陆
 */
-var Log = require("../../lib/Log");
-var User =require("../../lib/User");
-var Room = require("../../lib/Room");
-var LogModel = require("../../lib/LogModel");
 var WebStatus = require("../../lib/WebStatus");
-var API = require("../../lib/api");
+var LogModel = require("../../lib/LogModel");
+var RoomModel = require("../../lib/RoomModel");
+var UserModel = require("../../lib/UserModel");
 
-function staticHTML(a){return a.replace(/<|>/g,function(a){return a=="<"?"&lt;":"&gt;"})}
 
 
 module.exports = {
@@ -19,18 +16,25 @@ module.exports = {
 	get:null,
 	post:function(req, res){
 	
-		var masterid = null;
 		var user = req.session.user  ? req.session.user : null;//测试时候使用管理员
-		var topic = staticHTML(req.body.topic);
-		var des = staticHTML(req.body.des);
+		var topic = req.body.topic;
+		var des = req.body.des;
 
-		//console.log("create", user );
+		var masterid = null;
+
+		/**
+		
+			如果用户未登陆
+			创建匿名用户，并设置cookie
+
+		*/
+
 		if( user == null ){
 
-			API.createAnonymousUser( function(status, userjson){
+			UserModel.createAnonymousUser( function( status ){
 
 				if(status.code == 0){
-					user = User.factory( userjson );
+					user = status.result;
 					res.setHeader("Set-Cookie", ["sid="+user.toCookie()+";path=/;expires="+new Date("2030") ]);
 					masterid = user._id;
 					create();
@@ -49,20 +53,20 @@ module.exports = {
 
 			if( topic ){
 
-				API.createRoom( req.body.topic, req.body.des, masterid , function(status, roomjson){
+				RoomModel.create( topic, des, masterid , function( status ){
 					
-					var room = Room.factory( roomjson );
-					var logmodel = new LogModel();
+					if( status.code == "0" ){
 
-					logmodel.insert( new Log( masterid, "create_room",  room.getInfo() ).toJSON() );
-
-
-					if(status.code == 0){
+						var room = status.result;
 						res.redirect('/'+room.id);
+						//记录用户日志
+						LogModel.create( masterid, "create_room", room.getInfo() );
 					}else{
-						res.redirect('/');
-					}
 
+						res.redirect('/');
+
+					}
+					
 				});
 				
 			}else{

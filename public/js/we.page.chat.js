@@ -4,6 +4,7 @@ WE.pageChat = {
 
 	isLoading:0,
 	lastTime:null,
+	postType:1, //快捷发送方式  默认 ctrl + enter 1  enter= 2
 	init:function(){
 
 		this.ui = {
@@ -15,6 +16,10 @@ WE.pageChat = {
 		this.regEvent();
 		// 设置发言框滚动
 		this.setPostBoxFixed();
+
+		this.setLocal();
+		//聚焦
+		$('#postText').focus();
 	},
 	/* 
 		修改页面的主题和副标题
@@ -54,17 +59,35 @@ WE.pageChat = {
 
 		$('#postForm').submit(function(){
 
-			var text = $('#postText').val();
+			var text = $.trim($('#postText').val()).replace(/[\n\r]+$/g,"");
 			var roomid = $('#roomid').val();	
 			if(text && roomid){
 
 				_this.post( roomid, text );
 
+			}else{
+				$('#postText').val('').focus();
 			}
 			return false;
 		});
 
-		
+		$('#postText').keydown(function( e ){
+
+			if(_this.postType == 2 && e.keyCode == 13 && e.shiftKey == false){
+				e.preventDefault();
+				e.stopPropagation();
+				$('#postForm').submit();
+			}
+
+			if(_this.postType == 1 && e.keyCode == 13 && e.ctrlKey == true){
+
+				e.preventDefault();
+				e.stopPropagation();
+				$('#postForm').submit();
+
+			}
+
+		})
 
 		//var isUpdateNameShow = 0;
 		$('#username').click(function(){
@@ -75,6 +98,47 @@ WE.pageChat = {
 			_this.setRoomInfo( ROOM );
 		});
 
+		var changePostTypeisOpen = false;
+		$('#changePostType').click(function(e){
+			//onsole.log( e );
+			e.preventDefault();
+			e.stopPropagation();
+
+			if(changePostTypeisOpen){
+				$('#postTypeGroup').removeClass('open');
+			}else{
+				$('#postTypeGroup').addClass('open');
+			}
+			changePostTypeisOpen = !changePostTypeisOpen;
+
+			
+			
+		});
+
+
+		var postTypeMenuA = $('#postTypeMenu a');
+
+		postTypeMenuA.click(function(e){
+			e.stopPropagation();
+			var type = $(this).attr('type');
+			_this.postType = type;
+			if( type == "1" ){
+				postTypeMenuA.eq(1).addClass("on");
+				postTypeMenuA.eq(0).removeClass("on");
+			}else{
+				postTypeMenuA.eq(0).addClass("on");
+				postTypeMenuA.eq(1).removeClass("on");
+			};
+
+			_this.local.setItem("postType", type);
+			$('#changePostType').click();
+		});
+
+		$(document.body).click(function(){
+			changePostTypeisOpen = false;
+			$('#postTypeGroup').removeClass('open');
+
+		});
 
 		$(window).bind("scroll", function(){
 
@@ -108,7 +172,7 @@ WE.pageChat = {
 			if( data.code == 0 ){//post提交成功
 
 				//_this.timeLine.prepend( data.r );
-				$('#postText').val('');
+				$('#postText').val('').focus();
 			}
 
 		};
@@ -163,6 +227,13 @@ WE.pageChat = {
 					}
 
 					return false;
+				});
+
+				$('#anonymous').click(function(){
+
+					$('#newUserName').val("匿名");
+					$('#setUserNameForm').submit();
+
 				});
 			}
 		});
@@ -226,8 +297,6 @@ WE.pageChat = {
 				});
 			}
 		});
-
-
 	},
 	getMore:function(){
 
@@ -247,6 +316,32 @@ WE.pageChat = {
 		};
 		model.addObserver( ctrl );
 		model.getMore( ROOM.id , this.lastTime );	
+
+	},
+	setLocal:function(){
+
+		var type = this.local.getItem("postType");
+		this.postType = type;
+
+		var postTypeMenuA = $('#postTypeMenu a');
+		if( type == "1" ){
+			postTypeMenuA.eq(1).addClass("on");
+			postTypeMenuA.eq(0).removeClass("on");
+		}else{
+			postTypeMenuA.eq(0).addClass("on");
+			postTypeMenuA.eq(1).removeClass("on");
+		};
+
+	},
+	//保存 localStorage
+	local:{
+
+		setItem:function( key ,val){
+			localStorage.setItem(key, val);
+		},
+		getItem:function( key ){
+			return localStorage.getItem( key );
+		}
 
 	}
 };

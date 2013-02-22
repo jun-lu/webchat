@@ -5,7 +5,7 @@
 	处理 session
 */
 
-var API = require("../lib/api");
+var UserModel = require("../lib/UserModel");
 var socketServer = require('../lib/socketServer');
 var cookie = require("express/node_modules/cookie");
 
@@ -14,28 +14,31 @@ module.exports = {
 	// 实现 session
 	session:function(req, res, next){
 
-		var cookieSelect = null;
+		//req.cookiesSelecter = null;
 		req.session = {};
+
 		if( req.cookies && req.cookies.sid ){
 
 			var a = req.cookies.sid.split("|");
 
-			cookiesSelecter = {
-				hexMail:a[0],
-				hexPwd:a[1],
-				hexRandom:a[2]
-			};
+			var hexMail = a[0];
+			var hexPwd = a[1];
+			var hexRandom = a[2];
+			
 
-			req.cookiesSelecter = cookiesSelecter;
+			UserModel.hexFind(hexMail, hexPwd, hexRandom, function( status ){
 
-			API.cookieLogin(cookiesSelecter, function( status ){
-				req.session.user = status.result;
+				//console.log("hexFind", status );
+				if(status.code == "0"){
+					//req.cookiesSelecter = cookiesSelecter;
+					req.session.user = status.result;
+					
+				}
 				next();
-			});	
-
+			});
+			
 		}else{
-
-			req.cookiesSelecter = null;
+			
 			next();
 
 		}  
@@ -46,27 +49,25 @@ module.exports = {
 	authorization:function (data, accept) {
 
 	    if (data.headers.cookie) {
-	        // if there is, parse the cookie
-	        //这里获取sid, 请重新像更好的办法
-	        //console.log( parseJSONCookie(data.headers.cookie) );
+
 	        data.cookies = cookie.parse(data.headers.cookie);
-	        // note that you will need to use the same key to grad the
-	        // session id, as you specified in the Express setup.
+
 	        if(data.cookies && data.cookies.sid){
-	          var a = data.cookies.sid.split("|");
 
-	          var cookiesSelecter = {
-	            hexMail:a[0],
-	            hexPwd:a[1],
-	            hexRandom:a[2]
-	          };
+				var a = data.cookies.sid.split("|");
+				var hexMail = a[0];
+				var hexPwd = a[1];
+				var hexRandom = a[2];
 
-	          API.cookieLogin(cookiesSelecter, function( status ){
-	          //console.log("socket cookiesSelecter",  status.code );
-	            data.sessionUser = status.result.getInfo();
-	          }); 
 
-	          //data.sessionID = data.cookie;
+				UserModel.hexFind(hexMail, hexPwd, hexRandom, function( status ){
+
+					if(status.code == "0"){
+						data.sessionUser = status.result.getInfo();
+					}
+
+				}); 
+
 	        }
 	    } else {
 	       // if there isn't, turn down the connection with a message

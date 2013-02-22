@@ -88,20 +88,23 @@ WE.Dialog.prototype = {
 		});
 
 		this.ui.wrap.find('.out').click(function(){
-
-			_this.close();
+			_this.close( 1 );
 		});
 
 	},
 	show:function(){
 		this.ui.wrap.animate({top:0});
 	},
-	close:function(){
+	/**
+		用户主动取消 type == 1
+	*/
+	close:function( type ){
 		var _this = this;
 		this.ui.wrap.animate({top:-this.height+"px"}, function(){
 			_this.ui.wrap.remove();
 			WE.Dialog.remove( _this.id );
+			
 		});
-		
-	}
+	},
+	onclose:function(){ return true; }
 };

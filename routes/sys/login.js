@@ -5,10 +5,8 @@
 	登陆
 */
 
-var User = require("../../lib/User");
-var UserModel = require("../../lib/UserModel");
 var WebStatus = require("../../lib/WebStatus");
-var API = require("../../lib/api");
+var UserModel = require("../../lib/UserModel");
 
 module.exports = {
 
@@ -37,21 +35,20 @@ module.exports = {
 				return ;
 			};
 
-			//console.log("login form", email, pwd);
-			API.loginUser(email, pwd, function( status, userjson ){
+			// 查询数据库
+			UserModel.emailPwdFind( email, pwd, function( status ){
 
-			//console.log( "login", user );
-				if(status.code == 0){
-					//req.session.user = user;
-					var user = User.factory( userjson );
+				if( status.code == "0" ){
+					var user = status.result;	
 					res.setHeader("Set-Cookie", ["sid="+user.toCookie()+";path=/;expires="+new Date("2030") ]);
 					res.redirect("/");
-					// 登陆成功
+
 				}else{
+
 					res.render("sys/login", status.toJSON() );
-					//失败
 				}
 
 			});
+			
 		}
 };
