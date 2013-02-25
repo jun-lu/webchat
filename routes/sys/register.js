@@ -48,7 +48,7 @@ module.exports = {
 
 			if( status.code == "404" ){
 
-				UserModel.create( email, pwd, function( status ){
+				UserModel.create( email, pwd, name, function( status ){
 
 					if(status.code == "0"){
 						var user = status.result;
