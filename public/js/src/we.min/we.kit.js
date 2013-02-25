@@ -121,7 +121,7 @@ WE.extend(WE.kit, {
 				}
 			}
 
-			return WE.kit.format( time , "hh:mm:ss");
+			return WE.kit.format( time , "MM-dd hh:mm:ss");
 		}
 
 	})()

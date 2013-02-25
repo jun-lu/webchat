@@ -47,7 +47,7 @@ server = http.createServer(app);
 var io  = socketio.listen( server );
 //socket connection
 io.sockets.on('connection', socketServer.onConnection);
-//---
+//socket session实现
 io.set('authorization', system.authorization);
 
 

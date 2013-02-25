@@ -157,6 +157,22 @@ WE.pageChat = {
 
 		});
 		//$('.searchFirends')
+
+		//间隔1分钟刷新一次所有时间
+		setInterval(function(){
+
+			$('a.time').each(function(){
+
+
+				var target = $(this);
+				var time  = target.data("time") * 1000;
+				time && target.text( WE.kit.weTime( time ) );
+
+			});
+
+
+		}, 1000 * 60);
+		
 	},
 
 	//发送信息
@@ -355,7 +371,7 @@ WE.pageChat.timeLine = {
 		<span class="lj-in lj-right"><span class="lj-in lj-span"></span></span>\
 		<span class="lj-dot"><span class="lj-d"></span></span>\
 		<div class="chat-header">\
-			<a href="#" class="user-name"><%=Uname%></a> <span class="time" title="<%=WE.kit.format( time * 1000 )%>" ><%=WE.kit.weTime(time*1000)%></span>\
+			<a href="#" class="user-name"><%=Uname%></a> <a href="<%=window.location.href+"#"+obj.index%>" target="_blank" class="time" title="<%=WE.kit.format( time*1000 )%>" data-time="<%=time%>" ><%=WE.kit.weTime(time*1000)%></a>\
 			<a href="#<%=obj.index%>" class="post-id" >#<%=obj.index%></a>\
 		</div>\
 		<div>\
