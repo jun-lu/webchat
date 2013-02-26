@@ -374,8 +374,8 @@ WE.pageChat.timeLine = {
 			<a href="#" class="user-name"><%=Uname%></a> <a href="<%=window.location.href+"#"+obj.index%>" target="_blank" class="time" title="<%=WE.kit.format( time*1000 )%>" data-time="<%=time%>" ><%=WE.kit.weTime(time*1000)%></a>\
 			<a href="#<%=obj.index%>" class="post-id" >#<%=obj.index%></a>\
 		</div>\
-		<div>\
-			<p><%=text%></p>\
+		<div class="markdown-body" >\
+			<%= markdown.makeHtml(text) %>\
 		</div>\
 	</div>',
 	/**

@@ -3,7 +3,13 @@
 <head>
 	<meta charset="UTF-8">
 	<title><%=room.topic%> - Web Chat</title>
-	<% include common/links %>
+	<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="/css/Stip.css" />
+	<link rel="stylesheet" href="/css/we.min.css" />
+	<link rel="stylesheet" href="/css/doc.css" />
+	<script type="text/javascript" src="/js/jquery-1.6.3.min.js"></script>
+	<script type="text/javascript" src="/js/we.min.js"></script>
+	<script type="text/javascript" src="/js/we.api.chat.js"></script>
 	<script type="text/javascript">
 
 		var USER = <%- JSON.stringify(user)%>;
@@ -85,9 +91,11 @@
 		</ul>
 	</div>
 </div>
-<script type="text/javascript" src="js/we.page.chat.js"></script>
+<script type="text/javascript" src="/js/Markdown.Converter.min.js"></script>
+<script type="text/javascript" src="/js/we.page.chat.js"></script>
 <script type="text/javascript">
 
+	var markdown = new Markdown.Converter();
 	WE.pageChat.init();
 	//WE.pageChat.userlist.init(WE.pageChat.onlineUserList);
 	WE.pageChat.timeLine.init( <%- JSON.stringify( indexChats ) %> );
