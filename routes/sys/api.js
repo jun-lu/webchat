@@ -10,6 +10,7 @@ var WebStatus = require("../../lib/WebStatus");
 var ChatModel = require("../../lib/ChatModel");
 var UserModel = require("../../lib/UserModel");
 var RoomModel = require("../../lib/RoomModel");
+var socketServer = require("../../lib/socketServer");
 
 module.exports = {
 
@@ -25,6 +26,9 @@ module.exports = {
 		if( name ){
 			
 			UserModel.updateName( user._id, name, function( status ){
+
+				// 通知其他用户某用户名字修改
+				socketServer.updateUser( status.result );
 
 				res.write( status.toString() , "utf-8");
 				res.end();
@@ -100,6 +104,9 @@ module.exports = {
 			if(topic && des){
 
 				RoomModel.update(id, name, topic, des, function( status ){
+
+					//通知其他用户房间信息被修改
+					socketServer.updateRoom( status.result );
 
 					res.write( status.toString(), "utf-8" );
 					res.end();
