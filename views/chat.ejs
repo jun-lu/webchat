@@ -96,6 +96,9 @@
 <script type="text/javascript">
 
 	var markdown = new Markdown.Converter();
+	$('#directions').html( function(){
+			return markdown.makeHtml( $(this).text() ) 
+	});
 	WE.pageChat.init();
 	//WE.pageChat.userlist.init(WE.pageChat.onlineUserList);
 	WE.pageChat.timeLine.init( <%- JSON.stringify( indexChats ) %> );

@@ -106,10 +106,11 @@ module.exports = {
 				RoomModel.update(id, name, topic, des, function( status ){
 
 					//通知其他用户房间信息被修改
-					socketServer.updateRoom( status.result );
-
 					res.write( status.toString(), "utf-8" );
 					res.end();
+
+					socketServer.roomUpdate( status.result );
+
 
 				})
 				
