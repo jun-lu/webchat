@@ -28,10 +28,10 @@ module.exports = {
 			UserModel.updateName( user._id, name, function( status ){
 
 				// 通知其他用户某用户名字修改
-				socketServer.updateUser( status.result );
-
 				res.write( status.toString() , "utf-8");
 				res.end();
+
+				//socketServer.updateUser( status.result );
 
 			});
 
