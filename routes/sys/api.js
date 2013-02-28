@@ -162,7 +162,7 @@ module.exports = {
 				if(status.code == "0"){
 
 					UserModel.find_id( user._id, function( status ){
-						console.log( status );
+						//console.log( status );
 						var user = status.result;
 						res.setHeader("Set-Cookie", ["sid="+user.toCookie()+";path=/;expires="+new Date("2030") ]);
 						res.write( new WebStatus().toString() );
