@@ -4,7 +4,8 @@
  开发原则  先实现功能，允许不合理的编码，效率低下的实现。
  尽量不出现当前能想到的不合理代码结构
  */
-
+var util = require("util");
+var fs = require("fs");
 var express = require('express');
 var http = require('http');
 var path = require('path');
@@ -56,6 +57,22 @@ server.listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
 });
 
+
+/**  捕获所有程序错误 */
+process.on('uncaughtException', function( err ){
+
+  var time = Date.now();
+  var buffer = new Buffer( util.inspect(err)+"\n" );
+ //  console.log("uncaughtException", err);
+ // console.log("uncaughtException", util.inspect(err));
+  var file = time - time%(24*60*60*1000);
+  fs.open(file+".log", "a", function(err, fb){
+    fs.write(fb, buffer, 0, buffer.length, null, function(){});
+  });
+  
+});
+
+HelloWorld;// throw Helloworld is not deinfed
 
 
 
