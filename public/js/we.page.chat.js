@@ -98,6 +98,10 @@ WE.pageChat = {
 			_this.setRoomInfo( ROOM );
 		});
 
+		$('#viewRoom').click(function(){
+			_this.viewRoomInfo( ROOM );
+		});
+
 		var changePostTypeisOpen = false;
 		$('#changePostType').click(function(e){
 			//onsole.log( e );
@@ -253,6 +257,20 @@ WE.pageChat = {
 				});
 			}
 		});
+	},
+	viewRoomInfo:function( room ){
+
+		WE.kit.getTmpl("view_room.ejs", function( data ){
+
+			var dialog = new WE.Dialog( {
+				id:"viewRoom",
+				width:500,
+				html:WE.kit.tmpl(data, room)
+			});
+
+			dialog.show();
+		});
+
 	},
 	//修改房间信息
 	setRoomInfo:function( room ){
