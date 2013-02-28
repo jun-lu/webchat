@@ -25,7 +25,9 @@
 						<a href="/" title="去首页" >首页</a> |
 						 <a href="javascript:;" title="点击修改昵称" id="username" >
 						 	<%=user.name || user.mail%></a> | 
-						 <a href="javascript:;">绑定Email</a> | 
+						 <%if(/^\d+$/.test(user.mail)){%>
+						 <a href="javascript:;" id="bindmail" >绑定Email</a> | 
+						 <%}%>
 						 <% if(String(user._id) == room.masterId){%>
 						 	<a href="javascript:;" id="setting" >对话设置</a> |
 						 <%}else{%>

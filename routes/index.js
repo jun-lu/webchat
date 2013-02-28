@@ -89,6 +89,7 @@ module.exports = function ( app ) {
 	//修改对话房间信息
 	app.post('/sys/update_room', api.updateRoom);
 
-
+	//匿名用户绑定email  bindmail
+	app.post('/sys/bindmail', api.bindMail);
 };
 

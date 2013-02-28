@@ -18,6 +18,23 @@ var socketServer = require("./lib/socketServer");
 var app = express();
 var server = null;
 
+
+/**  捕获所有程序错误
+process.on('uncaughtException', function( err ){
+
+  var time = Date.now();
+  var buffer = new Buffer( util.inspect(err)+"\n" );
+ //  console.log("uncaughtException", err);
+ // console.log("uncaughtException", util.inspect(err));
+  var file = time - time%(24*60*60*1000);
+  fs.open(file+".log", "a", function(err, fb){
+    fs.write(fb, buffer, 0, buffer.length, null, function(){});
+  });
+  
+});
+*/
+
+// app 配置
 app.configure(function(){
   app.set('port', process.env.PORT || 80);
   app.set('views', __dirname + '/views');
@@ -41,10 +58,10 @@ app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
-//启动服务器
+// create server
 server = http.createServer(app);
 
-
+// socket 服务器
 var io  = socketio.listen( server );
 //socket connection
 io.sockets.on('connection', socketServer.onConnection);
@@ -52,29 +69,10 @@ io.sockets.on('connection', socketServer.onConnection);
 io.set('authorization', system.authorization);
 
 
-
+// ** 服务器启动
 server.listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
 });
-
-
-/**  捕获所有程序错误 */
-process.on('uncaughtException', function( err ){
-
-  var time = Date.now();
-  var buffer = new Buffer( util.inspect(err)+"\n" );
- //  console.log("uncaughtException", err);
- // console.log("uncaughtException", util.inspect(err));
-  var file = time - time%(24*60*60*1000);
-  fs.open(file+".log", "a", function(err, fb){
-    fs.write(fb, buffer, 0, buffer.length, null, function(){});
-  });
-  
-});
-
-HelloWorld;// throw Helloworld is not deinfed
-
-
 
 
 

@@ -142,5 +142,49 @@ module.exports = {
 
 
 		});
+	},
+
+	bindMail:function( req, res ){
+
+		var user = req.session.user;
+		var status = new WebStatus();
+
+		var mail = req.body.mail;
+		var pwd = req.body.pwd;
+
+		//匿名注册用户的mail全是数字
+		//还需要检查用户名是否重复
+		if(/^\d+$/.test( user.mail )){
+
+
+			UserModel.updateMailPwd( user._id , mail, pwd, function( status ){
+
+				if(status.code == "0"){
+
+					UserModel.find_id( user._id, function( status ){
+						console.log( status );
+						var user = status.result;
+						res.setHeader("Set-Cookie", ["sid="+user.toCookie()+";path=/;expires="+new Date("2030") ]);
+						res.write( new WebStatus().toString() );
+						res.end();
+					});
+
+				}else{
+
+					res.write( status.toString() );
+					res.end();
+
+				}
+
+			});
+
+		}else{
+
+			status.setCode("403");
+			res.write(status.toString());
+			res.end();
+
+		}
+
 	}
 };

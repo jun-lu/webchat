@@ -38,5 +38,8 @@ WE.api.ChatModel.prototype.getMore = function(roomid, time){
 
 	this.get("/sys/getmore", {roomid:roomid, time:time});
 
-}
+};
+WE.api.ChatModel.prototype.updateMailPwd = function(mail, pwd){
+	this.post("/sys/bindmail", {mail:mail, pwd:pwd});
+};
 

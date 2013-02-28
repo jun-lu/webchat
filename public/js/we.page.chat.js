@@ -87,7 +87,7 @@ WE.pageChat = {
 
 			}
 
-		})
+		});
 
 		//var isUpdateNameShow = 0;
 		$('#username').click(function(){
@@ -100,6 +100,11 @@ WE.pageChat = {
 
 		$('#viewRoom').click(function(){
 			_this.viewRoomInfo( ROOM );
+		});
+
+		//匿名用户绑定用户名
+		$('#bindmail').click(function(){
+			_this.bindMail();
 		});
 
 		var changePostTypeisOpen = false;
@@ -258,8 +263,72 @@ WE.pageChat = {
 			}
 		});
 	},
+	bindMail:function(){
+
+		WE.kit.getTmpl("bind_mail.ejs", function( data ){
+
+			var dialog = new WE.Dialog( {
+				id:"bindMail",
+				width:500,
+				html:WE.kit.tmpl(data, {})
+			});
+
+			dialog.show();
+
+			if(dialog.isRepeat == undefined){
+
+				$('#bindMialForm').submit(function(){
+
+					var mail = $.trim($('#updateMail').val());
+					var pwd = $.trim($('#updatePwd').val());
+
+					if( /^[\w._\-]+@[\w_\-]+\.\w+$/.test(mail) ){
+
+						if(pwd.length>5){
+
+							update( mail, pwd );
+
+						}else{
+
+							alert("密码长度至少6位");
+						}
+
+					}else{
+
+						alert("mail, 格式不正确");
+					}
+
+					return false;
+
+				});
+
+			}
+
+
+			function update( mail, pwd ){
+
+				var model = new WE.api.ChatModel();
+				var ctrl = new WE.Controller();
+				ctrl.update = function( e ){
+
+					var data = e.data;
+
+					if( data.code == 0 ){
+
+						dialog.close();
+						//document.location.relaod();
+					}
+
+				};
+				model.addObserver( ctrl );
+				model.updateMailPwd( mail, pwd );
+			}
+		});
+
+	},
 	viewRoomInfo:function( room ){
 
+		var _this = this;
 		WE.kit.getTmpl("view_room.ejs", function( data ){
 
 			var dialog = new WE.Dialog( {
@@ -269,7 +338,9 @@ WE.pageChat = {
 			});
 
 			dialog.show();
+
 		});
+
 
 	},
 	//修改房间信息

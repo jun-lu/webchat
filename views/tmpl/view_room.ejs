@@ -1,18 +1,20 @@
 <form action="/sys/update_room" method="post" id="updateRoomForm" >
 	<ul class="reset">
 		<li>
-			<label>访问地址</label>
-			<div><%=document.location.host%>/<%= name ? name : id %></div>
-		</li>
-		<li>
-			<label>主题</label>
+			<strong>访问地址</strong>
 			<div>
-				<%=topic%>
+				<a href="<%=document.location.host%>/<%= name ? name : id %>" >
+					<%=document.location.host%>/<%= name ? name : id %>
+				</a>
 			</div>
 		</li>
 		<li>
-			<label>副标题</label>
-			<div><%=des%></div>
+			<h3>
+				<%=topic%>
+			</h3>
+		</li>
+		<li>
+			<h5><%=new Markdown.Converter().makeHtml(des)%></h5>
 		</li>
 		<li>
 			<input type="button" value="确定" class="btn out">
