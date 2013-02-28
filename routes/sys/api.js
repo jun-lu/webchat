@@ -30,9 +30,6 @@ module.exports = {
 				// 通知其他用户某用户名字修改
 				res.write( status.toString() , "utf-8");
 				res.end();
-
-				//socketServer.updateUser( status.result );
-
 			});
 
 		}else{
@@ -44,15 +41,11 @@ module.exports = {
 
 	},
 	getTmpl:function(req, res){
-		//console.log(req);
 		var file = req.query.path;
-		//console.log("tmpl", "tmpl/"+file, __dirname);
 		if(file){
-			//var fs = require('fs');
             fs.readFile(__dirname+"/../../views/tmpl/"+file, "utf-8", function(err, data){
             	res.setHeader("Content-Type" ,"text/ejs; charset=utf-8");
 	            res.end(data);
-				//res.sendFile( "tmpl/"+file );
             });
 		}else{
 			res.write( file + "not defined");

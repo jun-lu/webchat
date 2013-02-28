@@ -4,7 +4,7 @@ WE.pageChat = {
 
 	isLoading:0,
 	lastTime:null,
-	postType:1, //快捷发送方式  默认 ctrl + enter 1  enter= 2
+	postType:1, //快捷发送方式  默认 ctrl + enter 1  enter = 2
 	init:function(){
 
 		this.ui = {
@@ -605,12 +605,5 @@ WE.pageChat.userlist = {
 	}
 
 };
-
-
-
-
-
-
-
 
 
