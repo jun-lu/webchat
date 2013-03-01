@@ -316,7 +316,7 @@ WE.pageChat = {
 					if( data.code == 0 ){
 
 						dialog.close();
-						//document.location.relaod();
+						document.location.relaod();
 					}
 
 				};

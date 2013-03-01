@@ -2,7 +2,6 @@
 /**
  * Module dependencies.
  开发原则  先实现功能，允许不合理的编码，效率低下的实现。
- 尽量不出现当前能想到的不合理代码结构
 */
 var util = require("util");
 var fs = require("fs");
@@ -19,7 +18,7 @@ var app = express();
 var server = null;
 
 
-/**  捕获所有程序错误
+///**  捕获所有程序错误
 process.on('uncaughtException', function( err ){
 
   var time = Date.now();
@@ -30,7 +29,7 @@ process.on('uncaughtException', function( err ){
   });
   
 });
-*/
+//*/
 
 // app 配置
 app.configure(function(){

@@ -6,6 +6,7 @@
 */
 
 var fs = require("fs");
+var User = require("../../lib/User");
 var WebStatus = require("../../lib/WebStatus");
 var ChatModel = require("../../lib/ChatModel");
 var UserModel = require("../../lib/UserModel");
@@ -145,31 +146,53 @@ module.exports = {
 		var mail = req.body.mail;
 		var pwd = req.body.pwd;
 
+		if( !User.checkMail( mail ) ){
+
+			res.write( new WebStatus("-1").toString() );
+			res.end();
+			return ;
+
+		}
+
 		//匿名注册用户的mail全是数字
 		//还需要检查用户名是否重复
 		if(/^\d+$/.test( user.mail )){
 
+			//首先检查 email是否被注册
+			UserModel.emailFind( mail, function( status ){
 
-			UserModel.updateMailPwd( user._id , mail, pwd, function( status ){
+				if(status.code == "404"){
 
-				if(status.code == "0"){
+					//修改当前用户的  email 和 密码
+					UserModel.updateMailPwd( user._id , mail, pwd, function( status ){
 
-					UserModel.find_id( user._id, function( status ){
-						//console.log( status );
-						var user = status.result;
-						res.setHeader("Set-Cookie", ["sid="+user.toCookie()+";path=/;expires="+new Date("2030") ]);
-						res.write( new WebStatus().toString() );
-						res.end();
+						if(status.code == "0"){
+
+							UserModel.find_id( user._id, function( status ){
+								//console.log( status );
+								var user = status.result;
+								res.setHeader("Set-Cookie", ["sid="+user.toCookie()+";path=/;expires="+new Date("2030") ]);
+								res.write( new WebStatus().toString() );
+								res.end();
+							});
+
+						}else{
+
+							res.write( status.toString() );
+							res.end();
+
+						}
+
 					});
 
+
 				}else{
-
-					res.write( status.toString() );
+					// email 已经被使用了。
+					res.write( new WebStatus("-2").toString() );
 					res.end();
-
 				}
 
-			});
+			} );
 
 		}else{
 
@@ -178,6 +201,35 @@ module.exports = {
 			res.end();
 
 		}
+
+	},
+
+	//检查一个 email 是否被注册了
+	checkMailIsReg:function(req, res){
+
+		var mail  = req.body.mail;
+
+		if( !User.checkMail( mail ) ){
+
+			res.write( new WebStatus("-1").toString() );
+			res.end();
+			return ;
+
+		}
+
+		UserModel.emailFind( mail, function( status ){
+
+			if(status.code == "404"){
+
+				res.write( new WebStatus().toString() );
+				res.end();
+			}else{
+
+				res.write( new WebStatus("-2").toString() );
+				res.end();
+			}
+
+		} );
 
 	}
 };

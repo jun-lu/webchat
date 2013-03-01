@@ -6,6 +6,7 @@
 */
 
 var crypto = require("crypto");
+var User = require("../../lib/User");
 var UserModel = require("../../lib/UserModel");
 var WebStatus = require("../../lib/WebStatus");
 
@@ -18,7 +19,7 @@ module.exports = {
 	post:function(req, res){
 
 		var md5 = null;
-		var expEmail = /./;
+		//var expEmail = /./;
 		var email = req.body.email;
 		var name = req.body.name;
 		var pwd = req.body.pwd;
@@ -26,7 +27,7 @@ module.exports = {
 
 		var status = new WebStatus();
 
-		if( !expEmail.test( email ) ){
+		if( !User.checkMail( email ) ){
 
 			status.setCode( "-3" );
 			status.setMsg( "email 格式错误" );
