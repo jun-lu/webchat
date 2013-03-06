@@ -18,7 +18,7 @@ var app = express();
 var server = null;
 
 
-///**  捕获所有程序错误
+/**  捕获所有程序错误
 process.on('uncaughtException', function( err ){
 
   var time = Date.now();
@@ -29,7 +29,7 @@ process.on('uncaughtException', function( err ){
   });
   
 });
-//*/
+*/
 
 // app 配置
 app.configure(function(){

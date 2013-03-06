@@ -3,5 +3,8 @@
 	settings.js
 */
 
-var isLocal = false;
-module.exports = isLocal ? require('./config') : require('./config.local');
+
+module.exports = {
+	db:"127.0.0.1",
+	port:27017
+};
