@@ -195,7 +195,6 @@ WE.pageChat = {
 
 			var dialog = new WE.Dialog( {
 				id:"setUserName",
-				width:400,
 				html:WE.kit.tmpl(data, user)
 			});
 
