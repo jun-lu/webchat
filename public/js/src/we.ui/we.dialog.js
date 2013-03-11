@@ -28,9 +28,10 @@ WE.Dialog = function( options ){
 	this.height = options.height || 0;
 
 	this.wrap = $(WE.Dialog.html);
-	
+
 	this.ui = {
 		wrap:this.wrap,
+		dialog:this.wrap.find('.we-dialog'),
 		content:this.wrap.find(".we-dialog-context")
 
 	};
@@ -44,7 +45,7 @@ WE.Dialog.html = '<div class="we-dialog-box">\
 		<div class="we-dialog">\
 			<div class="we-dialog-title">\
 				<h1>Hello</h1>\
-				<a href="javascript:;" class="we-dialog-close"></a>\
+				<a href="javascript:;" class="we-dialog-close out"></a>\
 			</div>\
 			<div class="we-dialog-context"></div>\
 		</div>\
@@ -81,19 +82,19 @@ WE.Dialog.prototype = {
 		document.body.appendChild( this.ui.wrap[0] );
 
 		if(this.width != 0){
-			this.ui.wrap.width( this.width );
+			this.ui.dialog.width( this.width );
 		}else{
-			this.width = this.ui.wrap.width();	
+			this.width = this.ui.dialog.width();	
 		}
 
 		if(this.height != 0){
-			this.ui.wrap.height( this.height );
+			this.ui.dialog.height( this.height );
 		}else{
-			this.height = this.ui.wrap.height();
+			this.height = this.ui.dialog.height();
 		}
 
 		//console.log( this.width );
-		this.ui.wrap.css({
+		this.ui.dialog.css({
 
 			top:-this.height+"px",
 			left:"50%",
@@ -107,17 +108,16 @@ WE.Dialog.prototype = {
 
 	},
 	show:function(){
-		this.ui.wrap.animate({top:0});
+		this.ui.dialog.animate({top:0});
 	},
 	/**
 		用户主动取消 type == 1
 	*/
 	close:function( type ){
 		var _this = this;
-		this.ui.wrap.animate({top:-this.height+"px"}, function(){
+		this.ui.dialog.animate({top:-this.height+"px"}, function(){
 			_this.ui.wrap.remove();
-			WE.Dialog.remove( _this.id );
-			
+			WE.Dialog.remove( _this.id );	
 		});
 	},
 	onclose:function(){ return true; }
