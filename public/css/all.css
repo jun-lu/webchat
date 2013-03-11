@@ -27,12 +27,24 @@ background-image: url("../images/glyphicons-halflings.png");background-position:
 .icon-edit{background-position: -96px -72px;}
 .f-r{float:right}
 .f-l{float:left}
-/* dialog */
 
-.we-dialog{position:fixed;border:1px solid #ccc;background:#fff;z-index:100;
-	box-shadow: rgba(0,0,0,.5) 0px 0px 30px 0px;
+
+/* dialog */
+.we-mask{background:rgba(255,255,255, .4);position: fixed;height: :100%;width:100%;z-index:99;
+top:0;left:0;}
+.we-dialog{border-radius: 3px;background: white;
+		box-shadow: 0 4px 23px 5px rgba(0, 0, 0, 0.2), 0 2px 6px rgba(0,0,0,0.15);
+		color: #333;position: absolute;
+		z-index: 100;
 }
-.we-dialog-in{margin:10px;}
+
+.we-dialog-title{padding:17px 14px;}
+.we-dialog-title h1{font-size:14px;}
+.we-dialog-close{background-image:url('images/IDR_WEB_UI_CLOSE.png');
+background-position: center;background-repeat: no-repeat;height: 14px;
+position: absolute;right: 7px;top: 7px;width: 14px;z-index: 1;}
+.we-dialog-close:hover{background-image:url("images/IDR_WEB_UI_CLOSE_HOVER.png") }
+.we-dialog-context{padding:0 14px;padding-bottom:17px;}
 
 /** top page */
 

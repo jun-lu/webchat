@@ -27,16 +27,30 @@ WE.Dialog = function( options ){
 	this.width = options.width || 0;
 	this.height = options.height || 0;
 
-	this.wrap = $('<div class="we-dialog"><div class="we-dialog-in"></div></div>');
+	this.wrap = $(WE.Dialog.html);
+	
 	this.ui = {
 		wrap:this.wrap,
-		content:this.wrap.find(".we-dialog-in")
+		content:this.wrap.find(".we-dialog-context")
 
 	};
 
 	this.init();
 	
 };
+
+WE.Dialog.html = '<div class="we-dialog-box">\
+		<div class="we-mask"></div>\
+		<div class="we-dialog">\
+			<div class="we-dialog-title">\
+				<h1>Hello</h1>\
+				<a href="javascript:;" class="we-dialog-close"></a>\
+			</div>\
+			<div class="we-dialog-context"></div>\
+		</div>\
+	</div>';
+
+
 WE.Dialog.list = {};
 
 WE.Dialog.getItem = function( id ){

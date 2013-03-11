@@ -161,6 +161,44 @@
 	//
 	WE.pageChat.userlist.regEvent();
 </script>
+<script src="/js/socket.io.min.js"></script>
+<script type="text/javascript">
+	//匿名用户
 
+	WE.pageChat.setUserName( USER );
+
+	if(USER.name == ""){
+
+		WE.pageChat.setUserName( USER );
+
+		//匿名用户先不连接 socket
+	}else{
+
+		var socket = io.connect( document.location.host );
+		socket.emit("setting", {roomid:ROOM.id});
+
+		socket.on('userlist', function( data ){
+			//console.log( data );
+			WE.pageChat.userlist.init( data );
+		});
+
+		socket.on("online", function(data){
+
+			WE.pageChat.userlist.append( data );
+
+		});
+
+		socket.on("offline", function( data ){
+
+			WE.pageChat.userlist.remove( data );
+		});
+
+		socket.on('newChat', function(data) {
+			//console.log(data);
+			WE.pageChat.timeLine.prepend( data );
+		});
+		
+	}
+</script>
 </body>
 </html>
