@@ -190,56 +190,57 @@ WE.pageChat = {
 	//设置或者修改用户昵称
 	setUserName:function( user ){
 
+		var dialog = new WE.Dialog({
+				title:"修改昵称",
+				id:"setUserName",
+				width:400,
+				height:200
+		});
+		dialog.show();
 
 		WE.kit.getTmpl("update_user_name.ejs", function( data ){
 
-			var dialog = new WE.Dialog( {
-				id:"setUserName",
-				html:WE.kit.tmpl(data, user)
+			var html = WE.kit.tmpl( data, user );
+			dialog.append( html );
+
+			$('#setUserNameForm').submit(function(){
+
+				var elenewUserName = $('#newUserName');
+				var name = elenewUserName.val();
+				if( name ){
+
+					var model = new WE.api.ChatModel();
+					var ctrl = new WE.Controller();
+					ctrl.update = function( e ){
+
+						var data = e.data;
+
+						if( data.code == 0 ){
+
+							dialog.close();
+							setTimeout(function(){
+								document.location.reload();
+							}, 500)
+						}
+
+					};
+					model.addObserver( ctrl );
+					model.updateUserName( name );	
+
+				}else{
+					elenewUserName.focus();
+				}
+
+				return false;
 			});
 
-			dialog.show();
+			$('#anonymous').click(function(){
 
+				$('#newUserName').val("匿名");
+				$('#setUserNameForm').submit();
 
-			if(dialog.isRepeat == undefined){
-				$('#setUserNameForm').submit(function(){
-
-					var elenewUserName = $('#newUserName');
-					var name = elenewUserName.val();
-					if( name ){
-
-						var model = new WE.api.ChatModel();
-						var ctrl = new WE.Controller();
-						ctrl.update = function( e ){
-
-							var data = e.data;
-
-							if( data.code == 0 ){
-
-								dialog.close();
-								setTimeout(function(){
-									document.location.reload();
-								}, 500)
-							}
-
-						};
-						model.addObserver( ctrl );
-						model.updateUserName( name );	
-
-					}else{
-						elenewUserName.focus();
-					}
-
-					return false;
-				});
-
-				$('#anonymous').click(function(){
-
-					$('#newUserName').val("匿名");
-					$('#setUserNameForm').submit();
-
-				});
-			}
+			});
+			
 		});
 	},
 	bindMail:function(){

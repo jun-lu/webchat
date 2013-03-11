@@ -13,11 +13,16 @@ var WebStatus = require("../../lib/WebStatus");
 module.exports = {
 	get:function(req, res){
 
-		res.render('sys/reg',  new WebStatus().toJSON() );
+		var user = req.session ? req.session.user : null;
+		var status = new WebStatus().toJSON();
+		status.user = user;
+
+		res.render('sys/reg',  status );
 
 	},
 	post:function(req, res){
 
+		var user = req.session ? req.session.user : null;
 		var md5 = null;
 		//var expEmail = /./;
 		var email = req.body.email;
@@ -26,6 +31,7 @@ module.exports = {
 		var pwd2 = req.body.pwd2;
 
 		var status = new WebStatus();
+			status.user = user;
 
 		if( !User.checkMail( email ) ){
 
@@ -56,6 +62,7 @@ module.exports = {
 						res.setHeader("Set-Cookie", ["sid="+user.toCookie()+";path=/;expires="+new Date("2030") ]);
 						res.render("sys/wellcome", user);
 					}else{
+						status.user = user;
 						res.render('sys/reg', status.toJSON() );	
 					}
 
@@ -64,6 +71,8 @@ module.exports = {
 			}else{
 				status.setCode( "-5" );
 				status.setMsg("email已经被使用");
+				status.user = user;
+				
 				res.render('sys/reg', status.toJSON() );
 
 			}

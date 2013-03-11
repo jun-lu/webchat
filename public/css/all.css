@@ -1,18 +1,3 @@
-/* yahoo reset */
-html{color:#000;background:#FFF;}
-body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td{margin:0;padding:0;}
-table{border-collapse:collapse;border-spacing:0;}fieldset,img{border:0;}
-address,caption,cite,code,dfn,em,strong,th,var{font-style:normal;font-weight:normal;}
-li{list-style:none;}caption,th{text-align:left;}
-h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal;}
-q:before,q:after{content:'';}abbr,acronym {border:0;font-variant:normal;}
-sup {vertical-align:text-top;}
-sub {vertical-align:text-bottom;}
-input,textarea,select{font-family:inherit;font-size:inherit;font-weight:inherit;}
-input,textarea,select{*font-size:100%;}
-legend{color:#000;}body {font:13px/1.231 arial,helvetica,clean,sans-serif;*font-size:small;*font:x-small;}
-table {font-size:inherit;font:100%;}
-pre,code,kbd,samp,tt{font-family:monospace;*font-size:108%;line-height:100%;}
 
 
 /** group  */
@@ -27,6 +12,12 @@ background-image: url("../images/glyphicons-halflings.png");background-position:
 .icon-edit{background-position: -96px -72px;}
 .f-r{float:right}
 .f-l{float:left}
+.clear-fix{zoom:1;clear: both;}
+.clear-fix:after{content:"\20";display:block;clear:both;}
+input[type="text"],textarea{border:1px solid #ccc;padding:.3em;}
+.reset{list-style:none;margin:0;padding:0;}
+
+
 
 
 /* dialog */
@@ -39,7 +30,7 @@ top:0;left:0;}
 }
 
 .we-dialog-title{padding:14px 14px;}
-.we-dialog-title h1{font-size:14px;}
+.we-dialog-title h1{font-size:14px;margin: 0;line-height: 1em;}
 .we-dialog-close{
 background:url(../images/IDR_WEB_UI_CLOSE.png) no-repeat center center;
 height: 14px;
@@ -53,11 +44,12 @@ position: absolute;right: 7px;top: 7px;width: 14px;z-index: 1;}
 /** top page */
 
 .top{padding:0 20px;background:#545652;height:28px;min-width:960px;font-size:12px;}
-		.nav li{float:left;}
-		.nav a{line-height:28px;color:#d5d5d5;height:28px;display:inline-block;padding:0 10px;}
-		.nav a:visited{background:none;}
-		.nav a:hover{line-height:28px;color:#fff;background:none;}
-		.nav a:active{background:none;}
+		.top-nav{margin:0;padding:0;}
+		.top-nav li{float:left;list-style: none}
+		.top-nav a{line-height:28px;color:#d5d5d5;height:28px;display:inline-block;padding:0 10px;}
+		.top-nav a:visited{background:none;}
+		.top-nav a:hover{line-height:28px;color:#fff;background:none;}
+		.top-nav a:active{background:none;}
 		.account{position:relative;}
 		.account:hover .arrow{border-top-color:#fff;}
 		.account .arrow{position:absolute;top:13px;right:2px;border-width: 3px 3px 0;border-color: #d5d5d5 transparent transparent transparent;border-style: solid dashed dashed dashed;
@@ -65,9 +57,13 @@ width: 0;height: 0;font-size: 0;line-height: 0;}
 			.drop-down{position:relative;}
 			.drop-down:hover .drop-down-items{display:block;}
 			.drop-down-items{border:1px solid #e6e6e6;background:#fff;padding:10px 0;position:absolute;top:28px;right:0;z-index:10;display:none;}
+			.drop-down-items ul{margin:0;}
 			.drop-down-items li{float:none;}
 			.drop-down-items li a{display:block;color:#3d3d3d;white-space:nowrap;}
 			.drop-down-items li a:hover{display:block;color:#3d3d3d;background:#f6f6f6;}
+/** head */
+.head{margin:30px 0;}
+.subtitle{text-indent:2em;}
 
 /** chat page */
 
@@ -102,15 +98,15 @@ width: 0;height: 0;font-size: 0;line-height: 0;}
 	
 	
 	.chat{position:relative;}
-		.photo{position:absolute;}
-		.photo img{width:48px;height:48px;}
-		.info{min-height:48px;margin-left:58px;margin-bottom:20px;}
-			.dot{background:#9fc9ea;width:8px;height:8px;border-radius:10px;border:5px solid #fff;left:-27px;top:8px;position:absolute;}
-			.my{background:#2380ca;border-color:#fff;}
-			.head{background:#f2fbf2;padding:3px 5px;}
-			.head a{font-size:14px;font-weight:700;}
-			.context{margin-top:10px;line-height:1.62em;}
-			.reply-quote{border-left:1px solid #000;padding-left:10px;margin:1em 0;color:#a5a5a5;}
+	.chat .photo{position:absolute;}
+	.chat .photo img{width:48px;height:48px;}
+	.chat .info{min-height:48px;margin-left:58px;margin-bottom:20px;}
+	.chat .dot{background:#9fc9ea;width:8px;height:8px;border-radius:10px;border:5px solid #fff;left:-27px;top:8px;position:absolute;}
+			.info .my{background:#2380ca;border-color:#fff;}
+			.info .head{background:#f2fbf2;padding:3px 5px;margin:0;}
+			.info .head a{font-size:14px;font-weight:700;}
+			.info .context{margin-top:10px;line-height:1.62em;}
+			.info .reply-quote{border-left:1px solid #000;padding-left:10px;margin:1em 0;color:#a5a5a5;}
 
 .time-search-box{position:absolute;right:-20px;}
 .time-search{position:fixed;}

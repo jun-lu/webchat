@@ -1,0 +1,31 @@
+<div class="top">
+	<%if(user){%>
+	<ul class="top-nav f-r">
+		<li class="drop-down">
+			<a href="#" class="account" >
+				<span><%=user.name || user.mail%>的帐号</span>
+				<span class="arrow"></span>
+			</a>
+			<div class="drop-down-items">
+				<ul>
+					<li><a href="javascript:;" id="username" >修改昵称</a></li>
+					<%if(/^\d+$/.test(user.mail)){%>
+						<li><a href="javascript:;" id="bindmail" >绑定Email</a></li> 
+					<%}%>
+					<li><a href="#">我参与过的对话</a></li>
+					<li><a href="/sys/login">切换用户</a></li>
+				</ul>
+			</div>
+		</li>
+	</ul>
+	<%}else{%>
+	<ul class="top-nav f-r">
+		<li><a href="/sys/login">登录</a>/</li>
+		<li><a href="/sys/reg">注册</a></li>
+	</ul>
+	<%}%>
+	<ul class="top-nav">
+		<li><a href="/">Vchat</a></li>
+		<li><a href="/">创建对话</a></li>
+	</ul>
+</div>
