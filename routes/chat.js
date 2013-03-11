@@ -118,14 +118,14 @@ module.exports = {
 
 				ChatModel.create(roomid, text, ++maxIndex[roomid], {id:user._id, name:user.name}, function( status ){
 
+					res.write( status.toString(), "utf-8" );
+					res.end();
+
 					//console.log("create", status );
 					if(status.code == "0"){
 						var chat = status.result;
 						socketServer.newChat( chat );
 					}
-
-					res.write( status.toString(), "utf-8" );
-					res.end();
 
 				});
 

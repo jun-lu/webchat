@@ -1,12 +1,10 @@
 <!DOCTYPE HTML>
-<html lang="en-US">
+<html>
 <head>
 	<meta charset="UTF-8">
-	<title><%=room.topic%> - Web Chat</title>
-	<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css" />
-	<link rel="stylesheet" href="/css/Stip.css" />
+	<title><%=room.topic%> - Vchat</title>
+	<link rel="stylesheet" href="css/all.css" />
 	<link rel="stylesheet" href="/css/we.min.css" />
-	<link rel="stylesheet" href="/css/doc.css" />
 	<script type="text/javascript" src="/js/jquery-1.6.3.min.js"></script>
 	<script type="text/javascript" src="/js/we.min.js"></script>
 	<script type="text/javascript" src="/js/we.api.chat.js"></script>
@@ -18,87 +16,137 @@
 	</script>
 </head>
 <body>
-
-<div class="header">
-		<%if(user){%>
-				<div>
-						<a href="/" title="去首页" >首页</a> |
-						 <a href="javascript:;" title="点击修改昵称" id="username" >
-						 	<%=user.name || user.mail%></a> | 
-						 <%if(/^\d+$/.test(user.mail)){%>
-						 <a href="javascript:;" id="bindmail" >绑定Email</a> | 
-						 <%}%>
-						 <% if(String(user._id) == room.masterId){%>
-						 	<a href="javascript:;" id="setting" >对话设置</a> |
-						 <%}else{%>
-						 	<a href="javascript:;" id="viewRoom" >对话信息</a> | 
-						 <%}%>
-						 <a href="/sys/login">切换账户</a>
+	
+	<div class="top">
+		<ul class="nav f-r">
+			<li class="drop-down">
+				<a href="#" class="account" >
+					<span><%=user.name || user.mail%>的帐号</span>
+					<span class="arrow"></span>
+				</a>
+				<div class="drop-down-items">
+					<ul>
+						<li><a href="javascript:;" id="username" >修改昵称</a></li>
+						<%if(/^\d+$/.test(user.mail)){%>
+							<li><a href="javascript:;" id="bindmail" >绑定Email</a></li> 
+						<%}%>
+						<li><a href="#">我参与过的对话</a></li>
+						<li><a href="/sys/login">切换用户</a></li>
+					</ul>
 				</div>
-			<%}%>
-	</div>
-<div class="container">
-	<div class="row">
-		<div class="span3">
-			<div class="time-search">
-				<ul>
-					<li><a href="#" class="time-name on">Now</a></li>
-					<li><a href="#" class="time-name">10:00</a></li>
-					<li><a href="#" class="time-name">9:00</a></li>
-					<li><a href="#" class="time-name">更早</a></li>
-				</ul>
-			</div>
-		</div>
-		<div class="span9">
-			<div class="main">
-			
-				<div class="timeline"></div>
-				
-				<div class="head" id="header">
-					<h1 id="topic" ><%=room.topic%></h1>
-					<p id="directions"><%=room.des%></p>
-				</div>
-
-				<div class="post-box" id="postbox"><!--post-box-fixed-->
-					<form  method="post" id="postForm"  action="/sys/post">
-						<input type="hidden" name="roomid" id="roomid" value="<%=room.id%>">
-						<div class="post-box-in" id="postboxIn">
-							<span class="lj-in lj-right"><span class="lj-in lj-span"></span></span>
-							<span class="lj-dot"><span class="lj-d"></span></span>
-							<div class="post-text-box">
-								<textarea class="post-text" id="postText" name="text"></textarea>
-							</div>
-							<div class="btns">
-
-								<div class="btn-group" id="postTypeGroup">
-					                <button class="btn" tabindex="-1" type="submit">发送</button>
-					                <button class="btn dropdown-toggle" type="botton" id="changePostType" tabindex="-1">
-					                  <span class="caret"></span>
-					                </button>
-					                <ul class="dropdown-menu" id="postTypeMenu">
-									  <li><a href="javascript:;" type="2" ><i class="icon-ok"></i> enter</a></li>
-									  <li><a href="javascript:;" class="on" type="1" ><i class="icon-ok"></i> ctrl + enter</a></li>
-					                </ul>
-					            </div> 
-								
-							</div>
-						</div>
-					</form>
-				</div>
-
-				<div id="timelineChats">
-
-				</div>
-				
-			</div>
-		</div>
-	</div>
-	<div class="slide-list">
-		<ul id="userlist">
-			
+			</li>
+		</ul>
+		<ul class="nav">
+			<li><a href="/">Vchat</a></li>
+			<li><a href="/">创建对话</a></li>
 		</ul>
 	</div>
-</div>
+	
+	<div class="container">
+		<div class="bd">
+			<div class="side">
+				
+				<div class="room">
+					<h1 class="topic">
+						<span id="topic"><%=room.topic%></span> 
+						<span class="icon icon-edit" title="修改"></span>
+					</h1>
+					<p class="des" id="directions"><%=room.des%></p>
+				</div>
+				
+				<div class="">
+					<p>创建者：<a href="#"><%=room.masterId%></a></p>
+					<p>地址：<a href="#">http://vchat.co/<%=room.name ? room.name : room.id%></a></p>
+				</div>
+				
+				<div class="user-list">
+					<div class="title">Online</div>
+					<div class="list">
+						<ul>
+							<li>
+								<a href="#">
+									lujun
+								</a>
+							</li>
+							
+							
+						</ul>
+					</div>
+				</div>
+				
+				<div class="user-list">
+					<div class="title">Offline</div>
+					<div class="list">
+						<ul>
+							<li>
+								<a href="#">
+									<img src="http://img3.douban.com/icon/u67009572-6.jpg" width="32" height="32" alt="" />
+								</a>
+							</li>
+							
+						</ul>
+					</div>
+				</div>
+				
+			</div>
+			<div class="main">
+				
+				
+				<div class="chats">
+					
+					
+					<div class="timeline"></div>
+					<div class="chat">
+						<div class="dot my"></div>
+						<div class="photo">
+							<a href="#" title="点击换一个头像" >
+								<img src="http://img3.douban.com/icon/u67009572-6.jpg" alt="hello" />
+							</a>
+						</div>
+							
+						<div class="info">	
+							<div class="post-box">
+								<form  method="post" id="postForm"  action="/sys/post">
+									<input type="hidden" name="roomid" id="roomid" value="<%=room.id%>" >
+								<div class="post-box-in" id="postboxIn">
+									<div class="post-text-box">
+										<textarea class="post-text" id="postText" name="text"></textarea>
+									</div>
+									<div class="btns">
+										<div class="btn-group" id="postTypeGroup">
+											<button class="btn" tabindex="-1" type="submit">发送</button>
+										</div> 
+									</div>
+								</div>
+								</form>
+							</div>
+						</div>
+					</div>
+					
+					<div class="chat-list">
+						<div class="time-search-box">
+							<div class="time-search">
+								<ul>
+									<li><a href="#" class="time-name on">Now</a></li>
+									<li><a href="#" class="time-name">10:00</a></li>
+									<li><a href="#" class="time-name">9:00</a></li>
+									<li><a href="#" class="time-name">更早</a></li>
+								</ul>
+							</div>
+						</div>
+						<div id="timelineChats"></div>
+					</div>
+					
+				</div>
+				
+				
+			</div>
+		</div>
+	</div>
+	
+	<div class="footer">
+		
+	</div>
 <script type="text/javascript" src="/js/Markdown.Converter.min.js"></script>
 <script type="text/javascript" src="/js/we.page.chat.js"></script>
 <script type="text/javascript">
@@ -113,41 +161,6 @@
 	//
 	WE.pageChat.userlist.regEvent();
 </script>
-<script src="/js/socket.io.min.js"></script>
-<script type="text/javascript">
-	//匿名用户
-	if(USER.name == ""){
 
-		WE.pageChat.setUserName( USER );
-
-		//匿名用户先不连接 socket
-	}else{
-
-		var socket = io.connect( document.location.host );
-		socket.emit("setting", {roomid:ROOM.id});
-
-		socket.on('userlist', function( data ){
-			//console.log( data );
-			WE.pageChat.userlist.init( data );
-		});
-
-		socket.on("online", function(data){
-
-			WE.pageChat.userlist.append( data );
-
-		});
-
-		socket.on("offline", function( data ){
-
-			WE.pageChat.userlist.remove( data );
-		});
-
-		socket.on('newChat', function(data) {
-			//console.log(data);
-			WE.pageChat.timeLine.prepend( data );
-		});
-		
-	}
-</script>
 </body>
 </html>

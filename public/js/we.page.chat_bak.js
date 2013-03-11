@@ -14,6 +14,8 @@ WE.pageChat = {
 		};
 		// 设置全部事件绑定
 		this.regEvent();
+		// 设置发言框滚动
+		this.setPostBoxFixed();
 
 		this.setLocal();
 		//聚焦
@@ -31,7 +33,26 @@ WE.pageChat = {
 		directions  && $('#directions').text(directions);
 		isNotice && this.timeLine.noticeTopicUpdate( topic, directions );
 	},
-	
+	//控制 postbox fixed 效果
+	setPostBoxFixed:function(){
+		var _this = this;
+		var headerHeight = this.ui.header.height();
+		var isFixed = false;
+		$(window).scroll(function(){
+
+			var scrollTop = $(this).scrollTop();
+			if( scrollTop > headerHeight && !isFixed){
+				isFixed = true;
+				_this.ui.postBox.addClass('post-box-fixed');
+				_this.ui.postBox.height( _this.ui.postBoxIn.height() ) ;
+			}
+			if( scrollTop < headerHeight && isFixed){
+				isFixed = false;
+				_this.ui.postBox.removeClass('post-box-fixed');
+				_this.ui.postBox.css('height', 'auto');
+			}	
+		})
+	},
 	regEvent:function(){
 
 		var _this = this;
@@ -39,8 +60,7 @@ WE.pageChat = {
 		$('#postForm').submit(function(){
 
 			var text = $.trim($('#postText').val()).replace(/[\n\r]+$/g,"");
-			var roomid = $('#roomid').val();
-			//console.log( text, roomid );	
+			var roomid = $('#roomid').val();	
 			if(text && roomid){
 
 				_this.post( roomid, text );
@@ -437,22 +457,14 @@ WE.pageChat = {
 
 WE.pageChat.timeLine = {
 	tmpl:'<div class="chat">\
-		<div class="dot"></div>\
-		<div class="photo">\
-			<a href="#" >\
-				<img src="http://img3.douban.com/icon/u67009572-6.jpg" alt="hello" />\
-			</a>\
+		<span class="lj-in lj-right"><span class="lj-in lj-span"></span></span>\
+		<span class="lj-dot"><span class="lj-d"></span></span>\
+		<div class="chat-header">\
+			<a href="#" class="user-name"><%=Uname%></a> <a href="<%=window.location.href+"#"+obj.index%>" target="_blank" class="time" title="<%=WE.kit.format( time*1000 )%>" data-time="<%=time%>" ><%=WE.kit.weTime(time*1000)%></a>\
+			<a href="#<%=obj.index%>" class="post-id" >#<%=obj.index%></a>\
 		</div>\
-		<div class="info">\
-			<div class="head">\
-				<a href="#" class="name"><%=Uname%></a>\
-			</div>\
-			<div class="context">\
-				<%if(obj.replay){%>\
-				<div class="reply-quote"></div>\
-				<%}%>\
-				<div><%= markdown.makeHtml(text) %></div>\
-			</div>\
+		<div class="markdown-body" >\
+			<%= markdown.makeHtml(text) %>\
 		</div>\
 	</div>',
 	/**
