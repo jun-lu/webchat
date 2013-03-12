@@ -39,7 +39,10 @@ module.exports = {
 					masterid = user._id;
 					create();
 				}else{
-					throw " createAnonymousUser error "+ status.code;
+					status.setMsg("createAnonymousUser error");
+					res.write(status.toString());
+					res.end();
+					//throw " createAnonymousUser error "+ status.code;
 				}
 			});
 
@@ -53,7 +56,7 @@ module.exports = {
 
 			if( topic ){
 
-				RoomModel.create( topic, des, masterid , function( status ){
+				RoomModel.create( topic, des, masterid , user.name, function( status ){
 					
 					if( status.code == "0" ){
 

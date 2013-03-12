@@ -439,13 +439,13 @@ WE.pageChat.timeLine = {
 	tmpl:'<div class="chat">\
 		<div class="dot"></div>\
 		<div class="photo">\
-			<a href="#" >\
-				<img src="http://img3.douban.com/icon/u67009572-6.jpg" alt="hello" />\
+			<a href="#" data-uid="<%=uid%>" >\
+				<img src="<%=uavatar%>" alt="<%=uname%>" />\
 			</a>\
 		</div>\
 		<div class="info">\
 			<div class="head">\
-				<a href="#" class="name"><%=Uname%></a>\
+				<a href="#" class="name" data-uid="<%=uid%>" ><%=uname%></a>\
 			</div>\
 			<div class="context">\
 				<%if(obj.replay){%>\
@@ -520,7 +520,9 @@ WE.pageChat.timeLine = {
 
 WE.pageChat.userlist = {
 
-	tmpl:'<li id="uid_<%=_id%>"><a href="#"><%=name%></a></li>',
+	tmpl:'<li id="uid_<%=_id%>"><a href="#" title="<%=name%>">\
+	<img src="<%=avatar%>" width="32"/>\
+	</a></li>',
 	data:null,
 	init:function( data ){
 

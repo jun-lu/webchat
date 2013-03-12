@@ -34,7 +34,7 @@
 				
 				<div class="">
 					<ul>
-						<li>创建者：<a href="#"><%=room.masterId%></a></li>
+						<li>创建者：<a href="#" data-masterid="<%=room.masterId%>"><%=room.masterName%></a></li>
 						<li>地址：
 							<a href="#">http://vchat.co/<%=room.name ? room.name : room.id%></a>
 						</li>
@@ -44,21 +44,7 @@
 				<div class="user-list">
 					<div class="title">Online</div>
 					<div class="list">
-						<ul class="reset">
-							<li>
-								<a href="#">
-									lujun
-								</a>
-							</li>
-
-							<li>
-								<a href="#">
-									lujun
-								</a>
-							</li>
-							
-							
-						</ul>
+						<ul class="reset" id="userlist"></ul>
 					</div>
 				</div>
 				
@@ -88,7 +74,7 @@
 						<div class="dot my"></div>
 						<div class="photo">
 							<a href="#" title="点击换一个头像" >
-								<img src="http://img3.douban.com/icon/u67009572-6.jpg" alt="hello" />
+								<img src="<%=user.avatar%>" alt="hello" />
 							</a>
 						</div>
 							
