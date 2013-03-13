@@ -324,36 +324,48 @@ WE.pageChat = {
 	//修改房间信息
 	setRoomInfo:function( room ){
 
+		var dialog = new WE.Dialog( {
+			id:"setRoom",
+			width:500,
+			height:300
+		});
+		dialog.show();
+
 		WE.kit.getTmpl("set_room.ejs", function( data ){
 
-			var dialog = new WE.Dialog( {
-				id:"setRoom",
-				width:500,
-				html:WE.kit.tmpl(data, room)
+			
+			var html = WE.kit.tmpl( data,room );
+			dialog.append( html );
+
+
+			var eleRoomName = $('#roomName'),
+				eleRoomTopic = $('#roomTopic'),
+				eleRoomDes = $('#roomDes'),
+				eleRoomid = $('#roomid'),
+				eleFormRoom = $('#updateRoomForm');
+
+			//修改访问地址
+			eleRoomName.keyup(function(){
+				var eleRoomNameTip = $('#roomName-tip'),
+					strRoonNameTip = eleRoomNameTip.text(),
+					strInput =  $.trim( eleRoomName.val()),
+					host = document.location.host + '/';
+				eleRoomNameTip.text( host + strInput);
 			});
 
-			dialog.show();
-			$('#updateRoomForm').submit(function(){
-
-				var eleRoomName = $('#roomName');
-				var eleRoomTopic = $('#roomTopic');
-				var eleRoomDes = $('#roomDes');
-				var eleRoomid = $('#roomid');
-
-				var id = eleRoomid.val();
-				var name = eleRoomName.val();
-				var topic = eleRoomTopic.val();
-				var des = eleRoomDes.val();
+			//表单提交
+			eleFormRoom.submit(function(){
+				var id = eleRoomid.val(),
+					name = eleRoomName.val(),
+					topic = eleRoomTopic.val(),
+					des = eleRoomDes.val();
 
 				//如果并没有设置新的访问地址
 				name = name == id ? "" : name;
-
 				if( topic && des ){
-
 					var model = new WE.api.ChatModel();
 					var ctrl = new WE.Controller();
 					ctrl.update = function( e ){
-
 						var data = e.data;
 
 						if( data.code == 0 ){
@@ -364,17 +376,12 @@ WE.pageChat = {
 								window.location.href = "http://"+window.location.host+"/"+(name || id);//reload();
 							}, 500)
 						}
-
-					};
+					}
 					model.addObserver( ctrl );
-					model.updateRoom( id, name, topic, des );	
-
-				}else{
-					elenewUserName.focus();
+					model.updateRoom( id, name, topic, des );
 				}
-
 				return false;
-			});
+			})
 		
 		});
 	},
