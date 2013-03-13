@@ -16,12 +16,13 @@ background-image: url("../images/glyphicons-halflings.png");background-position:
 .clear-fix:after{content:"\20";display:block;clear:both;}
 input[type="text"],textarea{border:1px solid #ccc;padding:.3em;}
 .reset{list-style:none;margin:0;padding:0;}
+.t-r{text-align: right;}
 .we-loading{background:url('../images/loading_m.gif') no-repeat center center;}
 
 
 
 /* dialog */
-.we-mask{background:rgba(255,255,255, .4);position: fixed;height:100%;width:100%;z-index:99;
+.we-mask{background:rgba(0,0,0, .5);position: fixed;height:100%;width:100%;z-index:99;
 top:0;left:0;}
 .we-dialog{border-radius: 3px;background: white;
 		box-shadow: 0 4px 23px 5px rgba(0, 0, 0, 0.2), 0 2px 6px rgba(0,0,0,0.15);
@@ -39,7 +40,14 @@ position: absolute;right: 7px;top: 7px;width: 14px;z-index: 1;}
 	background:url(../images/IDR_WEB_UI_CLOSE_HOVER.png) no-repeat center center;
  }
 .we-dialog-context{padding:0 14px;padding-bottom:17px;}
-.we-dialog-hr{}
+
+/*
+	选择头像 
+*/
+
+.select-avatar{margin:30px 0;min-height: 100px;}
+.select-avatar li{ float:left;text-align: center;margin:0 10px;}
+.select-avatar li strong{display: block;}
 
 /** top page */
 
