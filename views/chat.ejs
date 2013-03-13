@@ -4,8 +4,7 @@
 	<meta charset="UTF-8">
 	<title><%=room.topic%> - Vchat</title>
 	<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css" />
-	<link rel="stylesheet" href="css/all.css" />
-	<link rel="stylesheet" href="/css/we.min.css" />
+	<link rel="stylesheet" href="/css/all.css" />
 	<script type="text/javascript" src="/js/jquery-1.6.3.min.js"></script>
 	<script type="text/javascript" src="/js/we.min.js"></script>
 	<script type="text/javascript" src="/js/we.api.chat.js"></script>
@@ -27,7 +26,9 @@
 				<div class="room">
 					<h1 class="topic">
 						<span id="topic"><%=room.topic%></span> 
+						<%if(user._id == room.masterId){%>
 						<span class="icon icon-edit" id="setting" title="修改"></span>
+						<%}%>
 					</h1>
 					<p class="des" id="directions"><%=room.des%></p>
 				</div>
@@ -84,7 +85,7 @@
 									<input type="hidden" name="roomid" id="roomid" value="<%=room.id%>" >
 								<div class="post-box-in" id="postboxIn">
 									<div class="post-text-box">
-										<textarea class="post-text" id="postText" name="text"></textarea>
+										<textarea class="post-text" id="postText" maxlength="2000" name="text"></textarea>
 									</div>
 									<div class="btns">
 										<div class="btn-group" id="postTypeGroup">
