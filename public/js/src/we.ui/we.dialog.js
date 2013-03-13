@@ -115,7 +115,7 @@ WE.Dialog.prototype = {
 	show:function(){
 		this.ui.mask.animate({opacity:1}, 300);
 		this.ui.dialog.animate({marginTop:"+=10px", opacity:1}, 300);
-	},
+	}
 	/**
 		用户主动取消 type == 1
 	*/
