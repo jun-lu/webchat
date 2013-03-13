@@ -31,9 +31,9 @@ WE.Dialog = function( options ){
 
 	this.ui = {
 		wrap:this.wrap,
+		mask:this.wrap.find(".we-mask"),
 		dialog:this.wrap.find('.we-dialog'),
 		context:this.wrap.find(".we-dialog-context")
-
 	};
 
 	this.init();
@@ -41,13 +41,13 @@ WE.Dialog = function( options ){
 };
 
 WE.Dialog.html = '<div class="we-dialog-box">\
-		<div class="we-mask"></div>\
+		<div class="we-mask" style="opacity:0" ></div>\
 		<div class="we-dialog" style="opacity:0">\
 			<div class="we-dialog-title">\
 				<h1><%=title%></h1>\
 				<a href="javascript:;" class="we-dialog-close out"></a>\
 			</div>\
-			<div class="we-dialog-context">加载中...</div>\
+			<div class="we-dialog-context we-loading"></div>\
 		</div>\
 	</div>';
 
@@ -95,7 +95,7 @@ WE.Dialog.prototype = {
 
 	append:function( html ){
 
-		this.ui.context.css({width:"auto", height:"auto"});
+		this.ui.context.css({width:"auto", height:"auto"}).removeClass("we-loading");
 		this.ui.context.html( html );
 		this.width = this.ui.dialog.width();
 		this.height = this.ui.dialog.height();
@@ -113,6 +113,7 @@ WE.Dialog.prototype = {
 
 	},
 	show:function(){
+		this.ui.mask.animate({opacity:1}, 300);
 		this.ui.dialog.animate({marginTop:"+=10px", opacity:1}, 300);
 	},
 	/**
@@ -120,6 +121,7 @@ WE.Dialog.prototype = {
 	*/
 	close:function( type ){
 		var _this = this;
+		this.ui.mask.animate({opacity:0}, 300);
 		this.ui.dialog.animate({marginTop:"-=10px",opacity:0}, 300, function(){
 			_this.ui.wrap.remove();
 			WE.Dialog.remove( _this.id );	
