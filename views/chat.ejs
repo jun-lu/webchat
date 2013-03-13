@@ -27,7 +27,9 @@
 				<div class="room">
 					<h1 class="topic">
 						<span id="topic"><%=room.topic%></span> 
+						<%if(user._id == room.masterId){%>
 						<span class="icon icon-edit" id="setting" title="修改"></span>
+						<%}%>
 					</h1>
 					<p class="des" id="directions"><%=room.des%></p>
 				</div>
