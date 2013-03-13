@@ -422,6 +422,22 @@ WE.pageChat = {
 			return localStorage.getItem( key );
 		}
 
+	},
+	selectAvatar:function(){
+
+		var dialog = new WE.Dialog({
+				title:"选择头像",
+				id:"selectAvatar"
+		});
+		dialog.show();
+
+		WE.kit.getTmpl("select_avatar.ejs", function( data ){
+			//setTimeout(function(){
+
+				dialog.append( data );
+			//},1000);
+		});
+
 	}
 };
 
