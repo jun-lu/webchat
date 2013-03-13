@@ -74,23 +74,13 @@ module.exports = {
 						//查找首页数据
 						ChatModel.findChats( roomid , 10, function( status ){
 
+							//console.log( status )
 							indexData.indexChats = status.result || [];
+							console.log("indexData.indexChats", indexData.indexChats);
 							res.render('chat', indexData);
 
 						});
 
-
-
-						//读取发言id
-						if( maxIndex[room.id] === undefined ){
-							ChatModel.countChats( roomid, function( status ){
-								//console.log("countChats", status);
-								if(status.code == "0"){
-									maxIndex[roomid] = status.result;
-								}
-
-							});
-						}
 
 						//创建用户日志
 						LogModel.create( user._id, "into_room",  room.getInfo() );
@@ -116,7 +106,15 @@ module.exports = {
 
 			if(text && roomid){
 
-				ChatModel.create(roomid, text, ++maxIndex[roomid], {id:user._id, name:user.name}, function( status ){
+				var userjson = {
+
+					"uid":user._id,
+					"uname":user.name,
+					"uavatar":user.getGravatar()
+
+				};
+
+				ChatModel.create(roomid, text, userjson, function( status ){
 
 					res.write( status.toString(), "utf-8" );
 					res.end();

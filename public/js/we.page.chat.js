@@ -190,119 +190,118 @@ WE.pageChat = {
 	//设置或者修改用户昵称
 	setUserName:function( user ){
 
+		var dialog = new WE.Dialog({
+				title:"修改昵称",
+				id:"setUserName",
+				width:400,
+				height:200
+		});
+		dialog.show();
 
 		WE.kit.getTmpl("update_user_name.ejs", function( data ){
 
-			var dialog = new WE.Dialog( {
-				id:"setUserName",
-				html:WE.kit.tmpl(data, user)
+			var html = WE.kit.tmpl( data, user );
+			dialog.append( html );
+
+			$('#setUserNameForm').submit(function(){
+
+				var elenewUserName = $('#newUserName');
+				var name = elenewUserName.val();
+				if( name ){
+
+					var model = new WE.api.ChatModel();
+					var ctrl = new WE.Controller();
+					ctrl.update = function( e ){
+
+						var data = e.data;
+
+						if( data.code == 0 ){
+
+							dialog.close();
+							setTimeout(function(){
+								document.location.reload();
+							}, 500)
+						}
+
+					};
+					model.addObserver( ctrl );
+					model.updateUserName( name );	
+
+				}else{
+					elenewUserName.focus();
+				}
+
+				return false;
 			});
 
-			dialog.show();
+			$('#anonymous').click(function(){
 
+				$('#newUserName').val("匿名");
+				$('#setUserNameForm').submit();
 
-			if(dialog.isRepeat == undefined){
-				$('#setUserNameForm').submit(function(){
-
-					var elenewUserName = $('#newUserName');
-					var name = elenewUserName.val();
-					if( name ){
-
-						var model = new WE.api.ChatModel();
-						var ctrl = new WE.Controller();
-						ctrl.update = function( e ){
-
-							var data = e.data;
-
-							if( data.code == 0 ){
-
-								dialog.close();
-								setTimeout(function(){
-									document.location.reload();
-								}, 500)
-							}
-
-						};
-						model.addObserver( ctrl );
-						model.updateUserName( name );	
-
-					}else{
-						elenewUserName.focus();
-					}
-
-					return false;
-				});
-
-				$('#anonymous').click(function(){
-
-					$('#newUserName').val("匿名");
-					$('#setUserNameForm').submit();
-
-				});
-			}
+			});
+			
 		});
 	},
 	bindMail:function(){
 
+		var dialog = new WE.Dialog({
+				title:"设置mail",
+				id:"setMail",
+				width:400,
+				height:200
+		});
+		dialog.show();
+
 		WE.kit.getTmpl("bind_mail.ejs", function( data ){
 
-			var dialog = new WE.Dialog( {
-				id:"bindMail",
-				width:500,
-				html:WE.kit.tmpl(data, {})
-			});
+			//var html = WE.kit.tmpl( data, {});
+			dialog.append( data );
 
-			dialog.show();
+			$('#bindMialForm').submit(function(){
 
-			if(dialog.isRepeat == undefined){
+				var mail = $.trim($('#updateMail').val());
+				var pwd = $.trim($('#updatePwd').val());
 
-				$('#bindMialForm').submit(function(){
+				if( /^[\w._\-]+@[\w_\-]+\.\w+$/.test(mail) ){
 
-					var mail = $.trim($('#updateMail').val());
-					var pwd = $.trim($('#updatePwd').val());
+					if(pwd.length>5){
 
-					if( /^[\w._\-]+@[\w_\-]+\.\w+$/.test(mail) ){
-
-						if(pwd.length>5){
-
-							update( mail, pwd );
-
-						}else{
-
-							alert("密码长度至少6位");
-						}
+						update( mail, pwd );
 
 					}else{
 
-						alert("mail, 格式不正确");
+						alert("密码长度至少6位");
 					}
 
-					return false;
+				}else{
 
-				});
+					alert("mail, 格式不正确");
+				}
 
-			}
+				return false;
 
-
-			function update( mail, pwd ){
-
-				var model = new WE.api.ChatModel();
-				var ctrl = new WE.Controller();
-				ctrl.update = function( e ){
-
-					var data = e.data;
-
-					if( data.code == 0 ){
-
-						dialog.close();
-						document.location.relaod();
-					}
-
-				};
-				model.addObserver( ctrl );
-				model.updateMailPwd( mail, pwd );
-			}
+			});			
 		});
+
+		function update( mail, pwd ){
+
+			var model = new WE.api.ChatModel();
+			var ctrl = new WE.Controller();
+			ctrl.update = function( e ){
+
+				var data = e.data;
+
+				if( data.code == 0 ){
+
+					dialog.close();
+					document.location.relaod();
+				}
+
+			};
+			model.addObserver( ctrl );
+			model.updateMailPwd( mail, pwd );
+		}
 
 	},
 	viewRoomInfo:function( room ){
@@ -334,52 +333,49 @@ WE.pageChat = {
 			});
 
 			dialog.show();
+			$('#updateRoomForm').submit(function(){
 
-			// 第2次弹出 isRepeat 为 true
-			if(dialog.isRepeat == undefined){
-				$('#updateRoomForm').submit(function(){
+				var eleRoomName = $('#roomName');
+				var eleRoomTopic = $('#roomTopic');
+				var eleRoomDes = $('#roomDes');
+				var eleRoomid = $('#roomid');
 
-					var eleRoomName = $('#roomName');
-					var eleRoomTopic = $('#roomTopic');
-					var eleRoomDes = $('#roomDes');
-					var eleRoomid = $('#roomid');
+				var id = eleRoomid.val();
+				var name = eleRoomName.val();
+				var topic = eleRoomTopic.val();
+				var des = eleRoomDes.val();
 
-					var id = eleRoomid.val();
-					var name = eleRoomName.val();
-					var topic = eleRoomTopic.val();
-					var des = eleRoomDes.val();
+				//如果并没有设置新的访问地址
+				name = name == id ? "" : name;
 
-					//如果并没有设置新的访问地址
-					name = name == id ? "" : name;
+				if( topic && des ){
 
-					if( topic && des ){
+					var model = new WE.api.ChatModel();
+					var ctrl = new WE.Controller();
+					ctrl.update = function( e ){
 
-						var model = new WE.api.ChatModel();
-						var ctrl = new WE.Controller();
-						ctrl.update = function( e ){
+						var data = e.data;
 
-							var data = e.data;
+						if( data.code == 0 ){
 
-							if( data.code == 0 ){
+							dialog.close();
+							setTimeout(function(){
+								//console.log(window.location.host +"/"+ name);
+								window.location.href = "http://"+window.location.host+"/"+(name || id);//reload();
+							}, 500)
+						}
 
-								dialog.close();
-								setTimeout(function(){
-									//console.log(window.location.host +"/"+ name);
-									window.location.href = "http://"+window.location.host+"/"+(name || id);//reload();
-								}, 500)
-							}
+					};
+					model.addObserver( ctrl );
+					model.updateRoom( id, name, topic, des );	
 
-						};
-						model.addObserver( ctrl );
-						model.updateRoom( id, name, topic, des );	
+				}else{
+					elenewUserName.focus();
+				}
 
-					}else{
-						elenewUserName.focus();
-					}
-
-					return false;
-				});
-			}
+				return false;
+			});
+		
 		});
 	},
 	getMore:function(){
@@ -438,13 +434,13 @@ WE.pageChat.timeLine = {
 	tmpl:'<div class="chat">\
 		<div class="dot"></div>\
 		<div class="photo">\
-			<a href="#" >\
-				<img src="http://img3.douban.com/icon/u67009572-6.jpg" alt="hello" />\
+			<a href="#" data-uid="<%=uid%>" >\
+				<img src="<%=uavatar%>" alt="<%=uname%>" />\
 			</a>\
 		</div>\
 		<div class="info">\
 			<div class="head">\
-				<a href="#" class="name"><%=Uname%></a>\
+				<a href="#" class="name" data-uid="<%=uid%>" ><%=uname%></a>\
 			</div>\
 			<div class="context">\
 				<%if(obj.replay){%>\
@@ -519,7 +515,9 @@ WE.pageChat.timeLine = {
 
 WE.pageChat.userlist = {
 
-	tmpl:'<li id="uid_<%=_id%>"><a href="#"><%=name%></a></li>',
+	tmpl:'<li id="uid_<%=_id%>"><a href="#" title="<%=name%>">\
+	<img src="<%=avatar%>" width="32"/>\
+	</a></li>',
 	data:null,
 	init:function( data ){
 

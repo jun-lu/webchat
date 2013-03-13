@@ -1,12 +1,11 @@
 <form action="/sys/set_user_name" method="post" id="setUserNameForm" >
-	<ul class="reset">
+	<ul class="reset" style="width:300px;">
 		<%if(name == ""){%>
-			<li><h4>你将以临时用户身份加入对话</h4></li>
+			<li><p>你将以临时用户身份加入对话</p></li>
 		<%}else{%>
-			<li><h4>新的发言会使用新昵称</h4></li>
+			<li><p>新的发言会使用新昵称</p></li>
 		<%}%>
 		<li>
-			<label><%= name == "" ? "设置昵称" : "修改昵称"%>：</label>
 			<input type="text" value="<%=name%>" id="newUserName" name="name" placeholder="输入昵称" >
 		</li>
 		<li>

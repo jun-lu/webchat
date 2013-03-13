@@ -22,18 +22,18 @@ WE.Dialog = function( options ){
 		dialog.isRepeat = true;//重复弹出标识
 		return dialog.isRepeat;
 	}
-
+	this.title = options.title || "";
 	this.html = options.html;
-	this.width = options.width || 0;
-	this.height = options.height || 0;
+	this.width = options.width || 100;
+	this.height = options.height || 50;
 
-	this.wrap = $(WE.Dialog.html);
+	this.wrap = $(WE.Dialog.html.replace("<%=title%>", this.title));
 
 	this.ui = {
 		wrap:this.wrap,
+		mask:this.wrap.find(".we-mask"),
 		dialog:this.wrap.find('.we-dialog'),
-		content:this.wrap.find(".we-dialog-context")
-
+		context:this.wrap.find(".we-dialog-context")
 	};
 
 	this.init();
@@ -41,13 +41,13 @@ WE.Dialog = function( options ){
 };
 
 WE.Dialog.html = '<div class="we-dialog-box">\
-		<div class="we-mask"></div>\
-		<div class="we-dialog">\
+		<div class="we-mask" style="opacity:0" ></div>\
+		<div class="we-dialog" style="opacity:0">\
 			<div class="we-dialog-title">\
-				<h1>Hello</h1>\
+				<h1><%=title%></h1>\
 				<a href="javascript:;" class="we-dialog-close out"></a>\
 			</div>\
-			<div class="we-dialog-context"></div>\
+			<div class="we-dialog-context we-loading"></div>\
 		</div>\
 	</div>';
 
@@ -75,47 +75,54 @@ WE.Dialog.prototype = {
 
 		var _this = this;
 		if( this.id ){
-
 			WE.Dialog.setItem(this.id, this);
 		}
-		this.ui.content.html( this.html );
+
+
+		//this.ui.context.html( this.html.replace("<%=title>", (this.title || "")) );
 		document.body.appendChild( this.ui.wrap[0] );
 
-		if(this.width != 0){
-			this.ui.dialog.width( this.width );
-		}else{
-			this.width = this.ui.dialog.width();	
-		}
-
-		if(this.height != 0){
-			this.ui.dialog.height( this.height );
-		}else{
-			this.height = this.ui.dialog.height();
-		}
-
-		//console.log( this.width );
-		this.ui.dialog.css({
-
-			top:-this.height+"px",
-			left:"50%",
-			marginLeft:-(this.width/2)+"px"
-
-		});
-
-		this.ui.wrap.find('.out').click(function(){
+		//this.updatePosition();
+		this.ui.context.width( this.width );
+		this.ui.context.height( this.height );
+		this.updatePosition();
+		
+		this.ui.wrap.delegate('.out', 'click' , function(){
 			_this.close( 1 );
 		});
 
 	},
+
+	append:function( html ){
+
+		this.ui.context.css({width:"auto", height:"auto"}).removeClass("we-loading");
+		this.ui.context.html( html );
+		this.width = this.ui.dialog.width();
+		this.height = this.ui.dialog.height();
+		this.updatePosition();
+
+	},
+	updatePosition:function(){
+
+		this.ui.dialog.css({
+			top:"30%",
+			left:"50%",
+			marginTop:-(this.height/2-10)+"px",
+			marginLeft:-(this.width/2)+"px"
+		});
+
+	},
 	show:function(){
-		this.ui.dialog.animate({top:0});
+		this.ui.mask.animate({opacity:1}, 300);
+		this.ui.dialog.animate({marginTop:"+=10px", opacity:1}, 300);
 	},
 	/**
 		用户主动取消 type == 1
 	*/
 	close:function( type ){
 		var _this = this;
-		this.ui.dialog.animate({top:-this.height+"px"}, function(){
+		this.ui.mask.animate({opacity:0}, 300);
+		this.ui.dialog.animate({marginTop:"-=10px",opacity:0}, 300, function(){
 			_this.ui.wrap.remove();
 			WE.Dialog.remove( _this.id );	
 		});

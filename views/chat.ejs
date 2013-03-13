@@ -3,6 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title><%=room.topic%> - Vchat</title>
+	<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css" />
 	<link rel="stylesheet" href="css/all.css" />
 	<link rel="stylesheet" href="/css/we.min.css" />
 	<script type="text/javascript" src="/js/jquery-1.6.3.min.js"></script>
@@ -16,31 +17,8 @@
 	</script>
 </head>
 <body>
-	
-	<div class="top">
-		<ul class="nav f-r">
-			<li class="drop-down">
-				<a href="#" class="account" >
-					<span><%=user.name || user.mail%>的帐号</span>
-					<span class="arrow"></span>
-				</a>
-				<div class="drop-down-items">
-					<ul>
-						<li><a href="javascript:;" id="username" >修改昵称</a></li>
-						<%if(/^\d+$/.test(user.mail)){%>
-							<li><a href="javascript:;" id="bindmail" >绑定Email</a></li> 
-						<%}%>
-						<li><a href="#">我参与过的对话</a></li>
-						<li><a href="/sys/login">切换用户</a></li>
-					</ul>
-				</div>
-			</li>
-		</ul>
-		<ul class="nav">
-			<li><a href="/">Vchat</a></li>
-			<li><a href="/">创建对话</a></li>
-		</ul>
-	</div>
+	<!-- top {user:{user}} -->
+	<% include common/top.ejs %>
 	
 	<div class="container">
 		<div class="bd">
@@ -55,29 +33,25 @@
 				</div>
 				
 				<div class="">
-					<p>创建者：<a href="#"><%=room.masterId%></a></p>
-					<p>地址：<a href="#">http://vchat.co/<%=room.name ? room.name : room.id%></a></p>
+					<ul>
+						<li>创建者：<a href="#" data-masterid="<%=room.masterId%>"><%=room.masterName%></a></li>
+						<li>地址：
+							<a href="#">http://vchat.co/<%=room.name ? room.name : room.id%></a>
+						</li>
+					</ul>
 				</div>
 				
 				<div class="user-list">
 					<div class="title">Online</div>
 					<div class="list">
-						<ul>
-							<li>
-								<a href="#">
-									lujun
-								</a>
-							</li>
-							
-							
-						</ul>
+						<ul class="reset" id="userlist"></ul>
 					</div>
 				</div>
 				
 				<div class="user-list">
-					<div class="title">Offline</div>
+					<div class="title">History</div>
 					<div class="list">
-						<ul>
+						<ul class="reset">
 							<li>
 								<a href="#">
 									<img src="http://img3.douban.com/icon/u67009572-6.jpg" width="32" height="32" alt="" />
@@ -100,7 +74,7 @@
 						<div class="dot my"></div>
 						<div class="photo">
 							<a href="#" title="点击换一个头像" >
-								<img src="http://img3.douban.com/icon/u67009572-6.jpg" alt="hello" />
+								<img src="<%=user.avatar%>" alt="hello" />
 							</a>
 						</div>
 							
@@ -165,13 +139,13 @@
 <script type="text/javascript">
 	//匿名用户
 
-	WE.pageChat.setUserName( USER );
+	//WE.pageChat.setUserName( USER );
 
 	if(USER.name == ""){
 
 		WE.pageChat.setUserName( USER );
 
-		//匿名用户先不连接 socket
+		//匿名用户不连接 socket
 	}else{
 
 		var socket = io.connect( document.location.host );
