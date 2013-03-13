@@ -19,7 +19,8 @@ input[type="text"],textarea{border:1px solid #ccc;padding:.3em;}
 .t-r{text-align: right;}
 .we-loading{background:url('../images/loading_m.gif') no-repeat center center;}
 
-
+/*预设*/
+.fc_bb{color: #bbb;}
 
 /* dialog */
 .we-mask{background:rgba(0,0,0, .5);position: fixed;height:100%;width:100%;z-index:99;
