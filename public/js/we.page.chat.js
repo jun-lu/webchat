@@ -324,15 +324,16 @@ WE.pageChat = {
 	//修改房间信息
 	setRoomInfo:function( room ){
 
+		var dialog = new WE.Dialog( {
+			id:"setRoom",
+			width:500,
+			height:300
+		});
+		dialog.show();
+
 		WE.kit.getTmpl("set_room.ejs", function( data ){
 
-			var dialog = new WE.Dialog( {
-				id:"setRoom",
-				width:500,
-				height:300
-			});
-			dialog.show();
-
+			
 			var html = WE.kit.tmpl( data,room );
 			dialog.append( html );
 
