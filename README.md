@@ -190,23 +190,28 @@
 		result:null
 	}
 
-##根据时间获取房间对话
+####根据时间获取房间对话
+````javascript
+url: "/sys/getmore"
+method:get
+param:
+	roomid:房间id
+	
+	/**
+		小于此时间错的最近 size 条信息
+		可以使用未来时间戳获取最新的10条
+	*/
+	time:时间戳/1000 
+		
+	[size]:10 //默认10条
+return:{
+	code:0,
+	msg:"正确执行",
+	result:[Chat,Chat,Chat,.......]
+}
+````
 
-	url: /sys/getmore
-	method:get
-	param:
-		roomid:房间id
-		time:时间戳/1000 //小于此时间错的最近 size 条信息
-			//可以使用未来时间戳获取最新的10条
-		[size]:10 //默认10条
-	return:{
-		code:0,
-		msg:"正确执行",
-		result:[Chat,Chat,Chat,.......]
-	}
-
-
-##获取我参与过的对话
+####获取我参与过的对话
 ````javascript
 url: "/sys/ichats"
 method : get
