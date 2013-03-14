@@ -17,8 +17,8 @@ WE.api.ChatModel = function(){
 
 WE.api.ChatModel.prototype = WE.BaseModel.prototype;
 
-WE.api.ChatModel.prototype.postChat = function( roomid, text ){
-	this.post(this.postUrl, { roomid:roomid, text:text });
+WE.api.ChatModel.prototype.postChat = function( roomid, text, to ){
+	this.post(this.postUrl, { roomid:roomid, text:text, to:to });
 };
 
 WE.api.ChatModel.prototype.updateUserName = function( name ){
