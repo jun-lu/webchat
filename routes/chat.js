@@ -122,7 +122,7 @@ module.exports = {
 					//console.log("create", status );
 					if(status.code == "0"){
 						var chat = status.result;
-						socketServer.newChat( chat );
+						socketServer.newChat( chat[0] );
 					}
 
 				});
