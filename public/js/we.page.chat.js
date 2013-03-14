@@ -49,7 +49,6 @@ WE.pageChat = {
 
 				//添加回复判断
 				if( WE.pageChat.reply.isRelply() ){
-					console.log('reply');
 					var to = WE.pageChat.reply._id;
 					_this.post( roomid,text,to );
 				}else{
@@ -179,7 +178,6 @@ WE.pageChat = {
 	post:function(roomid, text, to){
 
 		to = !to ? undefined : to;
-		console.log('to:',to);
 		var _this = this;
 		var model = new WE.api.ChatModel();//
 		var ctrl = new WE.Controller();
@@ -690,7 +688,6 @@ WE.pageChat.reply = {
 	 */
 	setReply : function( origText,origUser ){
 		var _this = WE.pageChat.reply;
-		console.log('_this:',origText,origUser);
 		_this.ui.origText.text( origText );
 		_this.ui.origUser.text( origUser );
 	},
