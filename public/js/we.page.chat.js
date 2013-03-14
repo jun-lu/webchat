@@ -48,9 +48,8 @@ WE.pageChat = {
 			if(text && roomid){
 
 				//添加回复判断
-				if( WE.pageChat.reply.isRelply ){
+				if( WE.pageChat.reply.isRelply() ){
 					var to = WE.pageChat.reply._id;
-					console.log('to:',to);
 					_this.post( roomid,text,to );
 				}else{
 					_this.post( roomid, text );
@@ -190,6 +189,7 @@ WE.pageChat = {
 
 				//_this.timeLine.prepend( data.r );
 				$('#postText').val('').focus();
+				WE.pageChat.reply.delOrig();
 			}
 
 		};
@@ -688,7 +688,6 @@ WE.pageChat.reply = {
 	 */
 	setReply : function( origText,origUser ){
 		var _this = WE.pageChat.reply;
-		console.log('_this:',origText,origUser);
 		_this.ui.origText.text( origText );
 		_this.ui.origUser.text( origUser );
 	},
@@ -705,8 +704,8 @@ WE.pageChat.reply = {
 	},
 
 	isRelply : function(){
-
-		if( !this.ui.origText.text() && !this.ui.origUser ){
+		var _this = WE.pageChat.reply;
+		if( _this.ui.origText.text() && _this.ui.origUser.text() ){
 			return true;
 		}else{
 			return false;
