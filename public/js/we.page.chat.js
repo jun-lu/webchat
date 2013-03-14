@@ -48,9 +48,9 @@ WE.pageChat = {
 			if(text && roomid){
 
 				//添加回复判断
-				if( WE.pageChat.reply.isRelply ){
+				if( WE.pageChat.reply.isRelply() ){
+					console.log('reply');
 					var to = WE.pageChat.reply._id;
-					console.log('to:',to);
 					_this.post( roomid,text,to );
 				}else{
 					_this.post( roomid, text );
@@ -179,6 +179,7 @@ WE.pageChat = {
 	post:function(roomid, text, to){
 
 		to = !to ? undefined : to;
+		console.log('to:',to);
 		var _this = this;
 		var model = new WE.api.ChatModel();//
 		var ctrl = new WE.Controller();
@@ -190,6 +191,7 @@ WE.pageChat = {
 
 				//_this.timeLine.prepend( data.r );
 				$('#postText').val('').focus();
+				WE.pageChat.reply.delOrig();
 			}
 
 		};
@@ -705,8 +707,8 @@ WE.pageChat.reply = {
 	},
 
 	isRelply : function(){
-
-		if( !this.ui.origText.text() && !this.ui.origUser ){
+		var _this = WE.pageChat.reply;
+		if( _this.ui.origText.text() && _this.ui.origUser.text() ){
 			return true;
 		}else{
 			return false;
