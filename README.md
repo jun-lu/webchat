@@ -190,41 +190,39 @@
 		result:null
 	}
 
-####根据时间获取房间对话
-````javascript
-url: "/sys/getmore"
-method:get
-param:
-	roomid:房间id
-	
-	/**
-		小于此时间错的最近 size 条信息
-		可以使用未来时间戳获取最新的10条
-	*/
-	time:时间戳/1000 
-		
-	[size]:10 //默认10条
-return:{
-	code:0,
-	msg:"正确执行",
-	result:[Chat,Chat,Chat,.......]
-}
-````
-
-####获取我参与过的对话
-````javascript
-url: "/sys/ichats"
-method : get
-param:null
-return:{
-	code:0, //(0, -1),
-	msg:"正确"  //("正确"，"参数错误"),
-	result:{
-		into:[room, room, ....] //我参与过的对话倒序
-		create:[room, room, ....] //我创建的对话倒序
+	####根据时间获取房间对话
+	````javascript
+	url: "/sys/getmore"
+	method:get
+	param:
+		roomid:房间id
+		/**
+			小于此时间错的最近 size 条信息
+			可以使用未来时间戳获取最新的10条
+		*/
+		time:时间戳/1000 
+		[size]:10 //默认10条
+	return:{
+		code:0,
+		msg:"正确执行",
+		result:[Chat,Chat,Chat,.......]
 	}
-}
-````
+	````
+
+	####获取我参与过的对话
+	````javascript
+	url: "/sys/ichats"
+	method : get
+	param:null
+	return:{
+		code:0, //(0, -1),
+		msg:"正确"  //("正确"，"参数错误"),
+		result:{
+			into:[room, room, ....] //我参与过的对话倒序
+			create:[room, room, ....] //我创建的对话倒序
+		}
+	}
+	````
 
 
 
