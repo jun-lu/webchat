@@ -18,6 +18,10 @@ WE.pageChat = {
 		this.setLocal();
 		//聚焦
 		$('#postText').focus();
+
+
+		// 回复的注册 :ck
+		WE.pageChat.reply.init();
 	},
 	/* 
 		修改页面的主题和副标题
@@ -43,7 +47,14 @@ WE.pageChat = {
 			//console.log( text, roomid );	
 			if(text && roomid){
 
-				_this.post( roomid, text );
+				//添加回复判断
+				if( WE.pageChat.reply.isRelply ){
+					var to = WE.pageChat.reply._id;
+					console.log('to:',to);
+					_this.post( roomid,text,to );
+				}else{
+					_this.post( roomid, text );
+				}
 
 			}else{
 				$('#postText').val('').focus();
@@ -165,8 +176,9 @@ WE.pageChat = {
 	},
 
 	//发送信息
-	post:function(roomid, text){
+	post:function(roomid, text, to){
 
+		to = !to ? undefined : to;
 		var _this = this;
 		var model = new WE.api.ChatModel();//
 		var ctrl = new WE.Controller();
@@ -184,7 +196,7 @@ WE.pageChat = {
 
 		model.addObserver( ctrl );
 
-		model.postChat( roomid, text );
+		model.postChat( roomid, text, to );
 
 	},
 	//设置或者修改用户昵称
@@ -454,6 +466,25 @@ WE.pageChat = {
 */
 
 WE.pageChat.timeLine = {
+	/**
+		{
+	
+			_id
+			uid
+			uname
+			text
+			uavatar
+			time
+			to:{
+				_id:
+				uid:
+				uname:
+				text
+				uavatar
+				to:""
+			}
+		}
+	*/
 	tmpl:'<div class="chat">\
 		<div class="dot"></div>\
 		<div class="photo">\
@@ -466,10 +497,10 @@ WE.pageChat.timeLine = {
 				<a href="#" class="name" data-uid="<%=uid%>" ><%=uname%></a>\
 			</div>\
 			<div class="context">\
-				<%if(obj.replay){%>\
-				<div class="reply-quote"></div>\
+				<%if(obj.to){%>\
+				<div class="reply-quote"><%= markdown.makeHtml(to.text)%><a href="#"><%= to.uname%></a></div>\
 				<%}%>\
-				<div><%= markdown.makeHtml(text) %></div>\
+				<div><%= markdown.makeHtml(text) %><a data-mid="<%=_id%>" class="chat-reply" href="javascript:void(0);">回复</a></div>\
 			</div>\
 		</div>\
 	</div>',
@@ -613,5 +644,74 @@ WE.pageChat.userlist = {
 	}
 
 };
+
+
+WE.pageChat.reply = {
+
+	init : function(){
+
+		this.setUi();
+		this.regEvent();
+	},
+
+	regEvent : function(){
+		var _this = this;
+		this.ui.listCon.delegate( _this.replyBtnClass,'click',function( e ){
+			_this.ui.origCon.show();
+			var $this = $(e.target),
+				origText = $this.closest('.context').find('p').html(),
+				origUser = $this.closest('.info').find('.head a').text();
+			_this._id = $this.attr('data-mid');
+			_this.setReply(origText,origUser);
+		});
+		this.ui.delBtn.click( _this.delOrig );
+	},
+
+	/*
+	 * reply初始化时候设置UI对象
+	 */
+	setUi : function(){
+		this.ui = {
+			listCon : $('.chat-list'), //包含体
+			origCon : $('#orig'),
+			origText : $('#orig').find('.origText'), //原文内容
+			origUser : $('#orig').find('.origUser'), //原文用户名
+			delBtn : $('#orig').find('.origDel'), //删除按钮
+			replyBtnClass : '.chat-reply'//回复按钮的Class名称
+		}
+	},
+
+	/*
+	 * 设置一个回复评论框
+	 * @param [string] origText : 原文
+	 * @param [string] origUser : 原文用户名
+	 */
+	setReply : function( origText,origUser ){
+		var _this = WE.pageChat.reply;
+		console.log('_this:',origText,origUser);
+		_this.ui.origText.text( origText );
+		_this.ui.origUser.text( origUser );
+	},
+
+
+	/*
+	 * 删除原文
+	 */
+	delOrig : function(){
+		var _this = WE.pageChat.reply;
+		_this.ui.origText.text('');
+		_this.ui.origUser.text('');
+		_this.ui.origCon.hide();
+	},
+
+	isRelply : function(){
+
+		if( !this.ui.origText.text() && !this.ui.origUser ){
+			return true;
+		}else{
+			return false;
+		}
+	}
+}
 
 
