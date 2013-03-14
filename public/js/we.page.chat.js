@@ -57,23 +57,23 @@ WE.pageChat = {
 			return false;
 		});
 
-		$('#postText').keydown(function( e ){
+		// $('#postText').keydown(function( e ){
 
-			if(_this.postType == 2 && e.keyCode == 13 && e.shiftKey == false){
-				e.preventDefault();
-				e.stopPropagation();
-				$('#postForm').submit();
-			}
+		// 	if(_this.postType == 2 && e.keyCode == 13 && e.shiftKey == false){
+		// 		e.preventDefault();
+		// 		e.stopPropagation();
+		// 		$('#postForm').submit();
+		// 	}
 
-			if(_this.postType == 1 && e.keyCode == 13 && e.ctrlKey == true){
+		// 	if(_this.postType == 1 && e.keyCode == 13 && e.ctrlKey == true){
 
-				e.preventDefault();
-				e.stopPropagation();
-				$('#postForm').submit();
+		// 		e.preventDefault();
+		// 		e.stopPropagation();
+		// 		$('#postForm').submit();
 
-			}
+		// 	}
 
-		});
+		// });
 
 		//var isUpdateNameShow = 0;
 		$('#username').click(function(){
@@ -93,47 +93,47 @@ WE.pageChat = {
 			_this.bindMail();
 		});
 
-		var changePostTypeisOpen = false;
-		$('#changePostType').click(function(e){
-			//onsole.log( e );
-			e.preventDefault();
-			e.stopPropagation();
+		// var changePostTypeisOpen = false;
+		// $('#changePostType').click(function(e){
+		// 	//onsole.log( e );
+		// 	e.preventDefault();
+		// 	e.stopPropagation();
 
-			if(changePostTypeisOpen){
-				$('#postTypeGroup').removeClass('open');
-			}else{
-				$('#postTypeGroup').addClass('open');
-			}
-			changePostTypeisOpen = !changePostTypeisOpen;
+		// 	if(changePostTypeisOpen){
+		// 		$('#postTypeGroup').removeClass('open');
+		// 	}else{
+		// 		$('#postTypeGroup').addClass('open');
+		// 	}
+		// 	changePostTypeisOpen = !changePostTypeisOpen;
 
 			
 			
-		});
+		// });
 
 
-		var postTypeMenuA = $('#postTypeMenu a');
+		// var postTypeMenuA = $('#postTypeMenu a');
 
-		postTypeMenuA.click(function(e){
-			e.stopPropagation();
-			var type = $(this).attr('type');
-			_this.postType = type;
-			if( type == "1" ){
-				postTypeMenuA.eq(1).addClass("on");
-				postTypeMenuA.eq(0).removeClass("on");
-			}else{
-				postTypeMenuA.eq(0).addClass("on");
-				postTypeMenuA.eq(1).removeClass("on");
-			};
+		// postTypeMenuA.click(function(e){
+		// 	e.stopPropagation();
+		// 	var type = $(this).attr('type');
+		// 	_this.postType = type;
+		// 	if( type == "1" ){
+		// 		postTypeMenuA.eq(1).addClass("on");
+		// 		postTypeMenuA.eq(0).removeClass("on");
+		// 	}else{
+		// 		postTypeMenuA.eq(0).addClass("on");
+		// 		postTypeMenuA.eq(1).removeClass("on");
+		// 	};
 
-			_this.local.setItem("postType", type);
-			$('#changePostType').click();
-		});
+		// 	_this.local.setItem("postType", type);
+		// 	$('#changePostType').click();
+		// });
 
-		$(document.body).click(function(){
-			changePostTypeisOpen = false;
-			$('#postTypeGroup').removeClass('open');
+		// $(document.body).click(function(){
+		// 	changePostTypeisOpen = false;
+		// 	$('#postTypeGroup').removeClass('open');
 
-		});
+		// });
 
 		$(window).bind("scroll", function(){
 
@@ -154,19 +154,19 @@ WE.pageChat = {
 		//$('.searchFirends')
 
 		//间隔1分钟刷新一次所有时间
-		setInterval(function(){
+		// setInterval(function(){
 
-			$('a.time').each(function(){
-
-
-				var target = $(this);
-				var time  = target.data("time") * 1000;
-				time && target.text( WE.kit.weTime( time ) );
-
-			});
+		// 	$('a.time').each(function(){
 
 
-		}, 1000 * 60);
+		// 		var target = $(this);
+		// 		var time  = target.data("time") * 1000;
+		// 		time && target.text( WE.kit.weTime( time ) );
+
+		// 	});
+
+
+		// }, 1000 * 60);
 		
 	},
 
@@ -189,7 +189,6 @@ WE.pageChat = {
 			}
 
 		};
-
 		model.addObserver( ctrl );
 
 		model.postChat( roomid, text, to );
@@ -589,25 +588,25 @@ WE.pageChat.userlist = {
 	regEvent:function(){
 
 		var _this = this;
-		var at = new WE.At( $('#postText') );
-		//console.log("regEvent");
-		at.searchFirends = function( key ){
-			//
-			var list = [];
-			var dataList = _this.data || [];
-			var reg = new RegExp(key, "i");
-			//console.log( key );
-			for(var i=0; i<dataList.length; i++){
+		// var at = new WE.At( $('#postText') );
+		// //console.log("regEvent");
+		// at.searchFirends = function( key ){
+		// 	//
+		// 	var list = [];
+		// 	var dataList = _this.data || [];
+		// 	var reg = new RegExp(key, "i");
+		// 	//console.log( key );
+		// 	for(var i=0; i<dataList.length; i++){
 
-				if( reg.test( dataList[i] ) ){
+		// 		if( reg.test( dataList[i] ) ){
 
-					list.push( dataList[i] );
+		// 			list.push( dataList[i] );
 
-				};
+		// 		};
 				
-			}
-			this.showList( list );
-		};
+		// 	}
+		// 	this.showList( list );
+		// };
 
 	},
 	append:function( data ){
