@@ -44,15 +44,15 @@ while(rooms.hasNext()){
 	if(masterid.length > 10 && typeof masterid == "string"){
 		print(masterid);
 
-		//var user_ = db.user.findOne({_id:ObjectId(masterid)});
-		/*print(user_);
-		//
+		var user_ = db.user.findOne({_id:ObjectId(masterid)});
+		//print(user_);
+		
 		if(user_ && user_.name){
 			//var name = db.user.findOne({_id:item.masterId}).name;
 			item.masterName = user_.name;
 			delete item.onlineUser;
 			db.room.save(item);
-		}*/
+		}
 	}
 }
 

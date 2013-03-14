@@ -71,12 +71,12 @@ module.exports = {
 						indexData.room = room.getInfo();
 
 
-						//查找首页数据
+						//查找首页数据 
 						ChatModel.findChats( roomid , 10, function( status ){
 
 							//console.log( status )
 							indexData.indexChats = status.result || [];
-							console.log("indexData.indexChats", indexData.indexChats);
+							console.log("indexData.indexChats", status);
 							res.render('chat', indexData);
 
 						});
@@ -102,7 +102,7 @@ module.exports = {
 			var user = req.session.user;
 			var text = req.body.text;
 			var roomid = req.body.roomid;
-
+			var to = req.body.to || null;//针对某条信息的回复 源信息id
 
 			if(text && roomid){
 
@@ -114,7 +114,7 @@ module.exports = {
 
 				};
 
-				ChatModel.create(roomid, text, userjson, function( status ){
+				ChatModel.create(roomid, text, userjson, to, function( status ){
 
 					res.write( status.toString(), "utf-8" );
 					res.end();
