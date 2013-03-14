@@ -81,7 +81,8 @@
 							
 						<div class="info">	
 							<div class="post-box">
-								<form  method="post" id="postForm"  action="/sys/post">
+								<form  method="post" id="postForm" class="post-form"  action="/sys/post">
+									<input type="hidden" name="to" id="to" value="">
 									<input type="hidden" name="roomid" id="roomid" value="<%=room.id%>" >
 								<div class="post-box-in" id="postboxIn">
 									<div class="post-text-box">
@@ -95,10 +96,10 @@
 								</div>
 								</form>
 							</div>
-							<div class="orig" id="orig" style="display:none;">
-								<span class="origText"></span>
-								<span class="origUser"></span>
-								<a class="origDel" href="javascript:void(0)">×</a>
+							<div class="quote fs_12 pad_a5" id="quote" style="display:none;">
+								<span class="quote-text"></span>
+								<a href="javascript:void(0)" class="quote-user"></a>
+								<a class="quote-del" href="javascript:void(0)">×</a>
 							</div>
 						</div>
 

@@ -21,6 +21,9 @@ input[type="text"],textarea{border:1px solid #ccc;padding:.3em;}
 
 /*预设*/
 .fc_bb{color: #bbb;}
+.fc_88{color: #888;}
+.fs_12{font-size: 12px;}
+.pad_a5{padding: 5px;}
 
 /* dialog */
 .we-mask{background:rgba(0,0,0, .5);position: fixed;height:100%;width:100%;z-index:99;
@@ -95,7 +98,7 @@ width: 0;height: 0;font-size: 0;line-height: 0;}
 	.timeline{width:4px;height:100%;background:#9fc9ea;position:absolute;left:40px;}
 	
 	.post-box-in{border:1px solid #c6c6c6;position:relative;margin-bottom:10px;background:#fff;}
-	.post-box{margin:5px 0 20px 0;}
+	.post-box{margin:5px 0 0 0;}
 		.post-box .btns{text-align:right;background:#f7f7f7;}
 			.btns .btn-group{text-align: right;}
 			.dropdown-menu .icon-ok{display:none}
@@ -104,6 +107,8 @@ width: 0;height: 0;font-size: 0;line-height: 0;}
 	.post-box .post-text-box{margin:3px 5px;}
 	.post-box .post-text{border:none;width:100%;max-width:100%;min-height:50px;padding:0;margin:0;outline:none;border:none;box-shadow:none;-webkit-box-shadow:none;-moz-box-shadow:none;}
 	.post-box .post-text:focus{outline:none;border:none;box-shadow:none;}
+	form.post-form{margin: 0px;}
+		.quote{background: #e8eef2;}
 	
 	
 	.chat{position:relative;}
@@ -111,6 +116,9 @@ width: 0;height: 0;font-size: 0;line-height: 0;}
 	.chat .photo img{width:48px;height:48px;}
 	.chat .info{min-height:48px;margin-left:58px;margin-bottom:20px;}
 	.chat .dot{background:#9fc9ea;width:8px;height:8px;border-radius:10px;border:5px solid #fff;left:-27px;top:8px;position:absolute;}
+	.chat .chat-reply{font-size:12px;visibility: hidden;}
+	.chat:hover .chat-reply{visibility: visible;}
+
 			.info .my{background:#2380ca;border-color:#fff;}
 			.info .head{background:#f2fbf2;padding:3px 5px;margin:0;}
 			.info .head a{font-size:14px;font-weight:700;}
