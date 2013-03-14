@@ -189,7 +189,6 @@ url: "/sys/set_user_name"
 method: post
 param:
 	name: string < 50
-
 return :{
 	code:0, //(0, -1),
 	msg:"" //(正确,参数错误),
@@ -204,7 +203,6 @@ method: post
 param:
 	mail: string //合法的email地址
 	pwd: string > 5
-
 return :{
 	code:0, //(0, -1, 403),
 	msg:"" //(正确, 参数错误, 超出访问权限(已经绑定过了)),
@@ -221,8 +219,8 @@ param:
 	topic: string < 500,
 	des: string < 2000
 return:{
-	code:(0, -1, 403),
-	msg:(正确, 参数错误, 超出访问权限(没有权限修改)),
+	code:0, //(0, -1, 403),
+	msg:"", //(正确, 参数错误, 超出访问权限(没有权限修改)),
 	result:null
 }
 ````
@@ -232,12 +230,12 @@ return:{
 url: "/sys/getmore"
 method:get
 param:
-	roomid:房间id
+	roomid:"1361182575505" //房间id
 	/**
 		小于此时间错的最近 size 条信息
 		可以使用未来时间戳获取最新的10条
 	*/
-	time:时间戳/1000 
+	time:"时间戳"/1000 
 	[size]:10 //默认10条
 return:{
 	code:0,
