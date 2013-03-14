@@ -1,5 +1,3 @@
-
-
 WE.pageChat = {
 
 	isLoading:0,
@@ -15,7 +13,6 @@ WE.pageChat = {
 		// 设置全部事件绑定
 		this.regEvent();
 
-		this.setLocal();
 		//聚焦
 		$('#postText').focus();
 
@@ -23,18 +20,7 @@ WE.pageChat = {
 		// 回复的注册 :ck
 		WE.pageChat.reply.init();
 	},
-	/* 
-		修改页面的主题和副标题
 
-		topic: string
-		directions： string
-		isNotice: bl  //是否在时间轴执行通知
-	 */
-	setTopic:function( topic, directions, isNotice ){
-		topic && $('#topic').text( topic );
-		directions  && $('#directions').text(directions);
-		isNotice && this.timeLine.noticeTopicUpdate( topic, directions );
-	},
 	
 	regEvent:function(){
 
@@ -57,83 +43,13 @@ WE.pageChat = {
 			return false;
 		});
 
-		// $('#postText').keydown(function( e ){
-
-		// 	if(_this.postType == 2 && e.keyCode == 13 && e.shiftKey == false){
-		// 		e.preventDefault();
-		// 		e.stopPropagation();
-		// 		$('#postForm').submit();
-		// 	}
-
-		// 	if(_this.postType == 1 && e.keyCode == 13 && e.ctrlKey == true){
-
-		// 		e.preventDefault();
-		// 		e.stopPropagation();
-		// 		$('#postForm').submit();
-
-		// 	}
-
-		// });
-
-		//var isUpdateNameShow = 0;
-		$('#username').click(function(){
-			_this.setUserName( USER );
-		});
+	
 
 		$('#setting').click(function(){
 			_this.setRoomInfo( ROOM );
 		});
 
-		$('#viewRoom').click(function(){
-			_this.viewRoomInfo( ROOM );
-		});
-
-		//匿名用户绑定用户名
-		$('#bindmail').click(function(){
-			_this.bindMail();
-		});
-
-		// var changePostTypeisOpen = false;
-		// $('#changePostType').click(function(e){
-		// 	//onsole.log( e );
-		// 	e.preventDefault();
-		// 	e.stopPropagation();
-
-		// 	if(changePostTypeisOpen){
-		// 		$('#postTypeGroup').removeClass('open');
-		// 	}else{
-		// 		$('#postTypeGroup').addClass('open');
-		// 	}
-		// 	changePostTypeisOpen = !changePostTypeisOpen;
-
-			
-			
-		// });
-
-
-		// var postTypeMenuA = $('#postTypeMenu a');
-
-		// postTypeMenuA.click(function(e){
-		// 	e.stopPropagation();
-		// 	var type = $(this).attr('type');
-		// 	_this.postType = type;
-		// 	if( type == "1" ){
-		// 		postTypeMenuA.eq(1).addClass("on");
-		// 		postTypeMenuA.eq(0).removeClass("on");
-		// 	}else{
-		// 		postTypeMenuA.eq(0).addClass("on");
-		// 		postTypeMenuA.eq(1).removeClass("on");
-		// 	};
-
-		// 	_this.local.setItem("postType", type);
-		// 	$('#changePostType').click();
-		// });
-
-		// $(document.body).click(function(){
-		// 	changePostTypeisOpen = false;
-		// 	$('#postTypeGroup').removeClass('open');
-
-		// });
+	
 
 		$(window).bind("scroll", function(){
 
@@ -149,28 +65,16 @@ WE.pageChat = {
 				}
 
 			}
-
 		});
-		//$('.searchFirends')
-
-		//间隔1分钟刷新一次所有时间
-		// setInterval(function(){
-
-		// 	$('a.time').each(function(){
-
-
-		// 		var target = $(this);
-		// 		var time  = target.data("time") * 1000;
-		// 		time && target.text( WE.kit.weTime( time ) );
-
-		// 	});
-
-
-		// }, 1000 * 60);
-		
 	},
 
-	//发送信息
+
+	/*
+	 * 发布对话信息
+	 * @param {string/num} roomid 当前对话房间的id
+	 * @param {string} text 对话内容
+	 * @param {string} [to] 原对话的id(回复功能需发送) 
+	 */
 	post:function(roomid, text, to){
 
 		to = !to ? undefined : to;
@@ -192,143 +96,12 @@ WE.pageChat = {
 		model.addObserver( ctrl );
 
 		model.postChat( roomid, text, to );
-
 	},
-	//设置或者修改用户昵称
-	setUserName:function( user ){
-
-		var dialog = new WE.Dialog({
-				title:"修改昵称",
-				id:"setUserName",
-				width:400,
-				height:200
-		});
-		dialog.show();
-
-		WE.kit.getTmpl("update_user_name.ejs", function( data ){
-
-			var html = WE.kit.tmpl( data, user );
-			dialog.append( html );
-
-			$('#setUserNameForm').submit(function(){
-
-				var elenewUserName = $('#newUserName');
-				var name = elenewUserName.val();
-				if( name ){
-
-					var model = new WE.api.ChatModel();
-					var ctrl = new WE.Controller();
-					ctrl.update = function( e ){
-
-						var data = e.data;
-
-						if( data.code == 0 ){
-
-							dialog.close();
-							setTimeout(function(){
-								document.location.reload();
-							}, 500)
-						}
-
-					};
-					model.addObserver( ctrl );
-					model.updateUserName( name );	
-
-				}else{
-					elenewUserName.focus();
-				}
-
-				return false;
-			});
-
-			$('#anonymous').click(function(){
-
-				$('#newUserName').val("匿名");
-				$('#setUserNameForm').submit();
-
-			});
-			
-		});
-	},
-	bindMail:function(){
-
-		var dialog = new WE.Dialog({
-				title:"设置mail",
-				id:"setMail",
-				width:400,
-				height:200
-		});
-		dialog.show();
-
-		WE.kit.getTmpl("bind_mail.ejs", function( data ){
-
-			//var html = WE.kit.tmpl( data, {});
-			dialog.append( data );
-
-			$('#bindMialForm').submit(function(){
-
-				var mail = $.trim($('#updateMail').val());
-				var pwd = $.trim($('#updatePwd').val());
-
-				if( /^[\w._\-]+@[\w_\-]+\.\w+$/.test(mail) ){
-
-					if(pwd.length>5){
-
-						update( mail, pwd );
-
-					}else{
-
-						alert("密码长度至少6位");
-					}
-
-				}else{
-
-					alert("mail, 格式不正确");
-				}
-
-				return false;
-
-			});			
-		});
-
-		function update( mail, pwd ){
-
-			var model = new WE.api.ChatModel();
-			var ctrl = new WE.Controller();
-			ctrl.update = function( e ){
-
-				var data = e.data;
-
-				if( data.code == 0 ){
-
-					dialog.close();
-					document.location.relaod();
-				}
-
-			};
-			model.addObserver( ctrl );
-			model.updateMailPwd( mail, pwd );
-		}
-
-	},
-	viewRoomInfo:function( room ){
-
-		var _this = this;
-		WE.kit.getTmpl("view_room.ejs", function( data ){
-
-			var dialog = new WE.Dialog( {
-				id:"viewRoom",
-				width:500,
-				html:WE.kit.tmpl(data, room)
-			});
-
-			dialog.show();
-
-		});
-
-
-	},
-	//修改房间信息
+	
+	/*
+	 * 修改房间信息
+	 * @param {ROOM} room : 当前房间信息
+	 */
 	setRoomInfo:function( room ){
 
 		var dialog = new WE.Dialog( {
@@ -392,6 +165,10 @@ WE.pageChat = {
 		
 		});
 	},
+
+	/*
+	 * 鼠标下滚获取更多对话信息
+	 */
 	getMore:function(){
 
 		var _this = this;
@@ -412,31 +189,10 @@ WE.pageChat = {
 		model.getMore( ROOM.id , this.lastTime );	
 
 	},
-	setLocal:function(){
 
-		var type = this.local.getItem("postType") || this.postType;
-		var postTypeMenuA = $('#postTypeMenu a');
-		this.postType = type;
-		if( type == "1" ){
-			postTypeMenuA.eq(1).addClass("on");
-			postTypeMenuA.eq(0).removeClass("on");
-		}else{
-			postTypeMenuA.eq(0).addClass("on");
-			postTypeMenuA.eq(1).removeClass("on");
-		};
-
-	},
-	//保存 localStorage
-	local:{
-
-		setItem:function( key ,val){
-			localStorage.setItem(key, val);
-		},
-		getItem:function( key ){
-			return localStorage.getItem( key );
-		}
-
-	},
+	/*
+	 * 修改头像
+	 */
 	selectAvatar:function(){
 
 		var dialog = new WE.Dialog({
@@ -451,7 +207,6 @@ WE.pageChat = {
 				dialog.append( data );
 			//},1000);
 		});
-
 	}
 };
 
@@ -459,7 +214,6 @@ WE.pageChat = {
 /**
 	时间轴操作
 */
-
 WE.pageChat.timeLine = {
 	/**
 		{
@@ -522,12 +276,20 @@ WE.pageChat.timeLine = {
 			//console.log( "lastTime 失败" );
 		}
 	},
+
+	/*
+	 * 用户发送对话Ajax提交后更新页面数据
+	 * @param {object} data : 对话数据
+	 */
 	prepend:function( data ){
 
 		$('#timelineChats').prepend( WE.kit.tmpl( this.tmpl, data ) );
-
 	},
 
+	/*
+	 * 页面初始化加载添加到页面的对话数据
+	 * @param {object} datas : 对话数据
+	 */
 	appends:function( datas ){
 
 		var i = 0;
@@ -547,21 +309,13 @@ WE.pageChat.timeLine = {
 
 			console.log( "lastTime 失败" );
 		}
-
-	},
-	/*
-		通知时间抽主题或者副标题发生变化
-		topic:
-		directions：
-	
-	*/
-	noticeTopicUpdate:function( topic, directions ){
-
 	}
 };
 
 
-
+/**
+	用户在线列表
+*/
 WE.pageChat.userlist = {
 
 	tmpl:'<li id="uid_<%=_id%>"><a href="#" title="<%=name%>">\
@@ -588,27 +342,12 @@ WE.pageChat.userlist = {
 	regEvent:function(){
 
 		var _this = this;
-		// var at = new WE.At( $('#postText') );
-		// //console.log("regEvent");
-		// at.searchFirends = function( key ){
-		// 	//
-		// 	var list = [];
-		// 	var dataList = _this.data || [];
-		// 	var reg = new RegExp(key, "i");
-		// 	//console.log( key );
-		// 	for(var i=0; i<dataList.length; i++){
-
-		// 		if( reg.test( dataList[i] ) ){
-
-		// 			list.push( dataList[i] );
-
-		// 		};
-				
-		// 	}
-		// 	this.showList( list );
-		// };
-
 	},
+
+	/*
+	 * 用户上线之后添加该用户头像
+	 * @param {USER} data : 用户信息 
+	 */
 	append:function( data ){
 		//如果是自己就不加入到队列
 		if(data._id != USER._id){
@@ -621,6 +360,11 @@ WE.pageChat.userlist = {
 			$('#userlist').append(  WE.kit.tmpl(this.tmpl, data) );
 		}
 	},
+
+	/*
+	 * 用户下线之后添加该用户头像
+	 * @param {USER} data : 用户信息 
+	 */
 	remove:function( data ){
 		var list = this.data;
 
@@ -633,14 +377,15 @@ WE.pageChat.userlist = {
 				break;
 			}
 
-		}
-		
-
+		}	
 	}
 
 };
 
 
+/**
+	用户回复功能
+*/
 WE.pageChat.reply = {
 	_id:null,//针对次ID回复
 
@@ -683,8 +428,8 @@ WE.pageChat.reply = {
 
 	/*
 	 * 设置一个回复评论框
-	 * @param [string] origText : 原文
-	 * @param [string] origUser : 原文用户名
+	 * @param {string} origText : 原文
+	 * @param {string} origUser : 原文用户名
 	 */
 	setReply : function( origText,origUser ){
 		var _this = WE.pageChat.reply;
