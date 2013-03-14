@@ -115,7 +115,7 @@ width: 0;height: 0;font-size: 0;line-height: 0;}
 	
 	
 	.chat{position:relative;}
-	.chat .photo{position:absolute;}
+	.chat .photo{position:absolute;width:48px;}
 	.chat .photo img{width:48px;height:48px;}
 	.chat .info{min-height:48px;margin-left:58px;margin-bottom:20px;}
 	.chat .dot{background:#9fc9ea;width:8px;height:8px;border-radius:10px;border:5px solid #fff;left:-27px;top:8px;position:absolute;}
