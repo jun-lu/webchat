@@ -171,7 +171,7 @@
 
 ####发送一条信息
 ````javascript
-url: /sys/post
+url: "/sys/post"
 method: post
 param:
 	roomid:number // 房间id
@@ -185,36 +185,36 @@ return:{
 ````
 ####修改昵称
 ````javascript
-url: /sys/set_user_name
+url: "/sys/set_user_name"
 method: post
 param:
 	name: string < 50
 
 return :{
-	code:(0, -1),
-	msg:(正确,参数错误),
+	code:0, //(0, -1),
+	msg:"" //(正确,参数错误),
 	result:null
 }
 ````
 
 ####匿名用户绑定email
 ````javascript
-url: /sys/bindmail
+url: "/sys/bindmail"
 method: post
 param:
-	mail: string 合法的email地址
+	mail: string //合法的email地址
 	pwd: string > 5
 
 return :{
-	code:(0, -1, 403),
-	msg:(正确, 参数错误, 超出访问权限(已经绑定过了)),
+	code:0, //(0, -1, 403),
+	msg:"" //(正确, 参数错误, 超出访问权限(已经绑定过了)),
 	result:null
 }
 ````
 
 ##修改房间信息，仅房间创建者可修改
 ````javascript
-url: /sys/update_room
+url: "/sys/update_room"
 method:post
 param:
 	name: string < 50
