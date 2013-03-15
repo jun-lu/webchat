@@ -247,17 +247,17 @@ module.exports = {
 
 					if(logs[i].location == "into_room"){
 
-						intos.push( logs[i] );
+						intos.push( logs[i].info );
 					}
 
 					if(logs[i].location == "create_room"){
 
-						creates.push( logs[i] );
+						creates.push( logs[i].info );
 					}
 				}
 
 				status.setResult({
-					intos:tools.unique(intos, function(item){  return item.info.id; }),
+					intos:tools.unique(intos, function(item){  return item.id; }),
 					creates:creates
 				});
 			}
