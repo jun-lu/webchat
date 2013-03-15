@@ -2,7 +2,7 @@
     "code":0,
     "msg":"正确",
     "result":{
-        "into":[
+        "intos":[
         {
 		    "id":"1361182575505",
 		    "name":"",
@@ -106,7 +106,7 @@
 		    "masterId":"514197562128205e66000011",
 		    "masterName":"lujun"
 		}],
-        "create" :[
+        "creates" :[
         {
 		    "id":"1361182575505",
 		    "name":"",
