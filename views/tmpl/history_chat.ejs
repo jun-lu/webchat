@@ -1,0 +1,28 @@
+<div class="history" >
+	<h6>> 我加入过的话题</h6>
+	<ul>
+		<% 	var lengChats = Math.min(6, into.length);
+			for(var i = 0; i < lengChats;i++ ){ %>
+		<li>
+			<a href="<%= document.location.host+'/'+ into[i].name?into[i].name:into[i].id %>" title="<%= into[i].topic %>"><%= into[i].topic %></a>
+			<span class="history-des"><%= into[i].des.substr(0,15) %></span>
+		</li>
+		<% } %>
+	</ul>
+	<% if( into.length >= 10 ){ %>
+	<!--<a class="history-more" href="javascript:void(0);">查看更多</a>-->
+	<% } %>
+</div>
+
+<div class="history">
+	<h6>> 我创建过的话题</h6>
+	<ul>
+		<% var lengCreate = Math.min(6, create.length);
+		   for(var i = 0; i < lengCreate; i++ ){ %>
+		<li>
+			<a href="<%= document.location.host+'/'+ into[i].name?into[i].name:into[i].id %>" title="<%= into[i].topic %>"><%= into[i].topic %></a>
+			<span class="history-des"><%= into[i].des.substr(0,15) %></span>
+		</li>
+		<% } %>
+	</ul>
+</div>

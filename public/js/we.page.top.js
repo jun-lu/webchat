@@ -130,8 +130,34 @@ WE.pageTop = {
 	 * 查看历史记录
 	 * @param [string] id : 用户id
 	 */
-	getHistory : function( id ){
+	getHistory : function(){
 
+		var dialog = new WE.Dialog({
+				title:"参与过的对话",
+				id:"getHistory",
+				width:200,
+				height:200
+		});
+		dialog.show();
+
+		WE.kit.getTmpl("history_chat.ejs", function( tmpl ){
+
+		
+			var model = new WE.api.TopModel();
+			var ctrl = new WE.Controller();
+			ctrl.update = function( e ){
+				var data = e.data;
+
+				if( data.code == 0 ){
+
+					var html = WE.kit.tmpl( tmpl,data.result );
+					dialog.append( html );
+				}
+			}
+			model.addObserver( ctrl );
+			model.historyChats();
+			
+		});
 	}
 }
 
@@ -145,6 +171,10 @@ WE.pageTop.init = function(){
 
 	$('#bindmail').click(function(){
 		_this.bindEmail();
+	});
+
+	$('#chatme').click(function(){
+		_this.getHistory();
 	})
 }
 

@@ -7,7 +7,7 @@
 	<link rel="stylesheet" href="/css/all.css" />
 	<script type="text/javascript" src="/js/jquery-1.6.3.min.js"></script>
 	<script type="text/javascript" src="/js/we.min.js"></script>
-	<script type="text/javascript" src="/js/we.api.chat.js"></script>
+
 	<script type="text/javascript">
 
 		var USER = <%- JSON.stringify(user)%>;
@@ -130,9 +130,17 @@
 	<div class="footer">
 		
 	</div>
+
 <script type="text/javascript" src="/js/Markdown.Converter.min.js"></script>
-<script type="text/javascript" src="/js/we.page.top.js"></script>
+
+<!--Chat Page-->
+<script type="text/javascript" src="/js/we.api.chat.js"></script>
 <script type="text/javascript" src="/js/we.page.chat.js"></script>
+
+<!--Top Page-->
+<script type="text/javascript" src="/js/we.api.top.js"></script>
+<script type="text/javascript" src="/js/we.page.top.js"></script>
+
 
 <script type="text/javascript">
 
@@ -154,11 +162,11 @@
 
 	if(USER.name == ""){
 
-		WE.pageChat.setUserName( USER );
+		WE.pageTop.setUserName( USER );
 
 		//匿名用户不连接 socket
 	}else{
-
+		
 		var socket = io.connect( document.location.host );
 		socket.emit("setting", {roomid:ROOM.id});
 

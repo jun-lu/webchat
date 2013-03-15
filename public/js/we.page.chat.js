@@ -405,6 +405,7 @@ WE.pageChat.reply = {
 			_this._id = $this.attr('data-mid');
 			_this.ui.to.val( _this._id );
 			_this.setReply(origText,origUser);
+			$('body').animate({scrollTop:0},600);
 			
 		});
 		this.ui.delBtn.click( _this.delOrig );
