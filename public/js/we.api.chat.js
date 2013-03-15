@@ -13,6 +13,7 @@ WE.api.ChatModel = function(){
 	this.postUrl = "?1";//直接提交到当前路径
 	this.setUserNameURL = "/sys/set_user_name";
 	this.updateRoomURL = "/sys/update_room";
+	this.updateAvatorURL = "/sys/set_avatar";
 };
 
 WE.api.ChatModel.prototype = WE.BaseModel.prototype;
@@ -42,4 +43,8 @@ WE.api.ChatModel.prototype.getMore = function(roomid, time){
 WE.api.ChatModel.prototype.updateMailPwd = function(mail, pwd){
 	this.post("/sys/bindmail", {mail:mail, pwd:pwd});
 };
+
+WE.api.ChatModel.prototype.updateAvator = function(gravatarDefault){
+	this.post(this.updateAvatorURL,{gravatarDefault:gravatarDefault});
+}
 

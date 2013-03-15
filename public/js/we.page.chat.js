@@ -49,6 +49,10 @@ WE.pageChat = {
 			_this.setRoomInfo( ROOM );
 		});
 
+		$('#user-Avator').click(function(){
+			_this.selectAvatar( USER );
+		})
+
 	
 
 		$(window).bind("scroll", function(){
@@ -193,7 +197,7 @@ WE.pageChat = {
 	/*
 	 * 修改头像
 	 */
-	selectAvatar:function(){
+	selectAvatar:function( USER ){
 
 		var dialog = new WE.Dialog({
 				title:"选择头像",
@@ -202,11 +206,34 @@ WE.pageChat = {
 		dialog.show();
 
 		WE.kit.getTmpl("select_avatar.ejs", function( data ){
-			//setTimeout(function(){
 
-				dialog.append( data );
-			//},1000);
+			dialog.append( data );
+
+			$( '#'+USER.gravatarDefault ).attr('checked','checked');
+
+			$('#setAvator').submit(function(){
+				submitForm();
+				return false;
+			});
 		});
+
+		function submitForm(){
+
+			var gravatarDefault = WE.kit.getRadioValue('gravatarAvatar');
+
+			var model = new WE.api.ChatModel();
+			var ctrl = new WE.Controller();
+			ctrl.update = function( e ){
+				var data = e.data;
+
+				if( data.code == 0 ){
+					
+					document.location.reload();
+				}
+			}
+			model.addObserver( ctrl );
+			model.updateAvator( gravatarDefault );
+		}
 	}
 };
 
