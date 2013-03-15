@@ -83,6 +83,16 @@ WE.extend(WE.kit, {
 		})
 
 	},
+
+	/*
+	 * 获取radio的值
+	 * @param {string} name : input的name属性
+	 */
+	getRadioValue : function( name ){
+		return $('input[type=radio][name='+name+']:checked').val();
+	},
+
+
 	/**
 		规则
 		 <1分钟	60*1000 刚刚
