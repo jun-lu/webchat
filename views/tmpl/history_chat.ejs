@@ -1,11 +1,11 @@
 <div class="history">
 	<h6>> 我创建</h6>
 	<ul>
-		<% var lengCreate = Math.min(6, create.length);
+		<% var lengCreate = Math.min(6, creates.length);
 		   for(var i = 0; i < lengCreate; i++ ){ %>
 		<li>
-			<a href="<%= document.location.host+'/'+ create[i].name?create[i].name:create[i].id %>" title="<%= create[i].topic %>"><%= create[i].topic.length > 15 ? create[i].topic.substr(0,15)+'..' : create[i].topic %></a>
-			<span class="history-des"><%= create[i].des.length > 15 ? create[i].des.substr(0,15)+'..' : create[i].des %></span>
+			<a href="<%= document.location.host+'/'+ creates[i].name?creates[i].name:creates[i].id %>" title="<%= creates[i].topic %>"><%= creates[i].topic.length > 15 ? creates[i].topic.substr(0,15)+'..' : creates[i].topic %></a>
+			<span class="history-des"><%= creates[i].des.length > 15 ? creates[i].des.substr(0,15)+'..' : creates[i].des %></span>
 		</li>
 		<% }  %>
 	</ul>
@@ -13,15 +13,15 @@
 <div class="history" >
 	<h6>> 最近参与</h6>
 	<ul>
-		<% 	var lengChats = Math.min(6, into.length);
+		<% 	var lengChats = Math.min(6, intos.length);
 			for(var i = 0; i < lengChats;i++ ){ %>
 		<li>
-			<a href="<%= document.location.host+'/'+ into[i].name?into[i].name:into[i].id %>" title="<%= into[i].topic %>"><%= into[i].topic.length > 15 ? into[i].topic.substr(0,15)+'..' : into[i].topic %></a>
-			<span class="history-des"><%= into[i].des.length > 15 ? into[i].des.substr(0,15)+'..' : into[i].des %></span>
+			<a href="<%= document.location.host+'/'+ intos[i].name?intos[i].name:intos[i].id %>" title="<%= intos[i].topic %>"><%= intos[i].topic.length > 15 ? intos[i].topic.substr(0,15)+'..' : intos[i].topic %></a>
+			<span class="history-des"><%= intos[i].des.length > 15 ? intos[i].des.substr(0,15)+'..' : intos[i].des %></span>
 		</li>
 		<% } %>
 	</ul>
-	<% if( into.length >= 10 ){ %>
+	<% if( intos.length >= 10 ){ %>
 	<!--<a class="history-more" href="javascript:void(0);">查看更多</a>-->
 	<% } %>
 </div>
