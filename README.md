@@ -98,24 +98,164 @@
 
 
 
+#定义数据体
+
+####用户定义 User
+````javascript
+{
+	"_id":"514197562128205e66000011",
+	"mail":"idche@qq.com",// 匿名用户的email为一串数字
+	"name":"lujun",
+	"hexMail":"", // 用户email md5值，也作为头像的网址使用
+	"avatar":"http://www.gravatar.com/avatar/d437481aad048f1cb9ff68483c662bae.jpg?s=48&d=monsterid"
+}
+````
+
+####房间定义 Room
+````javascript
+{
+	"id":"1361182575505",//可作为 vchat/id 直接访问房间
+	"name":"vchat",//可作为 vchat/name 直接访问房间
+	"topic":"vchat开发测试",
+	"des":"主题说明文字",
+	"masterId":"514197562128205e66000011",//创建者 _id
+	"masterName":"lujun", //创建者用户名
+}
+````
+
+
+####对话定义 Chat
+````javascript
+{
+	_id:"51419a0c2128205e66000024", //数据库唯一 _id
+	roomdid: "1361182575505",  //房间 _id
+	uid: "514197562128205e66000011", //用户 _id
+	uname: "lujun", //用户昵称
+	uavatar: "http://www.gravatar.com/avatar/d437481aad048f1cb9ff68483c662bae.jpg?s=48&d=monsterid",
+			 // 用户头像地址  遵循 gravatar 网站头像规则
+	time: 1363252238, //时间戳/1000
+	to:(null || Chat) //如果是回应某个对话有此项目
+}
+````
+
+####定义接口返回值  return
+````javascript
+{
+	/**
+		code:"msg"
+		"0":"正确执行",
+		"-1":"参数错误",	
+		"-2":"信息重复",
+		"500":"服务器错误",
+		"600":"数据库错误",
+		"601":"数据库错误",
+		"403":"Client Access Licenses exceeded（超出客户访问许可证）",
+		"404":"not defined",
+	*/
+	code:0, //代码执行状态  非 0 状态表示非正确执行
+	msg: "", //除以上常用状态码文字，其他状态会有更具体说明
+	/**
+		当 code == 0  result值 可用
+		数组 [1,2,3,4,...], 空 -> []
+		对象 {a:,b:,c} , 空 -> null
+		无返回值 null
+	*/
+	result: //返回数据
+}
+````
 
 
 
 
+#api 文档 仅ajax
 
+####发送一条信息
+````javascript
+url: "/sys/post"
+method: post
+param:
+	roomid:number // 房间id
+	text:string < 2000
+	[to]:string //回应某条信息的 _id
+return:{
+	code:0,
+	msg:"正确",
+	result:Chat
+}
+````
+####修改昵称
+````javascript
+url: "/sys/set_user_name"
+method: post
+param:
+	name: string < 50
+return :{
+	code:0, //(0, -1),
+	msg:"" //(正确,参数错误),
+	result:null
+}
+````
 
+####匿名用户绑定email
+````javascript
+url: "/sys/bindmail"
+method: post
+param:
+	mail: string //合法的email地址
+	pwd: string > 5
+return :{
+	code:0, //(0, -1, 403),
+	msg:"" //(正确, 参数错误, 超出访问权限(已经绑定过了)),
+	result:null
+}
+````
 
+##修改房间信息，仅房间创建者可修改
+````javascript
+url: "/sys/update_room"
+method:post
+param:
+	name: string < 50
+	topic: string < 500,
+	des: string < 2000
+return:{
+	code:0, //(0, -1, 403),
+	msg:"", //(正确, 参数错误, 超出访问权限(没有权限修改)),
+	result:null
+}
+````
 
+####根据时间获取房间对话
+````javascript
+url: "/sys/getmore"
+method:get
+param:
+	roomid:"1361182575505" //房间id
+	/**
+		小于此时间错的最近 size 条信息
+		可以使用未来时间戳获取最新的10条
+	*/
+	time:"时间戳"/1000 
+	[size]:10 //默认10条
+return:{
+	code:0,
+	msg:"正确执行",
+	result:[Chat,Chat,Chat,.......]
+}
+````
 
+####获取我参与过的对话
+````javascript
+url: "/sys/ichats"
+method : get
+param:null
+return:{
+	code:0, //(0, -1),
+	msg:"正确"  //("正确"，"参数错误"),
+	result:{
+		into:[room, room, ....] //我参与过的对话倒序
+		create:[room, room, ....] //我创建的对话倒序
+	}
+}
+````
 
-
-
-
-
-
-
-
-		
-		
-		
-		
