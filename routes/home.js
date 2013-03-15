@@ -15,7 +15,7 @@ module.exports = {
 
 		if( user ){
 
-			LogModel.getLog( String(user._id), function( status  ){
+			LogModel.getLog( String(user._id), 100, function( status  ){
 
 				if(status.code == "0"){
 					var logs = status.result;

@@ -259,3 +259,28 @@ return:{
 }
 ````
 
+####检查用户名是否被注册
+````javascript
+url:"/sys/checkmail",
+method:get
+param:
+	mail: //一个正确的email
+return:{
+	code:"0" //0, -2
+	msg:"正确"//未注册，已经注册
+	result:null
+}
+
+####修改用户头像
+````javascript
+url: "/sys/set_avatar",
+method:post,
+param:
+	gravatarDefault : (mm", monsterid", "wavatar", "retro", "blank") // 必须是这其中之一
+return:{
+	code:0,(0, 403)
+	msg:"",
+	result:null
+}
+````
+
