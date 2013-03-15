@@ -76,7 +76,7 @@ module.exports = {
 
 							//console.log( status )
 							indexData.indexChats = status.result || [];
-							console.log("indexData.indexChats", status);
+							//console.log("indexData.indexChats", status);
 							res.render('chat', indexData);
 
 						});
