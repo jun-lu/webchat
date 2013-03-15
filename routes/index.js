@@ -94,5 +94,7 @@ module.exports = function ( app ) {
 	app.get('/sys/ichats', api.ichats);
 	//检查用户名是否注册
 	app.get('/sys/checkmail', api.checkMailIsReg);
+	//修改用户头像
+	app.post('/sys/set_avatar', api.setAvatar);
 };
 

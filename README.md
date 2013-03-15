@@ -271,3 +271,16 @@ return:{
 	result:null
 }
 
+####修改用户头像
+````javascript
+url: "/sys/set_avatar",
+method:post,
+param:
+	gravatarDefault : (mm", monsterid", "wavatar", "retro", "blank") // 必须是这其中之一
+return:{
+	code:0,(0, 403)
+	msg:"",
+	result:null
+}
+````
+
