@@ -6,8 +6,10 @@
 */
 
 var fs = require("fs");
+var tools = require("../../lib/tools");
 var User = require("../../lib/User");
 var WebStatus = require("../../lib/WebStatus");
+var LogModel = require("../../lib/LogModel");
 var ChatModel = require("../../lib/ChatModel");
 var UserModel = require("../../lib/UserModel");
 var RoomModel = require("../../lib/RoomModel");
@@ -146,6 +148,15 @@ module.exports = {
 		var mail = req.body.mail;
 		var pwd = req.body.pwd;
 
+		//登陆判断
+		if(!user){
+
+			status.setCode("-3");
+			res.write( status.toString() );
+			res.end();
+			return ;
+		}
+
 		if( !User.checkMail( mail ) ){
 
 			res.write( new WebStatus("-1").toString() );
@@ -188,14 +199,15 @@ module.exports = {
 
 				}else{
 					// email 已经被使用了。
-					res.write( new WebStatus("-2").toString() );
+					status.setCode("-2");
+					res.write( status.toString() );
 					res.end();
 				}
 
 			} );
 
 		}else{
-
+			//非匿名用户无法绑定
 			status.setCode("403");
 			res.write(status.toString());
 			res.end();
@@ -203,11 +215,74 @@ module.exports = {
 		}
 
 	},
+	/**
+		#获取我的活动记录
+		param:none
+		method:get
+		return:{
+			code:0,
+			msg:"",
+			result:{
+				intos:[],
+				creates[]
+			}
+		}
+	*/
+	//方法有潜在bug，只能分析最近的N条数据。并不一定能够正确而找到用户创建过的记录
+	ichats:function( req, res ){
 
-	//检查一个 email 是否被注册了
+		var user = req.session.user;
+
+		LogModel.getLog( user._id, 10000, function( status ){
+
+			if(status.code == "0"){
+
+				var logs = status.result;
+				//进入过
+				var intos = [];
+				//创建过
+				var creates = [];
+
+				for(var i=0; i< logs.length; i++){
+
+					if(logs[i].location == "into_room"){
+
+						intos.push( logs[i] );
+					}
+
+					if(logs[i].location == "create_room"){
+
+						creates.push( logs[i] );
+					}
+				}
+
+				status.setResult({
+					intos:tools.unique(intos, function(item){  return item.info.id; }),
+					creates:creates
+				});
+			}
+
+			res.write( status.toString() );
+			res.end();
+
+		});
+
+	},
+
+	/**
+		#检查一个email是否被注册
+
+		method:post,
+		return:{
+			code:"0" //0, -2
+			msg:"正确"//未注册，已经注册
+			result:null
+		}
+	
+	*/
 	checkMailIsReg:function(req, res){
 
-		var mail  = req.body.mail;
+		var mail  = req.query.mail;
 
 		if( !User.checkMail( mail ) ){
 

@@ -90,5 +90,9 @@ module.exports = function ( app ) {
 
 	//匿名用户绑定email  bindmail
 	app.post('/sys/bindmail', api.bindMail);
+	//获取我的活动记录
+	app.get('/sys/ichats', api.ichats);
+	//检查用户名是否注册
+	app.get('/sys/checkmail', api.checkMailIsReg);
 };
 

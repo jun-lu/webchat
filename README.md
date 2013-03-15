@@ -259,3 +259,15 @@ return:{
 }
 ````
 
+####检查用户名是否被注册
+````javascript
+url:"/sys/checkmail",
+method:get
+param:
+	mail: //一个正确的email
+return:{
+	code:"0" //0, -2
+	msg:"正确"//未注册，已经注册
+	result:null
+}
+
