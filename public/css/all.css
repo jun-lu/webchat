@@ -32,7 +32,7 @@ top:0;left:0;}
 .we-dialog{border-radius: 3px;background: white;
 		box-shadow: 0 4px 23px 5px rgba(0, 0, 0, 0.2), 0 2px 6px rgba(0,0,0,0.15);
 		color: #333;position: absolute;
-		z-index: 100;
+		z-index: 100;min-width:200px;min-height:60px;
 }
 
 .we-dialog-title{padding:14px 14px;}
