@@ -253,8 +253,8 @@ return:{
 	code:0, //(0, -1),
 	msg:"正确"  //("正确"，"参数错误"),
 	result:{
-		into:[room, room, ....] //我参与过的对话倒序
-		create:[room, room, ....] //我创建的对话倒序
+		intos:[room, room, ....] //我参与过的对话倒序
+		creates:[room, room, ....] //我创建的对话倒序
 	}
 }
 ````

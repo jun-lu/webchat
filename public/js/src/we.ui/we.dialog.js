@@ -98,8 +98,8 @@ WE.Dialog.prototype = {
 		var _this = this;
 		this.ui.context.html( html ).removeClass("we-loading");
 		setTimeout(function(){
-			_this.width = this.ui.dialog.width();
-			_this.height = this.ui.dialog.height();
+			_this.width = _this.ui.dialog.width();
+			_this.height = _this.ui.dialog.height();
 			_this.updatePosition();
 		}, 100)
 
