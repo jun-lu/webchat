@@ -24,8 +24,8 @@ WE.Dialog = function( options ){
 	}
 	this.title = options.title || "";
 	this.html = options.html;
-	this.width = options.width || 100;
-	this.height = options.height || 50;
+	this.width = options.width || 200;
+	this.height = options.height || 60;
 
 	this.wrap = $(WE.Dialog.html.replace("<%=title%>", this.title));
 
@@ -82,9 +82,6 @@ WE.Dialog.prototype = {
 		//this.ui.context.html( this.html.replace("<%=title>", (this.title || "")) );
 		document.body.appendChild( this.ui.wrap[0] );
 
-		//this.updatePosition();
-		//this.ui.context.width( this.width );
-		//this.ui.context.height( this.height );
 		this.updatePosition();
 		
 		this.ui.wrap.delegate('.out', 'click' , function(){
@@ -97,21 +94,19 @@ WE.Dialog.prototype = {
 
 		var _this = this;
 		this.ui.context.html( html ).removeClass("we-loading");
-		setTimeout(function(){
-			_this.width = _this.ui.dialog.width();
-			_this.height = _this.ui.dialog.height();
-			_this.updatePosition();
-		}, 100)
+		this.updatePosition();
 
 	},
 	updatePosition:function(){
-
+		
+		this.width = this.ui.dialog.width();
+		this.height = this.ui.dialog.height();
 		this.ui.dialog.css({
-			top:"30%",
-			left:"50%",
-			marginTop:-(this.height/2-10)+"px",
-			marginLeft:-(this.width/2)+"px"
-		});
+
+			top:(($(window).height() - this.height)/2*0.6)+"px",
+			left:($(window).width() - this.width)/2+"px"
+
+		})
 
 	},
 	show:function(){

@@ -107,6 +107,7 @@
 	"mail":"idche@qq.com",// 匿名用户的email为一串数字
 	"name":"lujun",
 	"hexMail":"", // 用户email md5值，也作为头像的网址使用
+	"gravatarDefualt":"monsterid",
 	"avatar":"http://www.gravatar.com/avatar/d437481aad048f1cb9ff68483c662bae.jpg?s=48&d=monsterid"
 }
 ````
@@ -270,13 +271,14 @@ return:{
 	msg:"正确"//未注册，已经注册
 	result:null
 }
+````
 
 ####修改用户头像
 ````javascript
 url: "/sys/set_avatar",
 method:post,
 param:
-	gravatarDefault : (mm", monsterid", "wavatar", "retro", "blank") // 必须是这其中之一
+	gravatarDefault : "(mm", "identicon", "monsterid", "wavatar", "retro", "blank") // 必须是这其中之一
 return:{
 	code:0,(0, 403)
 	msg:"",
