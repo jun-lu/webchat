@@ -83,8 +83,8 @@ WE.Dialog.prototype = {
 		document.body.appendChild( this.ui.wrap[0] );
 
 		//this.updatePosition();
-		this.ui.context.width( this.width );
-		this.ui.context.height( this.height );
+		//this.ui.context.width( this.width );
+		//this.ui.context.height( this.height );
 		this.updatePosition();
 		
 		this.ui.wrap.delegate('.out', 'click' , function(){
@@ -95,11 +95,13 @@ WE.Dialog.prototype = {
 
 	append:function( html ){
 
-		this.ui.context.css({width:"auto", height:"auto"}).removeClass("we-loading");
-		this.ui.context.html( html );
-		this.width = this.ui.dialog.width();
-		this.height = this.ui.dialog.height();
-		this.updatePosition();
+		var _this = this;
+		this.ui.context.html( html ).removeClass("we-loading");
+		setTimeout(function(){
+			_this.width = this.ui.dialog.width();
+			_this.height = this.ui.dialog.height();
+			_this.updatePosition();
+		}, 100)
 
 	},
 	updatePosition:function(){
@@ -115,7 +117,7 @@ WE.Dialog.prototype = {
 	show:function(){
 		this.ui.mask.animate({opacity:1}, 300);
 		this.ui.dialog.animate({marginTop:"+=10px", opacity:1}, 300);
-	}
+	},
 	/**
 		用户主动取消 type == 1
 	*/
