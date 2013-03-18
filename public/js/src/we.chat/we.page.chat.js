@@ -149,25 +149,31 @@ WE.pageChat = {
 			//检测key是否唯一
 			eleRoomName.blur(function(){
 
-				var key = $.trim( eleRoomName.val() );
+				var name = $.trim( eleRoomName.val() );
 
-				var model = new WE.api.ChatModel();
-				var ctrl = new WE.Controller();
-				ctrl.update = function(e){
-					var data = e.data;
-					eleRoomName.removeClass('error');
-					if( data.code == 0 ){
-						canForm = true;
-						eleFormRoom.find('.keyerror').hide();
+				if( name != ROOM.name ){
+					var model = new WE.api.ChatModel();
+					var ctrl = new WE.Controller();
+					ctrl.update = function(e){
+						var data = e.data;
 						eleRoomName.removeClass('error');
-					}else{
-						canForm = false;
-						eleFormRoom.find('.keyerror').text( data.msg ).show();
-						eleRoomName.addClass('error');
+						if( data.code == 0 ){
+							canForm = true;
+							eleFormRoom.find('.keyerror').hide();
+							eleRoomName.removeClass('error');
+						}else{
+							canForm = false;
+							eleFormRoom.find('.keyerror').text( data.msg ).show();
+							eleRoomName.addClass('error');
+						}
 					}
+					model.addObserver( ctrl );
+					model.uniqueKey( name );
+				}else{
+					eleFormRoom.find('.keyerror').hide();
+					eleRoomName.removeClass('error');
 				}
-				model.addObserver( ctrl );
-				model.uniqueKey( key );
+				
 			});
 
 			//表单提交
