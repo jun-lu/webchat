@@ -14,7 +14,6 @@ module.exports = {
 	// 实现 session
 	session:function(req, res, next){
 
-		//req.cookiesSelecter = null;
 		req.session = {};
 
 		if( req.cookies && req.cookies.sid ){

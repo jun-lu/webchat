@@ -17,6 +17,7 @@ background-image: url("../images/glyphicons-halflings.png");background-position:
 input[type="text"],textarea{border:1px solid #ccc;padding:.3em;}
 .reset{list-style:none;margin:0;padding:0;}
 .t-r{text-align: right;}
+.btn-loading{background: :url("../images/loading_m.gif") no-repeat center right;}
 .we-loading{background:url('../images/loading_m.gif') no-repeat center center;}
 input.error{border-color:#B94A48;-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
 -o-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);-moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075); }

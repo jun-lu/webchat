@@ -170,7 +170,7 @@
 
 #api 文档 仅ajax
 
-####发送一条信息
+####发送一条信息（1）
 ````javascript
 url: "/sys/post"
 method: post
@@ -184,7 +184,7 @@ return:{
 	result:Chat
 }
 ````
-####修改昵称
+####修改昵称（2）
 ````javascript
 url: "/sys/set_user_name"
 method: post
@@ -197,7 +197,7 @@ return :{
 }
 ````
 
-####匿名用户绑定email
+####匿名用户绑定email（3）
 ````javascript
 url: "/sys/bindmail"
 method: post
@@ -211,7 +211,7 @@ return :{
 }
 ````
 
-##修改房间信息，仅房间创建者可修改
+##修改房间信息，仅房间创建者可修改（4）
 ````javascript
 url: "/sys/update_room"
 method:post
@@ -226,7 +226,7 @@ return:{
 }
 ````
 
-####根据时间获取房间对话
+####根据时间获取房间对话（5）
 ````javascript
 url: "/sys/getmore"
 method:get
@@ -245,7 +245,7 @@ return:{
 }
 ````
 
-####获取我参与过的对话
+####获取我参与过的对话（6）
 ````javascript
 url: "/sys/ichats"
 method : get
@@ -260,7 +260,7 @@ return:{
 }
 ````
 
-####检查用户名是否被注册
+####检查用户名是否被注册（7）
 ````javascript
 url:"/sys/checkmail",
 method:get
@@ -273,16 +273,45 @@ return:{
 }
 ````
 
-####修改用户头像
+####修改用户头像（8）
 ````javascript
 url: "/sys/set_avatar",
 method:post,
 param:
-	gravatarDefault : "(mm", "identicon", "monsterid", "wavatar", "retro", "blank") // 必须是这其中之一
+	gravatarDefault : ("mm", "identicon", "monsterid", "wavatar", "retro", "blank") // 必须是这其中之一
 return:{
 	code:0,(0, 403)
 	msg:"",
 	result:null
+}
+````
+
+####检查房间快捷访问key是否被注册（9）
+````javascript
+url: "/sys/check_room_key",
+method:get,
+param:
+	key : string < 100 // 可以是任意字符
+return:{
+	code:0,//(0, -2)
+	msg:"",//(可用，已经被使用)
+	result:null
+}
+````
+
+####读取房间历史参与的人的列表（10）
+````javascript
+url: "/sys/history",
+method:get,
+param:
+	roomid:123456789 //正确的房间id
+	[size] :24, // number > 0  需求返回的数量
+return:{
+	code:0,//(0, -1)
+	msg:"",//(可用，参数错误)
+	result:[
+		user,user,....
+	]
 }
 ````
 
