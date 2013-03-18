@@ -12,6 +12,12 @@
 		.into{min-height:230px;}
 		
 	</style>
+
+	<script type="text/javascript">
+
+		var USER = <%- JSON.stringify(user)%> || {};
+		
+	</script>
 </head>
 <body>
 	<!-- top {user:{user}} -->
@@ -92,6 +98,8 @@
 
 	<script type="text/javascript" src="/js/jquery-1.6.3.min.js"></script>
 	<script type="text/javascript" src="/js/we.min.js"></script>
+
+	<script type="text/javascript" src="/js/we.top.min.js"></script>
 
 </body>
 </html>

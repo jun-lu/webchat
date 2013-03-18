@@ -19,6 +19,9 @@ WE.pageChat = {
 
 		// 回复的注册 :ck
 		WE.pageChat.reply.init();
+
+		// 初始化History用户列表
+		WE.pageChat.userlist.historyList(ROOM.id);
 	},
 
 	
@@ -81,6 +84,8 @@ WE.pageChat = {
 	 */
 	post:function(roomid, text, to){
 
+		$('#postTypeGroup button').attr('disabled','disabled').text('发送中...');
+
 		to = !to ? undefined : to;
 		var _this = this;
 		var model = new WE.api.ChatModel();//
@@ -93,6 +98,8 @@ WE.pageChat = {
 
 				//_this.timeLine.prepend( data.r );
 				$('#postText').val('').focus();
+				$('#postTypeGroup button').removeAttr('disabled').text('发送');
+
 				WE.pageChat.reply.delOrig();
 			}
 
@@ -109,6 +116,7 @@ WE.pageChat = {
 	setRoomInfo:function( room ){
 
 		var dialog = new WE.Dialog( {
+			title:"修改房间信息",
 			id:"setRoom",
 			width:500,
 			height:300
@@ -117,6 +125,7 @@ WE.pageChat = {
 
 		WE.kit.getTmpl("set_room.ejs", function( data ){
 
+			var canForm = true;
 			
 			var html = WE.kit.tmpl( data,room );
 			dialog.append( html );
@@ -137,6 +146,30 @@ WE.pageChat = {
 				eleRoomNameTip.text( host + strInput);
 			});
 
+			//检测key是否唯一
+			eleRoomName.blur(function(){
+
+				var key = $.trim( eleRoomName.val() );
+
+				var model = new WE.api.ChatModel();
+				var ctrl = new WE.Controller();
+				ctrl.update = function(e){
+					var data = e.data;
+					eleRoomName.removeClass('error');
+					if( data.code == 0 ){
+						canForm = true;
+						eleFormRoom.find('.keyerror').hide();
+						eleRoomName.removeClass('error');
+					}else{
+						canForm = false;
+						eleFormRoom.find('.keyerror').text( data.msg ).show();
+						eleRoomName.addClass('error');
+					}
+				}
+				model.addObserver( ctrl );
+				model.uniqueKey( key );
+			});
+
 			//表单提交
 			eleFormRoom.submit(function(){
 				var id = eleRoomid.val(),
@@ -146,7 +179,7 @@ WE.pageChat = {
 
 				//如果并没有设置新的访问地址
 				name = name == id ? "" : name;
-				if( topic && des ){
+				if( topic && des && canForm ){
 					var model = new WE.api.ChatModel();
 					var ctrl = new WE.Controller();
 					ctrl.update = function( e ){
@@ -165,7 +198,9 @@ WE.pageChat = {
 					model.updateRoom( id, name, topic, des );
 				}
 				return false;
-			})
+			});
+
+
 		
 		});
 	},
@@ -275,6 +310,7 @@ WE.pageChat.timeLine = {
 		<div class="info">\
 			<div class="head">\
 				<a href="#" class="name" data-uid="<%=uid%>" ><%=uname%></a>\
+				<span class="time"><%=WE.kit.format( new Date( time*1000 ),"MM-dd hh:mm:ss" )%></span>\
 			</div>\
 			<div class="context">\
 				<%if(obj.to){%>\
@@ -409,6 +445,34 @@ WE.pageChat.userlist = {
 			}
 
 		}	
+	},
+
+
+	/*
+	 * 房间历史访客
+	 * @param {ROOM.id} roomid : 房间id 
+	 */
+	historyList : function( roomid ){
+		var _this = this;
+
+		var model = new WE.api.ChatModel();
+		var ctrl = new WE.Controller();
+		ctrl.update = function( e ){
+			
+			var data = e.data,
+				html = "";
+			if( data.code == 0 ){
+
+				for(var i = 0; i<data.result.length; i++){
+					html += WE.kit.tmpl(_this.tmpl, data.result[i]);	
+				}
+				$('#history-list').append( html );
+			}
+			
+			//console.log('data:',data);
+		}
+		model.addObserver(ctrl);
+		model.historyList(roomid);
 	}
 
 };
@@ -437,6 +501,7 @@ WE.pageChat.reply = {
 			_this.ui.to.val( _this._id );
 			_this.setReply(origText,origUser);
 			$('body').animate({scrollTop:0},600);
+			_this.ui.inputText.focus();
 			
 		});
 		this.ui.delBtn.click( _this.delOrig );
@@ -454,7 +519,8 @@ WE.pageChat.reply = {
 			origUser : container.find('.quote-user'), //原文用户名
 			delBtn : container.find('.quote-del'), //删除按钮
 			replyBtnClass : '.chat-reply',//回复按钮的Class名称
-			to : $('#to') //input hidden to
+			to : $('#to'), //input hidden to
+			inputText : $('#postText')
 		}
 	},
 

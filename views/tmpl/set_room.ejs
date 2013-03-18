@@ -1,11 +1,14 @@
 <form action="/sys/update_room" method="post" id="updateRoomForm" >
 	<ul class="reset">
-		<li><h4>修改房间信息</h4>
+		<li>
 			<input type="hidden" value="<%=id%>" name="id"  id="roomid" >
 		</li>
 		<li>
 			<label>访问地址</label>
-			<input type="text" value="<%= name ? name : id %>" id="roomName" name="name" >
+			<div>
+				<input type="text" value="<%= name ? name : id %>" id="roomName" name="name" >
+				<span class="hidden keyerror error">该访问地址已存在,请修改</span>
+			</div>
 			<div class="fc_bb" id="roomName-tip"><%=document.location.host%>/<%= name ? name : id %></div>
 		</li>
 		<li>
