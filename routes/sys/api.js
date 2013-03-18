@@ -342,5 +342,97 @@ module.exports = {
 
 		});
 		
+	},
+	/**
+
+		url: "/sys/check_room_key",
+		method:get,
+		param:
+			key : string < 100 // 可以是任意字符
+		return:{
+			code:0,//(0, -2)
+			msg:"",//(可用，已经被使用)
+			result:null
+		}
+
+	*/
+	checkRoomKey:function(req, res){
+
+		var status = new WebStatus();
+		var key = req.query.key;
+		if(key.length >0 && key.length < 100){
+
+			RoomModel.nameFind( key, function( status ){
+
+				if(status.code == "404"){
+					status.setCode("0");
+				}else{
+					//如果查询到房间
+					status.setCode( status.code == "0" ? "-2" : status.code);
+				}
+
+				res.write( status.toString() );
+				res.end();				
+
+			});
+
+			return ;
+		}
+
+		status.setCode("-1");
+		res.write( status.toString() );
+		res.end();
+	},
+
+	/*
+		url: "/sys/history",
+		method:get,
+		param:
+			roomid:123456789 //正确的房间id
+			pageSize :24, // number > 0  需求返回的数量
+			pageNumber:1 // 请求页码
+		return:{
+			code:0,//(0, -1)
+			msg:"",//(可用，参数错误)
+			result:[
+				user,user,....
+			]
+		}		
+	
+	*/
+	getHistory:function(req, res){
+
+		var roomid = req.query.roomid;
+		var size = req.query.size || 20;
+		//var pageNumber = req.query.pageNumber || 1;
+
+		var status = new WebStatus();
+
+		if( roomid && size > 0 ){
+			
+			LogModel.getHistory( roomid, size, function( status ){
+
+				if(status.code == "0" && status.result.length){
+
+					UserModel.getMultiple( status.result, function( status ){
+
+						res.write( status.toString() );
+						res.end();
+
+					})		
+
+				}else{
+					res.write( status.toString() );
+					res.end();
+				}
+
+			});
+			return ;
+		}
+
+		status.setCode("-1");
+		res.write( status.toString() );
+		res.end();
+
 	}
 };

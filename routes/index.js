@@ -96,5 +96,9 @@ module.exports = function ( app ) {
 	app.get('/sys/checkmail', api.checkMailIsReg);
 	//修改用户头像
 	app.post('/sys/set_avatar', api.setAvatar);
+	//检查roomKey是否被注册
+	app.get('/sys/check_room_key', api.checkRoomKey);
+	//读取房间历史
+	app.get('/sys/history', api.getHistory);
 };
 
