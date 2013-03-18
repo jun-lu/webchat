@@ -74,7 +74,7 @@ module.exports = {
 
 				//验证成功进入第2步
 				if(room.masterId == user._id){
-					update();
+					step2();
 					return ;
 				}
 
@@ -88,10 +88,34 @@ module.exports = {
 
 		});
 
+		//验证 name 是否会重复
+		function step2(){
+
+			RoomModel.nameFind( name, function( status ){
+
+				console.log(" name ", status, id);
+				if(status.code == "404"){
+					//status.setCode("0");
+					step3();
+				}else{
+					var room = status.result;
+					if( room._id == id){
+						step3();	
+					}else{
+						status.setCode("-2");
+						status.setMsg("快捷访问地址 name 重复");
+						res.write( status.toString() );
+						res.end();
+					}
+				}				
+
+			});
+
+		}
 
 
 		//第2步修改信息
-		function update(){
+		function step3(){
 
 			
 			var status = new WebStatus();

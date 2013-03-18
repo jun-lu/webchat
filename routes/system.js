@@ -14,8 +14,6 @@ module.exports = {
 	// 实现 session
 	session:function(req, res, next){
 
-		//req.cookiesSelecter = null;
-        res.setHeader("Content-Type" ,"text/json; charset=utf-8");		
 		req.session = {};
 
 		if( req.cookies && req.cookies.sid ){
