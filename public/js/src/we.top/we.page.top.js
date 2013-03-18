@@ -28,6 +28,8 @@ WE.pageTop = {
 				var name = elenewUserName.val();
 				if( name ){
 
+					$('#setUserNameForm input[type=submit]').attr('disabled','disabled').val('提交中...');
+
 					var model = new WE.api.ChatModel();
 					var ctrl = new WE.Controller();
 					ctrl.update = function( e ){
@@ -36,6 +38,7 @@ WE.pageTop = {
 
 						if( data.code == 0 ){
 
+							$('#setUserNameForm input[type=submit]').removeAttr('disabled').val('提交');
 							dialog.close();
 							setTimeout(function(){
 								document.location.reload();
@@ -108,6 +111,8 @@ WE.pageTop = {
 
 		function update( mail, pwd ){
 
+			$('#bindMialForm input[type=submit]').attr('disabled','disabled').val('提交中...');
+
 			var model = new WE.api.ChatModel();
 			var ctrl = new WE.Controller();
 			ctrl.update = function( e ){
@@ -116,8 +121,12 @@ WE.pageTop = {
 
 				if( data.code == 0 ){
 
+					$('#bindMialForm input[type=submit]').removeAttr('disabled').val('提交');
 					dialog.close();
-					document.location.reload();
+					setTimeout(function(){	
+						document.location.reload();
+					},600);
+					
 				}
 
 			};

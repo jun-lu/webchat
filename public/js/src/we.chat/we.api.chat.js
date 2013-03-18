@@ -14,6 +14,8 @@ WE.api.ChatModel = function(){
 	this.setUserNameURL = "/sys/set_user_name";
 	this.updateRoomURL = "/sys/update_room";
 	this.updateAvatorURL = "/sys/set_avatar";
+	this.historyListURL = "/sys/history";
+	this.uniqueKeyURL = "/sys/check_room_key";
 };
 
 WE.api.ChatModel.prototype = WE.BaseModel.prototype;
@@ -46,5 +48,13 @@ WE.api.ChatModel.prototype.updateMailPwd = function(mail, pwd){
 
 WE.api.ChatModel.prototype.updateAvator = function(gravatarDefault){
 	this.post(this.updateAvatorURL,{gravatarDefault:gravatarDefault});
+}
+
+WE.api.ChatModel.prototype.historyList = function(roomid){
+	this.get(this.historyListURL,{roomid:roomid,size:24});
+}
+
+WE.api.ChatModel.prototype.uniqueKey = function(key){
+	this.get(this.uniqueKeyURL,{key:key});
 }
 
