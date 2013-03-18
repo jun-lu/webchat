@@ -197,8 +197,9 @@ WE.pageChat = {
 	/*
 	 * 修改头像
 	 */
-	selectAvatar:function( USER ){
+	selectAvatar:function( user ){
 
+		var hexMail = user.hexMail;
 		var dialog = new WE.Dialog({
 				title:"选择头像",
 				id:"selectAvatar"
@@ -209,11 +210,14 @@ WE.pageChat = {
 
 			dialog.append( data );
 
-			$( '#'+USER.gravatarDefault ).attr('checked','checked');
+			$( '#'+user.gravatarDefault ).attr('checked','checked');
 
 			$('#setAvator').submit(function(){
 				submitForm();
 				return false;
+			});
+			$('#setAvator li img').each(function(){
+				$(this).attr("src", WE.kit.getAvatar( hexMail, 48, $(this).data("avatar")));
 			});
 		});
 

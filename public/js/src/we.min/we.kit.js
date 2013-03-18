@@ -134,6 +134,12 @@ WE.extend(WE.kit, {
 			return WE.kit.format( time , "MM-dd hh:mm:ss");
 		}
 
-	})()
+	})(),
+	getAvatar:function(hex, size, d){
+		hex = hex || "00000000000000000000000000000000";
+		size = size || 48;
+		d = d || "mm";
+		return "http://www.gravatar.com/avatar/"+hex+"?s="+size+"&d="+d;
+	}
 });
 	

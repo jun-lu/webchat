@@ -1,7 +1,7 @@
 
 
 /** group  */
-
+.container{width:960px;}
 a{cursor: pointer;}
 a:link{color: #37a;text-decoration: none;}
 a:visited{color:#669;text-decoration: none;}
