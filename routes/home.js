@@ -31,7 +31,7 @@ module.exports = {
 			} );
 			return ;
 		}
-
+		//console.log("index user", user );
 		res.render('index', {user:user, log:log});
 
 	},

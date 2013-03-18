@@ -4,7 +4,7 @@
 	
 	登陆
 */
-
+var User = require("../../lib/User");
 var WebStatus = require("../../lib/WebStatus");
 var UserModel = require("../../lib/UserModel");
 
@@ -12,16 +12,16 @@ module.exports = {
 
 	
 		get:function( req, res ){
-			var user = req.session ? req.session.user : null;
+			var user = req.session.user || null;
 			var status = new WebStatus().toJSON();
-			status.user = user;
 
+			status.user = user;
 			res.render('sys/login', status );
 		},
 		// 登录
 		post:function(req, res ){
 
-			var user = req.session ? req.session.user : null;
+			var user = req.session.user || null;
 			var expEmail = /./;
 			var email = req.body.email;
 			var pwd = req.body.pwd;
@@ -29,7 +29,7 @@ module.exports = {
 			var status = new WebStatus();
 				status.user = user;
 
-			if( !expEmail.test( email ) ){
+			if( !User.checkMail( email ) ){
 
 				status.setCode( "-3" );
 				status.setMsg( "email 格式错误" );

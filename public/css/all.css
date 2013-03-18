@@ -17,6 +17,7 @@ background-image: url("../images/glyphicons-halflings.png");background-position:
 input[type="text"],textarea{border:1px solid #ccc;padding:.3em;}
 .reset{list-style:none;margin:0;padding:0;}
 .t-r{text-align: right;}
+.btn-loading{background: :url("../images/loading_m.gif") no-repeat center right;}
 .we-loading{background:url('../images/loading_m.gif') no-repeat center center;}
 
 /*预设*/

@@ -286,3 +286,31 @@ return:{
 }
 ````
 
+####检查房间快捷访问key是否被注册
+````javascript
+url: "/sys/check_room_key",
+method:post,
+param:
+	key : string < 100 // 可以是任意字符
+return:{
+	code:0,//(0, -2)
+	msg:"",//(可用，已经被使用)
+	result:null
+}
+````
+
+####读取房间历史参与的人的列表
+````javascript
+url: "/sys/history",
+method:post,
+param:
+	roomid:123456789 //正确的房间id
+	pageSize :24, // number > 0  需求返回的数量
+	pageNumber:1 // 请求页码
+return:{
+	code:0,//(0, -1)
+	msg:"",//(可用，参数错误)
+	result:null
+}
+````
+
