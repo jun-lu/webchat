@@ -45,7 +45,9 @@
 				<div class="user-list">
 					<div class="title">Online</div>
 					<div class="list">
-						<ul class="reset clear-fix" id="userlist"></ul>
+						<ul class="reset clear-fix" id="userlist">
+							<li><div class="we-loading" style="width:32px;height:32px;"></div></li>
+						</ul>
 					</div>
 				</div>
 				
@@ -53,7 +55,7 @@
 					<div class="title">History</div>
 					<div class="list">
 						<ul class="reset clear-fix history-list" id="history-list">
-							
+							<li><div class="we-loading" style="width:32px;height:32px;"></div></li>
 						</ul>
 					</div>
 				</div>
@@ -126,7 +128,7 @@
 		
 	</div>
 
-<script type="text/javascript" src="/js/Markdown.Converter.min.js"></script>
+
 
 <!--Chat Page-->
 <script type="text/javascript" src="/js/we.chat.min.js"></script>
@@ -139,9 +141,8 @@
 
 <script type="text/javascript">
 
-	var markdown = new Markdown.Converter();
 	$('#directions').html( function(){
-			return markdown.makeHtml( $(this).text() ) 
+		return $(this).text();
 	});
 	WE.pageChat.init();
 	//WE.pageChat.userlist.init(WE.pageChat.onlineUserList);

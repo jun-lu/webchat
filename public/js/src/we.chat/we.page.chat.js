@@ -151,7 +151,7 @@ WE.pageChat = {
 
 				var name = $.trim( eleRoomName.val() );
 
-				if( name != ROOM.name ){
+				if( name != ROOM.name && name != "" ){
 					var model = new WE.api.ChatModel();
 					var ctrl = new WE.Controller();
 					ctrl.update = function(e){
@@ -169,7 +169,12 @@ WE.pageChat = {
 					}
 					model.addObserver( ctrl );
 					model.uniqueKey( name );
+				}else if( name == "" ){
+					canForm = false;
+					eleFormRoom.find('.keyerror').text("访问地址不能为空").show();
+					eleRoomName.addClass('error');
 				}else{
+					canForm = true;
 					eleFormRoom.find('.keyerror').hide();
 					eleRoomName.removeClass('error');
 				}
@@ -320,7 +325,7 @@ WE.pageChat.timeLine = {
 			</div>\
 			<div class="context">\
 				<%if(obj.to){%>\
-				<div class="reply-quote"><%=to.text%><a href="#"> <%= to.uname%></a></div>\
+				<div class="reply-quote"><%=to.text%> <a href="#"><%= to.uname%></a></div>\
 				<%}%>\
 				<div><%=text %> <a data-mtx="<%=text%>" data-uid="<%=uname%>" data-mid="<%=_id%>" class="chat-reply" href="javascript:void(0);">回复</a></div>\
 			</div>\
@@ -407,7 +412,7 @@ WE.pageChat.userlist = {
 				html += WE.kit.tmpl(this.tmpl, data[i]);	
 			}
 
-			$('#userlist').html( html );
+			$('#userlist').empty().html( html );
 		}
 
 		//this.regEvent();
@@ -469,10 +474,12 @@ WE.pageChat.userlist = {
 				html = "";
 			if( data.code == 0 ){
 
+				
+
 				for(var i = 0; i<data.result.length; i++){
 					html += WE.kit.tmpl(_this.tmpl, data.result[i]);	
 				}
-				$('#history-list').append( html );
+				$('#history-list').empty().html( html );
 			}
 			
 			//console.log('data:',data);
