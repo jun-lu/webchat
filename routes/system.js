@@ -64,17 +64,21 @@ module.exports = {
 					if(status.code == "0"){
 						data.sessionUser = status.result.getInfo();
 					}
-
+					// accept the incoming connection
+					accept(null, true);
 				}); 
 
+	        }else{
+	        	// accept the incoming connection
+	        	accept(null, true);
 	        }
 	    } else {
 	       // if there isn't, turn down the connection with a message
 	       // and leave the function.
 	       return accept('No cookie transmitted.', false);
 	    }
-	    // accept the incoming connection
-	    accept(null, true);
+	    
+	    
 
 	},
 }
