@@ -80,6 +80,7 @@ width: 0;height: 0;font-size: 0;line-height: 0;}
 	.post-box .post-text:focus{outline:none;border:none;box-shadow:none;}
 	
 	
+	.time-tag{background:#a9b5d3;color:#fff;border-radius:3px;padding:.3em 2em;display: inline-block;}
 	.chat{position:relative;}
 		.photo{position:absolute;}
 		.photo img{width:48px;height:48px;}
