@@ -134,6 +134,7 @@ width: 0;height: 0;font-size: 0;line-height: 0;}
 		.quote{background: #e8eef2;}
 	
 	
+	.avatar{background:#f2fbf2;}
 	.chat{position:relative;}
 	.chat .photo{position:absolute;width:48px;}
 	.chat .photo img{width:48px;height:48px;}
@@ -150,6 +151,7 @@ width: 0;height: 0;font-size: 0;line-height: 0;}
 			.info .head .time{float: right;color: #999;font-size: 12px;}
 
 	/*历史用户*/
+	.history-list li{width:32px;height:32px;}
 	.history-list li a{display: block;}
 	.history-list li img{opacity: 0.4;moz-opacity:0.4;o-opacity:0.4;wekit-opacity:0.4;}
 
