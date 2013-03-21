@@ -15,3 +15,17 @@ debug.me
 产品经理.js
 
 settings.js
+
+.idea/*
+.idea/encodings.xml
+
+.idea/misc.xml
+
+.idea/scopes/scope_settings.xml
+
+.idea/vcs.xml
+
+.idea/modules.xml
+
+.idea/webchat.iml
+_.idea/*
