@@ -391,7 +391,6 @@ module.exports = {
 				if(status.code == "404"){
 					status.setCode("0");
 				}else{
-					//如果查询到房间
 					status.setCode( status.code == "0" ? "-2" : status.code);
 				}
 
@@ -413,8 +412,7 @@ module.exports = {
 		method:get,
 		param:
 			roomid:123456789 //正确的房间id
-			pageSize :24, // number > 0  需求返回的数量
-			pageNumber:1 // 请求页码
+			size :24, // number > 0  需求返回的数量
 		return:{
 			code:0,//(0, -1)
 			msg:"",//(可用，参数错误)

@@ -104,17 +104,9 @@
 					</div>
 					
 					<div class="chat-list">
-						<div class="time-search-box">
-							<div class="time-search">
-								<ul class="reset">
-									<li><a href="#" class="time-name on">Now</a></li>
-									<li><a href="#" class="time-name">10:00</a></li>
-									<li><a href="#" class="time-name">9:00</a></li>
-									<li><a href="#" class="time-name">更早</a></li>
-								</ul>
-							</div>
-						</div>
+						
 						<div id="timelineChats"></div>
+						<div class="we-loading timeline-loading hidden" id="timelineLoading" ></div>
 					</div>
 					
 				</div>
@@ -124,30 +116,17 @@
 		</div>
 	</div>
 	
-	<div class="footer">
-		
-	</div>
+<div class="footer"></div>
 
 
 
 <!--Chat Page-->
 <script type="text/javascript" src="/js/we.chat.min.js"></script>
-
-
 <!--Top Page-->
 <script type="text/javascript" src="/js/we.top.min.js"></script>
-
-
-
 <script type="text/javascript">
-
-	$('#directions').html( function(){
-		return $(this).text();
-	});
 	WE.pageChat.init();
-	//WE.pageChat.userlist.init(WE.pageChat.onlineUserList);
 	WE.pageChat.timeLine.init( <%- JSON.stringify( indexChats ) %> );
-	//
 	WE.pageChat.userlist.regEvent();
 </script>
 <script src="/js/socket.io.min.js"></script>
@@ -156,38 +135,36 @@
 
 	//WE.pageChat.setUserName( USER );
 
-	if(USER.name == ""){
-
+	if(USER.name == "anonymous" && /^\d+$/.test(USER.mail)){
 		WE.pageTop.setUserName( USER );
-
 		//匿名用户不连接 socket
-	}else{
-		
-		var socket = io.connect( document.location.host );
-		socket.emit("setting", {roomid:ROOM.id});
-
-		socket.on('userlist', function( data ){
-			//console.log( data );
-			WE.pageChat.userlist.init( data );
-		});
-
-		socket.on("online", function(data){
-
-			WE.pageChat.userlist.append( data );
-
-		});
-
-		socket.on("offline", function( data ){
-
-			WE.pageChat.userlist.remove( data );
-		});
-
-		socket.on('newChat', function(data) {
-			//console.log(data);
-			WE.pageChat.timeLine.prepend( data );
-		});
-		
 	}
+
+		
+	var socket = io.connect( document.location.host );
+	socket.emit("setting", {roomid:ROOM.id});
+
+	socket.on('userlist', function( data ){
+		//console.log( data );
+		WE.pageChat.userlist.init( data );
+	});
+
+	socket.on("online", function(data){
+
+		WE.pageChat.userlist.append( data );
+
+	});
+
+	socket.on("offline", function( data ){
+
+		WE.pageChat.userlist.remove( data );
+	});
+
+	socket.on('newChat', function(data) {
+		//console.log(data);
+		WE.pageChat.timeLine.prepend( data );
+	});
+		
 </script>
 </body>
 </html>

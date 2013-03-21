@@ -69,7 +69,7 @@ width: 0;height: 0;font-size: 0;line-height: 0;}
 	.timeline{width:4px;height:100%;background:#9fc9ea;position:absolute;left:40px;}
 	
 	.post-box-in{border:1px solid #c6c6c6;position:relative;margin-bottom:10px;background:#fff;}
-	.post-box{margin:5px 0 20px 0;}
+	.post-box{margin:5px 0 20px 0;}  
 		.post-box .btns{text-align:right;background:#f7f7f7;}
 			.btns .btn-group{text-align: right;}
 			.dropdown-menu .icon-ok{display:none}
@@ -80,6 +80,7 @@ width: 0;height: 0;font-size: 0;line-height: 0;}
 	.post-box .post-text:focus{outline:none;border:none;box-shadow:none;}
 	
 	
+	.time-tag{background:#a9b5d3;color:#fff;border-radius:3px;padding:.3em 2em;display: inline-block;}
 	.chat{position:relative;}
 		.photo{position:absolute;}
 		.photo img{width:48px;height:48px;}

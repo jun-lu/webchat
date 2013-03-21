@@ -221,11 +221,12 @@ WE.pageChat = {
 	 */
 	getMore:function(){
 
+		$('#timelineLoading').removeClass('hidden');
 		var _this = this;
 		var model = new WE.api.ChatModel();
 		var ctrl = new WE.Controller();
 		ctrl.update = function( e ){
-
+			$('#timelineLoading').addClass('hidden');
 			var data = e.data;
 			if(data.code == 0 && data.result.length){
 				_this.isLoading = 0;
@@ -234,6 +235,9 @@ WE.pageChat = {
 				_this.isLoading = 2;//没有数据了
 			}
 
+		};
+		ctrl.error = function(){
+			$('#timelineLoading').addClass('hidden');
 		};
 		model.addObserver( ctrl );
 		model.getMore( ROOM.id , this.lastTime );	
@@ -315,7 +319,7 @@ WE.pageChat.timeLine = {
 		<div class="dot"></div>\
 		<div class="photo">\
 			<a href="#" data-uid="<%=uid%>" >\
-				<img src="<%=uavatar%>" alt="<%=uname%>" />\
+				<img src="<%=uavatar%>" alt="<%=uname%>" class="avatar" />\
 			</a>\
 		</div>\
 		<div class="info">\
@@ -397,7 +401,7 @@ WE.pageChat.timeLine = {
 WE.pageChat.userlist = {
 
 	tmpl:'<li id="uid_<%=_id%>"><a href="#" title="<%=name%>">\
-	<img src="<%=avatar%>" width="32"/>\
+	<img src="<%=avatar%>" width="32" class="avatar" />\
 	</a></li>',
 	data:null,
 	init:function( data ){
