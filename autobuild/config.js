@@ -10,6 +10,6 @@ module.exports = {
         "/Users/jun/github/webchat/public/"
     ],
     viewPaths:[
-        "/Users/jun/github/webchat/view/"
+        "/Users/jun/github/webchat/views/"
     ]
 };
