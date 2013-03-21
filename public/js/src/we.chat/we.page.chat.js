@@ -46,6 +46,17 @@ WE.pageChat = {
 			return false;
 		});
 
+
+		/*可以通过ctrl+enter发送*/
+		$('#postText').keydown(function( e ){
+
+			if( e.ctrlKey && e.keyCode == 13 ){
+				$('#postForm').trigger('submit');
+				return false;
+			}
+
+		})
+
 	
 
 		$('#setting').click(function(){
