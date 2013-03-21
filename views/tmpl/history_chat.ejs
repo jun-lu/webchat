@@ -4,7 +4,7 @@
 		<% var lengCreate = Math.min(6, creates.length);
 		   for(var i = 0; i < lengCreate; i++ ){ %>
 		<li>
-			<a href="<%= document.location.host+'/'+ ( creates[i].name?creates[i].name:creates[i].id ) %>" title="<%= creates[i].topic %>"><%= creates[i].topic.length > 15 ? creates[i].topic.substr(0,15)+'..' : creates[i].topic %></a>
+			<a href="<%= '/'+ ( creates[i].name?creates[i].name:creates[i].id ) %>" title="<%= creates[i].topic %>"><%= creates[i].topic.length > 15 ? creates[i].topic.substr(0,15)+'..' : creates[i].topic %></a>
 			<span class="history-des"><%= creates[i].des.length > 15 ? creates[i].des.substr(0,15)+'..' : creates[i].des %></span>
 		</li>
 		<% }  %>
@@ -16,7 +16,7 @@
 		<% 	var lengChats = Math.min(6, intos.length);
 			for(var i = 0; i < lengChats;i++ ){ %>
 		<li>
-			<a href="<%= document.location.host+'/'+ ( intos[i].name?intos[i].name:intos[i].id ) %>" title="<%= intos[i].topic %>"><%= intos[i].topic.length > 15 ? intos[i].topic.substr(0,15)+'..' : intos[i].topic %></a>
+			<a href="<%= '/'+ ( intos[i].name?intos[i].name:intos[i].id ) %>" title="<%= intos[i].topic %>"><%= intos[i].topic.length > 15 ? intos[i].topic.substr(0,15)+'..' : intos[i].topic %></a>
 			<span class="history-des"><%= intos[i].des.length > 15 ? intos[i].des.substr(0,15)+'..' : intos[i].des %></span>
 		</li>
 		<% } %>
