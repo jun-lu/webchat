@@ -4,15 +4,12 @@
 
 module.exports = {
 
-    logsPath:"/Users/jun/github/autobuild/.build_log.js",
+    logsPath:"/Users/jun/github/webchat/.autobuildlog.json",
 	//资源目录可多个
 	resourcePaths:[
-        "/Users/jun/github/autobuild/testfiles/"
+        "/Users/jun/github/webchat/public/"
     ],
     viewPaths:[
-        "/Users/jun/github/autobuild/view/"
-    ],
-	//构建目录
-	buildPaths:[]
-
+        "/Users/jun/github/webchat/view/"
+    ]
 };
