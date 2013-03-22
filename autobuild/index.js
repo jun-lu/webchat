@@ -37,9 +37,6 @@ analysis.replaceResourcesPath( viewFiles, newVersionFiles );
 //创建副本
 analysis.createFiles( newVersionFiles );
 
-newVersionFiles = analysis.createNewVersionFile( updateFiles );
-
-
 //删除旧版本文件
 analysis.deleteVersionFile( updateFiles );
 
