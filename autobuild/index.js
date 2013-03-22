@@ -31,6 +31,8 @@ var newVersionFiles = analysis.createNewVersionFiles( updateFiles );
 //所有需要替换的文本文件
 var viewFiles = analysis.readViewFiles( viewPaths );
 //替换所有资源路径
+analysis.replaceResourcesPath( viewFiles, logs );
+//替换所有资源路径
 analysis.replaceResourcesPath( viewFiles, newVersionFiles );
 
 //创建副本
