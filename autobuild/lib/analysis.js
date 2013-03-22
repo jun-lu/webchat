@@ -121,7 +121,7 @@ module.exports = {
             fs.writeFileSync(viewFiles[i].getFilePath(), str);
 
             for(var k=0;k<list.length; k++){
-                list[k].setPrevTime( Date().now() );
+                list[k].setPrevTime( Date.now() );
             }
 
         }
