@@ -34,7 +34,7 @@ process.on('uncaughtException', function( err ){
 
 // app 配置
 app.configure(function(){
-  app.set('port', settings.serverPort);
+  app.set('port', settings.serverPort || 80);
   app.set('views', __dirname + '/views');
   app.set('view engine', 'ejs');
 
