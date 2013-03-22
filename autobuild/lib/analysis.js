@@ -90,14 +90,7 @@ module.exports = {
     },
     createFiles:function( fileRecordList ){
 
-        var newList = [];
-        for(var i=0; i<fileRecordList.length; i++){
-
-            newList.push( FileRecord.createFile( fileRecordList[i] ) );
-
-        }
-
-        return newList;
+        FileRecord.createFile( fileRecordList );
     },
 
     replaceResourcesPath:function( viewFiles, newVersionFiles){
