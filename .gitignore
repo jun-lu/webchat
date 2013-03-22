@@ -29,3 +29,4 @@ settings.js
 
 .idea/webchat.iml
 _.idea/*
+autobuild/.idea/*
