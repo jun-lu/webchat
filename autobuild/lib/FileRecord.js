@@ -37,7 +37,7 @@ FileRecord.copyNewVersionFile = function( fileRecord ){
     newfileRecord.setVersion( fileRecord.version + 1 );
     newfileRecord.setPrevTime( fileRecord.getCtime() );
 
-    fs.writeFileSync(newfileRecord.getVersionFilePath(), fs.readFileSync(newfileRecord.getFilePath(), ''));
+    //fs.writeFileSync(newfileRecord.getVersionFilePath(), fs.readFileSync(newfileRecord.getFilePath(), ''));
 
     return newfileRecord;
 }

@@ -106,6 +106,7 @@ module.exports = {
         var list = [];//
         for(var i=0; i<viewFiles.length; i++){
             var str = fs.readFileSync(viewFiles[i].getFilePath(), "utf-8");
+            var newStr = str;
             list.length = 0;
             for(var j=0; j<newVersionFiles.length; j++){
 
@@ -118,9 +119,12 @@ module.exports = {
                 }
             }
 
-            fs.writeFileSync(viewFiles[i].getFilePath(), str);
+            if(newStr != str){
+                fs.writeFileSync(viewFiles[i].getFilePath(), str);
+            }
 
             for(var k=0;k<list.length; k++){
+                console.log("prevTime", list[k].getFilePath() );
                 list[k].setPrevTime( Date.now() );
             }
 
@@ -152,7 +156,7 @@ module.exports = {
     //删除上一个版本的文件
     deleteVersionFile:function( updateFiles ){
         for(var i=0; i<updateFiles.length; i++){
-            if( updateFiles[i].version > 0 ){
+            if( updateFiles[i].version > 1 ){
                 fs.unlinkSync(updateFiles[i].getVersionFilePath());
             }
         }

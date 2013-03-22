@@ -22,6 +22,9 @@ console.log("files-------", files.length,  logs.length);
 //根据日志文件筛选出更新过的资源文件
 var updateFiles = analysis.fileRecordExtract(files, logs);
 
+for(var i=0; i<updateFiles.length; i++){
+    console.log("更新", updateFiles[i].getFilePath());
+}
 //创建新的文件版本
 var newVersionFiles = analysis.createNewVersionFiles( updateFiles );
 
