@@ -31,7 +31,7 @@ FileRecord.getVersionName = function( fileName, version ){
     return fileName.replace(/(\.\w+)$/, ".$$"+ version +"$1" );
 };
 
-FileRecord.createNewVersionFiles = function( fileRecord ){
+FileRecord.copyNewVersionFiles = function( fileRecord ){
 
     var newfileRecord = new FileRecord( fileRecord.path, fileRecord.fileName );
     newfileRecord.setVersion( fileRecord.version + 1 );

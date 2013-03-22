@@ -77,12 +77,23 @@ module.exports = {
 
 
     //创建新版本的文件
-    createNewVersionFile:function( fileRecordList ){
+    createNewVersionFiles:function( fileRecordList ){
 
         var newList = [];
         for(var i=0; i<fileRecordList.length; i++){
 
             newList.push( FileRecord.copyNewVersionFile( fileRecordList[i] ) );
+
+        }
+
+        return newList;
+    },
+    createFiles:function( fileRecordList ){
+
+        var newList = [];
+        for(var i=0; i<fileRecordList.length; i++){
+
+            newList.push( FileRecord.createFile( fileRecordList[i] ) );
 
         }
 
