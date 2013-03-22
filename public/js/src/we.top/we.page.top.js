@@ -15,7 +15,15 @@ WE.pageTop = {
 			width : 400,
 			height : 200
 		});
+
+		dialog.onclose = function(){
+			console.log('What');
+		}
+		
 		dialog.show();
+
+
+		
 
 		WE.kit.getTmpl("update_user_name.ejs", function( data ){
 
@@ -56,11 +64,11 @@ WE.pageTop = {
 				return false;
 			});
 
+
 			$('#anonymous').click(function(){
 
 				$('#newUserName').val("匿名");
 				$('#setUserNameForm').submit();
-
 			});
 		});
 	},

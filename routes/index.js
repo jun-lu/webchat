@@ -49,6 +49,12 @@ module.exports = function ( app ) {
 	
 	//注册
 	app.get('/sys/reg', sysReg.get);
+
+	//注册
+	app.get('/sys/ie', function(req, res){
+		res.render("ie.ejs");
+		res.end();
+	});
 	
 
 	/** 
