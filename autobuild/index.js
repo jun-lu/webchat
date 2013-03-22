@@ -18,6 +18,7 @@ var logs = analysis.readLogs( logFilePath );
 //所有资源文件
 var files = analysis.readdirFile( paths );
 
+console.log("files-------", files.length,  logs.length);
 //根据日志文件筛选出更新过的资源文件
 var updateFiles = analysis.fileRecordExtract(files, logs);
 
@@ -39,5 +40,8 @@ analysis.createFiles( newVersionFiles );
 
 //删除旧版本文件
 analysis.deleteVersionFile( updateFiles );
+
+//保存日志
+analysis.saveNewLogs(logFilePath, logs, newVersionFiles);
 
 console.log("-------------ok------------");
