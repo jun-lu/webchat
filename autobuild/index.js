@@ -4,6 +4,7 @@
 var config = require("./config");
 //  日志文件分析
 var analysis = require("./lib/analysis");
+var FileRecord = require("./lib/FileRecord");
 
 
 //需要分析的目录
@@ -31,6 +32,9 @@ var newVersionFiles = analysis.createNewVersionFiles( updateFiles );
 //所有需要替换的文本文件
 var viewFiles = analysis.readViewFiles( viewPaths );
 //替换所有资源路径
+for(var i=0;i<logs.length;i++){
+    logs[i] = FileRecord.factory( logs[i] );
+}
 analysis.replaceResourcesPath( viewFiles, logs );
 //替换所有资源路径
 analysis.replaceResourcesPath( viewFiles, newVersionFiles );

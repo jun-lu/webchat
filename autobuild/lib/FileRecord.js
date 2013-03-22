@@ -23,6 +23,13 @@ function FileRecord( path, fileName ){
 
 module.exports = FileRecord;
 
+FileRecord.factory = function( json ){
+    var f = new FileRecord(json.path, json.fileName);
+    f.setVersion( json.version );
+    f.setPrevTime( json.prevTime );
+    return f;
+};
+
 FileRecord.isResourceFile = function( fileName ){
     return !/\$\d+\./.test( fileName );
 };
