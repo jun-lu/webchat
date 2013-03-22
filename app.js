@@ -3,6 +3,7 @@
  * Module dependencies.
  开发原则  先实现功能，允许不合理的编码，效率低下的实现。
 */
+var settings = require("settings");
 var util = require("util");
 var fs = require("fs");
 var express = require('express');
@@ -33,7 +34,7 @@ process.on('uncaughtException', function( err ){
 
 // app 配置
 app.configure(function(){
-  app.set('port', process.env.PORT || 3000);
+  app.set('port', settings.serverPort);
   app.set('views', __dirname + '/views');
   app.set('view engine', 'ejs');
 
