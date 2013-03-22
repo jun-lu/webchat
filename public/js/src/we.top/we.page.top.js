@@ -60,7 +60,6 @@ WE.pageTop = {
 
 				$('#newUserName').val("匿名");
 				$('#setUserNameForm').submit();
-
 			});
 		});
 	},
