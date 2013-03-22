@@ -31,7 +31,7 @@ FileRecord.getVersionName = function( fileName, version ){
     return fileName.replace(/(\.\w+)$/, ".$$"+ version +"$1" );
 };
 
-FileRecord.copyNewVersionFile = function( fileRecord ){
+FileRecord.copyNewVersionFiles = function( fileRecord ){
 
     var newfileRecord = new FileRecord( fileRecord.path, fileRecord.fileName );
     newfileRecord.setVersion( fileRecord.version + 1 );
@@ -40,6 +40,15 @@ FileRecord.copyNewVersionFile = function( fileRecord ){
     fs.writeFileSync(newfileRecord.getVersionFilePath(), fs.readFileSync(newfileRecord.getFilePath(), ''));
 
     return newfileRecord;
+}
+
+
+FileRecord.createFiles = function( fileRecords ){
+
+    for(var i=0; i<fileRecords.length; i++){
+        fs.writeFileSync(fileRecords[i].getVersionFilePath(), fs.readFileSync(fileRecords[i].getFilePath(), ''));
+    }
+
 }
 
 FileRecord.prototype = {
