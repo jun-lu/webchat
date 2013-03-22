@@ -3,7 +3,7 @@
  * Module dependencies.
  开发原则  先实现功能，允许不合理的编码，效率低下的实现。
 */
-var settings = require("settings");
+var settings = require("./settings");
 var util = require("util");
 var fs = require("fs");
 var express = require('express');
