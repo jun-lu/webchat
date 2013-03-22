@@ -103,20 +103,26 @@ module.exports = {
     replaceResourcesPath:function( viewFiles, newVersionFiles){
         //var viewFiles = viewFiles;
         var item = null;
-
+        var list = [];//
         for(var i=0; i<viewFiles.length; i++){
             var str = fs.readFileSync(viewFiles[i].getFilePath(), "utf-8");
-            //console.log( str );
+            list.length = 0;
             for(var j=0; j<newVersionFiles.length; j++){
 
                 item = newVersionFiles[j];
-
                 str = str.replace( new RegExp(item.fileName, "gm"), item.getVersionFileName());
-                //console.log(new RegExp(log["prevName"], "gm"), log["currentName"]);
                 str = str.replace( new RegExp(item.getPrevVersionFileName().replace("$","\\$"), "gm"), item.getVersionFileName());
+                if( viewFiles[i].fileName == newVersionFiles[j].fileName ){
+                    //newVersionFiles.setPrevTime( Date().now() );
+                    list.push( newVersionFiles[j] );
+                }
             }
 
             fs.writeFileSync(viewFiles[i].getFilePath(), str);
+
+            for(var k=0;k<list.length; k++){
+                list[k].setPrevTime( Date().now() );
+            }
 
         }
     },
