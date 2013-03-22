@@ -139,7 +139,7 @@
 
 	//WE.pageChat.setUserName( USER );
 
-	if(USER.name == "anonymous" && /^\d+$/.test(USER.mail)){
+	if(USER.name == "" && /^\d+$/.test(USER.mail)){
 		WE.pageTop.setUserName( USER );
 		//匿名用户不连接 socket
 	}

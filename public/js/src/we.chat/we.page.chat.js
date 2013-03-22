@@ -326,7 +326,7 @@ WE.pageChat.timeLine = {
 			}
 		}
 	*/
-	tmpl:'<div class="chat">\
+	tmpl:'<div class="chat <% if(uid == USER._id){ %> my <%}%>">\
 		<div class="dot"></div>\
 		<div class="photo">\
 			<a href="#" data-uid="<%=uid%>" >\
