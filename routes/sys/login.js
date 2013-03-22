@@ -29,6 +29,7 @@ module.exports = {
 			var status = new WebStatus();
 				status.user = user;
 
+            //console.log("start", status );
 			if( !User.checkMail( email ) ){
 
 				status.setCode( "-3" );
@@ -42,9 +43,10 @@ module.exports = {
 			UserModel.emailPwdFind( email, pwd, function( status ){
 
 				status.user = user;
+                //console.log( status );
 				if( status.code == "0" ){
-					var user = status.result;	
-					res.setHeader("Set-Cookie", ["sid="+user.toCookie()+";path=/;expires="+new Date("2030") ]);
+					var newUser = status.result;
+					res.setHeader("Set-Cookie", ["sid="+newUser.toCookie()+";path=/;expires="+new Date("2030") ]);
 					res.redirect("/");
 
 				}else{
