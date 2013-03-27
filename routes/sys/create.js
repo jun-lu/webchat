@@ -8,6 +8,7 @@ var WebStatus = require("../../lib/WebStatus");
 var LogModel = require("../../lib/LogModel");
 var RoomModel = require("../../lib/RoomModel");
 var UserModel = require("../../lib/UserModel");
+var ChatModel = require("../../lib/ChatModel");
 
 
 
@@ -61,6 +62,7 @@ module.exports = {
 					if( status.code == "0" ){
 
 						var room = status.result;
+						ChatModel.create( room.id, "The very first message!", user, null);
 						res.redirect('/'+room.id);
 						//记录用户日志
 						LogModel.create( masterid, "create_room", room.getInfo() );
