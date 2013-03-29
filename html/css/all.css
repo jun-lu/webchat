@@ -98,3 +98,15 @@ width: 0;height: 0;font-size: 0;line-height: 0;}
 .time-search li{text-align:left;margin:1px 0;}
 .time-name{display:inline-block;border-left:5px solid #c7c7c7;padding:2px 5px;color:#ccc;}
 .time-name:hover,.time-name.on{border-color:#3988d0;color:#5ca8c8;}
+
+
+
+
+
+/** personal page */
+.personal .info{position: relative;overflow:hidden;border-bottom:#bdeae5 solid 1px;}
+	.personal .info img{float:left;}
+	.personal .info h2,.info .email,.info .website{display: inline-block;position:absolute;left:77px;display: inline-block;position:absolute;}
+	.personal .info h2{font-size:13px;font-weight: bold;line-height:16px;top: 0px;}
+	.personal .info p{color:#686868;}
+	.personal .info .email{bottom:0px;}
