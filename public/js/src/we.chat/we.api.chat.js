@@ -12,7 +12,7 @@ WE.api.ChatModel = function(){
 
 	this.postUrl = "?1";//直接提交到当前路径
 	this.setUserNameURL = "/sys/set_user_name";
-	this.updateRoomURL = "/sys/update_room";
+	this.updateRoomURL = "/sys/room_update";
 	this.updateAvatorURL = "/sys/set_avatar";
 	this.historyListURL = "/sys/history";
 	this.uniqueKeyURL = "/sys/check_room_key";
@@ -31,10 +31,10 @@ WE.api.ChatModel.prototype.updateUserName = function( name ){
 
 };
 
-WE.api.ChatModel.prototype.updateRoom = function( id, name, topic, des ){
+WE.api.ChatModel.prototype.updateRoom = function( id, name, topic, des,password ){
 
 	//需求创建验证， 容易收到恶意攻击
-	this.post(this.updateRoomURL, {id:id, name:name, topic:topic, des:des});
+	this.post(this.updateRoomURL, {id:id, name:name, topic:topic, des:des,password:password});
 
 };
 WE.api.ChatModel.prototype.getMore = function(roomid, time){
