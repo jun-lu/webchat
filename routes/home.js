@@ -13,6 +13,8 @@ module.exports = {
 		var user = req.session.user || null;
 		var log = {};
 
+        user = user ? user.getInfo() : user;
+
 		if( user ){
 
 			LogModel.getLog( String(user._id), 100, function( status  ){

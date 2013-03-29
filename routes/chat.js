@@ -9,6 +9,7 @@ var UserModel = require("../lib/UserModel");
 var RoomModel = require('../lib/RoomModel');
 var ChatModel = require('../lib/ChatModel');
 var LogModel = require('../lib/LogModel');
+var WebStatus = require('../lib/WebStatus');
 
 var socketServer = require('../lib/socketServer');
 
@@ -103,6 +104,18 @@ module.exports = {
 			var text = req.body.text;
 			var roomid = req.body.roomid;
 			var to = req.body.to || null;//针对某条信息的回复 源信息id
+			var status = new WebStatus();
+			
+			if( text.length == 0  || text.length > 5000 ){
+
+				status.setCode("-1");
+				status.addMsg("内容范围应该在0-5000之间");
+				res.write( status.toString() );
+				res.end();
+				return ;
+
+			};
+
 
 			if(text && roomid){
 
@@ -128,7 +141,7 @@ module.exports = {
 				});
 
 			}else{
-				res.end("{code:-1}", 'utf-8')
+				res.end("{code:-1}", 'utf-8');
 			}
 
 		}

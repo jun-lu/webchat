@@ -93,13 +93,11 @@ module.exports = {
 
 			RoomModel.nameFind( name, function( status ){
 
-				console.log(" name ", status, id);
 				if(status.code == "404"){
-					//status.setCode("0");
 					step3();
 				}else{
 					var room = status.result;
-					if( room._id == id){
+					if( room.id == id){
 						step3();	
 					}else{
 						status.setCode("-2");

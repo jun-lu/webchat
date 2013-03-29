@@ -15,7 +15,7 @@ module.exports = {
 
 		var user = req.session ? req.session.user : null;
 		var status = new WebStatus().toJSON();
-		status.user = user;
+		status.user = user ? user.getInfo() : user;
 
 		res.render('sys/reg',  status );
 

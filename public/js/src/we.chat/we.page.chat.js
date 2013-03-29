@@ -31,15 +31,12 @@ WE.pageChat = {
 
 		$('#postForm').submit(function(){
 
-			var text = $.trim($('#postText').val()).replace(/[\n\r]+$/g,"");
+			var text = $.trim($('#postTextArea').val());
 			var roomid = $('#roomid').val();
 			//console.log( text, roomid );	
 			if(text && roomid){
-
-				
 				_this.post( roomid, text, WE.pageChat.reply._id); // null
 				
-
 			}else{
 				$('#postText').val('').focus();
 			}
@@ -55,7 +52,12 @@ WE.pageChat = {
 				return false;
 			}
 
-		})
+		});
+
+		$('#postText').keyup(function(){
+			var text = $(this).html().replace(/<\/div>/g,"").replace(/<div>/g,"\n").replace(/<br>/g, "\n");
+			$('#postTextArea').val( text );
+		});
 
 	
 
@@ -108,7 +110,7 @@ WE.pageChat = {
 			if( data.code == 0 ){//post提交成功
 
 				//_this.timeLine.prepend( data.r );
-				$('#postText').val('').focus();
+				$('#postText').html('').focus();
 				$('#postTypeGroup button').removeAttr('disabled').text('发送');
 
 				WE.pageChat.reply.delOrig();

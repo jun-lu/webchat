@@ -86,7 +86,8 @@
 									<input type="hidden" name="roomid" id="roomid" value="<%=room.id%>" >
 								<div class="post-box-in" id="postboxIn">
 									<div class="post-text-box">
-										<textarea class="post-text" id="postText" maxlength="2000" name="text"></textarea>
+										<div class="post-text" z-index="0" id="postText" maxlength="5000" contenteditable="true" ></div>
+										<textarea  class="post-text hidden" id="postTextArea" maxlength="2000" name="text"></textarea>
 									</div>
 									<div class="btns">
 
