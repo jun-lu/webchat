@@ -26,9 +26,9 @@ module.exports = {
 		get:function(req, res){
 
 			var i = 0;
-			var user = req.session.user ? req.session.user.getInfo() : null;
+			var user = req.session.user ? req.session.user : null;
 			var indexData = {
-				user:user
+				user:user ? user.getInfo() : user
 			};
 
 			if( user == null ){
