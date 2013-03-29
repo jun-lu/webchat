@@ -75,7 +75,11 @@ module.exports = {
 
 				//验证成功进入第2步
 				if(room.masterId == user._id){
-					step2();
+					if(name){
+						step2()
+					}else{
+						step3();
+					};
 					return ;
 				}
 

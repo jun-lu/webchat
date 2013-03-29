@@ -10,11 +10,8 @@ var RoomModel = require('../lib/RoomModel');
 var ChatModel = require('../lib/ChatModel');
 var LogModel = require('../lib/LogModel');
 var WebStatus = require('../lib/WebStatus');
-
 var socketServer = require('../lib/socketServer');
-
 var maxIndex = {};
-
 var roomLimit = require("./sys/room_limit");
 
 
@@ -29,9 +26,9 @@ module.exports = {
 		get:function(req, res){
 
 			var i = 0;
-			var user = req.session.user ? req.session.user.getInfo() : null;
+			var user = req.session.user ? req.session.user : null;
 			var indexData = {
-				user:user
+				user:user ? user.getInfo() : user
 			};
 
 			if( user == null ){
