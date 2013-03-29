@@ -13,10 +13,8 @@ module.exports = {
 	
 		get:function( req, res ){
 			var user = req.session.user || null;
-			var status = new WebStatus().toJSON();
-
-			status.user = user;
-			res.render('sys/login', status );
+			//status.user = user ? user.getInfo(): user;
+			res.render('sys/login', new WebStatus().toJSON( {user:user?user.getInfo():user} ) );
 		},
 		// 登录
 		post:function(req, res ){
@@ -27,7 +25,7 @@ module.exports = {
 			var pwd = req.body.pwd;
 
 			var status = new WebStatus();
-				status.user = user;
+				status.user = user ? user.getInfo() : user;
 
             //console.log("start", status );
 			if( !User.checkMail( email ) ){
@@ -43,7 +41,7 @@ module.exports = {
 			UserModel.emailPwdFind( email, pwd, function( status ){
 
 				status.user = user;
-                console.log( status );
+               // console.log( status );
 				if( status.code == "0" ){
 					var newUser = status.result;
 					res.setHeader("Set-Cookie", ["sid="+newUser.toCookie()+";path=/;expires="+new Date("2030") ]);
