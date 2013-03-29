@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title>注册 - Vchat</title>
+	<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="/css/all.css" />
+	<link rel="stylesheet" href="/css/Stip.css" />
+	<script type="text/javascript" src="/js/jquery-1.6.js"></script>
+	<script type="text/javascript" src="/js/we.min.js"></script>
+	<script type="text/javascript">
+		var USER = <%- JSON.stringify(user)%>;
+	</script>
+</head>
+<body>
+	<!-- top {user:{user}} -->
+	<% include ../common/top.ejs %>
+
+	<div class="container">
+		<h1><%=room.topic%></h1>
+		<form>
+			<input type="hidden" value="" name="roomid" value="<%=room.id%>" >
+			<p>输入密码：	<input type="text">	</p>
+			<p> <input type="submit" value="提交" class="btn" > </p>	
+		</form>
+
+	</div>
+	<div class="footer">
+		<div class="container">
+		<p><a href="/about">about</a></p>	
+		</div>
+	</div>
+<script type="text/javascript" src="/js/we.top.min.js"></script>
+</body>
+</html>

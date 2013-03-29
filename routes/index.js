@@ -17,6 +17,8 @@ var sysReg = require("./sys/register");
 var sysCreate = require("./sys/create");
 //into
 var sysInto = require("./sys/into")
+//into
+var roomLimit = require("./sys/room_limit")
 
 // 提供给前台的ajax api 
 var api = require("./sys/api");
@@ -77,6 +79,8 @@ module.exports = function ( app ) {
 	//进入一个房间
 	app.post('/sys/into', sysInto.post);
 
+	//输入房间密码
+	app.get('/sys/room_limit', roomLimit.get);
 
 
 	/**
@@ -91,8 +95,10 @@ module.exports = function ( app ) {
 	//修改用户信息
 	app.post('/sys/set_user_name', api.setUserName);
 
+	
+
 	//修改对话房间信息
-	app.post('/sys/update_room', api.updateRoom);
+	app.post('/sys/room_update', api.updateRoom);
 
 	//匿名用户绑定email  bindmail
 	app.post('/sys/bindmail', api.bindMail);
@@ -106,5 +112,6 @@ module.exports = function ( app ) {
 	app.get('/sys/check_room_key', api.checkRoomKey);
 	//读取房间历史
 	app.get('/sys/history', api.getHistory);
+	
 };
 

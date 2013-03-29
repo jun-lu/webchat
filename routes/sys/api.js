@@ -64,6 +64,7 @@ module.exports = {
 		var topic = req.body.topic;
 		var des = req.body.des;
 		var id = req.body.id;
+		var password = req.body.password || null;
 
 
 		//验证当前用户是否有修改权限
@@ -121,7 +122,7 @@ module.exports = {
 			//请把验证写得更详细，比如限制最长字符长度与最短字符长度
 			if(topic && des){
 
-				RoomModel.update(id, name, topic, des, function( status ){
+				RoomModel.update(id, name, topic, des, password, function( status ){
 
 					//通知其他用户房间信息被修改
 					res.write( status.toString(), "utf-8" );
