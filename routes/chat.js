@@ -15,6 +15,7 @@ var socketServer = require('../lib/socketServer');
 
 var maxIndex = {};
 
+var roomLimit = require("./sys/room_limit");
 
 
 module.exports = {
@@ -69,15 +70,21 @@ module.exports = {
 
 						var room = status.result;
 						var roomid = room.id;
-						indexData.room = room.getInfo();
 
+						//房间设置了密码，用户没有权限访问
+						if( room.password  && !user.isRoomPasswrod(room.id, room.password) ){
+							req.query.roomid = room.id;	
+							roomLimit.get(req, res);
+							return ;
+								
+						}
+
+						indexData.room = room.getInfo();
 
 						//查找首页数据 
 						ChatModel.findChats( roomid , 10, function( status ){
 
-							//console.log( status )
 							indexData.indexChats = status.result || [];
-							//console.log("indexData.indexChats", status);
 							res.render('chat', indexData);
 
 						});

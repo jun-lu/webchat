@@ -219,7 +219,7 @@ param:
 	name: string < 50
 	topic: string < 500,
 	des: string < 2000,
-	password: string < 30
+	[password]: string < 30
 return:{
 	code:0, //(0, -1, 403),
 	msg:"", //(正确, 参数错误, 超出访问权限(没有权限修改)),
