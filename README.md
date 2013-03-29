@@ -213,12 +213,13 @@ return :{
 
 ##修改房间信息，仅房间创建者可修改（4）
 ````javascript
-url: "/sys/update_room"
+url: "/sys/room_update"
 method:post
 param:
 	name: string < 50
 	topic: string < 500,
-	des: string < 2000
+	des: string < 2000,
+	password: string < 30
 return:{
 	code:0, //(0, -1, 403),
 	msg:"", //(正确, 参数错误, 超出访问权限(没有权限修改)),
