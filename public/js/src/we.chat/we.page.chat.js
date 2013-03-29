@@ -148,7 +148,20 @@ WE.pageChat = {
 				eleRoomTopic = $('#roomTopic'),
 				eleRoomDes = $('#roomDes'),
 				eleRoomid = $('#roomid'),
+				eleRoomPwd = $('#roomPwd'),
+				eleRoomIsSetLimit = $('#isSetLimit'),
 				eleFormRoom = $('#updateRoomForm');
+
+			//设置房间权限的显示
+			eleRoomIsSetLimit.change(function(){
+				var status = $("input[type='checkbox']").is(':checked');
+				if( !status ){
+					eleRoomPwd.val('');
+					eleRoomPwd.hide();
+				}else{
+					eleRoomPwd.show();
+				}
+			});
 
 			//修改访问地址
 			eleRoomName.keyup(function(){
@@ -190,8 +203,7 @@ WE.pageChat = {
 					canForm = true;
 					eleFormRoom.find('.keyerror').hide();
 					eleRoomName.removeClass('error');
-				}
-				
+				}			
 			});
 
 			//表单提交
@@ -199,7 +211,8 @@ WE.pageChat = {
 				var id = eleRoomid.val(),
 					name = eleRoomName.val(),
 					topic = eleRoomTopic.val(),
-					des = eleRoomDes.val();
+					des = eleRoomDes.val(),
+					password = eleRoomPwd.val();
 
 				//如果并没有设置新的访问地址
 				name = name == id ? "" : name;
@@ -219,7 +232,7 @@ WE.pageChat = {
 						}
 					}
 					model.addObserver( ctrl );
-					model.updateRoom( id, name, topic, des );
+					model.updateRoom( id, name, topic, des,password );
 				}
 				return false;
 			});

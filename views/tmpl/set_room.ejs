@@ -20,6 +20,10 @@
 			<textarea style="width:400px;" id="roomDes" name="des"><%=des%></textarea>
 		</li>
 		<li>
+			<label class="checkbox"><input type="checkbox" id="isSetLimit" <%if(password != ""){%> checked <%}%>>访问权限</label>
+			<input <%if(password == ""){%> style="display:none;" <%}%> type="text" id="roomPwd" placeholder="设置邀请码" name="password" value="<%=password%>"/>
+		</li>
+		<li>
 			<input type="submit" value="提交" class="btn"> <a href="javascript:;" class="out" >取消</a> 
 		</li>
 	</ul>
