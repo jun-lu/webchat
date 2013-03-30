@@ -21,7 +21,7 @@
 		</li>
 		<li>
 			<label class="checkbox"><input type="checkbox" id="isSetLimit" <%if(password != null){%> checked <%}%>>访问权限</label>
-			<input <%if(password == ""){%> style="display:none;" <%}%> type="text" id="roomPwd" placeholder="设置邀请码" name="password" value="<%=password%>"/>
+			<input <%if(password == null){%> style="display:none;" <%}%> type="text" id="roomPwd" placeholder="设置邀请码" name="password" maxlength="30" value="<%=password%>"/>
 		</li>
 		<li>
 			<input type="submit" value="提交" class="btn"> <a href="javascript:;" class="out" >取消</a> 

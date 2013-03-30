@@ -50,7 +50,7 @@ width: 0;height: 0;font-size: 0;line-height: 0;}
 
 /** chat page */
 
-.container{}
+.container{width:960px;}
 .bd{width:960px;margin:20px auto;position:relative;}
 
 .side{position:absolute;width:300px;left:0;}
@@ -102,7 +102,30 @@ width: 0;height: 0;font-size: 0;line-height: 0;}
 
 
 
-
 /** personal page */
-.personal_page h1{border-bottom:#b1bac6 solid 1px;font-weight:bold;}
-	
+
+	.personal-page h1{border-bottom:#8b9ab0 dotted 1px;font-size:14px;font-weight:bold;color:#48515d}
+	.personal-page h1 button{float:right;margin-top:5px;}
+	.personal-page h1 button i{margin-top:1px;}
+	.personal-page .content{overflow:hidden;}
+	.personal-page .content .top-bar{overflow:hidden;border-bottom:#ccc dotted 1px;padding-bottom:15px;position:relative;}
+	.personal-page .info-box .u-detail{margin-top:10px;}
+		.personal-page .photo-box{padding:1px;border:#ddd solid 1px;overflow: hidden;zoom:1;display:block;background:#fff;}
+		.personal-page .info-box .photo-box,.personal-page .info-box .u-detail{float:left;}
+		.personal-page .info-box .u-detail h2,.personal-page .info-box .u-detail p{display:inline-block;}
+		.personal-page .info-box .u-detail h2{font-size:200%;}
+		.personal-page .info-box .u-detail p{float:left;margin-top: 4px;color:#666;}
+		.u-detail .icon-edit{margin:2px 0px 0px 5px;display:none;cursor:pointer;}
+		.u-detail:hover .icon-edit{display:inline-block;}
+		
+		.personal-page .main-bar{padding-top:20px;}
+		.personal-page .main-bar .build,.personal-page .main-bar .join{margin-top:20px;}
+			.personal-page .main-bar h3{font-size:14px;color:#409d96;line-height:20px;}
+			.personal-page .main-bar h3 span.uname{font-weight:normal;}
+			.personal-page .main-bar a{color:#8a8a8a;}
+			.personal-page .main-bar a:hover{color:#fff;padding:1px 8px;}
+			.personal-page .main-bar ul{margin-top: 6px;}
+			.personal-page .main-bar ul li{margin-top:5px;border-bottom:#eee dotted 1px;}
+			.personal-page .main-bar ul li span{float:right;color:#8a8a8a;font-size:12px;}
+
+
