@@ -11,7 +11,7 @@ var ChatModel = require('../lib/ChatModel');
 var LogModel = require('../lib/LogModel');
 var WebStatus = require('../lib/WebStatus');
 var socketServer = require('../lib/socketServer');
-var maxIndex = {};
+//var maxIndex = {};
 var roomLimit = require("./sys/room_limit");
 
 
@@ -70,8 +70,8 @@ module.exports = {
 
 						//房间设置了密码，用户没有权限访问
 						if( room.password  && !user.isRoomPasswrod(room.id, room.password) ){
-							req.query.roomid = room.id;	
-							roomLimit.get(req, res);
+						//if( true ){
+							res.redirect("/sys/room_limit?roomid="+room.id);
 							return ;
 								
 						}

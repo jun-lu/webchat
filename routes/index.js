@@ -94,6 +94,8 @@ module.exports = function ( app ) {
 
 	//修改用户信息
 	app.post('/sys/set_user_name', api.setUserName);
+	//输入房间密码
+	app.post('/sys/room_limit', roomLimit.post);
 
 	
 
