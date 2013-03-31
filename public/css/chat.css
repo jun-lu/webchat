@@ -51,7 +51,7 @@
 			.info .head{background:#f2fbf2;padding:1px 5px;margin:0;height:20px;}
 			.info .head a{font-size:12px;}
 			.info .context{margin-top:10px;line-height:1.62em;word-break: break-word;}
-			.info .reply-quote{border-left:1px solid #000;padding-left:10px;margin:1em 0;color:#a5a5a5;}
+			.info .reply-quote{border-left:1px solid #666;padding-left:10px;margin:1em 0;color:#a5a5a5;}
 			.info .head .time{float: right;color: #999;font-size: 12px;}
 		.my .head{background: #e6f8f8;}
 
