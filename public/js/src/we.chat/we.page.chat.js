@@ -342,7 +342,11 @@ WE.pageChat.timeLine = {
 		}
 	*/
 	tmpl:'<div class="chat <% if(uid == USER._id){ %> my <%}%>">\
-		<div class="dot"></div>\
+		<input name="uid" type="hidden" value="<%=uid%>"/>\
+		<input name="txt" type="hidden" value="<%=text%>"/>\
+		<input name="uname" type="hidden" value="<%=uname%>"/>\
+		<input name="mid" type="hidden" value="<%=_id%>"/>\
+		<div title="查看其全部对话" class="dot"></div>\
 		<div class="photo">\
 			<a href="#" data-uid="<%=uid%>" >\
 				<img src="<%=uavatar%>" alt="<%=uname%>" class="avatar" />\
@@ -350,14 +354,14 @@ WE.pageChat.timeLine = {
 		</div>\
 		<div class="info">\
 			<div class="head">\
-				<a href="#" class="name" data-uid="<%=uid%>" ><%=uname%></a>\
+				<a href="#" class="name"><%=uname%></a>\
 				<span class="time"><%=WE.kit.format( new Date( time*1000 ),"MM-dd hh:mm:ss" )%></span>\
 			</div>\
 			<div class="context">\
 				<%if(obj.to){%>\
 				<div class="reply-quote"><%=to.text%> <a href="#"><%= to.uname%></a></div>\
 				<%}%>\
-				<div><%=text %> <a data-mtx="<%=text%>" data-uid="<%=uname%>" data-mid="<%=_id%>" class="chat-reply" href="javascript:void(0);">回复</a></div>\
+				<div><%=text %> <a class="chat-reply" href="javascript:void(0);">回复</a></div>\
 			</div>\
 		</div>\
 	</div>',
@@ -538,9 +542,10 @@ WE.pageChat.reply = {
 		this.ui.listCon.delegate( _this.ui.replyBtnClass,'click',function( e ){
 			_this.ui.origCon.show();
 			var $this = $(e.target),
-				origText = $this.attr('data-mtx'),
-				origUser = $this.attr('data-uid');
-			_this._id = $this.attr('data-mid');
+				$chat = $(this).closest('.chat'),
+				origText = $chat.find('input[name="txt"]').val(),
+				origUser = $chat.find('input[name="uname"]').val();
+			_this._id = $chat.find('input[name="mid"]').val();
 			_this.ui.to.val( _this._id );
 			_this.setReply(origText,origUser);
 			$('body').animate({scrollTop:0},600);

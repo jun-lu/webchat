@@ -16,6 +16,7 @@
 .main{margin-left:300px;position:relative;}
 	.chat-list{}
 	.chats{padding-left:30px;margin-left:30px;}
+	.chats .dot{width:10px;height:10px;background:#7caed5}
 	.timeline{width:4px;height:100%;background:#9fc9ea;position:absolute;left:40px;}
 	
 	.post-box-in{border:1px solid #c6c6c6;position:relative;margin-bottom:10px;background:#fff;}
@@ -35,7 +36,7 @@
 		.photo{position:absolute;}
 		.photo img{width:48px;height:48px;}
 		.info{min-height:48px;margin-left:58px;margin-bottom:20px;}
-			.dot{background:#9fc9ea;width:8px;height:8px;border-radius:10px;border:5px solid #fff;left:-27px;top:8px;position:absolute;}
+			.dot{background:#9fc9ea;width:8px;height:8px;border-radius:10px;border:5px solid #fff;left:-27px;top:8px;position:absolute;cursor:pointer;}
 			.my{background:#2380ca;border-color:#fff;}
 			.head{background:#f2fbf2;padding:3px 5px;}
 			.head a{font-size:14px;font-weight:700;}
