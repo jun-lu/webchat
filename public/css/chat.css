@@ -16,10 +16,14 @@
 .main{margin-left:300px;position:relative;}
 	.chat-list{}
 	.chats{padding-left:30px;margin-left:30px;}
-	.timeline{width:4px;height:100%;background:#9fc9ea;position:absolute;left:40px;}
+	.chats .dot:hover{width:10px;height:10px;background:#224968;-webkit-transform:scale(1.2);-moz-transform: scale(1.2);-o-transform: scale(1.2);}
+
+	.chats .timeline{width:4px;height:100%;background:#9fc9ea;position:absolute;left:40px;}
+
+	.chats .dot:hover body .timeline{opacity:0.4;}
 	
 	.post-box-in{border:1px solid #c6c6c6;position:relative;margin-bottom:10px;background:#fff;}
-	.post-box{margin:5px 0 20px 0;}  
+	.post-box{margin:5px 0 0px 0;}  
 		.post-box .btns{text-align:right;background:#f7f7f7;}
 			.btns .btn-group{text-align: right;}
 			.dropdown-menu .icon-ok{display:none}
@@ -28,20 +32,35 @@
 	.post-box .post-text-box{margin:3px 5px;}
 	.post-box .post-text{border:none;width:100%;max-width:100%;min-height:50px;padding:0;margin:0;outline:none;border:none;box-shadow:none;-webkit-box-shadow:none;-moz-box-shadow:none;}
 	.post-box .post-text:focus{outline:none;border:none;box-shadow:none;}
-	
-	
-	.time-tag{background:#a9b5d3;color:#fff;border-radius:3px;padding:.3em 2em;display: inline-block;}
-	.chat{position:relative;}
-		.photo{position:absolute;}
-		.photo img{width:48px;height:48px;}
-		.info{min-height:48px;margin-left:58px;margin-bottom:20px;}
-			.dot{background:#9fc9ea;width:8px;height:8px;border-radius:10px;border:5px solid #fff;left:-27px;top:8px;position:absolute;}
-			.my{background:#2380ca;border-color:#fff;}
-			.head{background:#f2fbf2;padding:3px 5px;}
-			.head a{font-size:14px;font-weight:700;}
-			.context{margin-top:10px;line-height:1.62em;}
-			.reply-quote{border-left:1px solid #000;padding-left:10px;margin:1em 0;color:#a5a5a5;}
+	form.post-form{margin: 0px;}
+		.quote{background: #e8eef2;}
 
+
+	.avatar{background:#f2fbf2;}
+	.chat{position:relative;}
+	.chat .photo{position:absolute;width:48px;}
+	.chat .photo img{width:48px;height:48px;}
+	.chat .info{min-height:48px;margin-left:58px;margin-bottom:28px;}
+	.chat .dot{background:#9fc9ea;width:8px;height:8px;border-radius:10px;border:5px solid #fff;left:-27px;top:8px;position:absolute;cursor:pointer;}
+	.chat .chat-reply{font-size:12px;visibility: hidden;}
+	.chat:hover .chat-reply{visibility: visible;}
+
+
+
+			.info .my{}
+			.info .head{background:#f2fbf2;padding:1px 5px;margin:0;height:20px;}
+			.info .head a{font-size:12px;}
+			.info .context{margin-top:10px;line-height:1.62em;word-break: break-word;}
+			.info .reply-quote{border-left:1px solid #000;padding-left:10px;margin:1em 0;color:#a5a5a5;}
+			.info .head .time{float: right;color: #999;font-size: 12px;}
+		.my .head{background: #e6f8f8;}
+
+	/*历史用户*/
+	.history-list li{width:32px;height:32px;}
+	.history-list li a{display: block;}
+	.history-list li img{opacity: 0.4;moz-opacity:0.4;o-opacity:0.4;wekit-opacity:0.4;}
+
+.timeline-loading{height:30px;background-color:#e7ebf2; }
 .time-search-box{position:absolute;right:-20px;}
 .time-search{position:fixed;}
 .time-search ul{list-style:none;}
