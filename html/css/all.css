@@ -48,84 +48,8 @@ width: 0;height: 0;font-size: 0;line-height: 0;}
 			.drop-down-items li a{display:block;color:#3d3d3d;white-space:nowrap;}
 			.drop-down-items li a:hover{display:block;color:#3d3d3d;background:#f6f6f6;}
 
-/** chat page */
-
-.container{width:960px;}
-.bd{width:960px;margin:20px auto;position:relative;}
-
-.side{position:absolute;width:300px;left:0;}
-	.room{margin-bottom:20px;}
-	.room .topic{font-size:25px;font-weight:700;margin-bottom:10px;}
-		  .topic .icon-edit{vertical-align: middle;cursor:pointer;display:none;}
-		  .room:hover .icon-edit{display:inline-block;}
-	.room .des{color:#666666;}
-	
-	.user-list{clear:both;padding-top:20px;}
-	.user-list .title{font-size:14px;font-weight:700;}
-	.user-list .list li{float:left;margin:1px;}
-.main{margin-left:300px;position:relative;}
-	.chat-list{}
-	.chats{padding-left:30px;margin-left:30px;}
-	.timeline{width:4px;height:100%;background:#9fc9ea;position:absolute;left:40px;}
-	
-	.post-box-in{border:1px solid #c6c6c6;position:relative;margin-bottom:10px;background:#fff;}
-	.post-box{margin:5px 0 20px 0;}  
-		.post-box .btns{text-align:right;background:#f7f7f7;}
-			.btns .btn-group{text-align: right;}
-			.dropdown-menu .icon-ok{display:none}
-			.on .icon-ok{display:inline-block;}
-		.post-box-in{margin:0;}
-	.post-box .post-text-box{margin:3px 5px;}
-	.post-box .post-text{border:none;width:100%;max-width:100%;min-height:50px;padding:0;margin:0;outline:none;border:none;box-shadow:none;-webkit-box-shadow:none;-moz-box-shadow:none;}
-	.post-box .post-text:focus{outline:none;border:none;box-shadow:none;}
-	
-	
-	.time-tag{background:#a9b5d3;color:#fff;border-radius:3px;padding:.3em 2em;display: inline-block;}
-	.chat{position:relative;}
-		.photo{position:absolute;}
-		.photo img{width:48px;height:48px;}
-		.info{min-height:48px;margin-left:58px;margin-bottom:20px;}
-			.dot{background:#9fc9ea;width:8px;height:8px;border-radius:10px;border:5px solid #fff;left:-27px;top:8px;position:absolute;}
-			.my{background:#2380ca;border-color:#fff;}
-			.head{background:#f2fbf2;padding:3px 5px;}
-			.head a{font-size:14px;font-weight:700;}
-			.context{margin-top:10px;line-height:1.62em;}
-			.reply-quote{border-left:1px solid #000;padding-left:10px;margin:1em 0;color:#a5a5a5;}
-
-.time-search-box{position:absolute;right:-20px;}
-.time-search{position:fixed;}
-.time-search ul{list-style:none;}
-.time-search li{text-align:left;margin:1px 0;}
-.time-name{display:inline-block;border-left:5px solid #c7c7c7;padding:2px 5px;color:#ccc;}
-.time-name:hover,.time-name.on{border-color:#3988d0;color:#5ca8c8;}
 
 
 
-
-/** personal page */
-
-	.personal-page h1{border-bottom:#8b9ab0 dotted 1px;font-size:14px;font-weight:bold;color:#48515d}
-	.personal-page h1 button{float:right;margin-top:5px;}
-	.personal-page h1 button i{margin-top:1px;}
-	.personal-page .content{overflow:hidden;}
-	.personal-page .content .top-bar{overflow:hidden;border-bottom:#ccc dotted 1px;padding-bottom:15px;position:relative;}
-	.personal-page .info-box .u-detail{margin-top:10px;}
-		.personal-page .photo-box{padding:1px;border:#ddd solid 1px;overflow: hidden;zoom:1;display:block;background:#fff;}
-		.personal-page .info-box .photo-box,.personal-page .info-box .u-detail{float:left;}
-		.personal-page .info-box .u-detail h2,.personal-page .info-box .u-detail p{display:inline-block;}
-		.personal-page .info-box .u-detail h2{font-size:200%;}
-		.personal-page .info-box .u-detail p{float:left;margin-top: 4px;color:#666;}
-		.u-detail .icon-edit{margin:2px 0px 0px 5px;display:none;cursor:pointer;}
-		.u-detail:hover .icon-edit{display:inline-block;}
-		
-		.personal-page .main-bar{padding-top:20px;}
-		.personal-page .main-bar .build,.personal-page .main-bar .join{margin-top:20px;}
-			.personal-page .main-bar h3{font-size:14px;color:#409d96;line-height:20px;}
-			.personal-page .main-bar h3 span.uname{font-weight:normal;}
-			.personal-page .main-bar a{color:#8a8a8a;}
-			.personal-page .main-bar a:hover{color:#fff;padding:1px 8px;}
-			.personal-page .main-bar ul{margin-top: 6px;}
-			.personal-page .main-bar ul li{margin-top:5px;border-bottom:#eee dotted 1px;}
-			.personal-page .main-bar ul li span{float:right;color:#8a8a8a;font-size:12px;}
 
 
