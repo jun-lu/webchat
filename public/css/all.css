@@ -1,3 +1,6 @@
+/*reset*/
+body{font-size:13px;}
+
 /** group  */
 .container{width:960px;}
 .bd{width:960px;margin:20px auto;position:relative;}
