@@ -3,11 +3,8 @@
 
 /** personal page */
 
-	.personal-page h1{border-bottom:#8b9ab0 dotted 1px;font-size:14px;font-weight:bold;color:#48515d}
-	.personal-page h1 button{float:right;margin-top:5px;}
-	.personal-page h1 button i{margin-top:1px;}
 	.personal-page .content{overflow:hidden;}
-	.personal-page .content .top-bar{overflow:hidden;border-bottom:#ccc dotted 1px;padding-bottom:15px;position:relative;}
+
 	.personal-page .info-box .u-detail{margin-top:10px;}
 		.personal-page .photo-box{padding:1px;border:#ddd solid 1px;overflow: hidden;zoom:1;display:block;background:#fff;}
 		.personal-page .info-box .photo-box,.personal-page .info-box .u-detail{float:left;}
