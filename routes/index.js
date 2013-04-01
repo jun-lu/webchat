@@ -101,8 +101,6 @@ module.exports = function ( app ) {
 	//输入房间密码
 	app.post('/sys/room_limit', roomLimit.post);
 
-	
-
 	//修改对话房间信息
 	app.post('/sys/room_update', api.updateRoom);
 
