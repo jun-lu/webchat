@@ -66,7 +66,7 @@ module.exports = {
 
 							res.render("user/personal", status.toJSON({
 								user:user ? user.getInfo() : user,
-								accessUser:accessUser.getPublicInfo(),
+								accessUser:accessUser.getPublicInfo( 180 ),
 								creates:creates,
 								intos:tools.unique(intos, function(item){  return item.id; }),
 								tool:tools

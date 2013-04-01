@@ -6,7 +6,8 @@
 	<link rel="stylesheet" type="text/css" href="/css/all.css">
 
 	<style type="text/css">
-		.parsonal h1{font-size:20px;}
+		.parsonal h1{font-size:25px;}
+		.parsonal .des{color:#666;}
 		.room-group{margin-bottom:50px;}
 		.room-group h2{font-weight:400;color:#072;font-size:16px;margin:0;padding:0;font-weight: 200;}
 		.room-group .des{color:#d2d2d2;}
@@ -35,13 +36,11 @@
 					<div class="span3">
 
 						<div class="parsonal">
-							<div style="width:190px;">
-							<span class="thumbnail">
-		                  		<img src="<%= accessUser.avatar%>" alt="<%=accessUser.name%>" title="<%=accessUser.name%>" width="180" height="180" class="avatar" >
-		                	</span>	
-		                	</div>
-							<h1 classt="t-c"><%= accessUser.name%></h1>
-							<p>hello world <small>	<a href="#">(修改)</a></small></p>
+							
+		                  		<img src="<%= accessUser.avatar%>" alt="<%=accessUser.name%>" title="<%=accessUser.name%>" width="170" height="170" class="avatar" >
+		                	
+							<h1><%= accessUser.name%></h1>
+							<p class="des" >hello world <small>	<a href="#">(修改)</a></small></p>
 			            </div>	
 
 					</div>
@@ -56,11 +55,11 @@
 
 								%>
 								<li> 
-									<a href="/<%=item.name ? item.name : item.id %>">
-										<%=item.topic%>
+									<a href="/<%=item.name ? item.name : item.id %>" title="<%=item.topic%>" >
+										<%= tool.cutOff(item.topic, 19)%>
 									</a>
 									<small>
-										<span class="des">-<%=item.des.slice(0, 40)%></span>
+										<span class="des">-<%= tool.cutOff(item.des, 40)%></span>
 									</small>
 									<small>
 									<span class="pull-right muted" data-time="<%=item.time%>" >
@@ -82,11 +81,11 @@
 										item = intos[i];
 								%>
 								<li> 
-									<a href="/<%=item.name ? item.name : item.id %>">
-										<%=item.topic%>
+									<a href="/<%=item.name ? item.name : item.id %>" title="<%=item.topic%>" >
+										<%= tool.cutOff(item.topic, 19)%>
 									</a>
 									<small>
-										<span class="des">-<%=item.des.slice(0, 40)%></span>
+										<span class="des">-<%= tool.cutOff(item.des, 40)%></span>
 									</small>
 									<small>
 									<span class="pull-right muted" data-time="<%=item.time%>" >
