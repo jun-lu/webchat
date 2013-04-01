@@ -27,13 +27,23 @@ module.exports = {
 		res.setHeader("Content-Type" ,"application/json; charset=utf-8");
 
 		if( name ){
+
+			//如果用户原来的昵称是空（刚进入的匿名用户）
+			//把头像修改成默认的小怪兽，以区别为写名字的用户
+			if( !user.name ){
+				UserModel.updateGravatarDefault( user._id, "monsterid", function(){});
+			}
 			
 			UserModel.updateName( user._id, name, function( status ){
 
 				// 通知其他用户某用户名字修改
+				
+
 				res.write( status.toString() , "utf-8");
 				res.end();
+				
 			});
+
 
 		}else{
 
