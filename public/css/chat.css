@@ -1,8 +1,4 @@
 /** chat page */
-
-.container{width:960px;}
-.bd{width:960px;margin:20px auto;position:relative;}
-
 .side{position:absolute;width:300px;left:0;}
 	.room{margin-bottom:20px;}
 	.room .topic{font-size:25px;font-weight:700;margin-bottom:10px;}

@@ -44,13 +44,16 @@ WE.pageTop = {
 
 						var data = e.data;
 
+						$('#setUserNameForm input[type=submit]').removeAttr('disabled').val('提交');
 						if( data.code == 0 ){
 
-							$('#setUserNameForm input[type=submit]').removeAttr('disabled').val('提交');
 							dialog.close();
 							setTimeout(function(){
 								document.location.reload();
 							}, 500)
+						}else{
+
+							alert(data.msg);
 						}
 
 					};
@@ -127,14 +130,17 @@ WE.pageTop = {
 
 				var data = e.data;
 
+				$('#bindMialForm input[type=submit]').removeAttr('disabled').val('提交');
 				if( data.code == 0 ){
 
-					$('#bindMialForm input[type=submit]').removeAttr('disabled').val('提交');
 					dialog.close();
 					setTimeout(function(){	
 						document.location.reload();
 					},600);
 					
+				}else{
+
+					alert(data.msg);
 				}
 
 			};

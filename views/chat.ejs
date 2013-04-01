@@ -39,9 +39,9 @@
 				
 				<div class="">
 					<ul>
-						<li>创建者：<a href="#" data-masterid="<%=room.masterId%>"><%=room.masterName%></a></li>
+						<li>创建者：<a href="/user/<%=room.masterId%>" data-masterid="<%=room.masterId%>"><%=room.masterName%></a></li>
 						<li>地址：
-							<a href="#">http://vchat.co/<%=room.name ? room.name : room.id%></a>
+							<a href="http://vchat.co/<%=room.name ? room.name : room.id%>">http://vchat.co/<%=room.name ? room.name : room.id%></a>
 						</li>
 					</ul>
 				</div>
@@ -88,7 +88,7 @@
 								<div class="post-box-in" id="postboxIn">
 									<div class="post-text-box">
 										<div class="post-text" z-index="0" id="postText" maxlength="5000" contenteditable="true" ></div>
-										<textarea  class="post-text hidden" id="postTextArea" maxlength="2000" name="text"></textarea>
+										<textarea  class="post-text hidden" id="postTextArea" maxlength="5000" name="text"></textarea>
 									</div>
 									<div class="btns">
 

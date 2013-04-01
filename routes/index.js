@@ -16,9 +16,11 @@ var sysReg = require("./sys/register");
 //create
 var sysCreate = require("./sys/create");
 //into
-var sysInto = require("./sys/into")
+var sysInto = require("./sys/into");
 //into
-var roomLimit = require("./sys/room_limit")
+var roomLimit = require("./sys/room_limit");
+
+var personal = require("./user/personal");
 
 // 提供给前台的ajax api 
 var api = require("./sys/api");
@@ -82,6 +84,8 @@ module.exports = function ( app ) {
 	//输入房间密码
 	app.get('/sys/room_limit', roomLimit.get);
 
+	app.get('/user/:key', personal.get);
+
 
 	/**
 		ajax api 
@@ -94,8 +98,8 @@ module.exports = function ( app ) {
 
 	//修改用户信息
 	app.post('/sys/set_user_name', api.setUserName);
-
-	
+	//输入房间密码
+	app.post('/sys/room_limit', roomLimit.post);
 
 	//修改对话房间信息
 	app.post('/sys/room_update', api.updateRoom);

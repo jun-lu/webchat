@@ -140,6 +140,13 @@ WE.extend(WE.kit, {
 		size = size || 48;
 		d = d || "mm";
 		return "http://www.gravatar.com/avatar/"+hex+"?s="+size+"&d="+d;
+	},
+	chatFormate:function( text ){
+
+		return text.replace(/\n/gi, "<br/>").replace(/http:\/\/[\w\.]+/gi, function( a ){
+			return '<a href="'+a+'" target="_blank">'+a+'</a>'
+		})
+
 	}
 });
 	

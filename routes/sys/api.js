@@ -64,14 +64,15 @@ module.exports = {
 		var topic = req.body.topic;
 		var des = req.body.des;
 		var id = req.body.id;
-		var password = req.body.password || null;
+		var password = tools.trim(req.body.password) || null;
+		var room = null;
 
 
 		//验证当前用户是否有修改权限
 		RoomModel.idFind( id , function( status ){
 
 			if(status.code == 0){
-				var room = status.result;
+				room = status.result;
 
 				//验证成功进入第2步
 				if(room.masterId == user._id){
@@ -124,15 +125,27 @@ module.exports = {
 			var status = new WebStatus();
 
 			//请把验证写得更详细，比如限制最长字符长度与最短字符长度
-			if(topic && des){
+			if(topic.length && des){
 
 				RoomModel.update(id, name, topic, des, password, function( status ){
 
-					//通知其他用户房间信息被修改
-					res.write( status.toString(), "utf-8" );
-					res.end();
+					if(password != null){
+						UserModel.addRoomPassword(user._id, room.id, password, function( status ){
 
-					socketServer.roomUpdate( status.result );
+							//通知其他用户房间信息被修改
+							res.write( status.toString(), "utf-8" );
+							res.end();
+
+						})
+					}else{
+
+						//通知其他用户房间信息被修改
+						res.write( status.toString(), "utf-8" );
+						res.end();
+					}	
+					
+
+					//socketServer.roomUpdate( status.result );
 
 
 				})
@@ -259,7 +272,7 @@ module.exports = {
 	ichats:function( req, res ){
 
 		var user = req.session.user;
-
+		
 		LogModel.getLog( user._id, 10000, function( status ){
 
 			if(status.code == "0"){
