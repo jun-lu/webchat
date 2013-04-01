@@ -1,0 +1,119 @@
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html;charset=utf-8">
+	<title><%=accessUser.name%> - Vchat</title>
+	<link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap.min.css" />
+	<link rel="stylesheet" type="text/css" href="/css/all.css">
+
+	<style type="text/css">
+		.parsonal h1{font-size:20px;}
+		.room-group{margin-bottom:50px;}
+		.room-group h2{font-weight:400;color:#072;font-size:16px;margin:0;padding:0;font-weight: 200;}
+		.room-group .des{color:#d2d2d2;}
+		.room-list{list-style: none;margin-left:0;}
+		.room-list li{padding:5px 0;border-bottom:1px dashed #ddd;}
+	</style>
+
+	<script type="text/javascript">
+
+		var USER = <%- JSON.stringify(user) %>;
+		var accessUser = <%- JSON.stringify(accessUser)%>;
+
+	</script>
+
+</head>
+<body>
+
+	<!-- top {user:{user}} -->
+	<% include ../common/top.ejs %>
+		
+	<div class="container">
+		<div class="bd">
+			<div class="content">
+				
+				<div class="row">
+					<div class="span3">
+
+						<div class="parsonal">
+							<div style="width:190px;">
+							<span class="thumbnail">
+		                  		<img src="<%= accessUser.avatar%>" alt="<%=accessUser.name%>" title="<%=accessUser.name%>" width="180" height="180" class="avatar" >
+		                	</span>	
+		                	</div>
+							<h1 classt="t-c"><%= accessUser.name%></h1>
+							<p>hello world <small>	<a href="">(修改)</a></small></p>
+			            </div>	
+
+					</div>
+					<div class="span9">
+						<div class="room-group">
+							<h2><%=accessUser.name%> 创建的</h2>
+							<ul class="room-list">
+								<%
+									var item = null;
+									for(var i=0; i<creates.length; i++){
+										item = creates[i];
+
+								%>
+								<li> 
+									<a href="/<%=item.name ? item.name : item.id %>">
+										<%=item.topic%>
+									</a>
+									<small>
+										<span class="des">-<%=item.des.slice(0, 40)%></span>
+									</small>
+									<small>
+									<span class="pull-right muted" data-time="<%=item.time%>" >
+										<%=tool.format(item.time)%>
+									</span>
+									</small>
+								</li>
+								<%}%>
+								<% if(creates.length == 0) {%>
+									<li><span class="des">没有创建过话题</span></li>
+								<%}%>
+							</ul>
+						</div>
+						<div class="room-group">
+							<h2><%=accessUser.name%> 参与的</h2>
+							<ul class="room-list">
+								<%
+									for(var i=0; i<intos.length; i++){
+										item = intos[i];
+								%>
+								<li> 
+									<a href="/<%=item.name ? item.name : item.id %>">
+										<%=item.topic%>
+									</a>
+									<small>
+										<span class="des">-<%=item.des.slice(0, 40)%></span>
+									</small>
+									<small>
+									<span class="pull-right muted" data-time="<%=item.time%>" >
+										<%=tool.format(item.time)%>
+									</span>
+									</small>
+								</li>
+								<%}%>
+								<% if(intos.length == 0) {%>
+									<li>没有参加过话题</li>
+								<%}%>
+							</ul>
+						</div>
+						
+
+					</div>
+					
+					
+					
+				</div>
+			</div>
+		</div>
+		<div class="footer">
+		<div class="container">
+		<p><a href="/about">about</a></p>	
+		</div>
+	</div>
+	</div>
+</body>
+</html>

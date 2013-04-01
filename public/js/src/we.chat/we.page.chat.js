@@ -348,20 +348,20 @@ WE.pageChat.timeLine = {
 		<input name="mid" type="hidden" value="<%=_id%>"/>\
 		<div title="查看其全部对话" class="dot"></div>\
 		<div class="photo">\
-			<a href="#" data-uid="<%=uid%>" >\
+			<a href="/user/<%=uid%>" target="_blank" data-uid="<%=uid%>" >\
 				<img src="<%=uavatar%>" alt="<%=uname%>" class="avatar" />\
 			</a>\
 		</div>\
 		<div class="info">\
 			<div class="head">\
-				<a href="#" class="name"><%=uname%></a>\
+				<a href="/user/<%=uid%>" target="_blank" class="name"><%=uname%></a>\
 				<span class="time"><%=WE.kit.format( new Date( time*1000 ),"MM-dd hh:mm:ss" )%></span>\
 			</div>\
 			<div class="context">\
 				<%if(obj.to){%>\
 				<div class="reply-quote"><%=to.text%> <a href="#"><%= to.uname%></a></div>\
 				<%}%>\
-				<div><%=text %> <a class="chat-reply" href="javascript:void(0);">回复</a></div>\
+				<div><%=text %> <a class="chat-reply" href="javascript:;">回复</a></div>\
 			</div>\
 		</div>\
 	</div>',
@@ -430,7 +430,7 @@ WE.pageChat.timeLine = {
 */
 WE.pageChat.userlist = {
 
-	tmpl:'<li id="uid_<%=_id%>"><a href="#" title="<%=name%>">\
+	tmpl:'<li id="uid_<%=_id%>"><a href="/user/<%=_id%>" target="_blank" title="<%=name%>">\
 	<img src="<%=avatar%>" width="32" class="avatar" />\
 	</a></li>',
 	data:null,

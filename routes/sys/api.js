@@ -272,7 +272,7 @@ module.exports = {
 	ichats:function( req, res ){
 
 		var user = req.session.user;
-
+		
 		LogModel.getLog( user._id, 10000, function( status ){
 
 			if(status.code == "0"){
