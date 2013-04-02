@@ -316,3 +316,18 @@ return:{
 }
 ````
 
+
+####修改用户的个人介绍（11）
+````javascript
+url: "/sys/user_summary",
+method:post,
+param:
+	summary: string < 300
+
+return:{
+	code:0,//(0, -1)
+	msg:"",//(可用，参数错误)
+	result:null
+}
+````
+
