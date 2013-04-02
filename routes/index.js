@@ -116,6 +116,8 @@ module.exports = function ( app ) {
 	app.get('/sys/check_room_key', api.checkRoomKey);
 	//读取房间历史
 	app.get('/sys/history', api.getHistory);
+	//修改用户的介绍
+	app.post('/sys/user_summary', api.userSummary);
 	
 };
 
