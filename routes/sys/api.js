@@ -27,7 +27,6 @@ module.exports = {
 		res.setHeader("Content-Type" ,"application/json; charset=utf-8");
 
 		if( name ){
-
 			//如果用户原来的昵称是空（刚进入的匿名用户）
 			//把头像修改成默认的小怪兽，以区别为写名字的用户
 			if( !user.name ){
@@ -250,6 +249,7 @@ module.exports = {
 				}else{
 					// email 已经被使用了。
 					status.setCode("-2");
+					status.setMsg("email已经被使用");
 					res.write( status.toString() );
 					res.end();
 				}
@@ -482,5 +482,35 @@ module.exports = {
 		res.write( status.toString() );
 		res.end();
 
+	},
+	userSummary:function(req, res){
+
+		var user = req.session.user || null;
+		var summary = req.query.summary;
+		var status = new WebStatus();
+
+		if( !user ){
+			status.setCode("-3");
+			res.write( status.toString(),"utf-8" );
+			res.end();
+			return ;
+		}
+
+		if( summary && summary.length < 300){
+
+
+			UserModel.updateSummary(user._id, summary, function( status ){
+				res.write( status.toString() );
+				res.end();
+				return ;
+			});
+
+		}else{
+			status.setCode("-1");
+			//res.setHeader("Content-Type" ,"text/text; charset=utf-8");
+			res.write( "你好" );
+			res.end();
+
+		}
 	}
 };
