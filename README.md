@@ -323,7 +323,6 @@ url: "/sys/user_summary",
 method:post,
 param:
 	summary: string < 300
-
 return:{
 	code:0,//(0, -1)
 	msg:"",//(可用，参数错误)
