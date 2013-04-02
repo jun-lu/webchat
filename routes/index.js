@@ -117,7 +117,7 @@ module.exports = function ( app ) {
 	//读取房间历史
 	app.get('/sys/history', api.getHistory);
 	//修改用户的介绍
-	app.get('/sys/user_summary', api.userSummary);
+	app.post('/sys/user_summary', api.userSummary);
 	
 };
 

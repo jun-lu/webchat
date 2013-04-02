@@ -486,7 +486,7 @@ module.exports = {
 	userSummary:function(req, res){
 
 		var user = req.session.user || null;
-		var summary = req.query.summary;
+		var summary = req.body.summary;
 		var status = new WebStatus();
 
 		if( !user ){
