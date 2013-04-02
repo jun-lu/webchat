@@ -34,6 +34,9 @@ WE.pageSetting = {
 			var summery = _this.ui.modifyInput.val();
 			if( _this.ui.modifyInput.val().length < 300 && summery != _this.summery ){
 				_this.postForm( summery );
+			}else{
+				_this.ui.modifyForm.hide();
+				_this.ui.des.show();
 			}
 			return false;
 		})
