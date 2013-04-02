@@ -250,6 +250,7 @@ module.exports = {
 				}else{
 					// email 已经被使用了。
 					status.setCode("-2");
+					status.setMsg("email已经被使用");
 					res.write( status.toString() );
 					res.end();
 				}

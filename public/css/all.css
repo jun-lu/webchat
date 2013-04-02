@@ -1,6 +1,6 @@
 /** group  */
 .container{width:960px;}
-.bd{width:960px;margin:20px auto;position:relative;}
+.bd{width:960px;margin:20px auto;position:relative;min-height:500px;}
 
 a{cursor: pointer;}
 a:link{color: #37a;text-decoration: none;}
@@ -96,9 +96,8 @@ width: 0;height: 0;font-size: 0;line-height: 0;}
 			.drop-down-items li{float:none;}
 			.drop-down-items li a{display:block;color:#3d3d3d;white-space:nowrap;}
 			.drop-down-items li a:hover{display:block;color:#3d3d3d;background:#f6f6f6;}
-/** head */
-.head{margin:30px 0;}
-.subtitle{text-indent:2em;}
+/* footer */
+.footer{margin-top:50px;}
 
 
 
