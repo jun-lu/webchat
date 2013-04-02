@@ -170,6 +170,14 @@
 		//console.log(data);
 		WE.pageChat.timeLine.prepend( data );
 	});
+
+	socket.on('disconnect', function(err){
+		socket.on('connect', function(){
+			socket.emit("setting", {roomid:ROOM.id});
+		});
+	});
+
+
 		
 </script>
 
