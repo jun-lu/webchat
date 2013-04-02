@@ -32,8 +32,7 @@ WE.pageSetting = {
 		this.ui.modifyForm.submit(function(){
 
 			var summery = _this.ui.modifyInput.val();
-			console.log( _this.ui.modifyInput.val().length );
-			if( _this.ui.modifyInput.val().length < 300 ){
+			if( _this.ui.modifyInput.val().length < 300 && summery != _this.summery ){
 				_this.postForm( summery );
 			}
 			return false;
