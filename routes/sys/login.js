@@ -38,7 +38,10 @@ module.exports = {
 				status.setCode( "-3" );
 				status.setMsg( "email 格式错误" );
 
-				res.render('sys/login', status.toJSON() );
+				res.render('sys/login', status.toJSON({
+					referer:referer,
+					user:user?user.getInfo() : user	
+				}));
 				return ;
 			};
 
@@ -54,7 +57,10 @@ module.exports = {
 
 				}else{
 
-					res.render("sys/login", status.toJSON( {"user":user} ) );
+					res.render("sys/login", status.toJSON( {
+						referer:referer,
+						user:user?user.getInfo() : user	
+					}));
 				}
 
 			});
