@@ -57,6 +57,7 @@ module.exports = {
 
 				}else{
 
+					status.setMsg("用户名密码错误");
 					res.render("sys/login", status.toJSON( {
 						referer:referer,
 						user:user?user.getInfo() : user	
