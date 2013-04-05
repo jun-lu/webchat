@@ -43,12 +43,17 @@
 		                	
 							<h1><%= accessUser.name%></h1>
 							<div class="des" id="des">
-								<p class="summery" id="summery"><%=accessUser.summary%></p>
-								<%if( user._id == accessUser._id ){%>
-								<small>	
-									<a id="modify" href="javascript:void(0)">(修改)</a>
-								</small>
-								<%}%>
+								<p class="summery">
+									<span id="summery" >
+										<%=accessUser.summary%>
+									</span>
+									<%if( user._id == accessUser._id ){%>
+										<small>	
+											(<a id="modify" href="javascript:void(0)">修改</a>)
+										</small>
+									<%}%>
+								</p>
+								
 							</div>
 							<div>
 								<form method="post" id="modifyForm" class="hidden" action="/sys/user_summary">

@@ -13,8 +13,12 @@ module.exports = {
 	
 		get:function( req, res ){
 			var user = req.session.user || null;
+			var referer = req.query.referer || "/";
 			//status.user = user ? user.getInfo(): user;
-			res.render('sys/login', new WebStatus().toJSON( {user:user?user.getInfo():user} ) );
+			res.render('sys/login', new WebStatus().toJSON( {
+				referer:referer,
+				user:user?user.getInfo():user
+			} ) );
 		},
 		// 登录
 		post:function(req, res ){
@@ -23,6 +27,7 @@ module.exports = {
 			var expEmail = /./;
 			var email = req.body.email;
 			var pwd = req.body.pwd;
+			var referer = req.body.referer;
 
 			var status = new WebStatus();
 				status.user = user ? user.getInfo() : user;
@@ -45,7 +50,7 @@ module.exports = {
 				if( status.code == "0" ){
 					var newUser = status.result;
 					res.setHeader("Set-Cookie", ["sid="+newUser.toCookie()+";path=/;expires="+new Date("2030") ]);
-					res.redirect("/");
+					res.redirect( referer );
 
 				}else{
 
