@@ -4,6 +4,7 @@
 	
 	登陆
 */
+var config = require("../../config");
 var User = require("../../lib/User");
 var WebStatus = require("../../lib/WebStatus");
 var UserModel = require("../../lib/UserModel");
@@ -52,7 +53,7 @@ module.exports = {
                // console.log( status );
 				if( status.code == "0" ){
 					var newUser = status.result;
-					res.setHeader("Set-Cookie", ["sid="+newUser.toCookie()+";path=/;expires="+new Date("2030") ]);
+					res.setHeader("Set-Cookie", ["sid="+newUser.toCookie()+";path=/;domain="+config.domain+";expires="+new Date("2030") ]);
 					res.redirect( referer );
 
 				}else{

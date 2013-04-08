@@ -4,6 +4,7 @@
 	
 	登陆
 */
+var config = require('../../config');
 var https = require("https");
 var http = require("http");
 var User = require("../../lib/User");
@@ -43,7 +44,6 @@ module.exports = {
 			var ress = res;
 			var code = req.query.code;
 			var state = req.query.state;
-			
 			var formBody = {
 				client_id:AppKey,
 				client_secret:AppSecret,
@@ -79,7 +79,7 @@ module.exports = {
 
 								UserModel.createOauthUser(user, function( status ){
 									var user = status.result;
-									res.setHeader("Set-Cookie", ["sid="+user.toCookie()+";path=/;expires="+new Date("2030") ]);
+									res.setHeader("Set-Cookie", ["sid="+user.toCookie()+";path=/;domain="+config.domain+";expires="+new Date("2030") ]);
 									res.render("sys/sina_login", {state:state, user:user.getInfo()} );
 									res.end();	
 								});
@@ -91,7 +91,7 @@ module.exports = {
 						}else{
 
 							var user = status.result;
-							res.setHeader("Set-Cookie", ["sid="+user.toCookie()+";path=/;expires="+new Date("2030") ]);
+							res.setHeader("Set-Cookie", ["sid="+user.toCookie()+";path=/;domain="+config.domain+";expires="+new Date("2030") ]);
 							res.render("sys/sina_login", {state:state, user:user.getInfo()} );
 							res.end();
 						}
