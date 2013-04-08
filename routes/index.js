@@ -22,6 +22,7 @@ var roomLimit = require("./sys/room_limit");
 
 var personal = require("./user/personal");
 
+var weiboLogin = require("./sys/weibo_login");
 // 提供给前台的ajax api 
 var api = require("./sys/api");
 
@@ -54,11 +55,15 @@ module.exports = function ( app ) {
 	//注册
 	app.get('/sys/reg', sysReg.get);
 
-	//注册
+	//ie
 	app.get('/sys/ie', function(req, res){
 		res.render("ie.ejs");
 		res.end();
 	});
+
+
+	//weibo login
+	app.get('/sys/weibo_login', weiboLogin.get);
 	
 
 	/** 
