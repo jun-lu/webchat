@@ -43,6 +43,7 @@ module.exports = {
 			var ress = res;
 			var code = req.query.code;
 			var state = req.query.state;
+			
 			var formBody = {
 				client_id:AppKey,
 				client_secret:AppSecret,
@@ -79,7 +80,7 @@ module.exports = {
 								UserModel.createOauthUser(user, function( status ){
 									var user = status.result;
 									res.setHeader("Set-Cookie", ["sid="+user.toCookie()+";path=/;expires="+new Date("2030") ]);
-									res.render("sys/sina_login", {user:user.getInfo()} );
+									res.render("sys/sina_login", {state:state, user:user.getInfo()} );
 									res.end();	
 								});
 
@@ -91,7 +92,7 @@ module.exports = {
 
 							var user = status.result;
 							res.setHeader("Set-Cookie", ["sid="+user.toCookie()+";path=/;expires="+new Date("2030") ]);
-							res.render("sys/sina_login", {user:user.getInfo()} );
+							res.render("sys/sina_login", {state:state, user:user.getInfo()} );
 							res.end();
 						}
 
