@@ -143,7 +143,7 @@ WE.extend(WE.kit, {
 	},
 	chatFormate:function( text ){
 
-		return text.replace(/\n/gi, "<br/>").replace(/http:\/\/[\w\.]+/gi, function( a ){
+		return text.replace(/\n/gi, "<br/>").replace(/http:\/\/[\w\.\/\:\?\&\=\#\-\_]+/gi, function( a ){
 			return '<a href="'+a+'" target="_blank">'+a+'</a>'
 		})
 

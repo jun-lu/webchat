@@ -2,10 +2,20 @@
 <html lang="en-US">
 <head>
 	<meta charset="UTF-8">
-	<title>注册 - Vchat</title>
+	<title>登录 - Vchat</title>
 	<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css" />
 	<link rel="stylesheet" href="/css/all.css" />
 	<link rel="stylesheet" href="/css/Stip.css" />
+	<style type="text/css">
+		.oauth-btn:link{width:129px;display:inline-block;height:29px;
+			background-image:url(/images/oauth_login.png);
+		}
+		.oauth-btn:hover,.oauth-btn{background-color:transparent;}
+		.oauth-btn span{margin-left:45px;line-height:26px;color:#fff;}
+
+		.oauth-sina{background-position:-129px 0;}
+		.oauth-sina:hover{background-position:-129px -29px;}
+	</style>
 	<script type="text/javascript" src="/js/jquery-1.6.js"></script>
 	<script type="text/javascript" src="/js/we.min.js"></script>
 	<script type="text/javascript" src="/js/Stip.js"></script>
@@ -31,6 +41,7 @@
 						<% if( code  != 0 ){ %>
 							<div class="alert"><%= msg %></div>
 						<% } %>
+						<input type="hidden" name="referer" value="<%=referer%>" >
 						<ul class="reset">
 							<li>
 								<label for="email">Email</label>
@@ -41,9 +52,15 @@
 								<input type="password" id="pwd" name="pwd" placeholder="password">
 							</li>
 							
-							<li><input type="submit" class="btn" value="登陆" /></li>
+							<li><input type="submit" class="btn" value="登录" /></li>
 						</ul>
 					</form>
+					<hr/>
+					<div>
+						<a href="https://api.weibo.com/oauth2/authorize?client_id=2330339834&redirect_uri=http://www.vchat.co/sys/weibo_login&response_type=code&state=http://vchat.co&t=<%=Math.random()%>" class="oauth-btn oauth-sina" >
+							<span>微博登录</span>
+						</a>
+					</div>
 				</div>
 			</div>
 			<div class="span5">
@@ -83,6 +100,7 @@
 			};
 			return false;
 		});
+
 	</script>
 </body>
 </html>

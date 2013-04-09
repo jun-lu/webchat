@@ -55,7 +55,7 @@ WE.pageChat = {
 		});
 
 		$('#postText').keyup(function(){
-			var text = $(this).html().replace(/<\/div>/g,"").replace(/<div>/g,"\n").replace(/<br>/g, "\n");
+			var text = $(this)[0].innerText.replace(/<\/div>/g,"").replace(/<div>/g,"\n").replace(/<br>/g, "\n");
 			$('#postTextArea').val( text );
 		});
 

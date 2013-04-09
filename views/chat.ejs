@@ -148,7 +148,10 @@
 
 		
 	var socket = io.connect( document.location.host );
-	socket.emit("setting", {roomid:ROOM.id});
+
+	socket.on('connect', function(){
+		socket.emit("setting", {roomid:ROOM.id});
+	});
 
 	socket.on('userlist', function( data ){
 		//console.log( data );
@@ -170,6 +173,13 @@
 		//console.log(data);
 		WE.pageChat.timeLine.prepend( data );
 	});
+
+	socket.on('disconnect', function(err){
+		//....
+		socket.emit("setting", {roomid:ROOM.id});
+	});
+
+
 		
 </script>
 

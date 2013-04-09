@@ -1,3 +1,4 @@
+<!DOCTYPE HTML>
 <html>
 <head>
 	<meta http-equiv="content-type" content="text/html;charset=utf-8">
@@ -42,12 +43,17 @@
 		                	
 							<h1><%= accessUser.name%></h1>
 							<div class="des" id="des">
-								<p class="summery" id="summery"><%=accessUser.summary%></p>
-								<%if( user._id == accessUser._id ){%>
-								<small>	
-									<a id="modify" href="javascript:void(0)">(修改)</a>
-								</small>
-								<%}%>
+								<p class="summery">
+									<span id="summery" >
+										<%=accessUser.summary%>
+									</span>
+									<%if( user._id == accessUser._id ){%>
+										<small>	
+											(<a id="modify" href="javascript:void(0)">修改</a>)
+										</small>
+									<%}%>
+								</p>
+								
 							</div>
 							<div>
 								<form method="post" id="modifyForm" class="hidden" action="/sys/user_summary">
@@ -125,10 +131,10 @@
 			</div>
 		</div>
 		<div class="footer">
-		<div class="container">
-		<p><a href="/about">about</a></p>	
+			<div class="container">
+				<p><a href="/about">about</a></p>	
+			</div>
 		</div>
-	</div>
 	</div>
 	<script type="text/javascript" src="/js/jquery-1.6.3.min.js"></script>
 	<script type="text/javascript" src="/js/we.min.js"></script>
