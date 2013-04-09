@@ -148,7 +148,10 @@
 
 		
 	var socket = io.connect( document.location.host );
-	socket.emit("setting", {roomid:ROOM.id});
+
+	socket.on('connect', function(){
+		socket.emit("setting", {roomid:ROOM.id});
+	});
 
 	socket.on('userlist', function( data ){
 		//console.log( data );
@@ -172,9 +175,8 @@
 	});
 
 	socket.on('disconnect', function(err){
-		socket.on('connect', function(){
-			socket.emit("setting", {roomid:ROOM.id});
-		});
+		//....
+		socket.emit("setting", {roomid:ROOM.id});
 	});
 
 
