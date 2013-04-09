@@ -5,6 +5,7 @@
 	对话页面
 */
 
+var config = require("../config");
 var UserModel = require("../lib/UserModel");
 var RoomModel = require('../lib/RoomModel');
 var ChatModel = require('../lib/ChatModel');
@@ -37,7 +38,7 @@ module.exports = {
 
 					if(status.code == 0){
 						user = status.result;//User.factory( userjson );
-						res.setHeader("Set-Cookie", ["sid="+user.toCookie()+";path=/;expires="+new Date("2030") ]);
+						res.setHeader("Set-Cookie", ["sid="+user.toCookie()+";path=/;domain="+config.domain+";expires="+new Date("2030") ]);
 						indexData.user = user.getInfo();
 						intoPage();
 					}else{
