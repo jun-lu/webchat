@@ -62,7 +62,7 @@ module.exports = {
 	
 					UserModel.findOauth("sina", String(oauthInfo.uid), function( status ){
 						//用户未注册过
-						res.setHeader("Set-Cookie", ["sid=0|0|0;path=/;expires="+new Date("2000")]);
+						res.setHeader("Set-Cookie", ["sid=0|0|0;path=/;domain=vchat.co;expires="+new Date("2000")]);
 
 						if( status.code == "404" ){
 
