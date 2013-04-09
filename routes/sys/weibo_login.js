@@ -57,7 +57,7 @@ module.exports = {
 
 				//{"access_token":"2.002nFDqB3qrhXC9abdf9b5a002_HoW","remind_in":"157679999","expires_in":157679999,"uid":"1685239567"}
 				//oauthInfo = {"access_token":"2.002nFDqB3qrhXC9abdf9b5a002_HoW","remind_in":"157679999","expires_in":157679999,"uid":"1685239567"}
-				
+				console.log( "config.domain:", config.domain );
 				if( oauthInfo.access_token ){
 	
 					UserModel.findOauth("sina", String(oauthInfo.uid), function( status ){
