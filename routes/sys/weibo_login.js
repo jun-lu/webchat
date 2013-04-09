@@ -95,7 +95,9 @@ module.exports = {
 						}else{
 
 							var user = status.result;
-							res.setHeader("Set-Cookie", ["sid="+user.toCookie()+";path=/;domain="+config.domain+";expires="+new Date("2030") ]);
+							res.setHeader("Set-Cookie", ["sid="+user.toCookie()+";path=/;domain="+config.domain+";expires="+new Date("2030"),
+								"sid=0|0|0;path=/;domain=vchat.co;expires="+new Date("2000")
+								]);
 							res.render("sys/sina_login", {state:state, user:user.getInfo()} );
 							res.end();
 						}
