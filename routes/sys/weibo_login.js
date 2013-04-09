@@ -62,6 +62,8 @@ module.exports = {
 	
 					UserModel.findOauth("sina", String(oauthInfo.uid), function( status ){
 						//用户未注册过
+						res.setHeader("Set-Cookie", ["sid=0|0|0;path=/;expires="+new Date("2000")]);
+
 						if( status.code == "404" ){
 
 							oauthInfo.from = "sina";
