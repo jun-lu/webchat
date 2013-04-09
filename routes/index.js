@@ -42,6 +42,9 @@ module.exports = function ( app ) {
 	// index /
 	app.get('/', home.get);
 
+	//m
+	//app.get('/m/', xxx.get);
+
 	// chat
 	app.get('/:key', chat.get);
 
