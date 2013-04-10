@@ -72,6 +72,7 @@ module.exports = {
 							getSinaUserInfo( oauthInfo.access_token,  oauthInfo.uid, function( data ){
 								
 								//data
+								data = JSON.parse(data);
 								var user = User.factoryRandom();
 
 								user.setAvatar( data.avatar_large );
