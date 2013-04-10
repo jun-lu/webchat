@@ -23,6 +23,9 @@ var roomLimit = require("./sys/room_limit");
 var personal = require("./user/personal");
 
 var weiboLogin = require("./sys/weibo_login");
+
+
+var mobile = require("./m/chat");
 // 提供给前台的ajax api 
 var api = require("./sys/api");
 
@@ -43,7 +46,7 @@ module.exports = function ( app ) {
 	app.get('/', home.get);
 
 	//m
-	//app.get('/m/', xxx.get);
+	app.get('/m/:key', mobile.get);
 
 	// chat
 	app.get('/:key', chat.get);
