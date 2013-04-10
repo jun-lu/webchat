@@ -15,6 +15,10 @@
 
 		.oauth-sina{background-position:-129px 0;}
 		.oauth-sina:hover{background-position:-129px -29px;}
+
+		.oauth-qq{background-position:0 0;}
+		.oauth-qq:hover{background-position:0 -29px;}
+
 	</style>
 	<script type="text/javascript" src="/js/jquery-1.6.js"></script>
 	<script type="text/javascript" src="/js/we.min.js"></script>
@@ -56,10 +60,15 @@
 						</ul>
 					</form>
 					<hr/>
-					<div style="display:none;" >
+					<div >
 						<a href="https://api.weibo.com/oauth2/authorize?client_id=2330339834&redirect_uri=http://vchat.co/sys/weibo_login&response_type=code&state=http://vchat.co&t=<%=Math.random()%>" class="oauth-btn oauth-sina" >
 							<span>微博登录</span>
 						</a>
+
+						<a href="https://graph.qq.com/oauth2.0/authorize?client_id=100415858&redirect_uri=http://vchat.co/sys/tqq_login&response_type=code&state=http://vchat.co&t=<%=Math.random()%>" class="oauth-btn oauth-qq" >
+							<span>腾讯微博</span>
+						</a>
+
 					</div>
 				</div>
 			</div>

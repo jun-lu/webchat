@@ -23,6 +23,7 @@ var roomLimit = require("./sys/room_limit");
 var personal = require("./user/personal");
 
 var weiboLogin = require("./sys/weibo_login");
+var qqLogin = require("./sys/qq_login");
 
 
 var mobile = require("./m/chat");
@@ -71,7 +72,8 @@ module.exports = function ( app ) {
 	//weibo login
 	app.get('/sys/weibo_login', weiboLogin.get);
 	
-
+	//qq登录
+	app.get('/sys/qq_login', qqLogin.get);
 	/** 
 		post 数据提交
 	
