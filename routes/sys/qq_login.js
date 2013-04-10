@@ -50,7 +50,7 @@ module.exports = {
 				if( oauthInfo.access_token ){
 					ServerRequest.get(qq_openid_url, {access_token:oauthInfo.access_token}, function( openidInfoString ){
 						//openidInfo = callback( {"client_id":"100415858","openid":"C2EDC6FD8800DBE6686B243A6ADFB249"} );
-						console.log("openidInfoString", openidInfoString);
+						//console.log("openidInfoString", openidInfoString);
 						var openidInfo = JSON.parse(openidInfoString.slice(openidInfoString.indexOf("{"), openidInfoString.lastIndexOf("}")+1));
 						//console.log( openidInfo );
 						if(openidInfo.openid){
