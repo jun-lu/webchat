@@ -49,7 +49,10 @@
 				<div class="slide-module">
 					<div class="title">Online</div>
 					<div class="list">
-						<div id="offlineTip" class="alert error"></div>
+						<div id="offlineTip" style="display:none;" class="alert">
+							您已经断开即时连接，
+							<a href="/<%=room.name ? room.name : room.id%>">刷新页面</a>可解决
+						</div>
 						<ul class="reset clear-fix" id="userlist">
 							<li><div class="we-loading" style="width:32px;height:32px;"></div></li>
 						</ul>
@@ -162,7 +165,11 @@
 	var socket = io.connect( document.location.host );
 
 	socket.on('connect', function(){
+
 		socket.emit("setting", {roomid:ROOM.id});
+		$('#offlineTip').hide();
+		$('#userlist').show();
+
 	});
 
 	socket.on('userlist', function( data ){
@@ -187,8 +194,8 @@
 	});
 
 	socket.on('disconnect', function(err){
-		//....
-		socket.emit("setting", {roomid:ROOM.id});
+		$('#offlineTip').show();
+		$('#userlist').hide();
 	});
 
 
