@@ -19,8 +19,8 @@ module.exports = {
 		var status = new WebStatus();
 
 		if( !roomid ){
-			res.write( status.setCode("-1").toString() );
-			res.end();
+			status.setCode("-1");
+			res.render("404", status.toJSON());
 			return ;
 		}
 
@@ -29,7 +29,7 @@ module.exports = {
 				var data = status.toJSON({user:user.getInfo(), room:status.result.toJSON()})
 				res.render("sys/room_limit", data);
 			}else{
-				res.render("404");
+				res.render("404", status.toJSON());
 			}
 
 		});
@@ -57,14 +57,14 @@ module.exports = {
 				var room = status.result;
 
 				if( room.password == null ){
-					console.log("不需要密码的房间",roomid);
+					//console.log("不需要密码的房间",roomid);
 					res.redirect("/"+roomid);
 					return ;
 				}
 
 				if( room.password === password ){
 					UserModel.addRoomPassword( user._id, room.id, password, function( status ){
-						console.log("addRoomPassword", status );
+						//console.log("addRoomPassword", status );
 						if(status.code == "0"){
 							res.redirect("/"+roomid);
 						}
@@ -76,7 +76,7 @@ module.exports = {
 				}
 			}else{
 
-				res.render("404");
+				res.render("404", status.toJSON());
 			}
 
 		});

@@ -34,6 +34,8 @@ module.exports = {
 				return false;	
 			};
 
+			console.log(id);
+
 			UserModel.find_id(id, function( status ){
 
 				if(status.code == "0"){
@@ -77,10 +79,10 @@ module.exports = {
 
 
 				}else{
-
+					//console.log("-----------------","no find");
 					status.addMsg("没有找到用户");
 
-					res.write("404", status.toJSON() );
+					res.render("404", status.toJSON() );
 				}
 
 			});

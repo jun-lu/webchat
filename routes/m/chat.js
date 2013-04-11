@@ -93,7 +93,7 @@ module.exports = {
 
 					}else{
 
-						res.render("404", {msg:"没有找到对话空间，请再次确认输入。"});
+						res.render("404", status.toJSON());
 						res.end();
 					}
 

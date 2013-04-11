@@ -9,9 +9,9 @@
 	</style>
 </head>
 <body style="background:#efefef;">
-	<h1>嗷! 404</h1>
+	<h1>嗷! <%=code ? code : "404"%></h1>
 	<div>
-		<p>无法找到页面</p>
+		<p><%=msg ? msg : "无法找到页面"%></p>
 		<p>很抱歉，这一定是我们的错了。</p>
 		<p><a href="/">首页</a> <a href="javascript:;" onclick="window.history.back(-1);">退回上一步</a></p>
 	</div>

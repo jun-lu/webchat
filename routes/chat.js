@@ -42,9 +42,9 @@ module.exports = {
 						indexData.user = user.getInfo();
 						intoPage();
 					}else{
-
-						//  创建匿名用户错误
-						throw " createAnonymousUser error "+ status.code;
+						status.code("500");
+						status.setMsg("创建匿名用户错误");
+						res.render("404", status.toJSON());	
 					}
 				});
 
@@ -92,8 +92,8 @@ module.exports = {
 						LogModel.create( user._id, "into_room",  room.getInfo() );
 
 					}else{
-
-						res.render("404", {msg:"没有找到对话空间，请再次确认输入。"});
+						status.setMsg("没有找到对话，请确认输入");
+						res.render("404", status.toJSON() );
 						res.end();
 					}
 
