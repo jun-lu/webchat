@@ -11,7 +11,7 @@
 		.chat .photo img{width:36px;height:36px;}
 		.chat .info {margin-left: 45px;margin-bottom:28px;}
 		.info .reply-quote{margin:0;}
-		.post-box .post-text{min-height:29px;}
+		.post-box .post-text{min-height:45px;}
 		/**.my .head{background:inherit;}*/
 	</style>
 </head> 
@@ -19,30 +19,30 @@
 	<!-- top {user:{user}} --> 
 	<div class="top"> 
 	 
-	<ul class="top-nav f-r"> 
-		<li class="drop-down"> 
-			<a href="#" class="account"> 
-				<span>lujun的帐号</span> 
-				<span class="arrow"></span> 
-			</a> 
-			<div class="drop-down-items"> 
-				<ul> 
+		<ul class="top-nav f-r"> 
+			<li class="drop-down"> 
+				<a href="#" class="account"> 
+					<span>lujun的帐号</span> 
+					<span class="arrow"></span> 
+				</a> 
+				<div class="drop-down-items"> 
+					<ul> 
+						 
+						<li><a href="/user/5125b7ac93a2f5dd48000005" id="chatme_bak" target="_blank">我的vchat</a></li> 
+						<li><a href="javascript:;" id="username">修改昵称</a></li> 
 					 
-					<li><a href="/user/5125b7ac93a2f5dd48000005" id="chatme_bak" target="_blank">我的vchat</a></li> 
-					<li><a href="javascript:;" id="username">修改昵称</a></li> 
-				 
-					 
- 
-					<li><a href="/sys/login">切换用户</a></li> 
-				</ul> 
-			</div> 
-		</li> 
-	</ul> 
+						 
 	 
-	<ul class="top-nav"> 
-		<li><a href="/">Vchat</a></li> 
-	</ul> 
-</div> 
+						<li><a href="/sys/login">切换用户</a></li> 
+					</ul> 
+				</div> 
+			</li> 
+		</ul> 
+		 
+		<ul class="top-nav"> 
+			<li><a href="/">Vchat</a></li> 
+		</ul> 
+	</div> 
 	 
 	<div class="container"> 
 		<div class="bd"> 
@@ -122,7 +122,12 @@
 										<div class="post-text" z-index="0" id="postText" maxlength="5000" contenteditable="true"></div> 
 										<textarea class="post-text hidden" id="postTextArea" maxlength="5000" name="text"></textarea> 
 									</div> 
-									 
+									<div class="btns"> 
+ 
+										<div class="btn-group" id="postTypeGroup"> 
+											<button class="btn" tabindex="-1" title="可使用&quot;ctrl+enter&quot;快捷提交" type="submit">发送</button> 
+										</div>  
+									</div> 
 								</div> 
 								</form> 
 							</div> 

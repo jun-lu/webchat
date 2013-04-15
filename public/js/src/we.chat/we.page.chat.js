@@ -22,12 +22,15 @@ WE.pageChat = {
 
 		// 初始化History用户列表
 		WE.pageChat.userlist.historyList(ROOM.id);
+
+		this.initSendType();
 	},
 
 	
 	regEvent:function(){
 
 		var _this = this;
+
 
 		$('#postForm').submit(function(){
 
@@ -47,7 +50,8 @@ WE.pageChat = {
 		/*可以通过ctrl+enter发送*/
 		$('#postText').keydown(function( e ){
 
-			if( e.ctrlKey && e.keyCode == 13 ){
+			if( (e.keyCode == 13 && _this.postType == 2) || 
+				(e.ctrlKey && e.keyCode == 13 && _this.postType == 1) ){
 				$('#postForm').trigger('submit');
 				return false;
 			}
@@ -86,6 +90,28 @@ WE.pageChat = {
 
 			}
 		});
+
+
+		$('#toggleSendSelect').click(function(){
+
+			$(this).parent().toggleClass("open");
+			return false;	
+		});
+		//postType
+		$('#selectSendType a').click(function(){
+
+			localStorage.setItem("sendType", $(this).attr("data-type"));
+			$('#toggleSendSelect').parent().removeClass("open");
+			_this.initSendType();
+
+		});
+	},
+
+	initSendType:function(){
+
+		this.postType = localStorage.getItem("sendType") || 1;
+		$('#selectSendType .dui').hide().eq( this.postType == 1 ? 1 : 0 ).show();
+
 	},
 
 
