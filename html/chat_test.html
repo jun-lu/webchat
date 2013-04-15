@@ -1,0 +1,218 @@
+<!DOCTYPE HTML>
+<html><head> 
+	<meta charset="UTF-8"> 
+	<title>Vchat开发测试 - Vchat</title> 
+	<link rel="stylesheet" href="../public/bootstrap/css/bootstrap.min.css"> 
+	<link rel="stylesheet" href="../public/css/all.css"> 
+	<link rel="stylesheet" type="text/css" href="../public/css/chat.css">
+
+	<style type="text/css">
+		.chat{font-size:12px;}
+		.chat .photo img{width:36px;height:36px;}
+		.chat .info {margin-left: 45px;margin-bottom:28px;}
+		.info .reply-quote{margin:0;}
+		.post-box .post-text{min-height:29px;}
+		/**.my .head{background:inherit;}*/
+	</style>
+</head> 
+<body> 
+	<!-- top {user:{user}} --> 
+	<div class="top"> 
+	 
+	<ul class="top-nav f-r"> 
+		<li class="drop-down"> 
+			<a href="#" class="account"> 
+				<span>lujun的帐号</span> 
+				<span class="arrow"></span> 
+			</a> 
+			<div class="drop-down-items"> 
+				<ul> 
+					 
+					<li><a href="/user/5125b7ac93a2f5dd48000005" id="chatme_bak" target="_blank">我的vchat</a></li> 
+					<li><a href="javascript:;" id="username">修改昵称</a></li> 
+				 
+					 
+ 
+					<li><a href="/sys/login">切换用户</a></li> 
+				</ul> 
+			</div> 
+		</li> 
+	</ul> 
+	 
+	<ul class="top-nav"> 
+		<li><a href="/">Vchat</a></li> 
+	</ul> 
+</div> 
+	 
+	<div class="container"> 
+		<div class="bd"> 
+			<div class="side"> 
+				 
+				<div class="room"> 
+					<h1 class="topic"> 
+						<span id="topic">Vchat开发测试</span>  
+						 
+						<span class="icon icon-edit" id="setting" title="修改"></span> 
+						 
+					</h1> 
+					<p class="des" id="directions">这里是vchat测试对话组，您可以任意发言。</p> 
+				</div> 
+				 
+				<div class=""> 
+					<ul> 
+						<li>创建者：<a href="/user/5125b7ac93a2f5dd48000005" data-masterid="5125b7ac93a2f5dd48000005">lujun</a></li> 
+						<li>地址： 
+							<a href="http://vchat.co/test">http://vchat.co/test</a> 
+						</li> 
+					</ul> 
+				</div> 
+				 
+				<div class="slide-module"> 
+					<div class="title">Online</div> 
+					<div class="list"> 
+						<div id="offlineTip" style="display: none;" class="alert"> 
+							您已经断开即时连接， 
+							<a href="/test">刷新页面</a>可解决 
+						</div> 
+						<ul class="reset clear-fix" id="userlist" style=""><li id="uid_5125b7ac93a2f5dd48000005"><a href="/user/5125b7ac93a2f5dd48000005" target="_blank" title="lujun"> <img src="http://www.gravatar.com/avatar/e3238e39e72fdb588d6e5bb360fa90b0.jpg?s=48&amp;d=mm&amp;r=g" width="32" class="avatar"> </a></li></ul> 
+					</div> 
+				</div> 
+				 
+				<div class="slide-module"> 
+					<div class="title">History</div> 
+					<div class="list"> 
+						<ul class="reset clear-fix history-list" id="history-list"><li id="uid_516a7843350c63b72f000006"><a href="/user/516a7843350c63b72f000006" target="_blank" title=""> <img src="http://www.gravatar.com/avatar/26688242782910b10e1090e952245361.jpg?s=48&amp;d=mm&amp;r=g" width="32" class="avatar"> </a></li><li id="uid_516a3e91e5aeee1d1f000009"><a href="/user/516a3e91e5aeee1d1f000009" target="_blank" title=""> <img src="http://www.gravatar.com/avatar/dc1bdd4909ad13c79d61a4fb4ad05ea7.jpg?s=48&amp;d=mm&amp;r=g" width="32" class="avatar"> </a></li><li id="uid_5168f6cd4e3b5d531300002a"><a href="/user/5168f6cd4e3b5d531300002a" target="_blank" title=""> <img src="http://www.gravatar.com/avatar/eca7a1946e936ed05d0d7e95c20d175f.jpg?s=48&amp;d=mm&amp;r=g" width="32" class="avatar"> </a></li><li id="uid_5168ed3e4e3b5d5313000015"><a href="/user/5168ed3e4e3b5d5313000015" target="_blank" title=""> <img src="http://www.gravatar.com/avatar/f8a9e82c0b6d8a38fdabde6409dfe54f.jpg?s=48&amp;d=mm&amp;r=g" width="32" class="avatar"> </a></li><li id="uid_5167c3c6e7c242fd0100002c"><a href="/user/5167c3c6e7c242fd0100002c" target="_blank" title=""> <img src="http://www.gravatar.com/avatar/e3571307d74929eba61c094de8bb739d.jpg?s=48&amp;d=mm&amp;r=g" width="32" class="avatar"> </a></li><li id="uid_516683bee7c242fd0100001b"><a href="/user/516683bee7c242fd0100001b" target="_blank" title=""> <img src="http://www.gravatar.com/avatar/d4984498f84554ba0cd5da3ec1f56c54.jpg?s=48&amp;d=mm&amp;r=g" width="32" class="avatar"> </a></li><li id="uid_51652b6d2d41007b4c000021"><a href="/user/51652b6d2d41007b4c000021" target="_blank" title="匿名"> <img src="http://www.gravatar.com/avatar/6c8b04b52ce47c65adcd66f813325477.jpg?s=48&amp;d=monsterid&amp;r=g" width="32" class="avatar"> </a></li><li id="uid_516523c32d41007b4c000019"><a href="/user/516523c32d41007b4c000019" target="_blank" title="匿名"> <img src="http://www.gravatar.com/avatar/3297f44a9d4076b28dcbbd99d812d71f.jpg?s=48&amp;d=monsterid&amp;r=g" width="32" class="avatar"> </a></li><li id="uid_51650f022d41007b4c000002"><a href="/user/51650f022d41007b4c000002" target="_blank" title="Jun_0oooo"> <img src="http://tp4.sinaimg.cn/1685239567/180/5608887021/1" width="32" class="avatar"> </a></li><li id="uid_5163d43b9fd81f1740000001"><a href="/user/5163d43b9fd81f1740000001" target="_blank" title="CK"> <img src="http://www.gravatar.com/avatar/5943e6462d04cbdba3048b95103528c5.jpg?s=48&amp;d=monsterid&amp;r=g" width="32" class="avatar"> </a></li><li id="uid_51601e91564e1ff177000037"><a href="/user/51601e91564e1ff177000037" target="_blank" title=""> <img src="http://www.gravatar.com/avatar/7b74e2ff9c32fa0477a71c12fcb9576d.jpg?s=48&amp;d=mm&amp;r=g" width="32" class="avatar"> </a></li><li id="uid_51601e87564e1ff177000030"><a href="/user/51601e87564e1ff177000030" target="_blank" title=""> <img src="http://www.gravatar.com/avatar/db20ef9544f0a0ef6a4ed4c101bfed13.jpg?s=48&amp;d=mm&amp;r=g" width="32" class="avatar"> </a></li><li id="uid_515f2b3f564e1ff177000020"><a href="/user/515f2b3f564e1ff177000020" target="_blank" title=""> <img src="http://www.gravatar.com/avatar/2915da4824aa3dc3ffa4f74321519258.jpg?s=48&amp;d=mm&amp;r=g" width="32" class="avatar"> </a></li><li id="uid_515ec889564e1ff177000017"><a href="/user/515ec889564e1ff177000017" target="_blank" title=""> <img src="http://www.gravatar.com/avatar/52d859577aa3ce44d66ad8793a7618d0.jpg?s=48&amp;d=mm&amp;r=g" width="32" class="avatar"> </a></li><li id="uid_515a915b9a890da11000010a"><a href="/user/515a915b9a890da11000010a" target="_blank" title="2表妹"> <img src="http://www.gravatar.com/avatar/9a3de183761c7153574af7feb8d9c9a7.jpg?s=48&amp;d=monsterid&amp;r=g" width="32" class="avatar"> </a></li><li id="uid_515a88099a890da110000031"><a href="/user/515a88099a890da110000031" target="_blank" title="emmily"> <img src="http://www.gravatar.com/avatar/f37d39febba98f32fd0eea01ea916fbb.jpg?s=48&amp;d=monsterid&amp;r=g" width="32" class="avatar"> </a></li><li id="uid_5125b7ac93a2f5dd48000005"><a href="/user/5125b7ac93a2f5dd48000005" target="_blank" title="lujun"> <img src="http://www.gravatar.com/avatar/e3238e39e72fdb588d6e5bb360fa90b0.jpg?s=48&amp;d=mm&amp;r=g" width="32" class="avatar"> </a></li><li id="uid_5127339f6fb183bd0f00000a"><a href="/user/5127339f6fb183bd0f00000a" target="_blank" title="阿良"> <img src="http://www.gravatar.com/avatar/6b513bbbf8c60fa0a51d81541599c5de.jpg?s=48&amp;d=mm&amp;r=g" width="32" class="avatar"> </a></li><li id="uid_512ad3246fb183bd0f00009f"><a href="/user/512ad3246fb183bd0f00009f" target="_blank" title="CK.Ming"> <img src="http://www.gravatar.com/avatar/b7fdffcba6db560e7589d706a6bcd305.jpg?s=48&amp;d=blank&amp;r=g" width="32" class="avatar"> </a></li><li id="uid_5146f56676cda4e554000018"><a href="/user/5146f56676cda4e554000018" target="_blank" title="anonymous"> <img src="http://www.gravatar.com/avatar/97237ad9c46bc1af704beed9e607b4bc.jpg?s=48&amp;d=monsterid&amp;r=g" width="32" class="avatar"> </a></li><li id="uid_5159388c50310c4d6300002f"><a href="/user/5159388c50310c4d6300002f" target="_blank" title="CK.Ming"> <img src="http://www.gravatar.com/avatar/76a05ff3fc11ccda8ea58c626050bff8.jpg?s=48&amp;d=mm&amp;r=g" width="32" class="avatar"> </a></li><li id="uid_5159550b50310c4d63000057"><a href="/user/5159550b50310c4d63000057" target="_blank" title="泥煤"> <img src="http://www.gravatar.com/avatar/51f20d6596416cb74e2e14a447ca8a37.jpg?s=48&amp;d=mm&amp;r=g" width="32" class="avatar"> </a></li></ul> 
+					</div> 
+				</div> 
+ 
+				<hr> 
+				<div class="slide-module"> 
+					<div class="title">分享到...</div> 
+					 
+					<div class="list share-box"> 
+ 
+						<a href="http://service.weibo.com/share/share.php?url=http://vchat.co/test&amp;appkey=2330339834&amp;title=Vchat开发测试&amp;pic=&amp;ralateUid=&amp;language=" target="_blank" class="share share-sina" title="分享到新浪微博"></a> 
+						<a href="http://share.v.t.qq.com/index.php?c=share&amp;a=index&amp;url=http://vchat.co/test&amp;title=Vchat开发测试" class="share share-qq" title="分享到腾讯微博" target="_blank"></a> 
+					</div> 
+				</div> 
+				 
+			</div> 
+			<div class="main"> 
+				 
+				 
+				<div class="chats"> 
+					 
+					 
+					<div class="timeline"></div> 
+					<div class="chat"> 
+						<div title="查看我的全部对话" class="dot my"></div> 
+						<div class="photo"> 
+							<a href="#" title="点击换一个头像"> 
+								<img src="http://www.gravatar.com/avatar/e3238e39e72fdb588d6e5bb360fa90b0.jpg?s=48&amp;d=mm&amp;r=g" id="user-Avator" alt="hello"> 
+							</a> 
+						</div> 
+							 
+						<div class="info">	 
+							<div class="post-box"> 
+								<form method="post" id="postForm" class="post-form" action="/sys/post"> 
+									<input type="hidden" name="to" id="to" value=""> 
+									<input type="hidden" name="roomid" id="roomid" value="1361426794271"> 
+								<div class="post-box-in" id="postboxIn"> 
+									<div class="post-text-box"> 
+										<div class="post-text" z-index="0" id="postText" maxlength="5000" contenteditable="true"></div> 
+										<textarea class="post-text hidden" id="postTextArea" maxlength="5000" name="text"></textarea> 
+									</div> 
+									 
+								</div> 
+								</form> 
+							</div> 
+							<div class="quote fs_12 pad_a5" id="quote" style="display: none;"> 
+								<span class="quote-text"></span> 
+								<a href="javascript:void(0)" class="quote-user"></a> 
+								<a class="quote-del f-r" href="javascript:void(0)">×</a> 
+							</div> 
+						</div> 
+ 
+ 
+					</div> 
+					 
+					<div class="chat-list"> 
+						 
+						<div id="timelineChats"><div class="chat  my ">  <input name="uid" type="hidden" value="5125b7ac93a2f5dd48000005">  <input name="txt" type="hidden" value="hello &nbsp;test">  <input name="uname" type="hidden" value="lujun">  <input name="mid" type="hidden" value="516b94126e2f19b860000004">  <div title="查看其全部对话" class="dot"></div>  <div class="photo">   <a href="/user/5125b7ac93a2f5dd48000005" target="_blank" data-uid="5125b7ac93a2f5dd48000005">    <img src="http://www.gravatar.com/avatar/e3238e39e72fdb588d6e5bb360fa90b0.jpg?s=48&amp;d=mm&amp;r=g" alt="lujun" class="avatar">   </a>  </div>  <div class="info">   <div class="head">    <a href="/user/5125b7ac93a2f5dd48000005" target="_blank" class="name">lujun</a>    <span class="time">04-15 13:45:54</span>   </div>   <div class="context">        <div class="reply-quote">几天努力，qq登录与sina登录完成了。等待上线 <a href="#">lujun</a></div>        <div>hello &nbsp;test <a class="chat-reply" href="javascript:;">回复</a></div>   </div>  </div> </div><div class="chat  my ">  <input name="uid" type="hidden" value="5125b7ac93a2f5dd48000005">  <input name="txt" type="hidden" value="几天努力，qq登录与sina登录完成了。等待上线">  <input name="uname" type="hidden" value="lujun">  <input name="mid" type="hidden" value="516512b32d41007b4c000009">  <div title="查看其全部对话" class="dot"></div>  <div class="photo">   <a href="/user/5125b7ac93a2f5dd48000005" target="_blank" data-uid="5125b7ac93a2f5dd48000005">    <img src="http://www.gravatar.com/avatar/e3238e39e72fdb588d6e5bb360fa90b0.jpg?s=48&amp;d=mm&amp;r=g" alt="lujun" class="avatar">   </a>  </div>  <div class="info">   <div class="head">    <a href="/user/5125b7ac93a2f5dd48000005" target="_blank" class="name">lujun</a>    <span class="time">04-10 15:20:19</span>   </div>   <div class="context">        <div>几天努力，qq登录与sina登录完成了。等待上线 <a class="chat-reply" href="javascript:;">回复</a></div>   </div>  </div> </div><div class="chat  my ">  <input name="uid" type="hidden" value="5125b7ac93a2f5dd48000005">  <input name="txt" type="hidden" value="http://www.baidu.com/&lt;">  <input name="uname" type="hidden" value="lujun">  <input name="mid" type="hidden" value="5163b6e407763ad02b000020">  <div title="查看其全部对话" class="dot"></div>  <div class="photo">   <a href="/user/5125b7ac93a2f5dd48000005" target="_blank" data-uid="5125b7ac93a2f5dd48000005">    <img src="http://www.gravatar.com/avatar/e3238e39e72fdb588d6e5bb360fa90b0.jpg?s=48&amp;d=mm&amp;r=g" alt="lujun" class="avatar">   </a>  </div>  <div class="info">   <div class="head">    <a href="/user/5125b7ac93a2f5dd48000005" target="_blank" class="name">lujun</a>    <span class="time">04-09 14:36:20</span>   </div>   <div class="context">        <div><a href="http://www.baidu.com/&lt;" target="_blank">http://www.baidu.com/&lt;</a>; <a class="chat-reply" href="javascript:;">回复</a></div>   </div>  </div> </div><div class="chat  my ">  <input name="uid" type="hidden" value="5125b7ac93a2f5dd48000005">  <input name="txt" type="hidden" value="http://www.baidu.com">  <input name="uname" type="hidden" value="lujun">  <input name="mid" type="hidden" value="5163b6dd07763ad02b00001f">  <div title="查看其全部对话" class="dot"></div>  <div class="photo">   <a href="/user/5125b7ac93a2f5dd48000005" target="_blank" data-uid="5125b7ac93a2f5dd48000005">    <img src="http://www.gravatar.com/avatar/e3238e39e72fdb588d6e5bb360fa90b0.jpg?s=48&amp;d=mm&amp;r=g" alt="lujun" class="avatar">   </a>  </div>  <div class="info">   <div class="head">    <a href="/user/5125b7ac93a2f5dd48000005" target="_blank" class="name">lujun</a>    <span class="time">04-09 14:36:13</span>   </div>   <div class="context">        <div><a href="http://www.baidu.com" target="_blank">http://www.baidu.com</a> <a class="chat-reply" href="javascript:;">回复</a></div>   </div>  </div> </div><div class="chat ">  <input name="uid" type="hidden" value="512ad3246fb183bd0f00009f">  <input name="txt" type="hidden" value="http://vchat.co/1364886786566">  <input name="uname" type="hidden" value="CK.Ming">  <input name="mid" type="hidden" value="515a85349a890da110000002">  <div title="查看其全部对话" class="dot"></div>  <div class="photo">   <a href="/user/512ad3246fb183bd0f00009f" target="_blank" data-uid="512ad3246fb183bd0f00009f">    <img src="http://www.gravatar.com/avatar/b7fdffcba6db560e7589d706a6bcd305.jpg?s=48&amp;d=blank&amp;r=g" alt="CK.Ming" class="avatar">   </a>  </div>  <div class="info">   <div class="head">    <a href="/user/512ad3246fb183bd0f00009f" target="_blank" class="name">CK.Ming</a>    <span class="time">04-02 15:13:56</span>   </div>   <div class="context">        <div><a href="http://vchat.co/1364886786566" target="_blank">http://vchat.co/1364886786566</a> <a class="chat-reply" href="javascript:;">回复</a></div>   </div>  </div> </div><div class="chat  my ">  <input name="uid" type="hidden" value="5125b7ac93a2f5dd48000005">  <input name="txt" type="hidden" value="包含URL解析功能。&nbsp;&lt;a href=" http:="" vchat.co="" test"&gt;http:="" test&lt;="" a&gt;"="">  <input name="uname" type="hidden" value="lujun">  <input name="mid" type="hidden" value="515a818f6f397ac409000009">  <div title="查看其全部对话" class="dot"></div>  <div class="photo">   <a href="/user/5125b7ac93a2f5dd48000005" target="_blank" data-uid="5125b7ac93a2f5dd48000005">    <img src="http://www.gravatar.com/avatar/e3238e39e72fdb588d6e5bb360fa90b0.jpg?s=48&amp;d=mm&amp;r=g" alt="lujun" class="avatar">   </a>  </div>  <div class="info">   <div class="head">    <a href="/user/5125b7ac93a2f5dd48000005" target="_blank" class="name">lujun</a>    <span class="time">04-02 14:58:23</span>   </div>   <div class="context">        <div>包含URL解析功能。&nbsp;&lt;a href="<a href="http://vchat.co/test" target="_blank">http://vchat.co/test</a>"&gt;<a href="http://vchat.co/test&lt;" target="_blank">http://vchat.co/test&lt;</a>;/a&gt; <a class="chat-reply" href="javascript:;">回复</a></div>   </div>  </div> </div><div class="chat  my ">  <input name="uid" type="hidden" value="5125b7ac93a2f5dd48000005">  <input name="txt" type="hidden" value="又一个新版本的vcaht">  <input name="uname" type="hidden" value="lujun">  <input name="mid" type="hidden" value="515a81826f397ac409000006">  <div title="查看其全部对话" class="dot"></div>  <div class="photo">   <a href="/user/5125b7ac93a2f5dd48000005" target="_blank" data-uid="5125b7ac93a2f5dd48000005">    <img src="http://www.gravatar.com/avatar/e3238e39e72fdb588d6e5bb360fa90b0.jpg?s=48&amp;d=mm&amp;r=g" alt="lujun" class="avatar">   </a>  </div>  <div class="info">   <div class="head">    <a href="/user/5125b7ac93a2f5dd48000005" target="_blank" class="name">lujun</a>    <span class="time">04-02 14:58:10</span>   </div>   <div class="context">        <div>又一个新版本的vcaht <a class="chat-reply" href="javascript:;">回复</a></div>   </div>  </div> </div><div class="chat ">  <input name="uid" type="hidden" value="5159476050310c4d6300003d">  <input name="txt" type="hidden" value="321">  <input name="uname" type="hidden" value="">  <input name="mid" type="hidden" value="5159477450310c4d6300003f">  <div title="查看其全部对话" class="dot"></div>  <div class="photo">   <a href="/user/5159476050310c4d6300003d" target="_blank" data-uid="5159476050310c4d6300003d">    <img src="http://www.gravatar.com/avatar/b51714a0605801b8ace8e9e60b3fd947.jpg?s=48&amp;d=mm" alt="" class="avatar">   </a>  </div>  <div class="info">   <div class="head">    <a href="/user/5159476050310c4d6300003d" target="_blank" class="name"></a>    <span class="time">04-01 16:38:12</span>   </div>   <div class="context">        <div>321 <a class="chat-reply" href="javascript:;">回复</a></div>   </div>  </div> </div><div class="chat ">  <input name="uid" type="hidden" value="5157b87250310c4d63000004">  <input name="txt" type="hidden" value="test Hello">  <input name="uname" type="hidden" value="Browser Chat">  <input name="mid" type="hidden" value="5159395750310c4d6300003a">  <div title="查看其全部对话" class="dot"></div>  <div class="photo">   <a href="/user/5157b87250310c4d63000004" target="_blank" data-uid="5157b87250310c4d63000004">    <img src="http://www.gravatar.com/avatar/1e32735aee6c002e83b2d7280a92e526.jpg?s=48&amp;d=mm" alt="Browser Chat" class="avatar">   </a>  </div>  <div class="info">   <div class="head">    <a href="/user/5157b87250310c4d63000004" target="_blank" class="name">Browser Chat</a>    <span class="time">04-01 15:37:59</span>   </div>   <div class="context">        <div>test Hello <a class="chat-reply" href="javascript:;">回复</a></div>   </div>  </div> </div><div class="chat ">  <input name="uid" type="hidden" value="5157b87250310c4d63000004">  <input name="txt" type="hidden" value="Page is Too soon">  <input name="uname" type="hidden" value="Browser Chat">  <input name="mid" type="hidden" value="5159395150310c4d63000039">  <div title="查看其全部对话" class="dot"></div>  <div class="photo">   <a href="/user/5157b87250310c4d63000004" target="_blank" data-uid="5157b87250310c4d63000004">    <img src="http://www.gravatar.com/avatar/1e32735aee6c002e83b2d7280a92e526.jpg?s=48&amp;d=mm" alt="Browser Chat" class="avatar">   </a>  </div>  <div class="info">   <div class="head">    <a href="/user/5157b87250310c4d63000004" target="_blank" class="name">Browser Chat</a>    <span class="time">04-01 15:37:53</span>   </div>   <div class="context">        <div>Page is Too soon <a class="chat-reply" href="javascript:;">回复</a></div>   </div>  </div> </div><div class="chat ">  <input name="uid" type="hidden" value="5159388c50310c4d6300002f">  <input name="txt" type="hidden" value="this Page is too small">  <input name="uname" type="hidden" value="CK.Ming">  <input name="mid" type="hidden" value="5159394150310c4d63000038">  <div title="查看其全部对话" class="dot"></div>  <div class="photo">   <a href="/user/5159388c50310c4d6300002f" target="_blank" data-uid="5159388c50310c4d6300002f">    <img src="http://www.gravatar.com/avatar/76a05ff3fc11ccda8ea58c626050bff8.jpg?s=48&amp;d=mm" alt="CK.Ming" class="avatar">   </a>  </div>  <div class="info">   <div class="head">    <a href="/user/5159388c50310c4d6300002f" target="_blank" class="name">CK.Ming</a>    <span class="time">04-01 15:37:37</span>   </div>   <div class="context">        <div>this Page is too small <a class="chat-reply" href="javascript:;">回复</a></div>   </div>  </div> </div><div class="chat ">  <input name="uid" type="hidden" value="5157b87250310c4d63000004">  <input name="txt" type="hidden" value="test FireFox Os">  <input name="uname" type="hidden" value="Browser Chat">  <input name="mid" type="hidden" value="5159393450310c4d63000037">  <div title="查看其全部对话" class="dot"></div>  <div class="photo">   <a href="/user/5157b87250310c4d63000004" target="_blank" data-uid="5157b87250310c4d63000004">    <img src="http://www.gravatar.com/avatar/1e32735aee6c002e83b2d7280a92e526.jpg?s=48&amp;d=mm" alt="Browser Chat" class="avatar">   </a>  </div>  <div class="info">   <div class="head">    <a href="/user/5157b87250310c4d63000004" target="_blank" class="name">Browser Chat</a>    <span class="time">04-01 15:37:24</span>   </div>   <div class="context">        <div>test FireFox Os <a class="chat-reply" href="javascript:;">回复</a></div>   </div>  </div> </div><div class="chat ">  <input name="uid" type="hidden" value="5159388c50310c4d6300002f">  <input name="txt" type="hidden" value="Good Job">  <input name="uname" type="hidden" value="CK.Ming">  <input name="mid" type="hidden" value="515938f750310c4d63000036">  <div title="查看其全部对话" class="dot"></div>  <div class="photo">   <a href="/user/5159388c50310c4d6300002f" target="_blank" data-uid="5159388c50310c4d6300002f">    <img src="http://www.gravatar.com/avatar/76a05ff3fc11ccda8ea58c626050bff8.jpg?s=48&amp;d=mm" alt="CK.Ming" class="avatar">   </a>  </div>  <div class="info">   <div class="head">    <a href="/user/5159388c50310c4d6300002f" target="_blank" class="name">CK.Ming</a>    <span class="time">04-01 15:36:23</span>   </div>   <div class="context">        <div>Good Job <a class="chat-reply" href="javascript:;">回复</a></div>   </div>  </div> </div><div class="chat ">  <input name="uid" type="hidden" value="5157b87250310c4d63000004">  <input name="txt" type="hidden" value="HI">  <input name="uname" type="hidden" value="Browser Chat">  <input name="mid" type="hidden" value="515938de50310c4d63000035">  <div title="查看其全部对话" class="dot"></div>  <div class="photo">   <a href="/user/5157b87250310c4d63000004" target="_blank" data-uid="5157b87250310c4d63000004">    <img src="http://www.gravatar.com/avatar/1e32735aee6c002e83b2d7280a92e526.jpg?s=48&amp;d=mm" alt="Browser Chat" class="avatar">   </a>  </div>  <div class="info">   <div class="head">    <a href="/user/5157b87250310c4d63000004" target="_blank" class="name">Browser Chat</a>    <span class="time">04-01 15:35:58</span>   </div>   <div class="context">        <div>HI <a class="chat-reply" href="javascript:;">回复</a></div>   </div>  </div> </div><div class="chat ">  <input name="uid" type="hidden" value="5159388c50310c4d6300002f">  <input name="txt" type="hidden" value="FireFox OS">  <input name="uname" type="hidden" value="CK.Ming">  <input name="mid" type="hidden" value="515938a650310c4d63000032">  <div title="查看其全部对话" class="dot"></div>  <div class="photo">   <a href="/user/5159388c50310c4d6300002f" target="_blank" data-uid="5159388c50310c4d6300002f">    <img src="http://www.gravatar.com/avatar/76a05ff3fc11ccda8ea58c626050bff8.jpg?s=48&amp;d=mm" alt="CK.Ming" class="avatar">   </a>  </div>  <div class="info">   <div class="head">    <a href="/user/5159388c50310c4d6300002f" target="_blank" class="name">CK.Ming</a>    <span class="time">04-01 15:35:02</span>   </div>   <div class="context">        <div>FireFox OS <a class="chat-reply" href="javascript:;">回复</a></div>   </div>  </div> </div><div class="chat  my ">  <input name="uid" type="hidden" value="5125b7ac93a2f5dd48000005">  <input name="txt" type="hidden" value="新头像呢。哈哈哈哈">  <input name="uname" type="hidden" value="lujun">  <input name="mid" type="hidden" value="5152c4dfe0a142f403000003">  <div title="查看其全部对话" class="dot"></div>  <div class="photo">   <a href="/user/5125b7ac93a2f5dd48000005" target="_blank" data-uid="5125b7ac93a2f5dd48000005">    <img src="http://www.gravatar.com/avatar/e3238e39e72fdb588d6e5bb360fa90b0.jpg?s=48&amp;d=blank" alt="lujun" class="avatar">   </a>  </div>  <div class="info">   <div class="head">    <a href="/user/5125b7ac93a2f5dd48000005" target="_blank" class="name">lujun</a>    <span class="time">03-27 18:07:27</span>   </div>   <div class="context">        <div>新头像呢。哈哈哈哈 <a class="chat-reply" href="javascript:;">回复</a></div>   </div>  </div> </div><div class="chat  my ">  <input name="uid" type="hidden" value="5125b7ac93a2f5dd48000005">  <input name="txt" type="hidden" value="a">  <input name="uname" type="hidden" value="lujun">  <input name="mid" type="hidden" value="515293e0e48bdbdb4f00000e">  <div title="查看其全部对话" class="dot"></div>  <div class="photo">   <a href="/user/5125b7ac93a2f5dd48000005" target="_blank" data-uid="5125b7ac93a2f5dd48000005">    <img src="http://www.gravatar.com/avatar/e3238e39e72fdb588d6e5bb360fa90b0.jpg?s=48&amp;d=monsterid" alt="lujun" class="avatar">   </a>  </div>  <div class="info">   <div class="head">    <a href="/user/5125b7ac93a2f5dd48000005" target="_blank" class="name">lujun</a>    <span class="time">03-27 14:38:24</span>   </div>   <div class="context">        <div>a <a class="chat-reply" href="javascript:;">回复</a></div>   </div>  </div> </div><div class="chat ">  <input name="uid" type="hidden" value="512ad3246fb183bd0f00009f">  <input name="txt" type="hidden" value="How">  <input name="uname" type="hidden" value="CK.Ming">  <input name="mid" type="hidden" value="514c7841d4ca9c7b22000008">  <div title="查看其全部对话" class="dot"></div>  <div class="photo">   <a href="/user/512ad3246fb183bd0f00009f" target="_blank" data-uid="512ad3246fb183bd0f00009f">    <img src="http://www.gravatar.com/avatar/b7fdffcba6db560e7589d706a6bcd305.jpg?s=48&amp;d=monsterid" alt="CK.Ming" class="avatar">   </a>  </div>  <div class="info">   <div class="head">    <a href="/user/512ad3246fb183bd0f00009f" target="_blank" class="name">CK.Ming</a>    <span class="time">03-22 23:26:57</span>   </div>   <div class="context">        <div class="reply-quote">IE8 test <a href="#">hello</a></div>        <div>How <a class="chat-reply" href="javascript:;">回复</a></div>   </div>  </div> </div><div class="chat ">  <input name="uid" type="hidden" value="514c4218f409abbe20000007">  <input name="txt" type="hidden" value="IE8 test">  <input name="uname" type="hidden" value="hello">  <input name="mid" type="hidden" value="514c423c0e6ee74022000002">  <div title="查看其全部对话" class="dot"></div>  <div class="photo">   <a href="/user/514c4218f409abbe20000007" target="_blank" data-uid="514c4218f409abbe20000007">    <img src="http://www.gravatar.com/avatar/9e9aab86598666568b903874ba4f73df.jpg?s=48&amp;d=mm" alt="hello" class="avatar">   </a>  </div>  <div class="info">   <div class="head">    <a href="/user/514c4218f409abbe20000007" target="_blank" class="name">hello</a>    <span class="time">03-22 19:36:28</span>   </div>   <div class="context">        <div>IE8 test <a class="chat-reply" href="javascript:;">回复</a></div>   </div>  </div> </div><div class="chat ">  <input name="uid" type="hidden" value="512ad3246fb183bd0f00009f">  <input name="txt" type="hidden" value="更新日志">  <input name="uname" type="hidden" value="CK.Ming">  <input name="mid" type="hidden" value="514c267eb7d740781500000d">  <div title="查看其全部对话" class="dot"></div>  <div class="photo">   <a href="/user/512ad3246fb183bd0f00009f" target="_blank" data-uid="512ad3246fb183bd0f00009f">    <img src="http://www.gravatar.com/avatar/b7fdffcba6db560e7589d706a6bcd305.jpg?s=48&amp;d=monsterid" alt="CK.Ming" class="avatar">   </a>  </div>  <div class="info">   <div class="head">    <a href="/user/512ad3246fb183bd0f00009f" target="_blank" class="name">CK.Ming</a>    <span class="time">03-22 17:38:06</span>   </div>   <div class="context">        <div class="reply-quote">Hello <a href="#">CK.Ming</a></div>        <div>更新日志 <a class="chat-reply" href="javascript:;">回复</a></div>   </div>  </div> </div><div class="chat  my ">  <input name="uid" type="hidden" value="5125b7ac93a2f5dd48000005">  <input name="txt" type="hidden" value="有一个vchat版本，更新了。">  <input name="uname" type="hidden" value="lujun">  <input name="mid" type="hidden" value="514ac4d2c64fbb207c000006">  <div title="查看其全部对话" class="dot"></div>  <div class="photo">   <a href="/user/5125b7ac93a2f5dd48000005" target="_blank" data-uid="5125b7ac93a2f5dd48000005">    <img src="http://www.gravatar.com/avatar/e3238e39e72fdb588d6e5bb360fa90b0.jpg?s=48&amp;d=monsterid" alt="lujun" class="avatar">   </a>  </div>  <div class="info">   <div class="head">    <a href="/user/5125b7ac93a2f5dd48000005" target="_blank" class="name">lujun</a>    <span class="time">03-21 16:29:06</span>   </div>   <div class="context">        <div>有一个vchat版本，更新了。 <a class="chat-reply" href="javascript:;">回复</a></div>   </div>  </div> </div></div> 
+						<div class="we-loading timeline-loading hidden" id="timelineLoading"></div> 
+					</div> 
+					 
+				</div> 
+				 
+				 
+			</div> 
+		</div> 
+	</div> 
+	 
+<div class="footer"></div> 
+ 
+ 
+ 
+<!--Chat Page--> 
+<script type="text/javascript" src="/js/we.chat.min.js"></script> 
+<!--Top Page--> 
+<script type="text/javascript" src="/js/we.top.min.js"></script> 
+<script type="text/javascript"> 
+	WE.pageChat.init(); 
+	WE.pageChat.timeLine.init( [{"_id":"516512b32d41007b4c000009","roomid":"1361426794271","time":1365578419,"text":"几天努力，qq登录与sina登录完成了。等待上线","uid":"5125b7ac93a2f5dd48000005","uname":"lujun","uavatar":"http://www.gravatar.com/avatar/e3238e39e72fdb588d6e5bb360fa90b0.jpg?s=48&d=mm&r=g","to":null,"del":0},{"_id":"5163b6e407763ad02b000020","roomid":"1361426794271","time":1365489380,"text":"http://www.baidu.com/&lt;","uid":"5125b7ac93a2f5dd48000005","uname":"lujun","uavatar":"http://www.gravatar.com/avatar/e3238e39e72fdb588d6e5bb360fa90b0.jpg?s=48&d=mm&r=g","to":null,"del":0},{"_id":"5163b6dd07763ad02b00001f","roomid":"1361426794271","time":1365489373,"text":"http://www.baidu.com","uid":"5125b7ac93a2f5dd48000005","uname":"lujun","uavatar":"http://www.gravatar.com/avatar/e3238e39e72fdb588d6e5bb360fa90b0.jpg?s=48&d=mm&r=g","to":null,"del":0},{"_id":"515a85349a890da110000002","roomid":"1361426794271","time":1364886836,"text":"http://vchat.co/1364886786566","uid":"512ad3246fb183bd0f00009f","uname":"CK.Ming","uavatar":"http://www.gravatar.com/avatar/b7fdffcba6db560e7589d706a6bcd305.jpg?s=48&d=blank&r=g","to":null,"del":0},{"_id":"515a818f6f397ac409000009","roomid":"1361426794271","time":1364885903,"text":"包含URL解析功能。&nbsp;&lt;a href=\"http://vchat.co/test\"&gt;http://vchat.co/test&lt;/a&gt;","uid":"5125b7ac93a2f5dd48000005","uname":"lujun","uavatar":"http://www.gravatar.com/avatar/e3238e39e72fdb588d6e5bb360fa90b0.jpg?s=48&d=mm&r=g","to":null,"del":0},{"_id":"515a81826f397ac409000006","roomid":"1361426794271","time":1364885890,"text":"又一个新版本的vcaht","uid":"5125b7ac93a2f5dd48000005","uname":"lujun","uavatar":"http://www.gravatar.com/avatar/e3238e39e72fdb588d6e5bb360fa90b0.jpg?s=48&d=mm&r=g","to":null,"del":0},{"_id":"5159477450310c4d6300003f","roomid":"1361426794271","time":1364805492,"text":"321","uid":"5159476050310c4d6300003d","uname":null,"uavatar":"http://www.gravatar.com/avatar/b51714a0605801b8ace8e9e60b3fd947.jpg?s=48&d=mm","to":null,"del":0},{"_id":"5159395750310c4d6300003a","roomid":"1361426794271","time":1364801879,"text":"test Hello","uid":"5157b87250310c4d63000004","uname":"Browser Chat","uavatar":"http://www.gravatar.com/avatar/1e32735aee6c002e83b2d7280a92e526.jpg?s=48&d=mm","to":null,"del":0},{"_id":"5159395150310c4d63000039","roomid":"1361426794271","time":1364801873,"text":"Page is Too soon","uid":"5157b87250310c4d63000004","uname":"Browser Chat","uavatar":"http://www.gravatar.com/avatar/1e32735aee6c002e83b2d7280a92e526.jpg?s=48&d=mm","to":null,"del":0},{"_id":"5159394150310c4d63000038","roomid":"1361426794271","time":1364801857,"text":"this Page is too small","uid":"5159388c50310c4d6300002f","uname":"CK.Ming","uavatar":"http://www.gravatar.com/avatar/76a05ff3fc11ccda8ea58c626050bff8.jpg?s=48&d=mm","to":null,"del":0}] ); 
+	WE.pageChat.userlist.regEvent(); 
+</script> 
+<script src="/js/socket.io.min.js"></script> 
+<script type="text/javascript"> 
+	//匿名用户 
+ 
+	//WE.pageChat.setUserName( USER ); 
+ 
+	if(USER.name == "" && /^\d+$/.test(USER.mail)){ 
+		WE.pageTop.setUserName( USER ); 
+		//匿名用户不连接 socket 
+	} 
+ 
+		 
+	var socket = io.connect( document.location.host ); 
+ 
+	socket.on('connect', function(){ 
+ 
+		socket.emit("setting", {roomid:ROOM.id}); 
+		$('#offlineTip').hide(); 
+		$('#userlist').show(); 
+ 
+	}); 
+ 
+	socket.on('userlist', function( data ){ 
+		//console.log( data ); 
+		WE.pageChat.userlist.init( data ); 
+	}); 
+ 
+	socket.on("online", function(data){ 
+ 
+		WE.pageChat.userlist.append( data ); 
+ 
+	}); 
+ 
+	socket.on("offline", function( data ){ 
+ 
+		WE.pageChat.userlist.remove( data ); 
+	}); 
+ 
+	socket.on('newChat', function(data) { 
+		//console.log(data); 
+		WE.pageChat.timeLine.prepend( data ); 
+	}); 
+ 
+	socket.on('disconnect', function(err){ 
+		$('#offlineTip').show(); 
+		$('#userlist').hide(); 
+	}); 
+ 
+ 
+		 
+</script> 
+ 
+ 
+</body></html>
