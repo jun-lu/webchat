@@ -5,15 +5,15 @@
 	对话页面
 */
 
-var config = require("../config");
-var UserModel = require("../lib/UserModel");
-var RoomModel = require('../lib/RoomModel');
-var ChatModel = require('../lib/ChatModel');
-var LogModel = require('../lib/LogModel');
-var WebStatus = require('../lib/WebStatus');
-var socketServer = require('../lib/socketServer');
+var config = require("../../config");
+var UserModel = require("../../lib/UserModel");
+var RoomModel = require('../../lib/RoomModel');
+var ChatModel = require('../../lib/ChatModel');
+var LogModel = require('../../lib/LogModel');
+var WebStatus = require('../../lib/WebStatus');
+var socketServer = require('../../lib/socketServer');
 //var maxIndex = {};
-var roomLimit = require("./sys/room_limit");
+var roomLimit = require("../sys/room_limit");
 
 
 module.exports = {
@@ -42,9 +42,9 @@ module.exports = {
 						indexData.user = user.getInfo();
 						intoPage();
 					}else{
-						status.code("500");
-						status.setMsg("创建匿名用户错误");
-						res.render("404", status.toJSON());	
+
+						//  创建匿名用户错误
+						throw " createAnonymousUser error "+ status.code;
 					}
 				});
 
@@ -83,7 +83,7 @@ module.exports = {
 						ChatModel.findChats( roomid , 10, function( status ){
 
 							indexData.indexChats = status.result || [];
-							res.render('chat', indexData);
+							res.render('m/chat', indexData);
 
 						});
 
@@ -92,8 +92,8 @@ module.exports = {
 						LogModel.create( user._id, "into_room",  room.getInfo() );
 
 					}else{
-						status.setMsg("没有找到对话，请确认输入");
-						res.render("404", status.toJSON() );
+
+						res.render("404", status.toJSON());
 						res.end();
 					}
 
@@ -101,55 +101,5 @@ module.exports = {
 				});
 			}
 
-		},
-		// 发布一条信息
-		post:function( req, res ){
-
-			var user = req.session.user;
-			var text = req.body.text;
-			var roomid = req.body.roomid;
-			var to = req.body.to || null;//针对某条信息的回复 源信息id
-			var status = new WebStatus();
-			
-			if( text.length == 0  || text.length > 5000 ){
-
-				status.setCode("-1");
-				status.addMsg("内容范围应该在0-5000之间");
-				res.write( status.toString() );
-				res.end();
-				return ;
-
-			};
-
-
-			if(text && roomid){
-
-				var userjson = {
-
-					"uid":user._id,
-					"uname":user.name,
-					"uavatar":user.getGravatar()
-
-				};
-
-				ChatModel.create(roomid, text, userjson, to, function( status ){
-
-					res.write( status.toString(), "utf-8" );
-					res.end();
-
-					//console.log("create", status );
-					if(status.code == "0"){
-						var chat = status.result;
-						socketServer.newChat( chat[0] );
-					}
-
-				});
-
-			}else{
-				res.end("{code:-1}", 'utf-8');
-			}
-
 		}
-
-
 };

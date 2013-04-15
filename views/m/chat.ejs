@@ -11,13 +11,21 @@
 
 	<link rel="stylesheet" type="text/css" href="common.css"/>
 	<link rel="stylesheet" type="text/css" href="page.chat.css"/>
+
+	<script type="text/javascript">
+
+		var USER = <%- JSON.stringify(user)%>;
+		var ROOM = <%- JSON.stringify(room)%>;
+		
+	</script>
+
 </head>
 <body>
 	<div class="page">
 		<div class="screen-wrap fullscreen" id="wrapper">
 			<header id="chat-title">
 				<a class="back" href="http://m.taobao.com">< 返回</a>
-				<h1>今天去什么地方</h1>
+				<h1><%=room.topic%></h1>
 				<a class="setting" href="javascript:void(0)">设</a>
 			</header>
 			<div class="content">
@@ -95,6 +103,7 @@
 	</div>
 
 	<script type="text/javascript">
+		var FIRST_DATA = <%- JSON.stringify( indexChats ) %>;
 		/*common*/
 
 		var userInfo = {

@@ -97,4 +97,4 @@ width: 0;height: 0;font-size: 0;line-height: 0;}
 			.drop-down-items li a{display:block;color:#3d3d3d;white-space:nowrap;}
 			.drop-down-items li a:hover{display:block;color:#3d3d3d;background:#f6f6f6;}
 /* footer */
-.footer{margin-top:50px;}
+.footer{margin-top:50px;padding-bottom: 30px;}

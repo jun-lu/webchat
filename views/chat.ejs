@@ -46,21 +46,36 @@
 					</ul>
 				</div>
 				
-				<div class="user-list">
+				<div class="slide-module">
 					<div class="title">Online</div>
 					<div class="list">
+						<div id="offlineTip" style="display:none;" class="alert">
+							您已经断开即时连接，
+							<a href="/<%=room.name ? room.name : room.id%>">刷新页面</a>可解决
+						</div>
 						<ul class="reset clear-fix" id="userlist">
 							<li><div class="we-loading" style="width:32px;height:32px;"></div></li>
 						</ul>
 					</div>
 				</div>
 				
-				<div class="user-list">
+				<div class="slide-module">
 					<div class="title">History</div>
 					<div class="list">
 						<ul class="reset clear-fix history-list" id="history-list">
 							<li><div class="we-loading" style="width:32px;height:32px;"></div></li>
 						</ul>
+					</div>
+				</div>
+
+				<hr />
+				<div class="slide-module">
+					<div class="title">分享到...</div>
+					
+					<div class="list share-box">
+
+						<a href="http://service.weibo.com/share/share.php?url=http://vchat.co/<%=room.name ? room.name : room.id%>&appkey=2330339834&title=<%=room.topic%>&pic=&ralateUid=&language=" target="_blank" class="share share-sina" title="分享到新浪微博" ></a>
+						<a href="http://share.v.t.qq.com/index.php?c=share&a=index&url=http://vchat.co/<%=room.name ? room.name : room.id%>&title=<%=room.topic%>" class="share share-qq" title="分享到腾讯微博" target="_blank" ></a>
 					</div>
 				</div>
 				
@@ -150,7 +165,11 @@
 	var socket = io.connect( document.location.host );
 
 	socket.on('connect', function(){
+
 		socket.emit("setting", {roomid:ROOM.id});
+		$('#offlineTip').hide();
+		$('#userlist').show();
+
 	});
 
 	socket.on('userlist', function( data ){
@@ -175,8 +194,8 @@
 	});
 
 	socket.on('disconnect', function(err){
-		//....
-		socket.emit("setting", {roomid:ROOM.id});
+		$('#offlineTip').show();
+		$('#userlist').hide();
 	});
 
 

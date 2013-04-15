@@ -56,5 +56,20 @@ while(rooms.hasNext()){
 	}
 }
 
+/**为room表添加创建时间*/
+var rooms = db.room.find();
+while(rooms.hasNext()){
+	var item = rooms.next();
+	var id = item.id;
+	
+	var chats = db.chat.find({"roomid":id}).sort({time:-1}).limit(1);
+	if(chats.hasNext()){
+		item.time = chats.next().time;
+	}else{
+		item.time = parseInt(Date.now()/1000)
+	}
+	db.room.save( item );
+}
+
 
 

@@ -117,7 +117,7 @@
 								</li>
 								<%}%>
 								<% if(intos.length == 0) {%>
-									<li>没有参加过话题</li>
+									<li><span class="des">没有创建过话题</span></li>
 								<%}%>
 							</ul>
 						</div>
@@ -130,12 +130,9 @@
 				</div>
 			</div>
 		</div>
-		<div class="footer">
-			<div class="container">
-				<p><a href="/about">about</a></p>	
-			</div>
-		</div>
+		
 	</div>
+	<% include ../common/footer.ejs %>	
 	<script type="text/javascript" src="/js/jquery-1.6.3.min.js"></script>
 	<script type="text/javascript" src="/js/we.min.js"></script>
 	<!--Top Page-->

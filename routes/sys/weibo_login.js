@@ -57,11 +57,13 @@ module.exports = {
 
 				//{"access_token":"2.002nFDqB3qrhXC9abdf9b5a002_HoW","remind_in":"157679999","expires_in":157679999,"uid":"1685239567"}
 				//oauthInfo = {"access_token":"2.002nFDqB3qrhXC9abdf9b5a002_HoW","remind_in":"157679999","expires_in":157679999,"uid":"1685239567"}
-				
+				//console.log( "config.domain:", config.domain );
 				if( oauthInfo.access_token ){
 	
 					UserModel.findOauth("sina", String(oauthInfo.uid), function( status ){
 						//用户未注册过
+						//res.setHeader("Set-Cookie", ["sid=0|0|0;path=/;domain=vchat.co;expires="+new Date("2000")]);
+
 						if( status.code == "404" ){
 
 							oauthInfo.from = "sina";
@@ -70,6 +72,7 @@ module.exports = {
 							getSinaUserInfo( oauthInfo.access_token,  oauthInfo.uid, function( data ){
 								
 								//data
+								data = JSON.parse(data);
 								var user = User.factoryRandom();
 
 								user.setAvatar( data.avatar_large );
@@ -79,7 +82,10 @@ module.exports = {
 
 								UserModel.createOauthUser(user, function( status ){
 									var user = status.result;
-									res.setHeader("Set-Cookie", ["sid="+user.toCookie()+";path=/;domain="+config.domain+";expires="+new Date("2030") ]);
+									res.setHeader("Set-Cookie", [
+										"sid=0|0|0;path=/;expires="+new Date("2000"),
+										"sid="+user.toCookie()+";path=/;domain="+config.domain+";expires="+new Date("2030")
+									]);
 									res.render("sys/sina_login", {state:state, user:user.getInfo()} );
 									res.end();	
 								});
@@ -91,7 +97,10 @@ module.exports = {
 						}else{
 
 							var user = status.result;
-							res.setHeader("Set-Cookie", ["sid="+user.toCookie()+";path=/;domain="+config.domain+";expires="+new Date("2030") ]);
+							res.setHeader("Set-Cookie", [
+								"sid=0|0|0;path=/;expires="+new Date("2000"),
+								"sid="+user.toCookie()+";path=/;domain="+config.domain+";expires="+new Date("2030")
+							]);
 							res.render("sys/sina_login", {state:state, user:user.getInfo()} );
 							res.end();
 						}

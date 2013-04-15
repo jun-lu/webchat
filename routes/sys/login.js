@@ -15,6 +15,7 @@ module.exports = {
 		get:function( req, res ){
 			var user = req.session.user || null;
 			var referer = req.query.referer || "/";
+			//res.setHeader("Set-Cookie", ["sid=0|0|0;path=/;domain=vchat.co;expires="+new Date("2000")]);
 			//status.user = user ? user.getInfo(): user;
 			res.render('sys/login', new WebStatus().toJSON( {
 				referer:referer,
