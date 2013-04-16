@@ -25,7 +25,7 @@
 		<div class="screen-wrap fullscreen" id="wrapper">
 	
 			<header id="chat-title">
-				<a class="back" href="http://m.taobao.com">< 返回</a>
+				<a class="back" href="http://vchat.co">< 返回</a>
 				<h1><%=room.topic%></h1>
 				<a class="setting" href="javascript:void(0)">设</a>
 			</header>
@@ -44,7 +44,7 @@
 					</div>
 					<div style="position:relative;">
 					<form action="#" type="post" id="sendForm">
-						<div style="margin-right:79px;margin-top:2px;"><textarea id="talk-input"></textarea></div>
+						<div style="margin-right:97px;margin-top:2px;"><textarea id="talk-input"></textarea></div>
 						<div class="btn-group send-btn">
 							<button id="send-btn" class="btn" type="submit">发送</button>
 						</div>
@@ -64,9 +64,7 @@
 	</script>
 	<script type="text/javascript" src="/js/zepto.min.js"></script>
 	<script type="text/javascript" src="/js/we.min.js"></script>
-
-	<script type="text/javascript" src="/js/src/we.chat/we.api.chat.js"></script>
-	<script type="text/javascript" src="/js/src/we.chat/m.chat.page.js"></script>
+	<script type="text/javascript" src="/js/m.chat.min.js"></script>
 	
 
 	<script type="text/javascript">
@@ -95,8 +93,7 @@
 			socket.emit("setting", {roomid:ROOM.id});
 			// $('#offlineTip').hide();
 			// $('#userlist').show();
-
-			console.log('connect');
+			//console.log('connect');
 		});
 
 		socket.on('userlist', function( data ){
@@ -117,7 +114,8 @@
 		});
 
 		socket.on('newChat', function(data) {
-			console.log(data);
+			//console.log('newChat:',data);
+			WE.pageChat.prepend( [data] );
 			//WE.pageChat.timeLine.prepend( data );
 		});
 

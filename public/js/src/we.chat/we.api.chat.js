@@ -24,7 +24,12 @@ WE.api.ChatModel.prototype = WE.BaseModel.prototype;
 
 // 手机post
 WE.api.ChatModel.prototype.mpostChat = function( roomid, text, to ){
-	this.post(this.mpostUrl, { roomid:roomid, text:text, to:to });
+	var param = { roomid:roomid, text:text};
+	if(to){
+		param.to = to;
+	}
+
+	this.post(this.mpostUrl,  param);
 };
 
 WE.api.ChatModel.prototype.postChat = function( roomid, text, to ){

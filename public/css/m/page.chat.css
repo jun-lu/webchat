@@ -8,12 +8,13 @@ header .back{left:2px;}
 
 .chat-container{padding:43px 5px 70px 5px;}
 .chat,.info{position:relative;}
-	.chat .talk{position:relative;background:#f2fbf2;display:inline-block;margin:20px 0px 20px 40px;min-width:180px;}
-	.chat .talk p{padding:6px;}
-	.chat .avator{position:absolute;top:7px;}
-	.chat .time{color:#bbb;float:right;}
+	.chat .talk{position:relative;background:#f2fbf2;margin:20px 0px 20px 40px;min-width:180px;}
+	.chat .talk-cont{padding:6px;word-break:break-word;}
+	.chat .review-time{text-align:right;}
+	.chat .review-time .review-btn{margin-right:5px;}
+	.chat .avator{position:absolute;top:0px;}
+	.chat .time{color:#bbb;}
 	.my .talk{background:#e6f8f8}
-		.info .name{position:absolute;margin-left:40px;}
 		.talk .arrow{width:0px;height:0px;line-height:0px;position:absolute;border-color:transparent #f2fbf2 transparent transparent;border-style:solid;border-width:6px;left:-12px;top:7px;}
 		.talk .review-orig{border-left:#999 solid 1px;padding-left:8px;margin:5px 0px 0px 8px;color:#a5a5a5;}
 		.my .arrow{border-color:transparent #e6f8f8 transparent transparent;}

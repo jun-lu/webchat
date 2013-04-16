@@ -29,17 +29,18 @@ WE.pageChat = {
 							</a>\
 						</div>\
 						<div class="info">\
-							<a class="name" href="/user/<%=obj[i].uid%>"><%=obj[i].uname%> :</a>\
 							<div class="talk">\
 								<i class="arrow"></i>\
-								<% if( obj[i].review ){ %>\
-								<div class="review-orig">\
-									<span><%=WE.kit.chatFormate(obj[i].to.text) %></span>\
-									<a class="u-name" href="/user/<%=to.uid%>"><%=obj[i].to.uname%></a>\
+								<div class="talk-cont">\
+									<% if( obj[i].to ){ %>\
+									<div class="review-orig">\
+										<span><%=WE.kit.chatFormate(obj[i].to.text) %></span>\
+										<a class="u-name" href="/user/<%=obj[i].to.uid%>"><%=obj[i].to.uname%></a>\
+									</div>\
+									<% } %>\
+									<a class="name" href="/user/<%=obj[i].uid%>"><%=obj[i].uname%> : </a><%=WE.kit.chatFormate(obj[i].text)%>\
 								</div>\
-								<% } %>\
-								<p><%=WE.kit.chatFormate(obj[i].text)%></p>\
-								<p>\
+								<p class="review-time">\
 									<a class="review-btn" href="javascript:;">回复</a>\
 									<span class="time"><%=WE.kit.format( new Date( obj[i].time * 1000),"MM-dd hh:mm:ss")%></span>\
 								</p>\
@@ -85,8 +86,8 @@ WE.pageChat = {
 				// 					text : talk
 				// 				}
 				// 			];
-
-				_this.post( ROOM.id,text,WE.pageChat.review._id );
+				console.log(WE.pageChat.review._id);
+				_this.post( ROOM.id,text, WE.pageChat.review._id );
 				// _this.prepend( datas );
 
 				WE.pageChat.review.clear();
@@ -131,7 +132,7 @@ WE.pageChat = {
 		var _this = this;
 			_this.ui.sendBtn.attr('disabled','disabled').text('发送中...');
 
-		to = !to ? null : to;
+		to = !to ? undefined : to;
 
 		var model = new WE.api.ChatModel();
 		var ctrl = new WE.Controller();
@@ -140,11 +141,10 @@ WE.pageChat = {
 			var data = e.data;
 			if( data.code == 0 ){
 
-				_this.prepend( data.result );
+				_this.review._id = null;
+				//_this.prepend( data.result );
 				_this.ui.inputArea.val('');
-				_this.ui.sendBtn.removeAttr('disabled').text('发送');
-
-				
+				_this.ui.sendBtn.removeAttr('disabled').text('发送');	
 			}
 		}
 		model.addObserver( ctrl );
