@@ -6,6 +6,7 @@
 */
 
 var config = require("../config");
+var tool = require("../lib/tools");
 var UserModel = require("../lib/UserModel");
 var RoomModel = require('../lib/RoomModel');
 var ChatModel = require('../lib/ChatModel');
@@ -93,6 +94,7 @@ module.exports = {
 						ChatModel.findChats( roomid , 10, function( status ){
 
 							indexData.indexChats = status.result || [];
+							indexData.tool = tool;
 							res.render('chat', indexData);
 
 						});
@@ -156,7 +158,9 @@ module.exports = {
 				});
 
 			}else{
-				res.end("{code:-1}", 'utf-8');
+				status.setCode("-1");
+				res.write( status.toString() );
+				res.end();
 			}
 
 		}

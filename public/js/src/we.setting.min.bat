@@ -9,5 +9,5 @@ echo %inputlist%
 echo %outputfilename%
 
 java -jar compiler.jar %inputlist% %outputfilename%
-echo 文件已输出到 %outputfilename%
+echo  %outputfilename%
 @pause>nul

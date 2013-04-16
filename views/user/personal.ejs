@@ -45,7 +45,7 @@
 							<div class="des" id="des">
 								<p class="summery">
 									<span id="summery" >
-										<%=accessUser.summary%>
+										<%-tool.revertHtmlTag(accessUser.summary)%>
 									</span>
 									<%if( user._id == accessUser._id ){%>
 										<small>	
@@ -57,7 +57,7 @@
 							</div>
 							<div>
 								<form method="post" id="modifyForm" class="hidden" action="/sys/user_summary">
-									<textarea id="modifyInput"></textarea>
+									<textarea id="modifyInput" style="height:100px;" ><%=accessUser.summary%></textarea>
 									<input type="submit" class="btn" value="提交"/>
 									<a href="javascript:;" class="out">取消</a>
 								</form>

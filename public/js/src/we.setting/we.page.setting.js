@@ -19,7 +19,6 @@ WE.pageSetting = {
 		this.summery = this.ui.summery.text();
 
 		this.ui.modifyBtn.click(function(){
-			_this.ui.modifyInput.val( _this.summery );
 			_this.ui.modifyForm.show();
 			_this.ui.des.hide();
 		});
@@ -50,7 +49,7 @@ WE.pageSetting = {
 
 			var data = e.data;
 			if( data.code == 0 ){
-				_this.ui.summery.html( WE.kit.chatFormate( summery ) );
+				_this.ui.summery.html( WE.kit.chatFormate( WE.kit.removalHtmlTag(summery) ) );
 				_this.summery = summery;
 				_this.ui.modifyForm.hide();
 				_this.ui.des.show();
