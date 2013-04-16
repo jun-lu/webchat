@@ -156,7 +156,9 @@ module.exports = {
 				});
 
 			}else{
-				res.end("{code:-1}", 'utf-8');
+				status.setCode("-1");
+				res.write( status.toString() );
+				res.end();
 			}
 
 		}
