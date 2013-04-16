@@ -147,6 +147,14 @@ WE.extend(WE.kit, {
 			return '<a href="'+a+'" target="_blank">'+a+'</a>'
 		})
 
+	},
+	removalHtmlTag:function(a){return a.replace(/<|>/g,function(a){return a=="<"?"&lt;":"&gt;"})},
+	revertHtmlTag:function( text ){
+
+		return text.replace(/\n/gi, "<br/>").replace(/http:\/\/[\w\.\/\:\?\&\=\#\-\_]+/gi, function( a ){
+			return '<a href="'+a+'" target="_blank">'+a+'</a>'
+		})
+
 	}
 });
 	

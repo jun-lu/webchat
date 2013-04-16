@@ -14,7 +14,7 @@ var ChatModel = require("../../lib/ChatModel");
 var UserModel = require("../../lib/UserModel");
 var RoomModel = require("../../lib/RoomModel");
 var socketServer = require("../../lib/socketServer");
-
+function staticHTML(a){return a.replace(/<|>/g,function(a){return a=="<"?"&lt;":"&gt;"})}
 module.exports = {
 
 	//修改当前用户的昵称
@@ -498,7 +498,7 @@ module.exports = {
 
 		if( summary && summary.length < 300){
 
-
+			summary = staticHTML( summary );
 			UserModel.updateSummary(user._id, summary, function( status ){
 				res.write( status.toString() );
 				res.end();
