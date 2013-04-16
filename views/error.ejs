@@ -1,0 +1,19 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title>Server 500 - Vchat</title>
+	<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
+	<style type="text/css">
+		body{padding:20px;}
+	</style>
+</head>
+<body style="background:#efefef;">
+	<h1>嗷! <%=code ? code : "404"%></h1>
+	<div>
+		<p><%=msg ? msg : "服务器错误"%></p>
+		<p>很抱歉，这一定是我们的错了。</p>
+		<p><a href="/">首页</a> <a href="javascript:;" onclick="window.history.back(-1);">退回上一步</a></p>
+	</div>
+</body>
+</html>

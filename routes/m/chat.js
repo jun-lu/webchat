@@ -93,7 +93,7 @@ module.exports = {
 
 					}else{
 
-						res.render("404", status.toJSON());
+						res.status(404).render("404", status.toJSON());
 						res.end();
 					}
 

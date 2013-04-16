@@ -29,12 +29,12 @@ module.exports = {
 			if(id.length != 24){
 
 				status.setCode("-1");
-				res.render("404", status.toJSON());
+				res.status(404).render("404", status.toJSON());
 
 				return false;	
 			};
 
-			console.log(id);
+			//console.log(id);
 
 			UserModel.find_id(id, function( status ){
 
@@ -82,7 +82,7 @@ module.exports = {
 					//console.log("-----------------","no find");
 					status.addMsg("没有找到用户");
 
-					res.render("404", status.toJSON() );
+					res.status(404).render("404", status.toJSON() );
 				}
 
 			});
