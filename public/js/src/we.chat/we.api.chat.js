@@ -16,9 +16,21 @@ WE.api.ChatModel = function(){
 	this.updateAvatorURL = "/sys/set_avatar";
 	this.historyListURL = "/sys/history";
 	this.uniqueKeyURL = "/sys/check_room_key";
+
+	this.mpostUrl = location.pathname.replace("/m/","/");
 };
 
 WE.api.ChatModel.prototype = WE.BaseModel.prototype;
+
+// 手机post
+WE.api.ChatModel.prototype.mpostChat = function( roomid, text, to ){
+	var param = { roomid:roomid, text:text};
+	if(to){
+		param.to = to;
+	}
+
+	this.post(this.mpostUrl,  param);
+};
 
 WE.api.ChatModel.prototype.postChat = function( roomid, text, to ){
 	this.post(this.postUrl, { roomid:roomid, text:text, to:to });

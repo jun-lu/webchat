@@ -9,8 +9,8 @@
 	<meta name="apple-mobile-web-app-capable" content="yes"/>
 	<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
 
-	<link rel="stylesheet" type="text/css" href="common.css"/>
-	<link rel="stylesheet" type="text/css" href="page.chat.css"/>
+	<link rel="stylesheet" type="text/css" href="/css/m/common.css"/>
+	<link rel="stylesheet" type="text/css" href="/css/m/page.chat.css"/>
 
 	<script type="text/javascript">
 
@@ -23,75 +23,28 @@
 <body>
 	<div class="page">
 		<div class="screen-wrap fullscreen" id="wrapper">
+	
 			<header id="chat-title">
-				<a class="back" href="http://m.taobao.com">< 返回</a>
+				<a class="back" href="http://vchat.co">< 返回</a>
 				<h1><%=room.topic%></h1>
 				<a class="setting" href="javascript:void(0)">设</a>
 			</header>
+			
 			<div class="content">
 
 				<div class="chat-container" id="chat-container">
 
-					<!--普通样式-->
-					<div class="chat">
-						<div class="avator">
-							<img src="http://www.gravatar.com/avatar/e3238e39e72fdb588d6e5bb360fa90b0.jpg?s=30&d=mm&r=g"/>
-						</div>
-						<div class="info">
-							<a class="name" href="#">lujun :</a>
-							<div class="talk">
-								<i class="arrow"></i>
-								<div class="review-orig">
-									<span>今天是个好日子，我们去哪里玩,今天是个好日子今天是个好日子，我们去哪里玩,今天是个好日子今天是个好日子，我们去哪里玩,今天是个好日子</span>
-									<a class="u-name" href="#">lujun</a>
-								</div>
-								<p>今天是个好日子，我们去哪里玩,今天是个好日子，我们去哪里玩今天是个好日子，我们去哪里玩今天是个好日子，我们去哪里玩今天是个好日子，我们去哪里玩今天是个好日子，我们去哪里玩</p>
-								<p><a href="javascript:;">回复</a><span class="time">1小时前</span></p>
-							</div>
-						</div>
-					</div>
-
-
-					<!--回复样式-->
-					<div class="chat">
-						<div class="avator">
-							<img src="http://www.gravatar.com/avatar/e3238e39e72fdb588d6e5bb360fa90b0.jpg?s=30&d=mm&r=g"/>
-						</div>
-						<div class="info">
-							<a class="name" href="#">lujun :</a>
-							<div class="talk">
-								<i class="arrow"></i>
-								<div class="review-orig">
-									<span>今天是个好日子，我们去哪里玩,今天是个好日子今天是个好日子，我们去哪里玩,今天是个好日子今天是个好日子，我们去哪里玩,今天是个好日子</span>
-									<a class="u-name" href="#">lujun</a>
-								</div>
-								<p>今天是个好日子，我们去哪里玩,今天是个好日子，我们去哪里玩今天是个好日子，我们去哪里玩今天是个好日子，我们去哪里玩今天是个好日子，我们去哪里玩今天是个好日子，我们去哪里玩</p>
-								<p><a href="javascript:;">回复</a><span class="time">1小时前</span></p>
-							</div>
-						</div>
-					</div>
-
-					<div class="chat my">
-						<div class="avator">
-							<img src="http://www.gravatar.com/avatar/b7fdffcba6db560e7589d706a6bcd305.jpg?s=30&d=blank&r=g"/>
-						</div>
-						<div class="talk">
-							<i class="arrow"></i>
-							<p>去买车，我刚订了辆法拉利</p>
-							<p><a href="javascript:;">回复</a><span class="time">2分钟前</span></p>
-						</div>
-					</div>
 				</div>
 				
 			</div>
 			<div class="input-area">
 				<div style="padding:5px;">
-					<div class="review">
-						<p><span id="review-cont">回复的内容</span><a href="#">lujun</a></p>
+					<div class="review" id="review-box">
+						
 					</div>
 					<div style="position:relative;">
 					<form action="#" type="post" id="sendForm">
-						<div style="margin-right:79px"><textarea id="talk-input"></textarea></div>
+						<div style="margin-right:97px;margin-top:2px;"><textarea id="talk-input"></textarea></div>
 						<div class="btn-group send-btn">
 							<button id="send-btn" class="btn" type="submit">发送</button>
 						</div>
@@ -100,27 +53,76 @@
 				</div>
 			</div>
 		</div>
+
+		<div id="timeline-loading" class="cover-frame hidden">
+			<img class="loading-pic" src="/images/loading_m.gif"/>
+		</div>
 	</div>
 
 	<script type="text/javascript">
 		var FIRST_DATA = <%- JSON.stringify( indexChats ) %>;
-		/*common*/
-
-		var userInfo = {
-			photo : 'http://www.gravatar.com/avatar/b7fdffcba6db560e7589d706a6bcd305.jpg?s=30&d=blank&r=g',
-			name : 'CK.Ming'
-		};	
 	</script>
-	<script type="text/javascript" src="zepto.min.js"></script>
-	<script type="text/javascript" src="we.min.js"></script>
-	<script type="text/javascript" src="mchat.page.js"></script>
+	<script type="text/javascript" src="/js/zepto.min.js"></script>
+	<script type="text/javascript" src="/js/we.min.js"></script>
+	<script type="text/javascript" src="/js/m.chat.min.js"></script>
 	
 
 	<script type="text/javascript">
 	$(function(){
 
 		WE.pageChat.init();
+		WE.pageChat.append( FIRST_DATA );
 	});
+	</script>
+	<script src="/js/socket.io.min.js"></script>
+	<script type="text/javascript">
+		//匿名用户
+
+		//WE.pageChat.setUserName( USER );
+
+		if(USER.name == "" && /^\d+$/.test(USER.mail)){
+			WE.pageTop.setUserName( USER );
+			//匿名用户不连接 socket
+		}
+
+			
+		var socket = io.connect( document.location.host );
+
+		socket.on('connect', function(){
+
+			socket.emit("setting", {roomid:ROOM.id});
+			// $('#offlineTip').hide();
+			// $('#userlist').show();
+			//console.log('connect');
+		});
+
+		socket.on('userlist', function( data ){
+			//console.log( data );
+			//WE.pageChat.userlist.init( data );
+		});
+
+		socket.on("online", function(data){
+
+			console.log('online');
+			//WE.pageChat.userlist.append( data );
+
+		});
+
+		socket.on("offline", function( data ){
+
+			//WE.pageChat.userlist.remove( data );
+		});
+
+		socket.on('newChat', function(data) {
+			//console.log('newChat:',data);
+			WE.pageChat.prepend( [data] );
+			//WE.pageChat.timeLine.prepend( data );
+		});
+
+		socket.on('disconnect', function(err){
+			//$('#offlineTip').show();
+			//$('#userlist').hide();
+		});		
 	</script>
 </body>
 </html>
