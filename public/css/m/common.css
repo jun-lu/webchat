@@ -18,6 +18,7 @@ p{padding:3px 5px 5px 0px;}
 a{text-decoration:none;}
 a:hover{}
 
+.hidden{display:none;}
 .btn-group{position:relative;display:inline-block;font-size:0;white-space:nowrap;vertical-align:middle;text-align:right;vertical-align:text-bottom;}
 .btn-group .btn{-moz-border-radius:4px;
 	-webkit-border-radius:4px;border-radius:4px;
