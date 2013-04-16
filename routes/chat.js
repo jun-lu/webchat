@@ -37,7 +37,7 @@ module.exports = {
 
 			//手机访问
 			//console.log("ua", ua);
-			if(ua.indexOf("Android") != -1 || ua.indexOf("iPhone") != -1){
+			if(ua.indexOf("Android") != -1 || ua.indexOf("iPhone") != -1 || ua.indexOf("Mobile") != -1){
 				res.redirect("/m/"+key);
 				return ;
 			}
