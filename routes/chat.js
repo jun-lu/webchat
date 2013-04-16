@@ -132,7 +132,7 @@ module.exports = {
 			};
 
 
-			if(text && roomid){
+			if(text && roomid && (to == null || to.length == 24)){
 
 				var userjson = {
 
