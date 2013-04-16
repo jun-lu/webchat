@@ -14,7 +14,7 @@ var ChatModel = require("../../lib/ChatModel");
 var UserModel = require("../../lib/UserModel");
 var RoomModel = require("../../lib/RoomModel");
 var socketServer = require("../../lib/socketServer");
-function staticHTML(a){return a.replace(/<|>/g,function(a){return a=="<"?"&lt;":"&gt;"})}
+
 module.exports = {
 
 	//修改当前用户的昵称
@@ -33,6 +33,7 @@ module.exports = {
 				UserModel.updateGravatarDefault( user._id, "monsterid", function(){});
 			}
 			
+			name = tools.removalHtmlTag( name );
 			UserModel.updateName( user._id, name, function( status ){
 
 				// 通知其他用户某用户名字修改
@@ -498,7 +499,7 @@ module.exports = {
 
 		if( summary && summary.length < 300){
 
-			summary = staticHTML( summary );
+			summary = tools.removalHtmlTag( summary );
 			UserModel.updateSummary(user._id, summary, function( status ){
 				res.write( status.toString() );
 				res.end();

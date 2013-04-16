@@ -4,6 +4,7 @@
 	
 	登陆
 */
+var tools = require("../../lib/tools");
 var WebStatus = require("../../lib/WebStatus");
 var LogModel = require("../../lib/LogModel");
 var RoomModel = require("../../lib/RoomModel");
@@ -56,7 +57,8 @@ module.exports = {
 		function create(){		
 
 			if( topic ){
-
+				topic = tool.removalHtmlTag( topic );
+				des = tool.removalHtmlTag( des );
 				RoomModel.create( topic, des, masterid , user.name, function( status ){
 					
 					if( status.code == "0" ){
