@@ -37,7 +37,7 @@ module.exports = {
 
 			//手机访问
 			//console.log("ua", ua);
-			if(ua.indexOf("Android") != -1 || ua.indexOf("iPhone") != -1){
+			if(ua.indexOf("Android") != -1 || ua.indexOf("iPhone") != -1 || ua.indexOf("Mobile") != -1){
 				res.redirect("/m/"+key);
 				return ;
 			}
@@ -55,7 +55,7 @@ module.exports = {
 					}else{
 						status.code("500");
 						status.setMsg("创建匿名用户错误");
-						res.render("404", status.toJSON());	
+						res.render("error", status.toJSON());	
 					}
 				});
 
@@ -105,7 +105,7 @@ module.exports = {
 
 					}else{
 						status.setMsg("没有找到对话，请确认输入");
-						res.render("404", status.toJSON() );
+						res.status(404).render("404", status.toJSON() );
 						res.end();
 					}
 

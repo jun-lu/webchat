@@ -20,7 +20,7 @@ module.exports = {
 
 		if( !roomid ){
 			status.setCode("-1");
-			res.render("404", status.toJSON());
+			res.status(404).render("404", status.toJSON());
 			return ;
 		}
 
@@ -29,7 +29,7 @@ module.exports = {
 				var data = status.toJSON({user:user.getInfo(), room:status.result.toJSON()})
 				res.render("sys/room_limit", data);
 			}else{
-				res.render("404", status.toJSON());
+				res.status(404).render("404", status.toJSON());
 			}
 
 		});
@@ -46,8 +46,8 @@ module.exports = {
 
 		if( user == null ){
 			status.setCode("403");
-			status.addMsg("未登陆无法访问");
-			res.render("403", status.toJSON());
+			status.addMsg("没有权限访问资源");
+			res.status(403).render("error", status.toJSON());
 			return ;
 		};
 		
@@ -76,7 +76,7 @@ module.exports = {
 				}
 			}else{
 
-				res.render("404", status.toJSON());
+				res.status(404).render("404", status.toJSON());
 			}
 
 		});
