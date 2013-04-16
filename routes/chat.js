@@ -26,11 +26,21 @@ module.exports = {
 		*/
 		get:function(req, res){
 
+			var ua = req.header("User-Agent");
 			var i = 0;
+			var key = req.params.key;
 			var user = req.session.user ? req.session.user : null;
 			var indexData = {
 				user:user ? user.getInfo() : user
 			};
+
+			//手机访问
+			//console.log("ua", ua);
+			if(ua.indexOf("Android") != -1 || ua.indexOf("iPhone") != -1){
+				res.redirect("/m/"+key);
+				return ;
+			}
+
 
 			if( user == null ){
 
@@ -57,7 +67,7 @@ module.exports = {
 			function intoPage(){
 				//var i = 0;
 				
-				var key = req.params.key;
+				
 
 				//查找对话房间信息
 
@@ -122,7 +132,7 @@ module.exports = {
 			};
 
 
-			if(text && roomid){
+			if(text && roomid && (to == null || to.length == 24)){
 
 				var userjson = {
 

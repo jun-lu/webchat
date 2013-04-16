@@ -3,10 +3,25 @@
 	2:克隆 webchat 项目
 	3:安装项目的所有中间件(使用npm install完成)
 	4:创建配置文件 settings.js
-		module.exports = {
-			db:"127.0.0.1",
-			port:27017
-		};
+		
+	/** config.js */
+
+
+	module.exports = {
+
+		host:"127.0.0.1",
+		dbip:"127.0.0.1",
+		dbname:"webchat",
+		domain:"127.0.0.1" 
+	};
+
+
+	/* recommendConfig.js */
+
+	module.exports = {
+		rooms:["1365651264385","1361458149047","1361182575505"]
+	};
+
 	5:访问webchat 127.0.0.1:3000
 
 #第一版本规划	

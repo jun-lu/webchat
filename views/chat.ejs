@@ -106,11 +106,17 @@
 										<textarea  class="post-text hidden" id="postTextArea" maxlength="5000" name="text"></textarea>
 									</div>
 									<div class="btns">
-
-										<div class="btn-group" id="postTypeGroup">
-											<button class="btn" tabindex="-1" title='可使用"ctrl+enter"快捷提交' type="submit">发送</button>
-										</div> 
-									</div>
+										<div class="btn-group">
+							                <button class="btn btn-small">发送</button>
+							                <button class="btn btn-small dropdown-toggle" id="toggleSendSelect" data-toggle="dropdown"><span class="caret"></span></button>
+							                <ul class="dropdown-menu send-type-select" id="selectSendType">
+							                  <li><a href="javascript:;" data-type="2" >enter <span style="display:none;" class="dui">√</span></a></li>
+							                  <li><a href="javascript:;" data-type="1" >ctrl+enter 
+							                  	<span style="display:none;" class="dui" >√</span></a></li>
+							                </ul>
+							              </div>
+						            </div>
+									
 								</div>
 								</form>
 							</div>
