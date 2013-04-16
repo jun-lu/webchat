@@ -70,7 +70,7 @@ module.exports = {
 	updateRoom:function(req, res){
 
 		var user = req.session.user;
-		var name = req.body.name;
+		var name = tools.removalHtmlTag( req.body.name );
 		var topic = req.body.topic;
 		var des = req.body.des;
 		var id = req.body.id;
