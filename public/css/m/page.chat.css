@@ -1,11 +1,4 @@
 /*Chat Page*/
-.fullscreen{margin:auto;}
-.content{height:auto;color:#333;}
-header{position:fixed;z-index:99;width:100%;background:#fff;}
-header h1{text-align:center;font-weight:bold;font-size:15px;padding:10px 0px;border-bottom:#ccc solid 1px;left:2px;}
-header .setting,header .back{position:absolute;right:2px;top:10px;display:inline-table;padding:0px 4px;}
-header .back{left:2px;}
-
 .chat-container{padding:43px 5px 70px 5px;}
 .chat,.info{position:relative;}
 	.chat .talk{position:relative;background:#f2fbf2;margin:20px 0px 20px 40px;min-width:180px;}
