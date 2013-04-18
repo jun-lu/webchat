@@ -8,12 +8,16 @@
 var fs = require("fs");
 var tools = require("../../lib/tools");
 var User = require("../../lib/User");
+var vconfig = require("../../vconfig");
 var WebStatus = require("../../lib/WebStatus");
 var LogModel = require("../../lib/LogModel");
 var ChatModel = require("../../lib/ChatModel");
 var UserModel = require("../../lib/UserModel");
 var RoomModel = require("../../lib/RoomModel");
 var socketServer = require("../../lib/socketServer");
+
+
+var sysWord = vconfig.sysWord;
 
 module.exports = {
 
@@ -70,13 +74,14 @@ module.exports = {
 	updateRoom:function(req, res){
 
 		var user = req.session.user;
-		var name = tools.removalHtmlTag( req.body.name );
+		var name = tools.removalHtmlTag( req.body.name ) || "";
 		var topic = req.body.topic;
 		var des = req.body.des;
 		var id = req.body.id;
 		var password = tools.trim(req.body.password) || null;
 		var room = null;
 
+		name = name.toLowerCase();
 
 		//验证当前用户是否有修改权限
 		RoomModel.idFind( id , function( status ){
@@ -106,6 +111,17 @@ module.exports = {
 
 		//验证 name 是否会重复
 		function step2(){
+
+			
+			if(sysWord.indexOf(name) != -1){
+				var status = new WebStatus();
+				status.setCode("-2");
+				status.setMsg("快捷访问地址 name 重复");
+				res.write( status.toString() );
+				res.end();
+				return ;
+
+			}
 
 			RoomModel.nameFind( name, function( status ){
 

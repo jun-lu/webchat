@@ -7,7 +7,7 @@
 var LogModel = require("../lib/LogModel");
 var RoomModel = require("../lib/RoomModel");
 var tool = require("../lib/tools");
-var recommendRoom = require("../recommendConfig").rooms;
+var recommendRoom = require("../vconfig").recommendRooms;
 module.exports = {
 
 	get:function(req, res){

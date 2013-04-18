@@ -34,11 +34,25 @@ var socketServer = require("../lib/socketServer");
 
 var socketio = require('socket.io');
 
+var SystemMail = require("../lib/SystemMail");
 
 
 
 module.exports = function ( app ) {
 
+	/* test */
+
+	app.get("/sys/sendmail", function( req, res ){
+		
+		SystemMail.replyremind("idche@qq.com", "CK.ming 回复了你", "回复原文是这样的", function( status ){
+
+			console.log( status );
+
+		});	
+
+		res.end("ok")
+
+	});
 
 	//处理 session
 	app.all("*", system.session);
