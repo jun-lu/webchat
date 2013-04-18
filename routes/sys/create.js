@@ -36,7 +36,7 @@ module.exports = {
 			UserModel.createAnonymousUser( function( status ){
 
 				if(status.code == 0){
-					user = status.result.getInfo();
+					user = status.result;
 					res.setHeader("Set-Cookie", ["sid="+user.toCookie()+";path=/;expires="+new Date("2030") ]);
 					masterid = user._id;
 					create();
