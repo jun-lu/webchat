@@ -57,8 +57,8 @@ module.exports = {
 		function create(){		
 
 			if( topic ){
-				topic = tool.removalHtmlTag( topic );
-				des = tool.removalHtmlTag( des );
+				topic = tools.removalHtmlTag( topic );
+				des = tools.removalHtmlTag( des );
 				RoomModel.create( topic, des, masterid , user.name, function( status ){
 					
 					if( status.code == "0" ){
