@@ -19,8 +19,10 @@ module.exports = {
 
 		get:function(req, res){
 
+			var stepIndex = 0;
 			var _id = req.params._id;
-			console.log(_id, _id.length, tools.trim(_id));
+			var output = {};
+			//console.log(_id, _id.length, tools.trim(_id));
 			if( !_id  || tools.trim(_id).length != 24){
 
 				res.status(404).render("404", new WebStatus("404") );
@@ -28,15 +30,49 @@ module.exports = {
 			};
 
 
-			console.log("selected");
+			//console.log("selected");
 
 			ChatModel.findOne(_id, function( status ){
 
-				res.write( status.toString() );
-				res.end();
+				if( status.code == "0" ){
+					output.data = status.result;
+				}else{
+					status.setMsg("没有发现你要找的信息");
+					res.status(404).render("404", status );
+				}
+
+				success();
 
 			});
 
+			ChatModel.findReply(_id, function( status ){
+
+				if(status.code == "0" && status.result.length ){
+					ChatModel.serialization( status, function( status ){
+
+						if( status.code == "0" ){
+							output.list = status.result;
+						}else{
+							output.list = [];
+						}
+						success();
+					})
+				}else{
+					output.list = [];
+					success();
+				}
+
+			})
+
+			function success(){
+				stepIndex++;
+				if( stepIndex == 2 ){
+
+					res.write( JSON.stringify(output) );
+					res.end();
+				}	
+
+			}
 			
 		}
 };
