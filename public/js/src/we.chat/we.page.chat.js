@@ -36,12 +36,13 @@ WE.pageChat = {
 
 			var text = $.trim($('#postTextArea').val());
 			var roomid = $('#roomid').val();
+			$('#postText').val('');
 			//console.log( text, roomid );	
 			if(text && roomid){
 				_this.post( roomid, text, WE.pageChat.reply._id); // null
 				
 			}else{
-				$('#postText').val('').focus();
+				$('#postText').focus();
 			}
 			return false;
 		});

@@ -12,7 +12,6 @@ var ChatModel = require('../../lib/ChatModel');
 var LogModel = require('../../lib/LogModel');
 var WebStatus = require('../../lib/WebStatus');
 var socketServer = require('../../lib/socketServer');
-//var maxIndex = {};
 var roomLimit = require("../sys/room_limit");
 //http://www.renren.com/338096010
 
@@ -20,7 +19,8 @@ module.exports = {
 
 		get:function(req, res){
 
-			var _id = req.query._id;
+			var _id = req.params._id;
+			console.log(_id, _id.length, tools.trim(_id));
 			if( !_id  || tools.trim(_id).length != 24){
 
 				res.status(404).render("404", new WebStatus("404") );
@@ -28,6 +28,7 @@ module.exports = {
 			};
 
 
+			console.log("selected");
 
 			ChatModel.findOne(_id, function( status ){
 
