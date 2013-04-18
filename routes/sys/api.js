@@ -429,6 +429,13 @@ module.exports = {
 		var key = req.query.key;
 		if(key.length >0 && key.length < 100){
 
+			if(sysWord.indexOf( key ) != -1){
+
+				res.write( new WebStatus("-2").toString() );
+				res.end();
+				return ;
+			}
+
 			RoomModel.nameFind( key, function( status ){
 
 				if(status.code == "404"){

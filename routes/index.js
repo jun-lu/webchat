@@ -23,8 +23,11 @@ var roomLimit = require("./sys/room_limit");
 var personal = require("./user/personal");
 
 var weiboLogin = require("./sys/weibo_login");
+
 var qqLogin = require("./sys/qq_login");
 
+//信息详细页面
+var detail = require("./d/detail");
 
 var mobile = require("./m/chat");
 // 提供给前台的ajax api 
@@ -35,7 +38,6 @@ var socketServer = require("../lib/socketServer");
 var socketio = require('socket.io');
 
 var SystemMail = require("../lib/SystemMail");
-
 
 
 module.exports = function ( app ) {
@@ -113,6 +115,7 @@ module.exports = function ( app ) {
 
 	app.get('/user/:key', personal.get);
 
+	app.get('/d/:_id', detail.get);
 
 	/**
 		ajax api 
