@@ -32,3 +32,5 @@ _.idea/*
 autobuild/.idea/*
 
 config.js
+
+vconfig.js
