@@ -5,6 +5,7 @@
 	登陆
 */
 var tools = require("../../lib/tools");
+var config = require("../../config");
 var WebStatus = require("../../lib/WebStatus");
 var LogModel = require("../../lib/LogModel");
 var RoomModel = require("../../lib/RoomModel");
@@ -36,8 +37,8 @@ module.exports = {
 			UserModel.createAnonymousUser( function( status ){
 
 				if(status.code == 0){
-					user = status.result.getInfo();
-					res.setHeader("Set-Cookie", ["sid="+user.toCookie()+";path=/;expires="+new Date("2030") ]);
+					user = status.result;
+					res.setHeader("Set-Cookie", ["sid="+user.toCookie()+";domain="+ config.domain +";path=/;expires="+new Date("2030") ]);
 					masterid = user._id;
 					create();
 				}else{

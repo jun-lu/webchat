@@ -3,17 +3,27 @@
 <head>
 	<meta charset="UTF-8">
 	<title>404 - Vchat</title>
-	<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css" />
 	<style type="text/css">
 		body{padding:20px;}
+		.by{display: none;}
+		.code404{background:url(/images/404.gif) no-repeat 0 -10px;height:200px;}
+		.code404 .error-info{margin-left:400px;}
+		.code404 .by{display:block;}
 	</style>
 </head>
-<body style="background:#efefef;">
-	<h1>嗷! <%=code ? code : "404"%></h1>
-	<div>
-		<p><%=msg ? msg : "无法找到页面"%></p>
-		<p>很抱歉，这一定是我们的错了。</p>
-		<p><a href="/">首页</a> <a href="javascript:;" onclick="window.history.back(-1);">退回上一步</a></p>
+<body>
+
+	
+	<div class="<%=(code == 404 || !code) ? 'code404' : '' %>" >
+		<div  class="error-info" >
+			<h1>嗷! <%=code ? code : "404"%></h1>
+			<p><%=msg ? msg : "无法找到页面"%></p>
+			<p>很抱歉，这一定是我们的错了。</p>
+			<p><a href="/">首页</a> <a href="javascript:;" onclick="window.history.back(-1);">退回上一步</a></p>
+		</div>
+		<p class="by" >by <a href="http://www.renren.com/338096010" target="_blank" >牛亚东</a></p>
 	</div>
+
 </body>
 </html>

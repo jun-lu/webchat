@@ -33,7 +33,7 @@ module.exports = {
 		if( name ){
 			//如果用户原来的昵称是空（刚进入的匿名用户）
 			//把头像修改成默认的小怪兽，以区别为写名字的用户
-			if( !user.name ){
+			if( !user || !user.name ){
 				UserModel.updateGravatarDefault( user._id, "monsterid", function(){});
 			}
 			
@@ -428,6 +428,13 @@ module.exports = {
 		var status = new WebStatus();
 		var key = req.query.key;
 		if(key.length >0 && key.length < 100){
+
+			if(sysWord.indexOf( key ) != -1){
+
+				res.write( new WebStatus("-2").toString() );
+				res.end();
+				return ;
+			}
 
 			RoomModel.nameFind( key, function( status ){
 

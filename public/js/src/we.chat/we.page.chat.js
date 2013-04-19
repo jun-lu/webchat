@@ -36,12 +36,14 @@ WE.pageChat = {
 
 			var text = $.trim($('#postTextArea').val());
 			var roomid = $('#roomid').val();
+			//$('#postText').val('');
+			$('#postTextArea').val('');
 			//console.log( text, roomid );	
 			if(text && roomid){
 				_this.post( roomid, text, WE.pageChat.reply._id); // null
 				
 			}else{
-				$('#postText').val('').focus();
+				$('#postText').focus();
 			}
 			return false;
 		});
@@ -59,7 +61,9 @@ WE.pageChat = {
 		});
 
 		$('#postText').keyup(function(){
-			var text = $(this)[0].innerText.replace(/<\/div>/g,"").replace(/<div>/g,"\n").replace(/<br>/g, "\n");
+			var div = $(this)[0];
+			var text = div.innerText || div.innerHTML;		
+			text = String(text).replace(/<\/div>/g,"").replace(/<div>/g,"\n").replace(/<br>/g, "\n");
 			$('#postTextArea').val( text );
 		});
 
