@@ -60,7 +60,8 @@
 			.info .context{margin-top:10px;line-height:1.62em;word-break: break-word;}
 			.info .reply-quote{border-left:1px solid #666;padding-left:10px;color:#a5a5a5;}
 			.info .reply-mine{margin-top:7px;}
-			.info .head .time{float: right;color: #999;font-size: 12px;}
+			.info .head .time{float:right;color: #999;font-size: 12px;}
+			.info .head .time:hover{background: none; text-decoration: underline;}
 		.my .head{background: #e6f8f8;}
 
 	/*历史用户*/

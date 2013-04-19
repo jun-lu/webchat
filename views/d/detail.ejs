@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title><%=data.to.text.slice(0, 50)%></title>
+
+	<link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap.min.css"/>
+	<link rel="stylesheet" type="text/css" href="/css/all.css"/>
+	<link rel="stylesheet" type="text/css" href="/css/chat.css"/>
+
+	<style type="text/css">
+	.reset-width{width:920px;}
+		.message{font-size:13px;padding:8px;background:#f2fbf2;}
+		.message p{text-indent:2em;line-height:1.9em;margin:0px;}
+		.title{color:#999;margin-bottom:8px;}
+		.title .time{margin-left:20px;}
+		.room{margin-bottom:30px;}
+		.review-box{padding:3px;border:1px solid #c6c6c6;width:30em;margin:10px 0px;}
+		.orig{margin-bottom:15px;border-bottom:#ccc dotted 1px;}
+			.orig .head{background:#F4FBDC;}
+	</style>
+</head>
+<body>	
+
+	<!-- top {user:{user}} -->
+	<% include ../common/top.ejs %>
+
+	<div class="container">
+		<div class="bd reset-width">
+
+			<div class="room">
+				<blockquote>
+					<h1 class="topic">
+						<span>
+							<a href="http://vchat.co/<%=room.name ? room.name : room.id%>"><%=room.topic%></a>
+						</span>
+					</h1>
+					<p class="des"><small class="des"><%=room.des%></small></p>
+				</blockquote>
+			</div>
+
+			<div class="chat-container">
+				
+
+				<div class="chat orig">
+					<div class="photo">
+						<a href="/user/<%=data.uid%>" target="_blank" data-uid="<%=data.uid%>">
+						    <img src="<%=data.uavatar%>" alt="<%=data.uname%>" class="avatar">
+						</a>  
+					</div>
+					<div class="info">
+						<div class="head">
+							<a href="/user/<%=data.uid%>" target="_blank" class="name"><%=data.uname%></a>
+							<a href="/d/<%=data._id%>" class="time"><%=tool.format(data.time*1000)%></a>
+						</div>
+						<div class="context">
+							<%if(data.to){%>
+							<div class="reply-quote">
+								<%=data.to.text%>
+								<a href="/user/<%=data.to.uid%>"><%=data.to.uname%></a>
+							</div>
+							<%}%>
+							<div class="reply-mine"><%=tool.revertHtmlTag(data.text)%></div>
+						</div>
+					</div>
+				</div>
+
+				<%
+					for(var i=0; list && i<list.length; i++){
+					var item = list[i];
+				%>
+					<div class="chat">
+						<div class="photo">
+							<a href="/user/<%=item.uid%>" target="_blank" data-uid="<%=item.uid%>">
+							    <img src="<%=item.uavatar%>" alt="<%=item.uname%>" class="avatar">
+							</a>  
+						</div>
+						<div class="info">
+							<div class="head">
+								<a href="/user/<%=item.uid%>" target="_blank" class="name"><%=item.uname%></a>
+								<a href="/d/<%=item._id%>" class="time"><%=tool.format(item.time*1000)%></a>
+							</div>
+							<div class="context">
+								<%if(item.to){%>
+								<div class="reply-quote">
+									<%-tool.revertHtmlTag(item.to.text)%>
+									<a href="/user/<%=item.to.uid%>"><%=item.to.uname%></a>
+								</div>
+								<%}%>
+								<div class="reply-mine"><%=item.text%></div>
+							</div>
+						</div>
+					</div>
+				<%}%>
+			</div>	
+		</div>
+	</div>
+	<% include ../common/footer.ejs %>
+</body>
+</html>

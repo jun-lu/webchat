@@ -376,7 +376,7 @@ WE.pageChat.timeLine = {
 		<input name="txt" type="hidden" value="<%=text%>"/>\
 		<input name="uname" type="hidden" value="<%=uname%>"/>\
 		<input name="mid" type="hidden" value="<%=_id%>"/>\
-		<div title="查看其全部对话" class="dot"></div>\
+		<div class="dot"></div>\
 		<div class="photo">\
 			<a href="/user/<%=uid%>" target="_blank" data-uid="<%=uid%>" >\
 				<img src="<%=uavatar%>" alt="<%=uname%>" class="avatar" />\
@@ -385,7 +385,7 @@ WE.pageChat.timeLine = {
 		<div class="info">\
 			<div class="head">\
 				<a href="/user/<%=uid%>" target="_blank" class="name"><%=uname%></a>\
-				<span class="time"><%=WE.kit.format( new Date( time*1000 ),"MM-dd hh:mm:ss" )%></span>\
+				<a href="/d/<%=_id%>" target="_blank" class="time"><%=WE.kit.format( new Date( time*1000 ),"MM-dd hh:mm:ss" )%></a>\
 			</div>\
 			<div class="context">\
 				<%if(obj.to){%>\
