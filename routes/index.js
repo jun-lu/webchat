@@ -39,6 +39,7 @@ var socketio = require('socket.io');
 
 var SystemMail = require("../lib/SystemMail");
 
+//var admin = require("./sys/admin");
 
 module.exports = function ( app ) {
 
@@ -68,6 +69,8 @@ module.exports = function ( app ) {
 	// chat
 	app.get('/:key', chat.get);
 
+	//admin 
+	//app.get('/sys/admin', chat.get)
 	
 	//登陆
 	app.get('/sys/login', sysLogin.get);
