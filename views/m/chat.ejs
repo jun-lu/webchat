@@ -81,8 +81,34 @@
 		//WE.pageChat.setUserName( USER );
 
 		if(USER.name == "" && /^\d+$/.test(USER.mail)){
-			WE.pageTop.setUserName( USER );
+			//WE.pageTop.setUserName( USER );
 			//匿名用户不连接 socket
+			var name = window.prompt('请输入昵称', USER.name);
+
+			if( !name ) {
+				name = "匿名";
+			}
+
+			var model = new WE.api.ChatModel();
+			var ctrl = new WE.Controller();
+			ctrl.update = function( e ){
+
+				var data = e.data;
+
+				// $('#setUserNameForm input[type=submit]').removeAttr('disabled').val('提交');
+				if( data.code == 0 ){
+
+					setTimeout(function(){
+						document.location.reload();
+					}, 500);
+				}else{
+
+					alert(data.msg);
+				}
+
+			};
+			model.addObserver( ctrl );
+			model.updateUserName( name );	
 		}
 
 			
@@ -103,7 +129,7 @@
 
 		socket.on("online", function(data){
 
-			console.log('online');
+			//console.log('online');
 			//WE.pageChat.userlist.append( data );
 
 		});
