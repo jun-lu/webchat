@@ -385,7 +385,7 @@ WE.pageChat.timeLine = {
 			</div>\
 			<div class="context">\
 				<%if(obj.to){%>\
-				<div class="reply-quote"><%=to.text%> <a href="#"><%= to.uname%></a></div>\
+				<div class="reply-quote"><%=to.text%> <a href="/user/<%=to.uid%>"><%= to.uname%></a></div>\
 				<%}%>\
 				<div class="reply-mine"><%=WE.kit.chatFormate(text)%> <a class="chat-reply" href="javascript:;">回复</a></div>\
 			</div>\
