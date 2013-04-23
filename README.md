@@ -181,6 +181,21 @@
 }
 ````
 
+
+####提醒 Notice
+````javascript
+{
+	_id:"51419a0c2128205e66000024", //数据库唯一 _id
+	type:1// 1对话中回复（回复方式） 2对话中提到（@方式）
+	form:User, //来自
+	to:User._id, //  接收用户的id
+	where:Room, //根据type会返回不同的对象
+	what:Chat, // 根据type返回不同的对象
+	status:0 // 0未知晓  1已知晓  2已读（0，1都是未读状态，区别在于用户是否知晓）
+	time://发生时间
+}
+````
+
 ####定义接口返回值  return
 ````javascript
 {
@@ -372,6 +387,40 @@ return:{
 }
 ````
 
-####获取用户提醒数量
+####获取当前登录用户未读信息条数(12)
 ````javascript
-url:"/sys/getnotice"
+url:"/sys/notice_count"
+method:"get"
+param:null,
+return :{
+	code:0,(0, 301),
+	msg:""//(可用, 未登录)
+	result: 3//(未读信息条数)
+}
+
+####获取前 number 条用户非已读信息(13)
+````javascript
+url:"/sys/noitce_list"
+method:"get",
+param:{
+	time:new Date().getTime()+1 //未来时间戳获取最新的 number -- 默认未来时间戳
+	number:5 //	--默认 5
+}
+return :{
+	code:0,
+	msg:"",
+	result:[Notice, Noitce, ...]
+}
+
+####改变提醒的状态（理论上只允许标记为 2 已读）（14）
+````javascript
+url:"/sys/noitce_status"
+method:"get",
+param:{
+	status:2,//默认2
+}
+return :{
+	code:0,
+	msg:"",
+	result:null
+}
