@@ -152,17 +152,12 @@ module.exports = function ( app ) {
 	app.get('/sys/history', api.getHistory);
 	//修改用户的介绍
 	app.post('/sys/user_summary', api.userSummary);
-
-
-	app.get("/sys/html5test", function( req, res ){
-
-		res.render("html5test/sample2", {});
-	});
-
-	app.get("/sys/html5test2", function( req, res ){
-
-		res.render("html5test/test2", {});
-	});
+	//12号接口
+	app.get('/sys/notice_count', api.noticeCount);
+	//13号接口
+	app.get('/sys/notice_list', api.noticeList);
+	//14号接口
+	app.post('/sys/notice_status', api.noticeStauts);
 	
 };
 

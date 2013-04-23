@@ -15,6 +15,7 @@ var ChatModel = require("../../lib/ChatModel");
 var UserModel = require("../../lib/UserModel");
 var RoomModel = require("../../lib/RoomModel");
 var socketServer = require("../../lib/socketServer");
+var NoticeModel = require("../../lib/NoticeModel");
 
 
 var sysWord = vconfig.sysWord;
@@ -536,5 +537,89 @@ module.exports = {
 			res.end();
 
 		}
+	},
+	//12
+	noticeCount:function(req, res){
+		var user = req.session.user || null;
+		var status = req.query.status || 0;
+
+		if( !user ){
+
+			res.write( new WebStatus("301").toString() );
+			res.end();
+			return ;
+		}
+
+		NoticeModel.countStatus( String(user._id), status, function( status ){
+
+			res.write( status.toString() );
+			res.end();
+
+		});
+
+	},
+	//13
+	noticeList:function(req, res){
+
+		var user = req.session.user || null;
+		var status = Number(req.query.status);
+
+		status = status == undefined ? 2 : status;
+
+
+		if( !user ){
+
+			res.write( new WebStatus("301").toString() );
+			res.end();
+			return ;
+		}
+
+		if( status != 0 && status != 1 && status != 2){
+
+			res.write( new WebStatus("-1").toString() );
+			res.end();
+
+			return ;
+		}
+
+		NoticeModel.findUnread( String(user._id), 5, function( status ){
+
+			res.write( status.toString() );
+			res.end();
+
+		});
+	},
+	//14
+	noticeStauts:function(req, res){
+
+		var user = req.session.user || null;
+		var status = Number(req.body.status);
+		var _id = req.body._id;
+
+		status = status == undefined ? 2 : status;
+
+
+		if( !user ){
+
+			res.write( new WebStatus("301").toString() );
+			res.end();
+			return ;
+		}
+
+		if( !_id || String(_id).length != 24 || (status != 0 && status != 1 && status != 2)){
+
+			res.write( new WebStatus("-1").toString() );
+			res.end();
+
+			return ;
+		}
+
+
+		NoticeModel.updateStatus( String(_id), status, function( status ){
+
+			res.write( status.toString() );
+			res.end();
+
+		});
 	}
 };

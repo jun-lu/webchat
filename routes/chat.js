@@ -172,9 +172,13 @@ module.exports = {
 						//console.log( "chat", chat );
 						socketServer.newChat( chat[0] );
 
+						//添加提醒
 						if(to){
-							//添加提醒
-							NoticeModel.create(1, user._id, to, roomid, chat[0]._id.toString());
+							ChatModel.findOne(to, function( status ){
+								if(status.code == "0"){
+									NoticeModel.create(1, user._id, status.result.uid, roomid, chat[0]._id.toString());
+								}
+							});
 						}
 					}
 
