@@ -21,6 +21,7 @@ module.exports = {
 
 		get:function(req, res){
 
+			//console.log(111);
 			var user = req.session.user || null;
 			var _id = req.params._id;
 			/**

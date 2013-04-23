@@ -29,16 +29,18 @@ module.exports = {
 		var name = req.body.name;
 		var pwd = req.body.pwd;
 		var pwd2 = req.body.pwd2;
-
+		var output = {
+			user:user,
+		};
 		var status = new WebStatus();
-			status.user = user;
+			//status.user = user;
 
 		if( !User.checkMail( email ) ){
 
 			status.setCode( "-3" );
 			status.setMsg( "email 格式错误" );
 
-			res.render('sys/reg', status.toJSON() );
+			res.render('sys/reg', status.toJSON(output) );
 			return ;
 		}
 
@@ -47,7 +49,7 @@ module.exports = {
 			status.setCode( "-4" );
 			status.setMsg( "两次密码不配" );
 
-			res.render('sys/reg', status.toJSON() );
+			res.render('sys/reg', status.toJSON(output) );
 			return ;
 		}
 
@@ -63,7 +65,7 @@ module.exports = {
 						res.render("sys/wellcome", user);
 					}else{
 						status.user = user;
-						res.render('sys/reg', status.toJSON() );	
+						res.render('sys/reg', status.toJSON(output) );	
 					}
 
 				});
@@ -73,7 +75,7 @@ module.exports = {
 				status.setMsg("email已经被使用");
 				status.user = user;
 				
-				res.render('sys/reg', status.toJSON() );
+				res.render('sys/reg', status.toJSON(output) );
 
 			}
 

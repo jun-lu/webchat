@@ -16,10 +16,11 @@
 	};
 
 
-	/* recommendConfig.js */
+	/* vconfig.js */
 
 	module.exports = {
-		rooms:["1365651264385","1361458149047","1361182575505"]
+		recommendRooms:["1365651264385","1361458149047","1361182575505"], 
+		sysWord: "a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,0,1,2,3,4,5,6,7,8,9,sys,m,user,tmpl,images,image".split(",")
 	};
 
 	5:访问webchat 127.0.0.1:3000
@@ -52,11 +53,11 @@
 	3：如何发言
 		在讨论组页面输入框输入不为空的文字，回车发送给当前在线所有人。
 		
-	4：讨论中规则
+	4：讨论中规则(未实现)
 		1：讨论主题与副标题改变，推送时间轴消息
 		2：成员离线或上线推送时间轴消息
 	
-	5:讨论组信息与设置
+	5:讨论组信息与设置（表现形式有所改变）
 		1：聊天首页下拉框内，给出本页URL，并提示用户发送URL给朋友，即可加入聊天。（所有用户）
 		2：发送当前聊天记录到邮箱，用户输入邮箱地址，点击确认，系统发送当前所有聊天记录给用户。(所有用户)
 		3：结束讨论组，点击结束讨论按钮，即关闭讨论组。讨论组处于关闭状态，只可阅读记录，不可发言。（创建者）
@@ -128,6 +129,14 @@
 		2：通过网站头部提醒到达信息详情页面		
 
 
+	提醒内容
+
+		lujun 回复了你
+		服务器是在淘宝上买的，域名可以随便找个地方买就好
+		
+		lujun 提到了你
+		@jun 请问下如何才能使用nodejs作为服务器？
+
 
 #定义数据体
 
@@ -169,6 +178,21 @@
 			 // 用户头像地址  遵循 gravatar 网站头像规则
 	time: 1363252238, //时间戳/1000
 	to:(null || Chat) //如果是回应某个对话有此项目
+}
+````
+
+
+####提醒 Notice
+````javascript
+{
+	_id:"51419a0c2128205e66000024", //数据库唯一 _id
+	type:1// 1对话中回复（回复方式） 2对话中提到（@方式）
+	form:User, //来自
+	to:User._id, //  接收用户的id
+	where:Room, //根据type会返回不同的对象
+	what:Chat, // 根据type返回不同的对象
+	status:0 // 0未知晓  1已知晓  2已读（0，1都是未读状态，区别在于用户是否知晓）
+	time:1363252238// 消息发生时间 时间戳/1000
 }
 ````
 
@@ -294,7 +318,7 @@ return:{
 }
 ````
 
-####检查用户名是否被注册（7）
+####检查mail是否被注册（7）
 ````javascript
 url:"/sys/checkmail",
 method:get
@@ -363,3 +387,43 @@ return:{
 }
 ````
 
+####获取当前登录用户未读信息条数(12)
+````javascript
+url:"/sys/notice_count"
+method:"get"
+param:null,
+return :{
+	code:0,(0, 301),
+	msg:""//(可用, 未登录)
+	result: 3//(未读信息条数)
+}
+````
+
+####获取前 number 条用户非已读信息(13)
+````javascript
+url:"/sys/noitce_list"
+method:"get",
+param:{
+	[time]:new Date().getTime()+1 //未来时间戳获取最新的 number -- 默认未来时间戳
+	[number]:5 //	--默认 5
+}
+return :{
+	code:0,
+	msg:"",
+	result:[Notice, Noitce, ...]
+}
+````
+
+####改变提醒的状态（理论上只允许标记为 2 已读）（14）
+````javascript
+url:"/sys/noitce_status"
+method:"get",
+param:{
+	[status]:2,//默认2
+}
+return :{
+	code:0,
+	msg:"",
+	result:null
+}
+````
