@@ -541,7 +541,7 @@ module.exports = {
 	//12
 	noticeCount:function(req, res){
 		var user = req.session.user || null;
-		var status = req.query.status || 0;
+		var status = Number(req.query.status) || 0;
 
 		if( !user ){
 
@@ -562,23 +562,11 @@ module.exports = {
 	noticeList:function(req, res){
 
 		var user = req.session.user || null;
-		var status = Number(req.query.status);
-
-		status = status == undefined ? 2 : status;
-
 
 		if( !user ){
 
 			res.write( new WebStatus("301").toString() );
 			res.end();
-			return ;
-		}
-
-		if( status != 0 && status != 1 && status != 2){
-
-			res.write( new WebStatus("-1").toString() );
-			res.end();
-
 			return ;
 		}
 
