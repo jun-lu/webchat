@@ -16,6 +16,21 @@ var socketServer = require('../lib/socketServer');
 //var maxIndex = {};
 var roomLimit = require("./sys/room_limit");
 
+var spiderAU = ["Baiduspider","Googlebot","MSNBot","YoudaoBot","JikeSpider","Sosospider","360Spider"];
+
+function isSpiderBot( ua ){
+
+	for(var i=0; i<spiderAU.length; i++){
+		if( ua.indexOf( spiderAU[i] ) != -1 ){
+
+			return true;
+
+		};
+	}
+
+	return false;
+
+};
 
 module.exports = {
 
@@ -36,14 +51,15 @@ module.exports = {
 			};
 
 			//手机访问
-			//console.log("ua", ua);
 			if(ua.indexOf("Android") != -1 || ua.indexOf("iPhone") != -1 || ua.indexOf("Mobile") != -1){
 				res.redirect("/m/"+key);
 				return ;
 			}
 
+			//["Baiduspider","Googlebot","MSNBot","YoudaoBot","JikeSpider","Sosospider","360Spider"]
 
-			if( user == null ){
+			//如果是搜索引擎也不创建匿名用户
+			if( user == null && isSpiderBot(ua)){
 
 				UserModel.createAnonymousUser( function( status ){
 
@@ -100,8 +116,8 @@ module.exports = {
 						});
 
 
-						//创建用户日志
-						LogModel.create( user._id, "into_room",  room.getInfo() );
+						//创建用户日志  如果是搜索引擎user信息为空
+						user._id && LogModel.create( user._id, "into_room",  room.getInfo() );
 
 					}else{
 						status.setMsg("没有找到对话，请确认输入");
