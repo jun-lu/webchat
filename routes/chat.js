@@ -12,6 +12,7 @@ var RoomModel = require('../lib/RoomModel');
 var ChatModel = require('../lib/ChatModel');
 var LogModel = require('../lib/LogModel');
 var WebStatus = require('../lib/WebStatus');
+var NoticeModel = require('../lib/NoticeModel');
 var socketServer = require('../lib/socketServer');
 //var maxIndex = {};
 var roomLimit = require("./sys/room_limit");
@@ -168,11 +169,17 @@ module.exports = {
 					//console.log("create", status );
 					if(status.code == "0"){
 						var chat = status.result;
+						//console.log( "chat", chat );
 						socketServer.newChat( chat[0] );
+
+						if(to){
+							//添加提醒
+							NoticeModel.create(1, user._id, to, roomid, chat[0]._id.toString());
+						}
 					}
 
 				});
-
+				
 			}else{
 				status.setCode("-1");
 				res.write( status.toString() );
