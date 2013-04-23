@@ -39,6 +39,7 @@ var socketio = require('socket.io');
 
 var SystemMail = require("../lib/SystemMail");
 
+var admin = require("./sys/admin");
 
 module.exports = function ( app ) {
 
@@ -68,6 +69,9 @@ module.exports = function ( app ) {
 	// chat
 	app.get('/:key', chat.get);
 
+	//admin 
+	app.get('/sys/admin', admin.get);
+	app.post('/sys/admin', admin.post);
 	
 	//登陆
 	app.get('/sys/login', sysLogin.get);
@@ -148,6 +152,17 @@ module.exports = function ( app ) {
 	app.get('/sys/history', api.getHistory);
 	//修改用户的介绍
 	app.post('/sys/user_summary', api.userSummary);
+
+
+	app.get("/sys/html5test", function( req, res ){
+
+		res.render("html5test/sample2", {});
+	});
+
+	app.get("/sys/html5test2", function( req, res ){
+
+		res.render("html5test/test2", {});
+	});
 	
 };
 
