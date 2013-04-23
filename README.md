@@ -192,7 +192,7 @@
 	where:Room, //根据type会返回不同的对象
 	what:Chat, // 根据type返回不同的对象
 	status:0 // 0未知晓  1已知晓  2已读（0，1都是未读状态，区别在于用户是否知晓）
-	time://发生时间
+	time:1363252238// 消息发生时间 时间戳/1000
 }
 ````
 
@@ -318,7 +318,7 @@ return:{
 }
 ````
 
-####检查用户名是否被注册（7）
+####检查mail是否被注册（7）
 ````javascript
 url:"/sys/checkmail",
 method:get
@@ -397,30 +397,33 @@ return :{
 	msg:""//(可用, 未登录)
 	result: 3//(未读信息条数)
 }
+````
 
 ####获取前 number 条用户非已读信息(13)
 ````javascript
 url:"/sys/noitce_list"
 method:"get",
 param:{
-	time:new Date().getTime()+1 //未来时间戳获取最新的 number -- 默认未来时间戳
-	number:5 //	--默认 5
+	[time]:new Date().getTime()+1 //未来时间戳获取最新的 number -- 默认未来时间戳
+	[number]:5 //	--默认 5
 }
 return :{
 	code:0,
 	msg:"",
 	result:[Notice, Noitce, ...]
 }
+````
 
 ####改变提醒的状态（理论上只允许标记为 2 已读）（14）
 ````javascript
 url:"/sys/noitce_status"
 method:"get",
 param:{
-	status:2,//默认2
+	[status]:2,//默认2
 }
 return :{
 	code:0,
 	msg:"",
 	result:null
 }
+````
