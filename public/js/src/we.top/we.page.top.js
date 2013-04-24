@@ -181,7 +181,89 @@ WE.pageTop = {
 			model.historyChats();
 			
 		});
+	},
+
+
+
+	/*
+	 * 通知信息项模版
+	 */
+	noticeItemTmpl : '<% for(var i=0;i < obj.length;i++ ){ %>
+					  <li>\
+						<span><%=obj[i].from.name%></span> 在 \
+						<a data-mid="<%=obj[i]._id%>" class="notice-item" href=""><%=obj[i].where.topic%></a>回复了你\
+					  </li>\
+					  <% } %>',
+
+
+	/*
+	 * 初始化通知信息，获取是否有未读信息
+	 * @ #notice-count : 设置多少条未读信息数
+	 */
+	setNoticeCount : function(){
+		var _this = this;
+		var model = new WE.api.NoticeModel();
+		var ctrl = new WE.Controller();
+		ctrl.update = function( e ){
+			var data = e.data;
+
+			if( data.result ){
+				$('#notice-conut').text( data.result );
+				$('#notice-box').click(function(){
+					_this.getNoticeList();
+				});
+			}
+			
+		};
+		model.addObserver( ctrl );
+		model.noticeCount();
+	},
+
+
+
+	/*
+	 * 获取未读信息
+	 * 
+	 */
+	getNoticeList : function(){
+		var _this = this;
+		var model = new WE.api.NoticeModel();
+		var ctrl = new WE.Controller();
+		ctrl.update = function( e ){
+
+			var data = e.data;
+			if( data.result.length ){
+
+				var html = WE.tmpl( _this.noticeItemTmpl,data );
+				$( html ).appendTo( $('#notice-list-box') );
+				$('#notice-list-box').delegate('.notice-item','click',function(){
+					var mid = $(this).data('mid');
+					$(this).closest('li').remove();
+					_this.setNoticeStatus( mid );
+
+				});
+			}
+		}
+		model.addObserver( ctrl );
+		model.noticeList();
+	},
+
+	/*
+	 * 修改未读信息状态
+	 * 
+	 */
+	setNoticeStatus : function( mid ){
+
+		var model = new WE.api.NoticeModel();
+		var ctrl = new WE.Controller();
+		ctrl.update = function( e ){
+			var data = e.data;
+		}
+		model.addObserver( ctrl );
+		model.noticeStatus( mid );
 	}
+
+
 }
 
 WE.pageTop.init = function(){
@@ -198,7 +280,12 @@ WE.pageTop.init = function(){
 
 	$('#chatme').click(function(){
 		_this.getHistory();
-	})
+	});
+
+
+	/*初始化设置多少已读条数*/
+	_this.setNoticeCount();
+
 }
 
 
