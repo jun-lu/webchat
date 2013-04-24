@@ -650,6 +650,11 @@ WE.pageChat.notice = {
 		$(window).blur(function(){
 			_this.hidden = true;
 		});
+
+		$(window).focus(function(){
+			_this.restoreTitle();
+			_this.hidden = false;
+		})
 	},
 	
 	restoreTitle : function(){
