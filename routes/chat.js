@@ -173,9 +173,10 @@ module.exports = {
 						socketServer.newChat( chat[0] );
 
 						//添加提醒
-						if(to){
+						if(to ){
 							ChatModel.findOne(to, function( status ){
-								if(status.code == "0"){
+								//自己回复自己不加入提醒
+								if(status.code == "0" && user._id != status.result.uid){
 									NoticeModel.create(1, user._id, status.result.uid, roomid, chat[0]._id.toString());
 								}
 							});
