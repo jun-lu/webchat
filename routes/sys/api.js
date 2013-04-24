@@ -25,13 +25,19 @@ module.exports = {
 	//修改当前用户的昵称
 	setUserName:function( req, res ){
 
-		var user = req.session.user;
+		var user = req.session.user || null;
 		var name = req.body.name;
 		var status = new WebStatus();
 		
 		res.setHeader("Content-Type" ,"application/json; charset=utf-8");
 
-		if( name ){
+		if(user == null){
+			res.write( new WebStatus("-3").toString() );
+			res.end();
+			return ;
+		}
+
+		if( name && user){
 			//如果用户原来的昵称是空（刚进入的匿名用户）
 			//把头像修改成默认的小怪兽，以区别为写名字的用户
 			if( !user || !user.name ){
@@ -83,6 +89,12 @@ module.exports = {
 		var room = null;
 
 		name = name.toLowerCase();
+
+		if(user == null){
+			res.write( new WebStatus("301").toString() );
+			res.end();
+			return ;
+		}
 
 		//验证当前用户是否有修改权限
 		RoomModel.idFind( id , function( status ){
@@ -301,6 +313,12 @@ module.exports = {
 
 		var user = req.session.user;
 		
+		if(user == null){
+			res.write( new WebStatus("-3").toString() );
+			res.end();
+			return ;
+		}
+
 		LogModel.getLog( user._id, 10000, function( status ){
 
 			if(status.code == "0"){
@@ -545,7 +563,7 @@ module.exports = {
 
 		if( !user ){
 
-			res.write( new WebStatus("301").toString() );
+			res.write( new WebStatus("-3").toString() );
 			res.end();
 			return ;
 		}
@@ -567,7 +585,7 @@ module.exports = {
 
 		if( !user ){
 
-			res.write( new WebStatus("301").toString() );
+			res.write( new WebStatus("-3").toString() );
 			res.end();
 			return ;
 		}
@@ -591,7 +609,7 @@ module.exports = {
 
 		if( !user ){
 
-			res.write( new WebStatus("301").toString() );
+			res.write( new WebStatus("-3").toString() );
 			res.end();
 			return ;
 		}
