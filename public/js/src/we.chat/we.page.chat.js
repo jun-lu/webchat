@@ -62,7 +62,7 @@ WE.pageChat = {
 
 		$('#postText').keyup(function(){
 			var div = $(this)[0];
-			var text = div.innerText || div.innerHTML;		
+			var text = div.innerText || div.textContent;		
 			text = String(text).replace(/<\/div>/g,"").replace(/<div>/g,"\n").replace(/<br>/g, "\n");
 			$('#postTextArea').val( text );
 		});

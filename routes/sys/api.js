@@ -15,6 +15,7 @@ var ChatModel = require("../../lib/ChatModel");
 var UserModel = require("../../lib/UserModel");
 var RoomModel = require("../../lib/RoomModel");
 var socketServer = require("../../lib/socketServer");
+var NoticeModel = require("../../lib/NoticeModel");
 
 
 var sysWord = vconfig.sysWord;
@@ -24,13 +25,19 @@ module.exports = {
 	//修改当前用户的昵称
 	setUserName:function( req, res ){
 
-		var user = req.session.user;
+		var user = req.session.user || null;
 		var name = req.body.name;
 		var status = new WebStatus();
 		
 		res.setHeader("Content-Type" ,"application/json; charset=utf-8");
 
-		if( name ){
+		if(user == null){
+			res.write( new WebStatus("-3").toString() );
+			res.end();
+			return ;
+		}
+
+		if( name && user){
 			//如果用户原来的昵称是空（刚进入的匿名用户）
 			//把头像修改成默认的小怪兽，以区别为写名字的用户
 			if( !user || !user.name ){
@@ -82,6 +89,12 @@ module.exports = {
 		var room = null;
 
 		name = name.toLowerCase();
+
+		if(user == null){
+			res.write( new WebStatus("301").toString() );
+			res.end();
+			return ;
+		}
 
 		//验证当前用户是否有修改权限
 		RoomModel.idFind( id , function( status ){
@@ -300,6 +313,12 @@ module.exports = {
 
 		var user = req.session.user;
 		
+		if(user == null){
+			res.write( new WebStatus("-3").toString() );
+			res.end();
+			return ;
+		}
+
 		LogModel.getLog( user._id, 10000, function( status ){
 
 			if(status.code == "0"){
@@ -536,5 +555,79 @@ module.exports = {
 			res.end();
 
 		}
+	},
+	//12
+	noticeCount:function(req, res){
+		var user = req.session.user || null;
+		var status = Number(req.query.status) || 0;
+
+		if( !user ){
+
+			res.write( new WebStatus("-3").toString() );
+			res.end();
+			return ;
+		}
+
+		NoticeModel.countStatus( String(user._id), status, function( status ){
+
+			res.write( status.toString() );
+			res.end();
+
+		});
+
+	},
+	//13
+	noticeList:function(req, res){
+
+		var user = req.session.user || null;
+		var time = Number(req.query.time) || Date.now()/1000;
+		var number = Number(req.query.number) || 5;
+
+		if( !user ){
+
+			res.write( new WebStatus("-3").toString() );
+			res.end();
+			return ;
+		}
+
+		NoticeModel.findUnread( String(user._id), time, number, function( status ){
+
+			res.write( status.toString() );
+			res.end();
+
+		});
+	},
+	//14
+	noticeStauts:function(req, res){
+
+		var user = req.session.user || null;
+		var status = Number(req.body.status);
+		var _id = req.body._id;
+
+		status = status == undefined ? 2 : status;
+
+
+		if( !user ){
+
+			res.write( new WebStatus("-3").toString() );
+			res.end();
+			return ;
+		}
+
+		if( !_id || String(_id).length != 24 || (status != 0 && status != 1 && status != 2)){
+
+			res.write( new WebStatus("-1").toString() );
+			res.end();
+
+			return ;
+		}
+
+
+		NoticeModel.updateStatus( String(_id), status, function( status ){
+
+			res.write( status.toString() );
+			res.end();
+
+		});
 	}
 };

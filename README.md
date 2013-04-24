@@ -401,7 +401,7 @@ return :{
 
 ####获取前 number 条用户非已读信息(13)
 ````javascript
-url:"/sys/noitce_list"
+url:"/sys/notice_list"
 method:"get",
 param:{
 	[time]:new Date().getTime()+1 //未来时间戳获取最新的 number -- 默认未来时间戳
@@ -416,9 +416,10 @@ return :{
 
 ####改变提醒的状态（理论上只允许标记为 2 已读）（14）
 ````javascript
-url:"/sys/noitce_status"
-method:"get",
+url:"/sys/notice_status"
+method:"post",
 param:{
+	_id: ,//信息_id
 	[status]:2,//默认2
 }
 return :{
