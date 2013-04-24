@@ -562,6 +562,8 @@ module.exports = {
 	noticeList:function(req, res){
 
 		var user = req.session.user || null;
+		var time = Number(req.query.time) || Date.now()/1000;
+		var number = Number(req.query.number) || 5;
 
 		if( !user ){
 
@@ -570,7 +572,7 @@ module.exports = {
 			return ;
 		}
 
-		NoticeModel.findUnread( String(user._id), 5, function( status ){
+		NoticeModel.findUnread( String(user._id), time, number, function( status ){
 
 			res.write( status.toString() );
 			res.end();
