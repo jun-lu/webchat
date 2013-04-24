@@ -15,10 +15,14 @@
 		.title{color:#999;margin-bottom:8px;}
 		.title .time{margin-left:20px;}
 		.room{margin-bottom:30px;}
+		.post-box-in{margin:0px 40px;}
 		.review-box{padding:3px;border:1px solid #c6c6c6;width:30em;margin:10px 0px;}
-		.orig{margin-bottom:15px;border-bottom:#ccc dotted 1px;}
+		.orig{margin-bottom:15px;border-bottom:#ccc dotted 1px;padding-bottom:15px;}
 			.orig .head{background:#F4FBDC;}
 	</style>
+	<script type="text/javascript">
+		var ROOM = <%- JSON.stringify(room)%>;
+	</script>
 </head>
 <body>	
 
@@ -60,9 +64,28 @@
 								<a href="/user/<%=data.to.uid%>"><%=data.to.uname%></a>
 							</div>
 							<%}%>
-							<div class="reply-mine"><%-tool.revertHtmlTag(data.text)%></div>
+							<div class="reply-mine"><%-tool.revertHtmlTag(data.text)%> <a id="chat-reply" class="chat-reply" href="javascript:;">回复</a></div>
 						</div>
 					</div>
+
+					<!--回复功能 S-->
+					<div class="post-box" id="review-box">
+						<form method="post" id="postForm" class="post-form" action="/sys/post">
+							<div class="post-box-in" id="postboxIn"> 
+								<div class="post-text-box"> 
+									<div class="post-text" z-index="0" id="postText" maxlength="5000" contenteditable="true"></div> 
+									<textarea class="post-text hidden" id="postTextArea" maxlength="5000" name="text"></textarea> 
+								</div> 
+								<div class="btns"> 
+									<div class="btn-group"> 
+						                <button class="btn btn-small">回复</button> 
+						             </div> 
+					            </div> 						 
+							</div>
+						</form>
+					</div>
+					<!--回复功能 E-->
+
 				</div>
 
 				<%
@@ -96,5 +119,9 @@
 		</div>
 	</div>
 	<% include ../common/footer.ejs %>
+
+	<script type="text/javascript" src="/js/jquery-1.6.3.min.js"></script>
+	<script type="text/javascript" src="/js/we.min.js"></script>
+	<script type="text/javascript" src="/js/we.chat.min.js"></script>
 </body>
 </html>
