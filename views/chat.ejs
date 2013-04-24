@@ -156,6 +156,7 @@
 <script type="text/javascript">
 	WE.pageChat.init();
 	WE.pageChat.timeLine.init( <%- JSON.stringify( indexChats ) %> );
+	WE.pageChat.notice.init();
 	WE.pageChat.userlist.regEvent();
 </script>
 <script src="/js/socket.io.min.js"></script>
@@ -168,8 +169,7 @@
 		WE.pageTop.setUserName( USER );
 		//匿名用户不连接 socket
 	}
-
-		
+	
 	var socket = io.connect( document.location.host );
 
 	socket.on('connect', function(){
@@ -199,6 +199,9 @@
 	socket.on('newChat', function(data) {
 		//console.log(data);
 		WE.pageChat.timeLine.prepend( data );
+
+		//及时消息通知更新
+		WE.pageChat.notice.onUpdate();
 	});
 
 	socket.on('disconnect', function(err){

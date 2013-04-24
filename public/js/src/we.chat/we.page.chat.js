@@ -628,3 +628,56 @@ WE.pageChat.reply = {
 }
 
 
+
+/**
+	及时消息通知
+*/
+WE.pageChat.notice = {
+
+	newsNum : 0,
+
+	hidden : false,
+
+	title : document.title, 
+
+	init : function(){
+		var _this = this;
+		$(document).click(function(){
+			_this.restoreTitle();
+			_this.hidden = false;
+		});
+
+		$(window).blur(function(){
+			_this.hidden = true;
+		});
+	},
+	
+	restoreTitle : function(){
+		var _this = this;
+		document.title = _this.title;
+	},
+
+	onUpdate : function(){
+		var _this = this;
+
+		if( _this.hidden ){
+			_this.newsNum ++;
+			_this.addNews();
+		}else{
+			_this.newsNum = 0;
+			if( _this.restoreTitle != document.title ){
+				_this.restoreTitle();
+			}
+			
+		}	
+	},
+
+	addNews : function(){
+		var _this = this,
+			title = '(' + _this.newsNum + ') '+ _this.title;
+		document.title = title;
+	}
+
+}
+
+
