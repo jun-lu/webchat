@@ -181,19 +181,47 @@ WE.pageTop = {
 			model.historyChats();
 			
 		});
+	}
+}
+
+WE.pageTop.notice = {
+
+	init : function(){
+
+		var _this = this;
+		var box = $('#notice-box')
+		_this.ui = {
+			box : box,
+			circle : box.find('.circle'),
+			list : box.find('.notice-list'),
+			title : box.find('.notice-title'),
+			content : box.find('.notice-content')
+		}
+		_this.setNoticeCount();
+		_this.regEvent();
 	},
 
-
+	regEvent : function(){
+		var _this = this;
+		_this.ui.title.click(function(){
+			_this.getNoticeList();
+		});
+	},
 
 	/*
 	 * 通知信息项模版
 	 */
 	noticeItemTmpl : '<% for(var i=0;i < obj.length;i++ ){ %>
 					  <li>\
-						<span><%=obj[i].from.name%></span> 在 \
-						<a data-mid="<%=obj[i]._id%>" class="notice-item" href=""><%=obj[i].where.topic%></a>回复了你\
+						<span><%=obj[i].from.name%></span>在<a data-mid="<%=obj[i]._id%>" class="notice-item" href="#"><%=obj[i].where.topic%></a>回复了你\
 					  </li>\
 					  <% } %>',
+
+
+	/*
+	 * 没有通知信息项模版
+	 */
+	noNoticeTmpl : '<p>最近没有收到新提醒...</p>',
 
 
 	/*
@@ -208,10 +236,7 @@ WE.pageTop = {
 			var data = e.data;
 
 			if( data.result ){
-				$('#notice-conut').text( data.result );
-				$('#notice-box').click(function(){
-					_this.getNoticeList();
-				});
+				_this.ui.circle.show();
 			}
 			
 		};
@@ -235,13 +260,13 @@ WE.pageTop = {
 			if( data.result.length ){
 
 				var html = WE.tmpl( _this.noticeItemTmpl,data );
-				$( html ).appendTo( $('#notice-list-box') );
-				$('#notice-list-box').delegate('.notice-item','click',function(){
-					var mid = $(this).data('mid');
-					$(this).closest('li').remove();
-					_this.setNoticeStatus( mid );
+				$( html ).appendTo( _this.ui.list );
 
+				_this.ui.list.delegate('.notice-item','click',function(){
+					var mid = $(this).data('mid');
+					_this.setNoticeStatus( mid );
 				});
+				
 			}
 		}
 		model.addObserver( ctrl );
@@ -266,6 +291,8 @@ WE.pageTop = {
 
 }
 
+
+
 WE.pageTop.init = function(){
 
 	var _this = this;
@@ -283,8 +310,8 @@ WE.pageTop.init = function(){
 	});
 
 
-	/*初始化设置多少已读条数*/
-	_this.setNoticeCount();
+	/*通知信息*/
+	_this.notice.init();
 
 }
 
