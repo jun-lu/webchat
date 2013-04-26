@@ -211,7 +211,7 @@ WE.pageTop.notice = {
 	/*
 	 * 通知信息项模版
 	 */
-	noticeItemTmpl : '<% for(var i=0;i < obj.length;i++ ){ %>
+	noticeItemTmpl : '<% for(var i=0;i < obj.length;i++ ){ %>\
 					  <li>\
 						<span><%=obj[i].from.name%></span>在<a data-mid="<%=obj[i]._id%>" class="notice-item" href="#"><%=obj[i].where.topic%></a>回复了你\
 					  </li>\

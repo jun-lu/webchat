@@ -89,7 +89,7 @@ position: absolute;right: 7px;top: 7px;width: 14px;z-index: 1;}
 		.account:hover .arrow{border-top-color:#fff;}
 		.account .arrow{position:absolute;top:13px;right:2px;border-width: 3px 3px 0;border-color: #d5d5d5 transparent transparent transparent;border-style: solid dashed dashed dashed;
 width: 0;height: 0;font-size: 0;line-height: 0;}
-			.drop-down{position:relative;}
+			.drop-down{position:relative;display:inline-block;}
 			.drop-down:hover .drop-down-items{display:block;}
 			.drop-down-items{border:1px solid #e6e6e6;background:#fff;padding:10px 0;position:absolute;top:28px;right:0;z-index:10;display:none;}
 			.drop-down-items ul{margin:0;}
