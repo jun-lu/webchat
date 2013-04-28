@@ -186,6 +186,12 @@ WE.pageTop = {
 
 WE.pageTop.notice = {
 
+	isLoadCount : false,
+
+	isShowContent : false,
+
+	noticeCount : 0,
+
 	init : function(){
 
 		var _this = this;
@@ -195,7 +201,8 @@ WE.pageTop.notice = {
 			circle : box.find('.circle'),
 			list : box.find('.notice-list'),
 			title : box.find('.notice-title'),
-			content : box.find('.notice-content')
+			content : box.find('.notice-content'),
+			loading : box.find('.we-loading')
 		}
 		_this.setNoticeCount();
 		_this.regEvent();
@@ -204,18 +211,38 @@ WE.pageTop.notice = {
 	regEvent : function(){
 		var _this = this;
 		_this.ui.title.click(function(){
-			_this.getNoticeList();
+			if( _this.isShowContent ){
+				_this.ui.content.hide();
+				_this.isShowContent = false;
+			}else{
+				_this.isShowContent = true;
+				_this.ui.content.show();
+				if( _this.noticeCount ){
+					if( !_this.isLoadCount ){
+						_this.getNoticeList();
+					}
+				}else{
+					$( _this.noNoticeTmpl ).appendTo( _this.ui.content );
+				}	
+			}
+		});
+
+		$('body').click(function(){
+			_this.isShowContent = false;
+			_this.ui.content.hide();
+		});
+
+		_this.ui.box.click(function(evt){
+			evt.stopPropagation();
 		});
 	},
 
 	/*
 	 * 通知信息项模版
 	 */
-	noticeItemTmpl : '<% for(var i=0;i < obj.length;i++ ){ %>\
-					  <li>\
-						<span><%=obj[i].from.name%></span>在<a data-mid="<%=obj[i]._id%>" class="notice-item" href="#"><%=obj[i].where.topic%></a>回复了你\
-					  </li>\
-					  <% } %>',
+	noticeItemTmpl : '<li>\
+						<span><%= obj.from.name %></span>在<a target="_blank" data-mid="<%= obj._id %>" class="notice-item" href="/d/<%= obj.what %>"><%= obj.where.topic %></a>回复了你\
+					  </li>',
 
 
 	/*
@@ -235,6 +262,7 @@ WE.pageTop.notice = {
 		ctrl.update = function( e ){
 			var data = e.data;
 
+			_this.noticeCount = data.result;
 			if( data.result ){
 				_this.ui.circle.show();
 			}
@@ -256,36 +284,31 @@ WE.pageTop.notice = {
 		var ctrl = new WE.Controller();
 		ctrl.update = function( e ){
 
+			_this.isLoadCount = true;
 			var data = e.data;
-			if( data.result.length ){
+			if( data.code === 0 && data.result.length ){
 
-				var html = WE.tmpl( _this.noticeItemTmpl,data );
+				var html = '<ul>';
+				for( var i = 0;i < data.result.length;i++ ){
+					html += WE.kit.tmpl( _this.noticeItemTmpl,data.result[i] );
+				}
+				html += '</ul>';
+
+				_this.ui.loading.remove();
 				$( html ).appendTo( _this.ui.list );
-
-				_this.ui.list.delegate('.notice-item','click',function(){
-					var mid = $(this).data('mid');
-					_this.setNoticeStatus( mid );
-				});
 				
+				// _this.ui.list.delegate('.notice-item','click',function(){
+				// 	var mid = $(this).data('mid');
+				// 	_this.setNoticeStatus( mid );
+				// });
+				
+			}else{
+
+				_this.ui.content.html( data.msg );
 			}
 		}
 		model.addObserver( ctrl );
 		model.noticeList();
-	},
-
-	/*
-	 * 修改未读信息状态
-	 * 
-	 */
-	setNoticeStatus : function( mid ){
-
-		var model = new WE.api.NoticeModel();
-		var ctrl = new WE.Controller();
-		ctrl.update = function( e ){
-			var data = e.data;
-		}
-		model.addObserver( ctrl );
-		model.noticeStatus( mid );
 	}
 
 
