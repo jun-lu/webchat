@@ -244,9 +244,11 @@ WE.pageTop.notice = {
 	 * 通知信息项模版
 	 */
 	noticeItemTmpl : '<li>\
-						<a target="_blank" href="/user/<%=from._id%>"><%= from.name %></a> 在\
-						<a target="_blank" data-mid="<%= _id %>" class="notice-item" href="/d/<%= what %>?noticeid=<%= _id %>#<%= response %>"><%= where.topic %></a>\
-						回复了你\
+						<div class="notice-news">\
+							<a target="_blank" href="/user/<%=from._id%>"><%= from.name %></a> 在\
+							<a target="_blank" data-mid="<%= _id %>" class="notice-item" href="/d/<%= what %>?noticeid=<%= _id %>#<%= response %>"><%= where.topic %></a>\
+							回复了你\
+						</div>\
 					  	<a data-mid="<%= _id %>" data-mid="<%= _id %>" class="muted pull-right del">不再提醒</a>\
 					  </li>',
 

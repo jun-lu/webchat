@@ -101,11 +101,13 @@ width: 0;height: 0;font-size: 0;line-height: 0;}
 		.circle{width:7px;height:7px;border-radius:4px;background-color:red;position: absolute;top: 12px;right: -1px;}
 		.notice-box,.notice-title{position:relative;}
 		.notice-box{display:inline-block;white-space: normal;word-wrap: break-word;margin-right:8px;}
-		.notice-content{width:270px;position:absolute;left:-121px;background:#fff;border:1px solid #e6e6e6;z-index:10;top:28px;}
+		.notice-content{width:320px;position:absolute;right:-113px;background:#fff;border:1px solid #e6e6e6;z-index:10;top:28px;}
 		.notice-content li{padding:8px 20px;border-bottom:1px solid #e6e6e6;}
 		.notice-content a:hover{text-decoration:underline;}
 		.notice-content p{padding:12px 0px 2px 18px}
 		.notice-list a{height: auto;}
+		.notice-content .notice-news{display:inline-block;width:223px;}
+		.notice-content .notice-list{padding-top:15px;}
 		.notic-all:visited{background-color:#fafafa;}
 		.notic-all:hover{background-color:#f5f5f5;color:#37a;}
 		.notic-all{padding:10px 0px;display:block;text-align:center;background-color:#fafafa;}
