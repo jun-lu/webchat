@@ -550,8 +550,7 @@ module.exports = {
 
 		}else{
 			status.setCode("-1");
-			//res.setHeader("Content-Type" ,"text/text; charset=utf-8");
-			res.write( "你好" );
+			res.write( status.toString() );
 			res.end();
 
 		}
@@ -595,7 +594,7 @@ module.exports = {
 			res.write( status.toString() );
 			res.end();
 
-			//标示未已经知晓
+			//标示为已经知晓状态
 			if( status.result && status.result.length > 0 ){
 				var ids = [];
 				for(var i=0; i< status.result.length ; i++){
