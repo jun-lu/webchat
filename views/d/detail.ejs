@@ -93,6 +93,7 @@
 					var item = list[i];
 				%>
 					<div class="chat">
+						<a name="<%= item._id %>"></a>
 						<div class="photo">
 							<a href="/user/<%=item.uid%>" target="_blank" data-uid="<%=item.uid%>">
 							    <img src="<%=item.uavatar%>" alt="<%=item.uname%>" class="avatar">
@@ -122,6 +123,7 @@
 
 	<script type="text/javascript" src="/js/jquery-1.6.3.min.js"></script>
 	<script type="text/javascript" src="/js/we.min.js"></script>
+	<script type="text/javascript" src="/js/we.top.min.js"></script>
 	<script type="text/javascript" src="/js/we.chat.min.js"></script>
 </body>
 </html>
