@@ -44,6 +44,7 @@ module.exports = {
 		get:function(req, res){
 
 			var ua = req.header("User-Agent");
+			//var ua = 'ssssssBaiduspiderbbbb';
 			var i = 0;
 			var key = req.params.key;
 			var user = req.session.user ? req.session.user : null;
@@ -60,7 +61,7 @@ module.exports = {
 			//["Baiduspider","Googlebot","MSNBot","YoudaoBot","JikeSpider","Sosospider","360Spider"]
 
 			//如果是搜索引擎也不创建匿名用户
-			if( user == null && !isSpiderBot(ua)){
+			if( user == null){
 
 				UserModel.createAnonymousUser( function( status ){
 
@@ -116,9 +117,8 @@ module.exports = {
 
 						});
 
-
 						//创建用户日志  如果是搜索引擎user信息为空
-						user && LogModel.create( user._id, "into_room",  room.getInfo() );
+						!isSpiderBot(ua) && LogModel.create( user._id, "into_room",  room.getInfo() );
 
 					}else{
 						status.setMsg("没有找到对话，请确认输入");
@@ -173,11 +173,11 @@ module.exports = {
 						socketServer.newChat( chat[0] );
 
 						//添加提醒
-						if(to ){
+						if(to){
 							ChatModel.findOne(to, function( status ){
 								//自己回复自己不加入提醒
 								if(status.code == "0" && user._id != status.result.uid){
-									NoticeModel.create(1, user._id, status.result.uid, roomid, chat[0]._id.toString());
+									NoticeModel.create(1, user._id, status.result.uid, roomid, to, chat[0]._id.toString());
 								}
 							});
 						}

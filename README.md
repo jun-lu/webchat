@@ -216,7 +216,8 @@
 	form:User, //来自
 	to:User._id, //  接收用户的id
 	where:Room, //根据type会返回不同的对象
-	what:Chat, // 根据type返回不同的对象
+	what:Chat _id, // 数据库id
+	response:Chat _id //数据库ID
 	status:0 // 0未知晓  1已知晓  2已读（0，1都是未读状态，区别在于用户是否知晓）
 	time:1363252238// 消息发生时间 时间戳/1000
 }
