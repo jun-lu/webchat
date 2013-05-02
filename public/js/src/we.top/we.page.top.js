@@ -218,6 +218,7 @@ WE.pageTop.notice = {
 				_this.ui.content.show();
 				_this.getNoticeList();
 			}
+			return false;
 		});
 
 		_this.ui.list.delegate(".del", 'click', function(){
@@ -253,7 +254,7 @@ WE.pageTop.notice = {
 	/*
 	 * 没有通知信息项模版
 	 */
-	noNoticeTmpl : '<p>最近没有收到新提醒...</p>',
+	noNoticeTmpl : '<p class="muted">最近没有收到新提醒...</p>',
 
 	/*
 	 * 没有更多的通知信息模版
@@ -307,6 +308,7 @@ WE.pageTop.notice = {
 					_this.ui.loading.remove();
 					_this.ui.list.html( html );
 				}else{
+					_this.ui.allLink.text('查看全部提醒');
 					_this.ui.list.html( _this.noNoticeTmpl );
 				}
 
