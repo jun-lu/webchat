@@ -107,6 +107,7 @@ width: 0;height: 0;font-size: 0;line-height: 0;}
 		.notice-content p{padding:12px 0px 2px 18px}
 		.notice-list a{height: auto;}
 		.notice-content .notice-news{display:inline-block;width:223px;}
+		.notice-content .notice-list{padding-top:15px;}
 		.notic-all:visited{background-color:#fafafa;}
 		.notic-all:hover{background-color:#f5f5f5;color:#37a;}
 		.notic-all{padding:10px 0px;display:block;text-align:center;background-color:#fafafa;}
