@@ -4,34 +4,30 @@
 		<li><a href="/">Vchat</a></li>
 	</ul>
 
-	<div class="pull-right top-nav">
+	<div class="pull-right">
 
 
 		<%if(user){%>
 		<!--提醒信息-->
 		<div class="notice-box" id="notice-box">
+			<span class="top-nav">
 			<a class="notice-title" href="javascript:;">
 				<span>提醒</span>
 				<span class="circle hidden"></span>
 			</a>
+			</span>
 			<div class="notice-content hidden">
 				<div class="notice-list">
-					<div class="we-loading" style="height:32px;"></div>
-					<!-- <ul>
-						<li><span>lujun</span>在<a href="">今晚去哪里</a>回复了你</li>
-						<li><span>CK.Ming</span>在<a href="">今晚去哪里</a>回复了你</li>
-					</ul>
-					<p>最近没有收到新提醒...</p> -->
-				
+					<div class="we-loading" ></div>
 				</div>
-				<div class="notic-all">
-					<a  href="#">查看全部提醒</a>
+				<div>	
+					<a  href="#" class="notic-all" >查看全部提醒</a>
 				</div>
 			</div>
 		</div>
 
 		<!--个人信息-->
-		<div class="account-box drop-down">
+		<div class="account-box top-nav drop-down">
 			<a href="#" class="account"> 
 				<span><%=user.name || user.mail%>的帐号</span> 
 				<span class="arrow"></span> 
@@ -59,41 +55,6 @@
 			<li><a href="/sys/reg">注册</a></li>
 		</ul>
 		<%}%>
-
-
 	</div>
-
-
-<!-- 	<%if(user){%>
-	<ul class="top-nav f-r">
-		<li class="drop-down">
-			<a href="#" class="account" >
-				<span><%=user.name || user.mail%>的帐号</span>
-				<span class="arrow"></span>
-			</a>
-			<div class="drop-down-items">
-				<ul>
-					<% if( !/^\d+$/.test(user.mail) ){ %>
-					<li><a href="/user/<%=user._id%>" id="chatme_bak" target="_blank" >我的vchat</a></li>
-					<li><a href="javascript:;" id="username">修改昵称</a></li>
-				
-					<% }else{ %>
-					<li><a href="/user/<%=user._id%>" id="chatme_bak" target="_blank" >我的vchat</a></li>
-					<li><a href="javascript:;" id="username">修改昵称</a></li>
-					<li><a id="bindmail" href="javascript:void(0)">绑定邮箱</a></li>
-					
-					<% } %>
-
-					<li><a href="/sys/login">切换用户</a></li>
-				</ul>
-			</div>
-		</li>
-	</ul>
-	<%}else{%>
-	<ul class="top-nav f-r">
-		<li><a href="/sys/login">登录</a>/</li>
-		<li><a href="/sys/reg">注册</a></li>
-	</ul>
-	<%}%> -->
 	
 </div>
