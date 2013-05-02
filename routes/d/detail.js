@@ -14,6 +14,7 @@ var WebStatus = require('../../lib/WebStatus');
 var socketServer = require('../../lib/socketServer');
 var Promise = require("../../lib/Promise");
 var roomLimit = require("../sys/room_limit");
+var NoticeModel = require("../lib/NoticeModel");
 
 //http://www.renren.com/338096010
 
@@ -24,6 +25,7 @@ module.exports = {
 			//console.log(111);
 			var user = req.session.user || null;
 			var _id = req.params._id;
+			var noticeid = req.query.noticeid;
 			/**
 				output:{
 					data:Chat,
@@ -128,7 +130,14 @@ module.exports = {
 
 				//console.log(1);
 				res.render("d/detail", output);
+				promise.resolve();
 
+			});
+
+			promise.add(function(){
+				if(String(noticeid).length == 24){
+					NoticeModel.updateStatus(noticeid, 2);
+				};
 			});
 
 			//开始
