@@ -200,7 +200,8 @@ WE.pageTop.notice = {
 			list : box.find('.notice-list'),
 			title : box.find('.notice-title'),
 			content : box.find('.notice-content'),
-			loading : box.find('.we-loading')
+			loading : box.find('.we-loading'),
+			allLink : box.find('.notic-all a')
 		}
 		_this.setNoticeCount();
 		_this.regEvent();
@@ -261,6 +262,8 @@ WE.pageTop.notice = {
 			_this.noticeCount = data.result;
 			if( data.result ){
 				_this.ui.circle.show();
+				_this.ui.allLink.text('查看全部提醒('+data.result+')');
+				
 			}
 			
 		};
@@ -283,20 +286,23 @@ WE.pageTop.notice = {
 			var data = e.data;
 			if( data.code === 0 && data.result.length ){
 
-				var html = '<ul>';
-				for( var i = 0;i < data.result.length;i++ ){
-					html += WE.kit.tmpl( _this.noticeItemTmpl,data.result[i] );
+				var html = '';
+				if( data.result.length < 1 ){
+
+					html = _this.noNoticeTmpl;
+					_this.ui.circle.hide();
+				}else{
+					html = '<ul>';
+					for( var i = 0;i < data.result.length;i++ ){
+						html += WE.kit.tmpl( _this.noticeItemTmpl,data.result[i] );
+					}
+					html += '</ul>';
+
 				}
-				html += '</ul>';
 
 				_this.ui.loading.remove();
 				_this.ui.list.empty();
 				$( html ).appendTo( _this.ui.list );
-				
-				// _this.ui.list.delegate('.notice-item','click',function(){
-				// 	var mid = $(this).data('mid');
-				// 	_this.setNoticeStatus( mid );
-				// });
 				
 			}else{
 
