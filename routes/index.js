@@ -119,9 +119,11 @@ module.exports = function ( app ) {
 	//输入房间密码
 	app.get('/sys/room_limit', roomLimit.get);
 
+	app.get('/user/notices',notice.get);
+
 	app.get('/user/:key', personal.get);
 
-	app.get('/user/unread',notice.get);
+	
 
 	app.get('/d/:_id', detail.get);
 
