@@ -41,6 +41,8 @@ var SystemMail = require("../lib/SystemMail");
 
 var admin = require("./sys/admin");
 
+var notice = require("./user/notice");
+
 module.exports = function ( app ) {
 
 	/* test */
@@ -118,6 +120,8 @@ module.exports = function ( app ) {
 	app.get('/sys/room_limit', roomLimit.get);
 
 	app.get('/user/:key', personal.get);
+
+	app.get('/user/unread',notice.get);
 
 	app.get('/d/:_id', detail.get);
 
