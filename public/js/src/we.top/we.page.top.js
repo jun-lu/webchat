@@ -201,7 +201,7 @@ WE.pageTop.notice = {
 			title : box.find('.notice-title'),
 			content : box.find('.notice-content'),
 			loading : box.find('.we-loading'),
-			allLink : box.find('.notic-all a')
+			allLink : box.find('.notic-all')
 		}
 		_this.setNoticeCount();
 		_this.regEvent();
@@ -220,7 +220,14 @@ WE.pageTop.notice = {
 			}
 		});
 
-		$('body').click(function(){
+		_this.ui.list.delegate(".del", 'click', function(){
+			var mid = $(this).attr("data-mid");
+			_this.deleteOne( mid );
+			$(this).parent('li').remove();
+			return false;
+		});
+
+		$(document.body).click(function(){
 			_this.isShowContent = false;
 			_this.ui.content.hide();
 		});
@@ -234,7 +241,10 @@ WE.pageTop.notice = {
 	 * 通知信息项模版
 	 */
 	noticeItemTmpl : '<li>\
-						<span><%= from.name %></span>在<a target="_blank" data-mid="<%= _id %>" class="notice-item" href="/d/<%= what %>?noticeid=<%= _id %>#<%= response %>"><%= where.topic %></a>回复了你\
+						<a target="_blank" href="/user/<%=from._id%>"><%= from.name %></a> 在\
+						<a target="_blank" data-mid="<%= _id %>" class="notice-item" href="/d/<%= what %>?noticeid=<%= _id %>#<%= response %>"><%= where.topic %></a>\
+						回复了你\
+					  	<a data-mid="<%= _id %>" data-mid="<%= _id %>" class="muted pull-right del">不再提醒</a>\
 					  </li>',
 
 
@@ -259,11 +269,9 @@ WE.pageTop.notice = {
 		ctrl.update = function( e ){
 			var data = e.data;
 
-			_this.noticeCount = data.result;
-			if( data.result ){
+			if( data.code == 0 && data.result > 0 ){
+				_this.noticeCount = data.result;
 				_this.ui.circle.show();
-				_this.ui.allLink.text('查看全部提醒('+data.result+')');
-				
 			}
 			
 		};
@@ -284,33 +292,41 @@ WE.pageTop.notice = {
 		ctrl.update = function( e ){
 
 			var data = e.data;
-			if( data.code === 0 && data.result.length ){
+			if( data.code === 0 ){
+				var noticeList = data.result.list;
+				var html = '<ul class="reset" >';
+				if(data.result.count > 0){
+					_this.ui.allLink.text('查看全部提醒('+data.result.count+')');
 
-				var html = '';
-				if( data.result.length < 1 ){
-
-					html = _this.noNoticeTmpl;
-					_this.ui.circle.hide();
-				}else{
-					html = '<ul>';
-					for( var i = 0;i < data.result.length;i++ ){
-						html += WE.kit.tmpl( _this.noticeItemTmpl,data.result[i] );
+					for( var i = 0;i < noticeList.length;i++ ){
+						html += WE.kit.tmpl( _this.noticeItemTmpl,noticeList[i] );
 					}
 					html += '</ul>';
-
+					_this.ui.loading.remove();
+					_this.ui.list.html( html );
+				}else{
+					_this.ui.list.html( _this.noNoticeTmpl );
 				}
 
-				_this.ui.loading.remove();
-				_this.ui.list.empty();
-				$( html ).appendTo( _this.ui.list );
+				if(data.result.count < 6){
+					_this.ui.circle.hide();
+				}
 				
 			}else{
 
-				_this.ui.content.html( data.msg );
+				_this.ui.list.html( '<p>'+ data.msg +'</p>' );
 			}
 		}
 		model.addObserver( ctrl );
 		model.noticeList();
+	},
+	/*
+	 * 删除一个提醒
+	 * 
+	 */
+	deleteOne:function( mid ){
+
+		new WE.api.NoticeModel().noticeStatus( mid );
 	}
 
 

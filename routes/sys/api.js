@@ -16,6 +16,7 @@ var UserModel = require("../../lib/UserModel");
 var RoomModel = require("../../lib/RoomModel");
 var socketServer = require("../../lib/socketServer");
 var NoticeModel = require("../../lib/NoticeModel");
+var Promise = require("../../lib/Promise");
 
 
 var sysWord = vconfig.sysWord;
@@ -567,7 +568,7 @@ module.exports = {
 			return ;
 		}
 
-		NoticeModel.countStatus( String(user._id), status, function( status ){
+		NoticeModel.countStatus( String(user._id), [0], function( status ){
 
 			res.write( status.toString() );
 			res.end();
@@ -582,6 +583,8 @@ module.exports = {
 		var time = Number(req.query.time) || Date.now()/1000;
 		var number = Number(req.query.number) || 5;
 
+		var output = {};
+
 		if( !user ){
 
 			res.write( new WebStatus("-3").toString() );
@@ -589,22 +592,42 @@ module.exports = {
 			return ;
 		}
 
-		NoticeModel.findUnread( String(user._id), time, number, function( status ){
+		var promise = new Promise();
 
+		promise.add(function(){
+			NoticeModel.countStatus( String(user._id), [0,1], function( status ){
+
+				output.count = status.result;
+				promise.ok();
+			});
+		});
+
+		promise.add(function(){
+			NoticeModel.findUnread( String(user._id), time, number, function( status ){
+
+				output.list = status.result;
+				promise.ok();
+				//标示为已经知晓状态
+				if( status.code == "0" && status.result && status.result.length > 0 ){
+					var ids = [];
+					for(var i=0; i< status.result.length ; i++){
+						ids.push( status.result[i]._id.toString() );
+					};
+					//console.log("ids", ids );
+					NoticeModel.updateMoreStatus( ids, 1);
+				}
+
+			});
+		});
+
+		promise.then(function(){
+			var status = new WebStatus();
+			status.setResult( output );
 			res.write( status.toString() );
 			res.end();
-
-			//标示为已经知晓状态
-			if( status.result && status.result.length > 0 ){
-				var ids = [];
-				for(var i=0; i< status.result.length ; i++){
-					ids.push( status.result[i]._id.toString() );
-				};
-
-				NoticeModel.updateMoreStatus( ids, 1);
-			}
-
 		});
+
+		promise.start();
 	},
 	//14
 	noticeStauts:function(req, res){
