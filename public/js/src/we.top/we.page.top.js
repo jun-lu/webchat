@@ -223,7 +223,9 @@ WE.pageTop.notice = {
 		_this.ui.list.delegate(".del", 'click', function(){
 			var mid = $(this).attr("data-mid");
 			_this.deleteOne( mid );
-			$(this).parent('li').remove();
+			$(this).parent('li').animate({"opacity":0}, 800, function(){
+				$(this).remove();
+			});
 			return false;
 		});
 
