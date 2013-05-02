@@ -595,6 +595,16 @@ module.exports = {
 			res.write( status.toString() );
 			res.end();
 
+			//标示未已经知晓
+			if( status.result && status.result.length > 0 ){
+				var ids = [];
+				for(var i=0; i< status.result.length ; i++){
+					ids.push( status.result[i]._id.toString() );
+				};
+
+				NoticeModel.updateMoreStatus( ids, 1);
+			}
+
 		});
 	},
 	//14

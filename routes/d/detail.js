@@ -14,7 +14,7 @@ var WebStatus = require('../../lib/WebStatus');
 var socketServer = require('../../lib/socketServer');
 var Promise = require("../../lib/Promise");
 var roomLimit = require("../sys/room_limit");
-var NoticeModel = require("../lib/NoticeModel");
+var NoticeModel = require("../../lib/NoticeModel");
 
 //http://www.renren.com/338096010
 
