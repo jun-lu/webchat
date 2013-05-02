@@ -218,6 +218,7 @@ WE.pageTop.notice = {
 				_this.ui.content.show();
 				_this.getNoticeList();
 			}
+			return false;
 		});
 
 		_this.ui.list.delegate(".del", 'click', function(){
