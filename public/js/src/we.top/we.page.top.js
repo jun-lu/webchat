@@ -253,7 +253,7 @@ WE.pageTop.notice = {
 	/*
 	 * 没有通知信息项模版
 	 */
-	noNoticeTmpl : '<p>最近没有收到新提醒...</p>',
+	noNoticeTmpl : '<p class="muted">最近没有收到新提醒...</p>',
 
 	/*
 	 * 没有更多的通知信息模版
