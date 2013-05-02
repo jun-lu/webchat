@@ -604,7 +604,7 @@ module.exports = {
 		var status = Number(req.body.status);
 		var _id = req.body._id;
 
-		status = status == undefined ? 2 : status;
+		status = status ? status : 2;
 
 
 		if( !user ){
