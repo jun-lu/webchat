@@ -7,7 +7,7 @@ var system = require("./system");
 var home = require("./home");
 //对话页面
 var chat = require("./chat");
-//登陆
+//登录
 var sysLogin = require("./sys/login");
 //登出
 var sysOut = require("./sys/out");
@@ -75,7 +75,7 @@ module.exports = function ( app ) {
 	app.get('/sys/admin', admin.get);
 	app.post('/sys/admin', admin.post);
 	
-	//登陆
+	//登录
 	app.get('/sys/login', sysLogin.get);
 	
 	//登出

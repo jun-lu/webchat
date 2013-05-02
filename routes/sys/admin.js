@@ -2,7 +2,7 @@
 	
 	login
 	
-	登陆
+	登录
 */
 var config = require("../../config");
 var User = require("../../lib/User");

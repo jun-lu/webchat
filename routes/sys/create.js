@@ -2,7 +2,7 @@
 	
 	login
 	
-	登陆
+	登录
 */
 var tools = require("../../lib/tools");
 var config = require("../../config");
@@ -27,7 +27,7 @@ module.exports = {
 
 		/**
 		
-			如果用户未登陆
+			如果用户未登录
 			创建匿名用户，并设置cookie
 
 		*/

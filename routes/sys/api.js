@@ -2,7 +2,7 @@
 	
 	login
 	
-	登陆
+	登录
 */
 
 var fs = require("fs");
@@ -228,7 +228,7 @@ module.exports = {
 		var mail = req.body.mail;
 		var pwd = req.body.pwd;
 
-		//登陆判断
+		//登录判断
 		if(!user){
 
 			status.setCode("-3");
@@ -413,7 +413,7 @@ module.exports = {
 		var gravatarDefault = req.body.gravatarDefault;
 
 
-		//登陆判断
+		//登录判断
 		if(!user){
 
 			status.setCode("-3");

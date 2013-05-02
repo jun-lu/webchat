@@ -2,7 +2,7 @@
 	
 	into
 	
-	登陆
+	登录
 */
 var tools = require("../../lib/tools");
 var RoomModel = require("../../lib/RoomModel");
