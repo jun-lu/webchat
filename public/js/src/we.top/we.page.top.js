@@ -233,7 +233,7 @@ WE.pageTop.notice = {
 	 * 通知信息项模版
 	 */
 	noticeItemTmpl : '<li>\
-						<span><%= from.name %></span>在<a target="_blank" data-mid="<%= _id %>" class="notice-item" href="/d/<%= what %>#<%= response %>"><%= where.topic %></a>回复了你\
+						<span><%= from.name %></span>在<a target="_blank" data-mid="<%= _id %>" class="notice-item" href="/d/<%= what %>?noticeid=<%= _id %>#<%= response %>"><%= where.topic %></a>回复了你\
 					  </li>',
 
 

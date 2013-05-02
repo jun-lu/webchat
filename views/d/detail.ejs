@@ -125,14 +125,5 @@
 	<script type="text/javascript" src="/js/we.min.js"></script>
 	<script type="text/javascript" src="/js/we.top.min.js"></script>
 	<script type="text/javascript" src="/js/we.chat.min.js"></script>
-	<script type="text/javascript">
-		//修改信息为已读
-		var hash = location.hash.slice(1);
-		if( hash.length == 24 ){
-			var model = new WE.api.NoticeModel();
-			model.noticeStatus( hash );
-		}
-
-	</script>
 </body>
 </html>
