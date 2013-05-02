@@ -71,6 +71,8 @@
 					<!--回复功能 S-->
 					<div class="post-box" id="review-box">
 						<form method="post" id="postForm" class="post-form" action="/sys/post">
+							<input type="hidden" name="to" id="to" value="<%=data._id%>">
+							<input type="hidden" name="roomid" id="roomid" value="<%=room.id%>" >
 							<div class="post-box-in" id="postboxIn"> 
 								<div class="post-text-box"> 
 									<div class="post-text" z-index="0" id="postText" maxlength="5000" contenteditable="true"></div> 
@@ -125,5 +127,8 @@
 	<script type="text/javascript" src="/js/we.min.js"></script>
 	<script type="text/javascript" src="/js/we.top.min.js"></script>
 	<script type="text/javascript" src="/js/we.chat.min.js"></script>
+	<script type="text/javascript">
+		WE.pageChat.init();
+	</script>
 </body>
 </html>
