@@ -186,8 +186,6 @@ WE.pageTop = {
 
 WE.pageTop.notice = {
 
-	isLoadCount : false,
-
 	isShowContent : false,
 
 	noticeCount : 0,
@@ -217,13 +215,7 @@ WE.pageTop.notice = {
 			}else{
 				_this.isShowContent = true;
 				_this.ui.content.show();
-				if( _this.noticeCount ){
-					if( !_this.isLoadCount ){
-						_this.getNoticeList();
-					}
-				}else{
-					$( _this.noNoticeTmpl ).appendTo( _this.ui.content );
-				}	
+				_this.getNoticeList();
 			}
 		});
 
@@ -241,7 +233,7 @@ WE.pageTop.notice = {
 	 * 通知信息项模版
 	 */
 	noticeItemTmpl : '<li>\
-						<span><%= obj.from.name %></span>在<a target="_blank" data-mid="<%= obj._id %>" class="notice-item" href="/d/<%= obj.what %>"><%= obj.where.topic %></a>回复了你\
+						<span><%= from.name %></span>在<a target="_blank" data-mid="<%= _id %>" class="notice-item" href="/d/<%= what %>#<%= response %>"><%= where.topic %></a>回复了你\
 					  </li>',
 
 
@@ -288,7 +280,6 @@ WE.pageTop.notice = {
 		var ctrl = new WE.Controller();
 		ctrl.update = function( e ){
 
-			_this.isLoadCount = true;
 			var data = e.data;
 			if( data.code === 0 && data.result.length ){
 
@@ -299,6 +290,7 @@ WE.pageTop.notice = {
 				html += '</ul>';
 
 				_this.ui.loading.remove();
+				_this.ui.list.empty();
 				$( html ).appendTo( _this.ui.list );
 				
 				// _this.ui.list.delegate('.notice-item','click',function(){
