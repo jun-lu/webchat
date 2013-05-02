@@ -226,6 +226,7 @@ WE.pageTop.notice = {
 			_this.deleteOne( mid );
 			$(this).parent('li').animate({"opacity":0}, 800, function(){
 				$(this).remove();
+				_this.getNoticeList();
 			});
 			return false;
 		});
