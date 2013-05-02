@@ -604,7 +604,7 @@ module.exports = {
 		var status = Number(req.body.status);
 		var _id = req.body._id;
 
-		status = status == undefined ? 2 : status;
+		status = status ? status : 2;
 
 
 		if( !user ){
@@ -614,7 +614,7 @@ module.exports = {
 			return ;
 		}
 
-		if( !_id || String(_id).length != 24 || (status != 0 && status != 1 && status != 2)){
+		if( String(_id).length != 24 || !(status == 1 || status == 2 || status == 0)){
 
 			res.write( new WebStatus("-1").toString() );
 			res.end();
