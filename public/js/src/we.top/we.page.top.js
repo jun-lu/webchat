@@ -308,6 +308,7 @@ WE.pageTop.notice = {
 					_this.ui.loading.remove();
 					_this.ui.list.html( html );
 				}else{
+					_this.ui.allLink.text('查看全部提醒');
 					_this.ui.list.html( _this.noNoticeTmpl );
 				}
 
