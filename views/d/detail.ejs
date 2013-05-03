@@ -69,7 +69,7 @@
 					</div>
 
 					<!--回复功能 S-->
-					<div class="post-box hidden" id="review-box">
+					<div class="post-box" id="review-box">
 						<form method="post" id="postForm" class="post-form" action="/sys/post">
 							<input type="hidden" name="to" id="to" value="<%=data._id%>">
 							<input type="hidden" name="roomid" id="roomid" value="<%=room.id%>" >
@@ -126,10 +126,10 @@
 	<script type="text/javascript" src="/js/jquery-1.6.3.min.js"></script>
 	<script type="text/javascript" src="/js/we.min.js"></script>
 	<script type="text/javascript" src="/js/we.top.min.js"></script>
-	<script type="text/javascript" src="/js/we.chat.min.js"></script>
+	<script type="text/javascript" src="/js/we.box.chat.min.js"></script>
 	<script type="text/javascript">
-		WE.pageChat.init();
-		WE.pageChat.reply._id = "<%=data._id%>";
+		WE.boxCaht.init();
+		WE.boxCaht.replyId = "<%=data._id%>";
 	</script>
 </body>
 </html>
