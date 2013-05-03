@@ -118,7 +118,11 @@ module.exports = {
 						});
 
 						//创建用户日志  如果是搜索引擎user信息为空
-						!isSpiderBot(ua) && LogModel.create( user._id, "into_room",  room.getInfo() );
+
+						if(!isSpiderBot(ua)){
+							//console.log("加入", ua);
+							LogModel.create( user._id, "into_room",  room.getInfo() );
+						}
 
 					}else{
 						status.setMsg("没有找到对话，请确认输入");
