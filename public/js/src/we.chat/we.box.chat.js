@@ -1,4 +1,7 @@
 WE.boxCaht = {
+
+	replyId : null,
+
 	init : function(){
 		this.regEvent();
 	},
@@ -33,7 +36,8 @@ WE.boxCaht = {
 			$('#postTextArea').val('');
 			//console.log( text, roomid );	
 			if(text && roomid){
-				_this.post( roomid, text, WE.pageChat.reply._id); // null
+				_this.post( roomid, text, WE.boxCaht.replyId); // null
+				location.reload();
 				
 			}else{
 				$('#postText').focus();
@@ -66,7 +70,7 @@ WE.boxCaht = {
 				$('#postText').html('').focus();
 				$('#postTypeGroup button').removeAttr('disabled').text('发送');
 
-				WE.pageChat.reply.delOrig();
+				//WE.pageChat.reply.delOrig();
 			}
 
 		};
