@@ -2,7 +2,7 @@
 	
 	login
 	
-	登陆
+	登录
 */
 var tools = require("../../lib/tools");
 var config = require("../../config");
@@ -27,7 +27,7 @@ module.exports = {
 
 		/**
 		
-			如果用户未登陆
+			如果用户未登录
 			创建匿名用户，并设置cookie
 
 		*/
@@ -65,7 +65,7 @@ module.exports = {
 					if( status.code == "0" ){
 
 						var room = status.result;
-						ChatModel.create( room.id, "The very first message!", user, null);
+						ChatModel.create( room.id, "your first message!", user, null);
 						res.redirect('/'+room.id);
 						//记录用户日志
 						LogModel.create( masterid, "create_room", room.getInfo() );

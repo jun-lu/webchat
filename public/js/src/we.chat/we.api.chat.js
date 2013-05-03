@@ -10,7 +10,7 @@ WE.api = WE.api || {};
 
 WE.api.ChatModel = function(){
 
-	this.postUrl = "?1";//直接提交到当前路径
+	this.postUrl = "/post";//直接提交到当前路径
 	this.setUserNameURL = "/sys/set_user_name";
 	this.updateRoomURL = "/sys/room_update";
 	this.updateAvatorURL = "/sys/set_avatar";

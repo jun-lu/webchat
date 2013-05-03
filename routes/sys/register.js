@@ -2,7 +2,7 @@
 	
 	login
 	
-	登陆
+	登录
 */
 
 var crypto = require("crypto");
