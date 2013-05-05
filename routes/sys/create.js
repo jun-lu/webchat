@@ -65,7 +65,7 @@ module.exports = {
 					if( status.code == "0" ){
 
 						var room = status.result;
-						ChatModel.create( room.id, "your first message!", user, null);
+						ChatModel.create( room.id, "Your first message!", user, null);
 						res.redirect('/'+room.id);
 						//记录用户日志
 						LogModel.create( masterid, "create_room", room.getInfo() );
