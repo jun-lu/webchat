@@ -109,6 +109,12 @@ WE.pageChat = {
 			_this.initSendType();
 
 		});
+
+		//input tips
+		$('#text-tip').click(function(){
+			
+			WE.pageTop.showTextTips();
+		})
 	},
 
 	initSendType:function(){

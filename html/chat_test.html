@@ -135,7 +135,20 @@
 								<span class="quote-text"></span> 
 								<a href="javascript:void(0)" class="quote-user"></a> 
 								<a class="quote-del f-r" href="javascript:void(0)">×</a> 
-							</div> 
+							</div>
+
+
+							<!--2013-5-6 输入提示-->
+							<a title="输入框操作提示" id="text-tip" class="text-tip icon-cog" href="javascript:;"></a>
+							<style type="text/css">
+							.chat .info{position:relative;}/*chat.css 50行 添加*/
+								  .info .text-tip{position:absolute;right:-19px;top:0px;height:14px;width:14px;display:inline-block;opacity:0.6;}
+								  .info .text-tip:hover{background-color:#ddd;opacity:1;}
+							</style>
+							<!--2013-5-6 输入提示-->
+
+
+							<span></span>
 						</div> 
  
  
@@ -220,4 +233,42 @@
 </script> 
  
  
+
+ <div class="we-dialog-box">		
+ 	<div class="we-mask" style="opacity: 1;"></div>		
+ 	<div class="we-dialog" style="opacity: 1; top: -26.099999999999998px; left: 456.5px; margin-top:123px;">			
+ 		<div class="we-dialog-title">				
+ 			<h1>输入框操作提示</h1>				
+ 			<a href="javascript:;" class="we-dialog-close out"></a>			
+ 		</div>			
+ 		<div class="we-dialog-context">
+ 			
+ 			<!--2013-5-6 输入框操作提示---->
+ 			<ol>
+ 				<li>
+ 					<p>预定格式输出 : 在想按照预定格式输出的文本前后添加" ```` "(前后各四个 ` 符号)</p>
+ 					<p>	
+ 						<span>实例:</span>
+ 						<div class="row">
+ 							<div class="span4">
+ 								<span>````</span>
+ 								<p>vchat是什么?</p>
+ 								<p>&nbsp;&nbsp;vchat是一个基于多人对话的讨论平台</p>
+ 								<span>````</span>
+ 							</div>
+ 							<div class="span4">
+ 								<pre>vchat是什么?
+
+  vchat是一个基于多人对话的讨论平台</pre>
+ 							</div>
+ 						</div>
+ 					</p>
+ 				</li>
+ 			</ol>
+
+ 			<!--2013-5-6 输入框操作提示---->
+
+		</div>		
+	</div>
+</div>
 </body></html>
