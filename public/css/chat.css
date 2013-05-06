@@ -47,7 +47,7 @@
 	.chat{position:relative;font-size:12px;}
 	.chat .photo{position:absolute;width:48px;}
 	.chat .photo img{width:36px;height:36px;}
-	.chat .info{min-height:48px;margin-left:45px;margin-bottom:20px;}
+	.chat .info{min-height:48px;margin-left:45px;margin-bottom:20px;position:relative;}
 	.chat .dot{background:#9fc9ea;width:8px;height:8px;border-radius:10px;border:5px solid #fff;left:-27px;top:8px;position:absolute;cursor:pointer;}
 	.chat .chat-reply{font-size:12px;visibility: hidden;}
 	.chat:hover .chat-reply{visibility: visible;}
@@ -62,9 +62,11 @@
 			.info .reply-mine{margin-top:7px;}
 			.info .head .time{float:right;color: #999;font-size: 12px;}
 			.info .head .time:hover{background: none; text-decoration: underline;}
+			.info .text-tip{position:absolute;right:-19px;top:0px;height:14px;width:14px;display:inline-block;opacity:0.6;}
+			.info .text-tip:hover{background-color:#ddd;opacity:1;}
 		.my .head{background: #e6f8f8;}
 
-	/*历史用户*/
+	/*脌煤脢路脫脙禄搂*/
 	.history-list li{width:32px;height:32px;}
 	.history-list li a{display: block;}
 	.history-list li img{opacity: 0.4;moz-opacity:0.4;o-opacity:0.4;wekit-opacity:0.4;}

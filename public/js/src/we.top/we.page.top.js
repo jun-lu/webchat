@@ -7,6 +7,25 @@ WE.pageTop = {
 	 * 设置用户名
 	 * @param [USER] user
 	 */
+	showTextTips : function(){
+
+		var dialog = new WE.Dialog({
+			title : "输入框操作提示",
+			id : "showTextTips",
+			width : 673,
+			height : auto
+		});
+
+		WE.kit.getTmpl('show_text_tips.ejs',function( data ){
+
+			dialog.append( data );
+		});
+	},
+
+	/*
+	 * 设置用户名
+	 * @param [USER] user
+	 */
 	setUserName : function( user ){
 
 		var dialog = new WE.Dialog({
