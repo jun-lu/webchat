@@ -12,9 +12,10 @@ WE.pageTop = {
 		var dialog = new WE.Dialog({
 			title : "输入框操作提示",
 			id : "showTextTips",
-			width : 673,
-			height : auto
+			width : 673
 		});
+
+		dialog.show();
 
 		WE.kit.getTmpl('show_text_tips.ejs',function( data ){
 
