@@ -1,21 +1,31 @@
 <ol>
 	<li>
-		<p>预定格式输出 : 在想按照预定格式输出的文本前后添加" ```` "(前后各四个 ` 符号)</p>
-		<p>	
-			<span>实例:</span>
-			<div class="row">
-				<div class="span4">
-					<span>````</span>
-					<p>vchat是什么?</p>
-					<p>&nbsp;&nbsp;vchat是一个基于多人对话的讨论平台</p>
-					<span>````</span>
-				</div>
-				<div class="span4">
-					<pre>vchat是什么?
-
-	vchat是一个基于多人对话的讨论平台</pre>
-				</div>
+		<p>保留输入格式 : 文本前后添加"`"( 遵循 <a href="http://zh.wikipedia.org/wiki/Markdown#.E4.BB.A3.E7.A0.81">markdown</a> )</p>
+		<span>实例:</span>
+		<div class="row">
+			<div class="span4">
+				<span>`</span>
+				<p>vchat是什么?</p>
+				<p>&nbsp;&nbsp;vchat是一个基于多人对话的讨论平台</p>
+				<span>`</span>
 			</div>
-		</p>
+			<div class="span4">
+				<pre>vchat是什么?
+
+vchat是一个基于多人对话的讨论平台</pre>
+			</div>
+		</div>
+	</li>
+	<li>
+		<p>链接输出 : 带有"http"或者"https"开头的字符串会被解析成链接</p>		
+		<span>实例:</span>
+		<div class="row">
+			<div class="span4">
+				链接 http://vhat.co
+			</div>
+			<div class="span4">
+				链接 <a href="http://vchat.co">http://vchat.co</a>
+			</div>
+		</div>
 	</li>
 </ol>

@@ -63,7 +63,7 @@
 			.info .head .time{float:right;color: #999;font-size: 12px;}
 			.info .head .time:hover{background: none; text-decoration: underline;}
 			.info .text-tip{position:absolute;right:-19px;top:0px;height:14px;width:14px;display:inline-block;opacity:0.6;}
-			.info .text-tip:hover{background-color:#ddd;opacity:1;}
+			.info .text-tip:hover{background-color:#fff;opacity:1;}
 		.my .head{background: #e6f8f8;}
 
 	/*ÀúÊ·ÓÃ»§*/
