@@ -4,10 +4,15 @@ WE.extend( WE.markdown,{
 
 	format : function( text ){
 
-		var html = '';
-		html = this.preFormat( text );
-		html = this.urlFormat( html );
-		return html;
+		if( String(text).length > 0 ){
+			var html = '';
+			html = this.preFormat( text );
+			html = this.urlFormat( html );
+			return html;
+		}else{
+			return text;
+		}
+		
 	},
 
 	preFormat : function( text ){

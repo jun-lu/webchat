@@ -1,8 +1,5 @@
 #!/bin/sh
-inputlist=$inputlist\ \-\-js\ we.top/we.api.top.js
-inputlist=$inputlist\ \-\-js\ we.top/we.api.notice.js
 inputlist=$inputlist\ \-\-js\ we.top/we.page.top.js
-echo we.top/we.api.top.js
 echo we.top/we.page.top.js
 
 

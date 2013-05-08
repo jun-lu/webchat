@@ -1,9 +1,17 @@
 @echo off
+
+
 set inputlist=%inputlist% --js we.min\we.js
 set inputlist=%inputlist% --js we.min\we.kit.js
 set inputlist=%inputlist% --js we.min\we.ui.tips.js
 set inputlist=%inputlist% --js we.min\we.markdown.js
 set inputlist=%inputlist% --js we.ui\we.dialog.js
+
+set inputlist=%inputlist% --js we.api\we.api.chat.js
+set inputlist=%inputlist% --js we.api\we.api.setting.js
+set inputlist=%inputlist% --js we.api\we.api.top.js
+set inputlist=%inputlist% --js we.api\we.api.notice.js
+
 
 
 
