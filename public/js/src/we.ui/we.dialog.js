@@ -274,7 +274,13 @@ WE.ui.Post.prototype = {
 			if( _this.isFullscreen ){
 				_this.updateTextareaHeight();
 			}
+		}).keydown(function( e ){
+
+			if(e.keyCode == 27){
+				_this.setMini();
+			}			
 		});
+
 	},
 	updateTextareaHeight:function(){
 		//updateTextareaHeight
@@ -285,6 +291,8 @@ WE.ui.Post.prototype = {
 		}else{
 			this.ui.textarea.css("minHeight", "45px");
 			this.ui.jspreviewbox.css("minHeight", "45px");
+			this.ui.jspreviewbox.hide();
+			this.ui.textarea.show();
 		}
 	},
 	onpost:function(roomid, text , to){
