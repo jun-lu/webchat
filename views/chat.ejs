@@ -97,35 +97,39 @@
 							</a>
 						</div>
 							
-						<div class="info">	
-							<div class="post-box">
-								<form  method="post" id="postForm" class="post-form"  action="/sys/post">
-									<input type="hidden" name="to" id="to" value="">
-									<input type="hidden" name="roomid" id="roomid" value="<%=room.id%>" >
-								<div class="post-box-in" id="postboxIn">
-									<div class="post-text-box">
-										<div class="post-text" z-index="0" id="postText" maxlength="5000" contenteditable="true" ></div>
-										<textarea  class="post-text hidden" id="postTextArea" maxlength="5000" name="text"></textarea>
-									</div>
-									<div class="btns">
-										<div class="btn-group">
-							                <button class="btn btn-small">发送</button>
-							                <button class="btn btn-small dropdown-toggle" id="toggleSendSelect" data-toggle="dropdown"><span class="caret"></span></button>
-							                <ul class="dropdown-menu send-type-select" id="selectSendType">
-							                  <li><a href="javascript:;" data-type="2" >enter <span style="display:none;" class="dui">√</span></a></li>
-							                  <li><a href="javascript:;" data-type="1" >ctrl+enter 
-							                  	<span style="display:none;" class="dui" >√</span></a></li>
-							                </ul>
-							              </div>
-						            </div>
-									
-								</div>
+						<div class="info">
+							<div id="wepost">
+								<form method="post" class="post-form post-box" action="/sys/post" > 
+									<input type="hidden" name="to" class="jsto" value=""> 
+									<input type="hidden" name="roomid" class="jsroomid" value="<%=room.id%>"> 
+									<div class="post-box-in">
+										<ul class="nav nav-tabs">
+										  <li class="active jsmodeEdit" ><a href="javascript:;">编辑</a></li>
+										  <li class="jsmodePreview" ><a href="javascript:;">预览</a></li>
+										</ul>
+										<div class="post-text-box">
+											<i class="icon-fullscreen" title="扩大/缩小" ></i>
+											<textarea class="post-text" maxlength="5000" name="text" ></textarea>
+											<div class="jspreviewbox" style="diplay:none;" ></div>
+										</div> 
+										<div class="btns"> 
+											<div class="btn-group"> 
+												<button class="btn btn-small postSendBtn">发送</button> 
+												<button class="btn btn-small dropdown-toggle"  data-toggle="dropdown"><span class="caret"></span></button> 
+												<ul class="dropdown-menu send-type-select"> 
+												  <li><a href="javascript:;" data-type="2">enter <span style="display: none;" class="dui">√</span></a></li> 
+												  <li><a href="javascript:;" data-type="1">ctrl+enter  
+													<span class="dui">√</span></a></li> 
+												</ul> 
+											  </div> 
+										</div>
+										<div class="quote" style="display:none;">
+											<span class="quote-text">hello</span>
+											<a href="javascript:void(0);" class="quote-user">lujun</a>
+											<a class="quote-del pull-right" href="javascript:void(0)">×</a>
+										</div>	
+									</div> 
 								</form>
-							</div>
-							<div class="quote fs_12 pad_a5" id="quote" style="display:none;">
-								<span class="quote-text"></span>
-								<a href="javascript:void(0)" class="quote-user"></a>
-								<a class="quote-del f-r" href="javascript:void(0)">×</a>
 							</div>
 							<a title="输入框操作提示" id="text-tip" class="text-tip icon-question-sign" href="javascript:;"></a>
 						</div>

@@ -40,7 +40,15 @@
 	.post-box .post-text:focus{outline:none;border:none;box-shadow:none;}
 	.send-type-select{right:0;min-width:100px;left:auto;}
 	form.post-form{margin: 0px;}
-		.quote{background: #e8eef2;}
+		.quote{background: #e8eef2;padding:5px;}
+
+	.post-form .nav-tabs{display:none;margin-bottom:0;}
+	.fullscreen .nav-tabs{display:block;}
+	
+	.post-text-box .icon-fullscreen{position:absolute;right:10px;cursor:pointer;}
+	.fullscreen{position:fixed;z-index:11;width:100%;height:100%;top:0;left:0;box-shadow: 0 0 5px 2px #cfcfcf;}
+	.fullscreen .post-text{}
+	.fullscreen .post-form{margin:0 50px;height:99%;box-shadow: 0 0 5px 2px #cfcfcf;}
 
 
 	.avatar{background:#f2fbf2;}
