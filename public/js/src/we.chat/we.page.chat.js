@@ -96,7 +96,6 @@ WE.pageChat = {
 				_this.postui.removeLock();
 				_this.postui.setClear();
 				_this.postui.removeReply();
-				_this.postui.setMini();
 			}
 
 		};

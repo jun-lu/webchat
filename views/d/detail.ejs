@@ -15,6 +15,7 @@
 		.title{color:#999;margin-bottom:8px;}
 		.title .time{margin-left:20px;}
 		.room{margin-bottom:30px;}
+		.post-box-in{margin:0px 40px;}
 		.review-box{padding:3px;border:1px solid #c6c6c6;width:30em;margin:10px 0px;}
 		.orig{margin-bottom:15px;border-bottom:#ccc dotted 1px;padding-bottom:15px;}
 			.orig .head{background:#F4FBDC;}
@@ -67,39 +68,25 @@
 						</div>
 					</div>
 
-					<div id="wepost">
-						<form method="post" class="post-form post-box" action="/sys/post" > 
-							<input type="hidden" name="to" class="jsto" value="<%=data._id%>"> 
-							<input type="hidden" name="roomid" class="jsroomid" value="<%=room.id%>"> 
-							<div class="post-box-in">
-								<ul class="nav nav-tabs">
-								  <li class="active jsmodeEdit" ><a href="javascript:;">编辑</a></li>
-								  <li class="jsmodePreview" ><a href="javascript:;">预览</a></li>
-								</ul>
-								<div class="post-text-box">
-									<i class="icon-fullscreen" title="扩大/缩小" ></i>
-									<textarea class="post-text" maxlength="5000" name="text" ></textarea>
-									<div class="jspreviewbox" style="diplay:none;" ></div>
+					<!--回复功能 S-->
+					<div class="post-box" id="review-box">
+						<form method="post" id="postForm" class="post-form" action="/sys/post">
+							<input type="hidden" name="to" id="to" value="<%=data._id%>">
+							<input type="hidden" name="roomid" id="roomid" value="<%=room.id%>" >
+							<div class="post-box-in" id="postboxIn"> 
+								<div class="post-text-box"> 
+									<div class="post-text" z-index="0" id="postText" maxlength="5000" contenteditable="true"></div> 
+									<textarea class="post-text hidden" id="postTextArea" maxlength="5000" name="text"></textarea> 
 								</div> 
 								<div class="btns"> 
 									<div class="btn-group"> 
-										<button class="btn btn-small postSendBtn">回复</button> 
-										<button class="btn btn-small dropdown-toggle"  data-toggle="dropdown"><span class="caret"></span></button> 
-										<ul class="dropdown-menu send-type-select"> 
-										  <li><a href="javascript:;" data-type="2">enter <span style="display: none;" class="dui">√</span></a></li> 
-										  <li><a href="javascript:;" data-type="1">ctrl+enter  
-											<span class="dui">√</span></a></li> 
-										</ul> 
-									  </div> 
-								</div>
-								<div class="quote" style="display:none;">
-									<span class="quote-text">hello</span>
-									<a href="javascript:void(0);" class="quote-user">lujun</a>
-									<a class="quote-del pull-right" href="javascript:void(0)">×</a>
-								</div>	
-							</div> 
+						                <button type="submit" class="btn btn-small">回复</button> 
+						             </div> 
+					            </div> 						 
+							</div>
 						</form>
 					</div>
+					<!--回复功能 E-->
 
 				</div>
 
@@ -138,32 +125,11 @@
 
 	<script type="text/javascript" src="/js/jquery-1.6.3.min.js"></script>
 	<script type="text/javascript" src="/js/we.min.js"></script>
-	<script type="text/javascript">
-		var post = new WE.ui.Post('#wepost');
-		
-		post.onpost = function(roomid, text, to){
-			post.setLock();
-
-			to = !to ? undefined : to;
-			var _this = this;
-			var model = new WE.api.ChatModel();//
-			var ctrl = new WE.Controller();
-			
-			ctrl.update = function( e ){
-
-				var data = e.data;
-				if( data.code == 0 ){//post提交成功
-					window.location.reload();
-				}
-
-			};
-			model.addObserver( ctrl );
-			model.postChat( roomid, text, to );	
-		};
-	</script>
-
 	<script type="text/javascript" src="/js/we.top.min.js"></script>
-
-
+	<script type="text/javascript" src="/js/we.box.chat.min.js"></script>
+	<script type="text/javascript">
+		WE.boxCaht.init();
+		WE.boxCaht.replyId = "<%=data._id%>";
+	</script>
 </body>
 </html>

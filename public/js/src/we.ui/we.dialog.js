@@ -216,7 +216,7 @@ WE.ui.Post.prototype = {
 			var to = _this.ui.to.val();
 			var roomid = _this.ui.roomid.val();
 			if(text && _this.islock == false){
-				_this.onpost(roomid, text, to);
+				_this.onpost(roomid, roomid, to);
 			}
 			return false;
 		});
@@ -258,7 +258,6 @@ WE.ui.Post.prototype = {
 		});
 		
 		this.ui.modePreview.click(function(){
-			//alert(1);
 			_this.ui.textarea.hide();
 			_this.ui.jspreviewbox.show();
 			_this.ui.jspreviewbox.html( WE.markdown.format(_this.ui.textarea.val()) );
@@ -286,12 +285,6 @@ WE.ui.Post.prototype = {
 	},
 	onpost:function(roomid, text , to){
 		//text, roomid, to
-	},
-	setMini:function(){
-
-		this.isFullscreen = false;
-		this.dom.removeClass("fullscreen");
-		this.updateTextareaHeight();
 	},
 	setReply:function( chat ){
 		
