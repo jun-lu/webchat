@@ -1,5 +1,4 @@
 @echo off
-set inputlist=%inputlist% --js we.chat\we.api.chat.js
 set inputlist=%inputlist% --js we.chat\m.chat.page.js
 
 
