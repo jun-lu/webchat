@@ -126,3 +126,194 @@ WE.Dialog.prototype = {
 	},
 	onclose:function(){ return true; }
 };
+
+
+
+/*
+	ui:
+		box: #id,
+			form:
+			textarea:
+			.sendbtn	
+
+	WE.PostUI
+		.onpost(text, roomid, to);
+		
+		.setReply( chat ); //设置回复 
+		.setClear();//清空文本
+		.setFoucs();//获取焦点
+		
+		.removeReply();//取消回复状态
+		
+		.setLock();
+		.removeLock();
+		
+*/
+
+
+
+
+WE.ui.Post = function( dom ){
+		
+	this.quotetmpl = '<span class="quote-text"><%=text%></span>\
+				<a href="/user/<%=uid%>" class="quote-user"><%=uname%></a>\
+				<a class="quote-del pull-right" href="javascript:;">×</a>';
+	
+	this.islock = false;
+	this.dom = $(dom);
+	this.postType = 1;// 1 ctrl+enter  2 enter
+	this.isFullscreen = false;
+	this.init();
+};
+WE.ui.Post = function( dom ){
+		
+	this.quotetmpl = '<span class="quote-text"><%=text%></span>\
+				<a href="/user/<%=uid%>" class="quote-user"><%=uname%></a>\
+				<a class="quote-del pull-right" href="javascript:;">×</a>';
+	
+	this.islock = false;
+	this.dom = $(dom);
+	this.postType = 1;// 1 ctrl+enter  2 enter
+	this.isFullscreen = false;
+	this.init();
+};
+
+WE.ui.Post.prototype = {
+	construcotr:WE.ui.Post,
+	init:function(){
+		var dom = this.dom;
+		this.ui = {
+			form:dom.find("form:first"),
+			to:dom.find(".jsto"),
+			roomid:dom.find(".jsroomid"),
+			textarea:dom.find("textarea:first"),
+			fullscreen:dom.find('.icon-fullscreen'),
+			btnGroup:dom.find('.btn-group'),
+			quote:dom.find('.quote'),
+			postSendBtn:dom.find('.postSendBtn'),
+			modeEdit:dom.find('.jsmodeEdit'),
+			modePreview:dom.find('.jsmodePreview'),
+			jspreviewbox:dom.find('.jspreviewbox')
+
+		};
+		this.regEvent();
+		this.initSendType();
+		//this.autoHeight();
+	},
+	initSendType:function(){
+		var type = localStorage.getItem("sendType") || 1;
+		this.postType = type;
+
+		var dropdownMenuA = this.ui.btnGroup.find('.dropdown-menu a')
+		dropdownMenuA.find("span:first").hide();
+		dropdownMenuA.eq( type == 2 ? 0 : 1 ).find("span:first").show();
+
+	},
+	regEvent:function(){
+		var _this = this;
+		this.ui.form.submit(function(){
+			var text = $.trim( _this.ui.textarea.val() );
+			var to = _this.ui.to.val();
+			var roomid = _this.ui.roomid.val();
+			if(text && _this.islock == false){
+				_this.onpost(roomid, roomid, to);
+			}
+			return false;
+		});
+		this.ui.fullscreen.click(function(){
+			_this.dom.toggleClass("fullscreen");
+			_this.isFullscreen = _this.isFullscreen ? false : true;
+			_this.updateTextareaHeight();
+		});
+		
+		this.ui.btnGroup.find('.dropdown-toggle').click(function(){
+			_this.ui.btnGroup.toggleClass("open");
+			return false;
+			
+		});
+		
+		var dropdownMenuA = this.ui.btnGroup.find('.dropdown-menu a')
+		dropdownMenuA.click(function(){
+			//dropdownMenuA.find("span:first").hide();
+			//$(this).find("span:first").show();
+			_this.ui.btnGroup.toggleClass("open");
+			_this.postType = $(this).data("type");
+			localStorage.setItem("sendType", _this.postType);
+			_this.initSendType();
+		});
+		
+		this.ui.textarea.keydown(function( e ){
+			//回车发送
+			if(e.keyCode == 13 && _this.postType == 2 && _this.isFullscreen == false){
+				_this.ui.form.trigger('submit');
+				return false;
+			}
+		});
+
+		this.ui.modeEdit.click(function(){
+			_this.ui.jspreviewbox.hide();
+			_this.ui.textarea.show();
+			_this.ui.modePreview.removeClass("active");
+			_this.ui.modeEdit.addClass("active");
+		});
+		
+		this.ui.modePreview.click(function(){
+			_this.ui.textarea.hide();
+			_this.ui.jspreviewbox.show();
+			_this.ui.jspreviewbox.html( WE.markdown.format(_this.ui.textarea.val()) );
+			_this.ui.modeEdit.removeClass("active");
+			_this.ui.modePreview.addClass("active");
+		});
+
+
+		$(window).resize(function(){
+			if( _this.isFullscreen ){
+				_this.updateTextareaHeight();
+			}
+		});
+	},
+	updateTextareaHeight:function(){
+		//updateTextareaHeight
+		if( this.isFullscreen ){
+			var height = $(window).height();
+			this.ui.textarea.css("minHeight", (height-48-26)+"px");
+			this.ui.jspreviewbox.css("minHeight", (height-48-26)+"px");
+		}else{
+			this.ui.textarea.css("minHeight", "45px");
+			this.ui.jspreviewbox.css("minHeight", "45px");
+		}
+	},
+	onpost:function(roomid, text , to){
+		//text, roomid, to
+	},
+	setReply:function( chat ){
+		
+		var _this = this;
+		var html = WE.kit.tmpl(this.quotetmpl, chat);
+		this.ui.to.val( chat._id );
+		this.ui.quote.html( html ).show();
+		this.ui.quote.find(".quote-del").click(function(){
+			_this.removeReply();
+		});
+		
+	},
+	setClear:function(){
+		this.ui.textarea.val('');
+		this.removeReply();
+	},
+	setLock:function(){
+		this.islock = true;
+		this.ui.postSendBtn.attr("disabled",true);
+	},
+	setFoucs:function() {
+		this.ui.textarea.focus();
+	},
+	removeLock:function(){
+		this.islock = false;
+		this.ui.postSendBtn.attr("disabled",false);
+	},
+	removeReply:function(){
+		this.ui.to.val('');
+		this.ui.quote.hide();
+	}
+};

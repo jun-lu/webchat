@@ -31,17 +31,17 @@
 				<input type="hidden" name="roomid" id="roomid" class="jsroomid" value="1361426794271"> 
 				<div class="post-box-in">
 					<ul class="nav nav-tabs">
-					  <li class="active" ><a href="javascript:;">编辑</a></li>
-					  <li><a href="javascript:;">预览</a></li>
+					  <li class="active jsmodeEdit" ><a href="javascript:;">编辑</a></li>
+					  <li class="jsmodePreview" ><a href="javascript:;">预览</a></li>
 					</ul>
 					<div class="post-text-box">
 						<i class="icon-fullscreen" title="扩大/缩小" ></i>
 						<textarea class="post-text" maxlength="5000" name="text" ></textarea>
-						
+						<div class="jspreviewbox" style="diplay:none;" ></div>
 					</div> 
 					<div class="btns"> 
 						<div class="btn-group"> 
-							<button class="btn btn-small">发送</button> 
+							<button class="btn btn-small postSendBtn">发送</button> 
 							<button class="btn btn-small dropdown-toggle"  data-toggle="dropdown"><span class="caret"></span></button> 
 							<ul class="dropdown-menu send-type-select"> 
 							  <li><a href="javascript:;" data-type="2">enter <span style="display: none;" class="dui">√</span></a></li> 
@@ -110,10 +110,25 @@
 					textarea:dom.find("textarea:first"),
 					fullscreen:dom.find('.icon-fullscreen'),
 					btnGroup:dom.find('.btn-group'),
-					quote:dom.find('.quote')
+					quote:dom.find('.quote'),
+					postSendBtn:dom.find('.postSendBtn'),
+					modeEdit:dom.find('.jsmodeEdit'),
+					modePreview:dom.find('.jsmodePreview'),
+					jspreviewbox:dom.find('.jspreviewbox')
+
 				};
 				this.regEvent();
+				this.initSendType();
 				//this.autoHeight();
+			},
+			initSendType:function(){
+				var type = localStorage.getItem("sendType") || 1;
+				this.postType = type;
+
+				var dropdownMenuA = this.ui.btnGroup.find('.dropdown-menu a')
+				dropdownMenuA.find("span:first").hide();
+				dropdownMenuA.eq( type == 2 ? 0 : 1 ).find("span:first").show();
+
 			},
 			regEvent:function(){
 				var _this = this;
@@ -122,7 +137,7 @@
 					var to = _this.ui.to.val();
 					var roomid = _this.ui.roomid.val();
 					if(text && _this.islock == false){
-						_this.onpost(text, roomid, to);
+						_this.onpost(roomid, roomid, to);
 					}
 					return false;
 				});
@@ -134,15 +149,18 @@
 				
 				this.ui.btnGroup.find('.dropdown-toggle').click(function(){
 					_this.ui.btnGroup.toggleClass("open");
+					return false;
 					
 				});
 				
 				var dropdownMenuA = this.ui.btnGroup.find('.dropdown-menu a')
 				dropdownMenuA.click(function(){
-					dropdownMenuA.find("span:first").hide();
-					$(this).find("span:first").show();
+					//dropdownMenuA.find("span:first").hide();
+					//$(this).find("span:first").show();
 					_this.ui.btnGroup.toggleClass("open");
 					_this.postType = $(this).data("type");
+					localStorage.setItem("sendType", _this.postType);
+					_this.initSendType();
 				});
 				
 				this.ui.textarea.keydown(function( e ){
@@ -152,7 +170,23 @@
 						return false;
 					}
 				});
+
+				this.ui.modeEdit.click(function(){
+					_this.ui.jspreviewbox.hide();
+					_this.ui.textarea.show();
+					_this.ui.modePreview.removeClass("active");
+					_this.ui.modeEdit.addClass("active");
+				});
 				
+				this.ui.modePreview.click(function(){
+					_this.ui.textarea.hide();
+					_this.ui.jspreviewbox.show();
+					_this.ui.jspreviewbox.html( WE.markdown.format(_this.ui.textarea.val()) );
+					_this.ui.modeEdit.removeClass("active");
+					_this.ui.modePreview.addClass("active");
+				});
+
+
 				$(window).resize(function(){
 					if( _this.isFullscreen ){
 						_this.updateTextareaHeight();
@@ -164,11 +198,13 @@
 				if( this.isFullscreen ){
 					var height = $(window).height();
 					this.ui.textarea.css("minHeight", (height-48-26)+"px");
+					this.ui.jspreviewbox.css("minHeight", (height-48-26)+"px");
 				}else{
-					this.ui.textarea.css("minHeight", "auto")
+					this.ui.textarea.css("minHeight", "45px");
+					this.ui.jspreviewbox.css("minHeight", "45px");
 				}
 			},
-			onpost:function(text, roomid, to){
+			onpost:function(roomid, text , to){
 				//text, roomid, to
 			},
 			setReply:function( chat ){
@@ -182,18 +218,20 @@
 				});
 				
 			},
-			setClear:function(text, roomid, to){
-				this.textarea.val('');
+			setClear:function(){
+				this.ui.textarea.val('');
 				this.removeReply();
 			},
 			setLock:function(){
 				this.islock = true;
+				this.ui.postSendBtn.attr("disabled",true);
 			},
 			setFoucs:function() {
 				this.ui.textarea.focus();
-			}
+			},
 			removeLock:function(){
 				this.islock = false;
+				this.ui.postSendBtn.attr("disabled",false);
 			},
 			removeReply:function(){
 				this.ui.to.val('');
