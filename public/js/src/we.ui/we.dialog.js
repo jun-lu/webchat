@@ -78,8 +78,6 @@ WE.Dialog.prototype = {
 			WE.Dialog.setItem(this.id, this);
 		}
 
-
-		//this.ui.context.html( this.html.replace("<%=title>", (this.title || "")) );
 		document.body.appendChild( this.ui.wrap[0] );
 
 		this.updatePosition();
@@ -244,7 +242,12 @@ WE.ui.Post.prototype = {
 		
 		this.ui.textarea.keydown(function( e ){
 			//回车发送
-			if(e.keyCode == 13 && _this.postType == 2 && _this.isFullscreen == false){
+			if(e.keyCode == 13 && _this.postType == 2 && _this.isFullscreen == false && e.shiftKey == false){
+				_this.ui.form.trigger('submit');
+				return false;
+			}
+			//ctrl + enter
+			if(e.keyCode == 13 && _this.postType == 1 && _this.isFullscreen == false && e.ctrlKey == true){
 				_this.ui.form.trigger('submit');
 				return false;
 			}
