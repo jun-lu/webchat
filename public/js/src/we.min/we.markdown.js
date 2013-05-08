@@ -5,16 +5,16 @@ WE.extend( WE.markdown,{
 	format : function( text ){
 
 		if( String(text).length > 0 ){
-			var html = '';
-			html = this.preFormat( text );
-			html = this.urlFormat( html );
-			return html;
+			//var html = '';
+			text = WE.kit.removalHtmlTag( text );
+			text = this.preFormat( text );
+			text = this.urlFormat( text );
+			return text;
 		}else{
 			return text;
 		}
 		
 	},
-
 	preFormat : function( text ){
 
 		var _this = this;
