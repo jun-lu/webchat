@@ -39,7 +39,7 @@ WE.extend( WE.markdown,{
 	},
 
 	urlFormat : function( text ){
-		return text.replace(/\n/gi, "<br/>").replace(/(http|https):\/\/[\w\.\/\:\?\&\=\#\-\_]+/gi, function( a ){
+		return text.replace(/(http|https):\/\/[\w\.\/\:\?\&\=\#\-\_]+/gi, function( a ){
 			return '<a href="'+a+'" target="_blank">'+a+'</a>'
 		});
 	}
