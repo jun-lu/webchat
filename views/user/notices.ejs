@@ -56,7 +56,7 @@
 							%>	
 								<li>
 									<a href="/user/<%=item.from._id%>"><%=item.from.name%></a> 在 
-									<a href="/<%=item.where.name ? item.where.name : item.where.id%>"><%=item.where.topic%></a> 回复了你
+									<a href="/d/<%=item.response%>"><%=item.where.topic%></a> 回复了你
 									<%if(isBtn){%>
 									<a class="pull-right un-notice" data-mid="<%=item._id%>" href="javascript:;">不再提醒</a>
 									<%}%>
