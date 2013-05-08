@@ -1,7 +1,5 @@
 #!/bin/sh
-inputlist=$inputlist\ \-\-js\ we.chat/we.api.chat.js
 inputlist=$inputlist\ \-\-js\ we.chat/we.page.chat.js
-echo we.chat/we.api.chat.js
 echo we.chat/we.page.chat.js
 
 

@@ -1,5 +1,4 @@
 #!/bin/sh
-inputlist=$inputlist\ \-\-js\ we.setting/we.api.setting.js
 inputlist=$inputlist\ \-\-js\ we.setting/we.page.setting.js
 
 inputlist=$inputlist\ \-\-js\ ../we.setting.min.js
