@@ -4,6 +4,7 @@ var WE = {
 	kit:{},
 	api:{},
 	page:{},
+	markdown:{},
 	Observer : {
 		notice:function(){//通知方法
 			Array.prototype.unshift.call(arguments, {target:this, data:arguments[0]} );
