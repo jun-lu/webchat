@@ -196,6 +196,7 @@ WE.ui.Post.prototype = {
 		};
 		this.regEvent();
 		this.initSendType();
+		this.setFoucs();
 		//this.autoHeight();
 	},
 	initSendType:function(){
@@ -313,6 +314,7 @@ WE.ui.Post.prototype = {
 		this.ui.quote.find(".quote-del").click(function(){
 			_this.removeReply();
 		});
+		this.setFoucs();
 		
 	},
 	setClear:function(){
