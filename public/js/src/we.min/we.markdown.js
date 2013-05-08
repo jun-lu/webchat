@@ -1,12 +1,12 @@
 WE.extend( WE.markdown,{
 
-	defaultPrefix : '````',
+	defaultPrefix : '```',
 
 	format : function( text ){
 
 		var html = '';
 		html = this.preFormat( text );
-		html = this.urlFormat( text );
+		html = this.urlFormat( html );
 		return html;
 	},
 
@@ -18,11 +18,13 @@ WE.extend( WE.markdown,{
 
 			var prefixLen = text.split( _this.defaultPrefix ).length - 1;
 
-			if( prefixsLen != 0 && prefixsLen % 2 == 0 ){
+			if( prefixLen != 0 && prefixLen % 2 == 0 ){
 
 				var index = 0;
 				var html = text.replace( new RegExp( _this.defaultPrefix,'g' ),function( a ){ index++; return index % 2 == 0 ? '</pre>' : '<pre>' ;});
 				return html;		
+			}else{
+				return text;
 			}
 
 		}else{
