@@ -207,6 +207,10 @@
 
 		//及时消息通知更新
 		WE.pageChat.notice.onUpdate();
+		if( data.to.uid == USER._id ){
+			new WE.api.NoticeModel().noticeStatus( data._id );
+		}
+		
 	});
 
 	socket.on('disconnect', function(err){
