@@ -44,10 +44,10 @@ module.exports = {
 		get:function(req, res){
 
 			var ua = req.header("User-Agent");
-			//var ua = 'ssssssBaiduspiderbbbb';
 			var i = 0;
 			var key = req.params.key;
 			var user = req.session.user ? req.session.user : null;
+			var time = parseInt(req.query.t) || parseInt(Date.now()/1000) + 1000;
 			var indexData = {
 				user:user ? user.getInfo() : user
 			};
@@ -109,7 +109,7 @@ module.exports = {
 						indexData.room = room.getInfo();
 
 						//查找首页数据 
-						ChatModel.findChats( roomid , 10, function( status ){
+						ChatModel.findChats( roomid , time, 10, function( status ){
 
 							indexData.indexChats = status.result || [];
 							indexData.tool = tool;
@@ -118,8 +118,7 @@ module.exports = {
 						});
 
 						//创建用户日志  如果是搜索引擎user信息为空
-
-						if(!isSpiderBot(ua)){
+						if(!isSpiderBot(ua) && user.name){
 							//console.log("加入", ua);
 							LogModel.create( user._id, "into_room",  room.getInfo() );
 						}
