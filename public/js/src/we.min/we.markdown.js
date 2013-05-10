@@ -7,6 +7,7 @@ WE.extend( WE.markdown,{
 		if( String(text).length > 0 ){
 			//var html = '';
 			text = WE.kit.removalHtmlTag( text );
+			text = this.lineFormat( text );
 			text = this.preFormat( text );
 			text = this.urlFormat( text );
 			return text;
@@ -42,5 +43,9 @@ WE.extend( WE.markdown,{
 		return text.replace(/(http|https):\/\/[\w\.\/\:\?\&\=\#\-\_]+/gi, function( a ){
 			return '<a href="'+a+'" target="_blank">'+a+'</a>'
 		});
-	}
+	},
+
+	lineFormat : function( text ){
+		return text.replace(/\n/gi, "<br/>");
+	} 
 })
