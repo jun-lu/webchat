@@ -19,6 +19,8 @@ var roomLimit = require("./sys/room_limit");
 
 var spiderAU = ["Baiduspider","Googlebot","MSNBot","YoudaoBot","JikeSpider","Sosospider","360Spider"];
 
+tool.markdown = require('../lib/markdown');
+
 function isSpiderBot( ua ){
 
 	for(var i=0; i<spiderAU.length; i++){
@@ -49,7 +51,9 @@ module.exports = {
 			var user = req.session.user ? req.session.user : null;
 			var time = parseInt(req.query.t) || parseInt(Date.now()/1000) + 1000;
 			var indexData = {
-				user:user ? user.getInfo() : user
+				user:user ? user.getInfo() : user,
+				nextTime:"",
+				prevTime:parseInt(req.query.t) || ""
 			};
 
 			//手机访问
@@ -113,6 +117,7 @@ module.exports = {
 
 							indexData.indexChats = status.result || [];
 							indexData.tool = tool;
+							indexData.nextTime = status.result && status.result.length ? status.result[status.result.length-1].time : "";
 							res.render('chat', indexData);
 
 						});

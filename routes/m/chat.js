@@ -30,7 +30,9 @@ module.exports = {
 			var user = req.session.user ? req.session.user : null;
 			var time = parseInt(req.query.t) || parseInt(Date.now()/1000) + 1000;
 			var indexData = {
-				user:user ? user.getInfo() : user
+				user:user ? user.getInfo() : user,
+				nextTime:"",
+				prevTime:""
 			};
 
 			if( user == null ){
@@ -84,6 +86,9 @@ module.exports = {
 						ChatModel.findChats( roomid , time, 10, function( status ){
 
 							indexData.indexChats = status.result || [];
+
+							indexData.nextTime = status.result && status.result.length ? status.result[status.result.length-1].time : "";
+							indexData.prevTime = "";
 							res.render('m/chat', indexData);
 
 						});
