@@ -355,7 +355,12 @@ WE.pageChat.timeLine = {
 		var _this = this;
    		var i = 0;
 		var len = datas.length;
-		this.appends( datas );
+		//this.appends( datas );
+
+		for(; i<len; i++){
+			//WE.kit.tmpl(WE.pageChat.timeLine.tmpl)
+			this.mapData[ datas[i]._id ] = datas[i];
+		}
 
 		if(len && datas[len-1].time){
 			WE.pageChat.lastTime = datas[len-1].time;

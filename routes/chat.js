@@ -19,6 +19,8 @@ var roomLimit = require("./sys/room_limit");
 
 var spiderAU = ["Baiduspider","Googlebot","MSNBot","YoudaoBot","JikeSpider","Sosospider","360Spider"];
 
+tool.markdown = require('../lib/markdown');
+
 function isSpiderBot( ua ){
 
 	for(var i=0; i<spiderAU.length; i++){
@@ -44,12 +46,14 @@ module.exports = {
 		get:function(req, res){
 
 			var ua = req.header("User-Agent");
-			//var ua = 'ssssssBaiduspiderbbbb';
 			var i = 0;
 			var key = req.params.key;
 			var user = req.session.user ? req.session.user : null;
+			var time = parseInt(req.query.t) || parseInt(Date.now()/1000) + 1000;
 			var indexData = {
-				user:user ? user.getInfo() : user
+				user:user ? user.getInfo() : user,
+				nextTime:"",
+				prevTime:parseInt(req.query.t) || ""
 			};
 
 			//手机访问
@@ -109,17 +113,17 @@ module.exports = {
 						indexData.room = room.getInfo();
 
 						//查找首页数据 
-						ChatModel.findChats( roomid , 10, function( status ){
+						ChatModel.findChats( roomid , time, 10, function( status ){
 
 							indexData.indexChats = status.result || [];
 							indexData.tool = tool;
+							indexData.nextTime = status.result && status.result.length ? status.result[status.result.length-1].time : "";
 							res.render('chat', indexData);
 
 						});
 
 						//创建用户日志  如果是搜索引擎user信息为空
-
-						if(!isSpiderBot(ua)){
+						if(!isSpiderBot(ua) && user.name){
 							//console.log("加入", ua);
 							LogModel.create( user._id, "into_room",  room.getInfo() );
 						}

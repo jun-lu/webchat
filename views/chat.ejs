@@ -9,6 +9,9 @@
 	<link rel="stylesheet" href="/css/all.css" />
 	<link rel="stylesheet" type="text/css" href="/css/chat.css"/>
 
+	<link rel="next"  href="/<%=room.name ? room.name : room.id%>?t=<%=nextTime%>">
+	<link rel="prev"  href="/<%=room.name ? room.name : room.id%>?t=<%=prevTime%>">
+
 	<!--[if lte IE 7]>  <script> location.href = "/sys/ie"; </script> <![endif]-->
 
 	<script type="text/javascript" src="/js/jquery-1.6.3.min.js"></script>
@@ -139,7 +142,40 @@
 					
 					<div class="chat-list">
 						
-						<div id="timelineChats"></div>
+						<div id="timelineChats">
+							<% 
+								var item = null;
+								for(var i=0; i<indexChats.length; i++){
+									item = indexChats[i];
+							%>	
+							<div class="chat <% if(item.uid == user._id){ %> my <%}%>">
+								<input name="uid" type="hidden" value="<%=item.uid%>"/>
+								<input name="txt" type="hidden" value="<%=item.text%>"/>
+								<input name="uname" type="hidden" value="<%=item.uname%>"/>
+								<input name="mid" type="hidden" value="<%=item._id%>"/>
+								<div class="dot"></div>
+								<div class="photo">
+									<a href="/user/<%=item.uid%>" target="_blank" data-uid="<%=item.uid%>" >
+										<img src="<%=item.uavatar%>" alt="<%=item.uname%>" class="avatar" />
+									</a>
+								</div>
+								<div class="info">
+									<div class="head">
+										<a href="/user/<%=item.uid%>" target="_blank" class="name"><%=item.uname%></a>
+										<a href="/d/<%=item._id%>" target="_blank" class="time"><%=tool.format(item.time*1000, "MM-dd hh:mm:ss")%></a>
+									</div>
+									<div class="context">
+										<%if(item.to){%>
+										<div class="reply-quote"><%=item.to.text%> <a href="/user/<%=item.to.uid%>"><%= item.to.uname%></a></div>
+										<%}%>
+										<div class="reply-mine"><%- tool.markdown.format(item.text) %> <a class="chat-reply" href="javascript:;" data-mid="<%=item._id%>" >回复</a></div>
+									</div>
+								</div>
+							</div>
+							<%}%>
+
+
+						</div>
 						<div class="we-loading timeline-loading hidden" id="timelineLoading" ></div>
 					</div>
 					
