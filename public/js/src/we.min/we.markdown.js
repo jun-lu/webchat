@@ -71,7 +71,9 @@ WE.extend( WE.markdown,{
 		if( text.length > 0 ){
 
 			var index = 0;
-			var html = text.replace( new RegExp( _this.defaultPrefix,'g' ),function( a ){ index++; return index % 2 == 0 ? '</pre>' : '<pre>' ;});
+			var prefixReg = new RegExp( _this.defaultPrefix,'g' );
+			text = text.replace( new RegExp( _this.defaultPrefix+'\r' ),_this.defaultPrefix );
+			var html = text.replace( prefixReg,function( a ){ index++; return index % 2 == 0 ? '</pre>' : '<pre>' ;});
 			return html;
 		}else{
 			return text;
