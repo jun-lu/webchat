@@ -148,7 +148,7 @@ WE.extend(WE.kit, {
 		})
 
 	},
-	removalHtmlTag:function(a){return a.replace(/<|>/g,function(a){return a=="<"?"&lt;":"&gt;"})},
+	removeHtmlTag:function(a){return a.replace(/<|>/g,function(a){return a=="<"?"&lt;":"&gt;"})},
 	revertHtmlTag:function( text ){
 
 		return text.replace(/\n/gi, "<br/>").replace(/http:\/\/[\w\.\/\:\?\&\=\#\-\_]+/gi, function( a ){
