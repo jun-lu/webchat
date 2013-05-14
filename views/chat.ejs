@@ -149,9 +149,6 @@
 									item = indexChats[i];
 							%>	
 							<div class="chat <% if(item.uid == user._id){ %> my <%}%>">
-								<input name="uid" type="hidden" value="<%=item.uid%>"/>
-								<input name="uname" type="hidden" value="<%=item.uname%>"/>
-								<input name="mid" type="hidden" value="<%=item._id%>"/>
 								<div class="dot"></div>
 								<div class="photo">
 									<a href="/user/<%=item.uid%>" target="_blank" data-uid="<%=item.uid%>" >
@@ -242,7 +239,7 @@
 
 		//及时消息通知更新
 		WE.pageChat.notice.onUpdate();
-		if( data.to.uid == USER._id ){
+		if( data.to && data.to.uid == USER._id ){
 			new WE.api.NoticeModel().noticeStatus( data._id );
 		}
 		
