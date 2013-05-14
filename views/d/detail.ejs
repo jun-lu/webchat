@@ -59,11 +59,11 @@
 						<div class="context">
 							<%if(data.to){%>
 							<div class="reply-quote">
-								<%=data.to.text%>
+								<%-tool.markdown.format(data.to.text)%>
 								<a href="/user/<%=data.to.uid%>"><%=data.to.uname%></a>
 							</div>
 							<%}%>
-							<div class="reply-mine"><%-tool.revertHtmlTag(data.text)%> <a id="chat-reply" class="chat-reply" href="javascript:;">回复</a></div>
+							<div class="reply-mine"><%-tool.markdown.format(data.text)%> <a id="chat-reply" class="chat-reply" href="javascript:;">回复</a></div>
 						</div>
 					</div>
 
@@ -122,11 +122,11 @@
 							<div class="context">
 								<%if(item.to){%>
 								<div class="reply-quote">
-									<%-tool.revertHtmlTag(item.to.text)%>
+									<%-tool.markdown.format(item.to.text)%>
 									<a href="/user/<%=item.to.uid%>"><%=item.to.uname%></a>
 								</div>
 								<%}%>
-								<div class="reply-mine"><%=item.text%></div>
+								<div class="reply-mine"><%-tool.markdown.format(item.text)%></div>
 							</div>
 						</div>
 					</div>
