@@ -43,6 +43,8 @@ var admin = require("./sys/admin");
 
 var notice = require("./user/notice");
 
+var uploadPhoto = require('./p/uploadPhoto');
+
 module.exports = function ( app ) {
 
 	/* test */
@@ -90,6 +92,11 @@ module.exports = function ( app ) {
 		res.end();
 	});
 
+	//图片上传页面
+	app.get('/p/upload_photo', uploadPhoto.get);
+
+	//图片上传功能
+	app.post('/p/upload_photo', uploadPhoto.post);
 
 	//weibo login
 	app.get('/sys/weibo_login', weiboLogin.get);

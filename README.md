@@ -148,7 +148,7 @@
 		2.房间创建者可以对该房间绑定的进行相册编辑,图片删除,相册删除。
 
 	图片url
-		1.vchat.co/p/相册id/图片id.jpg
+		1.vchat.co/p/r/相册id/图片id.jpg
 		2.vchat.co/p/create?roomid=房间id
 
 	相册属性

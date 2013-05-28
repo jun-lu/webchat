@@ -42,7 +42,7 @@ app.configure(function(){
   app.use(express.logger('dev'));
   //自控制图片上传
   app.use(express.bodyParser({
-
+    uploadDir: "../upload/",
     keepExtensions:true,
     limit:10000000,
     defer:true
