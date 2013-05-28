@@ -40,7 +40,15 @@ app.configure(function(){
 
   app.use(express.favicon());
   app.use(express.logger('dev'));
-  app.use(express.bodyParser());
+  //自控制图片上传
+  app.use(express.bodyParser({
+
+    keepExtensions:true,
+    limit:10000000,
+    defer:true
+
+  }));
+
   app.use(express.methodOverride());
 
   app.use(express.cookieParser());
