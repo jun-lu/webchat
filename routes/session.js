@@ -6,13 +6,13 @@
 */
 
 var UserModel = require("../lib/UserModel");
-var socketServer = require('../lib/socketServer');
+
 var cookie = require("express/node_modules/cookie");
 
 module.exports = {
 
 	// 实现 session
-	session:function(req, res, next){
+	httpSession:function(req, res, next){
 
 		req.session = {};
 
@@ -45,7 +45,7 @@ module.exports = {
 	},
 
 	// socket session 处理
-	authorization:function (data, accept) {
+	socketSession:function (data, accept) {
 
 	    if (data.headers.cookie) {
 

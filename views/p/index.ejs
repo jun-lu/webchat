@@ -1,0 +1,19 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>photo index page</title>
+	<link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap.min.css"/>
+	<link rel="stylesheet" type="text/css" href="/css/all.css"/>
+</head>
+<body>
+<% include ../common/top.ejs %>
+<div class="container">
+	<a href="/p/create-albums">创建图册</a>
+	<pre>
+		user:<%- JSON.stringify(user, '', 2)%>
+		albums:<%- JSON.stringify(albums, '', 2)%>
+	</pre>
+</div>
+</body>
+</html>

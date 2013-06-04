@@ -1,0 +1,30 @@
+﻿<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title>创建相册 - Vchat</title>
+	<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css" />
+</head>
+<body>
+	创建相册
+	<form action="/p/create-albums" method="post" >
+		<ul>
+			<li>
+				<input type="text" name="name" placeholder="相册名称" />
+			</li>
+			<li>
+				<textarea cols="30" rows="10" name="des">相册描述</textarea>
+			</li>
+			<li>
+				<label><input type="radio" name="permissions" value="0" checked />公开</label>
+				<label><input type="radio" name="permissions" value="1" />非公开</label>
+			</li>
+			<li>
+				<input type="submit" class="btn" value="创建" />
+			</li>
+		</ul>
+		
+		
+	</form>
+</body>
+</html>
