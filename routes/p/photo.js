@@ -3,13 +3,17 @@
 	module
 	photoIndex
 */
-
 var fs = require("fs");
+var im = require("imagemagick");
+var config = require("../../config");
+var WebStatus = require("../../lib/WebStatus");
+var Promise = require("../../lib/Promise");
 var Photo = require("../../lib/Photo.js");
 var PhotoModel = require("../../lib/PhotoModel.js");
 var AlbumsModel = require("../../lib/AlbumsModel.js");
 var photoModel = new PhotoModel();
 var albumsModel = new AlbumsModel();
+
 module.exports = {
 
 	view:function( req, res ){
@@ -21,8 +25,8 @@ module.exports = {
 			user:user,
 			photo:null
 		};
-		console.log("photo", photo);
-		res.sendfile("d:/github/upload/"+photo+".jpg");
+
+		res.sendfile(config.uploadDir+"/158604/"+photo+".jpg");
 
 	},
 	
@@ -40,7 +44,7 @@ module.exports = {
 				output.albums = status.result;
 				res.render('./p/create-photo', output);
 			}else{
-				res.render("./404", new WebStatus("404").setMsg("û���ҵ����").toJSON());
+				res.render("./404", new WebStatus("404").setMsg("找不到相关相册").toJSON());
 			}
 		})
 		
@@ -55,24 +59,96 @@ module.exports = {
 		var albumsId = req.body.albumsId;
 		var file = req.files.photo;
 		
-		if( file.size != 0 ){
-		
-			var photo = new Photo(file.name, user._id, albumsId, {
-				size:file.size
-			});
+		var promise = new Promise();
+
+		//判断是否有文件
+		promise.add(function(){
+
+			if(file.size != 0){
+				promise.ok( );
+			}else{
+
+				res.end( new WebStatus("-1").setMsg("选择上传文件").toString() );
+			}
+
+		});
+
+		//读取文件特征
+		/****
+		promise.then(function(){
 			
-			photoModel.insert(photo, function( status ){
-				var oldPath = file.path;
-				var newPath = file.path.replace(/\w+(\.jpg)$/, String(status.result[0]._id)+"$1");
-				console.log(oldPath, newPath);
-				fs.rename(oldPath, newPath, function(){
-					res.redirect("/p/r/"+String(status.result[0]._id));
-				});
+			var filename = file.path.match(/\w+\.\w+$/)[0];
+			im.identify.path = config.uploadDir;
+			im.identify(filename, function(err, features){
+				console.log(err, features);
+				if(err){
+					res.end( new WebStatus("500").setMsg("服务器错误,无法读取文件信息").toString()  );
+				}else{
+					console.log("features", features);
+					promise.ok( features );
+				}
 			});
-		
-		}else{
-			res.end();
-		}
+		});
+		*/
+		//移动文件到对应目录
+		//upload/photo.subdirectory/filename
+
+		//插入数据库
+		promise.then(function( features ){
+
+			features = features || {};
+			features.size = file.size;
+			var photo = new Photo(file.name, user._id, albumsId, features);
+
+			photoModel.insert(photo, function( status ){
+				if(status.code == "0"){
+					console.log("status", status);
+					promise.ok( status.result[0]);
+				}else{
+
+					res.end( new WebStatus("500").setMsg("写入数据库错误").toString() );
+				}
+			});
+
+		});
+
+		//设定目录
+		promise.then(function( photo ){
+
+
+			var tmpPath = file.path;
+			var targetPath = config.uploadDir+photo.subdirectory+"/"+String(photo._id)+".jpg";
+
+			fs.exists(config.uploadDir+photo.subdirectory, function( exists ){
+
+				if(!exists){
+					fs.mkdir(config.uploadDir+photo.subdirectory, function(){
+
+						promise.ok(tmpPath, targetPath, photo);
+					});
+				}else{
+
+					promise.ok(tmpPath, targetPath, photo);
+				}
+
+			});
+
+			
+
+		});
+
+		promise.then(function(tmpPath, targetPath, photo){
+
+			fs.rename(tmpPath, targetPath, function(err){
+				if(err) throw err;
+				res.redirect("/p/r/"+photo.albumsId+"/"+String(photo._id));
+				fs.unlink(tmpPath, function(){});
+			});
+
+		});
+
+		promise.start();
+
 	}
 
 }

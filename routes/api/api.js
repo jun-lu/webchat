@@ -8,7 +8,7 @@
 var fs = require("fs");
 var tools = require("../../lib/tools");
 var User = require("../../lib/User");
-var vconfig = require("../../vconfig");
+var config = require("../../config");
 var WebStatus = require("../../lib/WebStatus");
 var LogModel = require("../../lib/LogModel");
 var ChatModel = require("../../lib/ChatModel");
@@ -19,7 +19,7 @@ var NoticeModel = require("../../lib/NoticeModel");
 var Promise = require("../../lib/Promise");
 
 
-var sysWord = vconfig.sysWord;
+var sysWord = config.sysWord;
 
 module.exports = {
 
