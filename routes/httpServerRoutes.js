@@ -187,6 +187,9 @@ module.exports = function ( app ) {
 		
 		// photo.get
 		app.get('/p/r/:albums/:photo', photo.view);
+		// photo.image /p/v/:albums/:photo[\.\w+]
+		app.get(/\/p\/v\/(\w+)\/(\w+)(\.\w+)/, photo.image);
+		
 		//photo.createView
 		app.get('/p/create-photo/:albums', photo.createView);
 		//photo.post

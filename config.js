@@ -3,7 +3,7 @@ module.exports = {
 	/**
 		database ip
 	*/
-	db:"127.0.0.1",
+	db:"10.6.0.27",
 	
 	/**
 		database port
@@ -27,7 +27,8 @@ module.exports = {
 	/**
 		photo upload
 	*/
-	uploadDir:"/Users/jun/github/upload/",
+	//uploadDir:"/Users/jun/github/upload/",
+	uploadDir:"d:/github/upload/",
 
 	/**
 		系统保留的子域

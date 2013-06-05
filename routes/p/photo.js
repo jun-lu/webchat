@@ -19,15 +19,63 @@ module.exports = {
 	view:function( req, res ){
 		
 		var user = req.session.user || {};
-		var photo = req.params.photo;
-		var albums = req.params.albums;
+		var photoId = req.params.photo;
+		var albumId = req.params.albums;
 		var output = {
 			user:user,
+			photoId:photoId,
+			albumId:albumId
+		};
+		
+		res.render("./p/view-photo", output);
+		res.end();
+		//res.sendfile(config.uploadDir+"/"+result.subdirectory+"/"+photo+".jpg");
+		
+		/**
+		photoModel.findOne({_id:photoModel.objectId(photo)}, function(status){
+			if(status.code == "0"){
+				var result = status.result;
+				res.sendfile(config.uploadDir+"/"+result.subdirectory+"/"+photo+".jpg");
+			}else{
+				res.status(404).render("404", status.toJSON() );
+			}
+		});
+		
+		*/
+
+	},
+	image:function(req, res){
+		
+		
+		var albums = req.params[0];
+		var photo = req.params[1];
+		var suffix = req.params[2];
+		
+		var output = {
 			photo:null
 		};
+		
+		
+		//console.log("req", req);
+		//console.log("albums photo suffix", albums, photo, suffix);
 
-		res.sendfile(config.uploadDir+"/158604/"+photo+".jpg");
-
+		if( !(albums && photo && suffix) ){
+			res.status(404);
+			res.end();
+			return ;
+		}
+		
+		
+		photoModel.findOne({_id:photoModel.objectId(photo)}, function(status){
+			if(status.code == "0"){
+				var result = status.result;
+				res.sendfile(config.uploadDir+"/"+result.subdirectory+"/"+photo+".jpg");
+			}else{
+				res.status(404);
+				res.end();
+			}
+		});
+		
 	},
 	
 	createView:function( req, res ){
@@ -67,14 +115,13 @@ module.exports = {
 			if(file.size != 0){
 				promise.ok( );
 			}else{
-
 				res.end( new WebStatus("-1").setMsg("选择上传文件").toString() );
 			}
 
 		});
 
 		//读取文件特征
-		/****
+		/*****/
 		promise.then(function(){
 			
 			var filename = file.path.match(/\w+\.\w+$/)[0];
@@ -89,7 +136,7 @@ module.exports = {
 				}
 			});
 		});
-		*/
+		
 		//移动文件到对应目录
 		//upload/photo.subdirectory/filename
 
@@ -142,7 +189,7 @@ module.exports = {
 			fs.rename(tmpPath, targetPath, function(err){
 				if(err) throw err;
 				res.redirect("/p/r/"+photo.albumsId+"/"+String(photo._id));
-				fs.unlink(tmpPath, function(){});
+				//fs.unlink(tmpPath, function(){});
 			});
 
 		});

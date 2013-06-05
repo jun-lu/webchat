@@ -1,0 +1,21 @@
+﻿<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title>上传照片 - Vchat</title>
+	<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css" />
+	<link rel="stylesheet" type="text/css" href="/css/all.css"/>
+</head>
+<body>
+<% include ../common/top.ejs %>
+<div class="container">
+	<img src="/p/v/<%=albumId%>/<%=photoId%>.jpg" alt="" />
+</div>	
+		<pre>
+user:<%- JSON.stringify(user, '', 2)%>
+
+albumId:<%- albumId%>
+albumId:<%- photoId%>
+	</pre>
+</body>
+</html>
