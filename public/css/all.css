@@ -112,5 +112,29 @@ width: 0;height: 0;font-size: 0;line-height: 0;}
 		.notic-all:hover{background-color:#f5f5f5;color:#37a;}
 		.notic-all{padding:10px 0px;display:block;text-align:center;background-color:#fafafa;}
 		.account-box{display:inline-block;}
+
+
+/* albums , photo 相册,图片 */
+.albums-list,.photo-list{margin:0px;padding:0px;zoom:1;overflow:hidden;}
+	.albums-list li,.photo-list li{list-style:none;float:left;width:170px;height:206px;font-size:13px;margin:0px 22px 10px 0px;}
+	.albums-list li:hover small,.photo-list li:hover small{display:none;}
+	.albums-list li:hover .icon-edit,.photo-list li:hover .icon-edit{display:inline-block;opacity:0.8}
+	.albums-info,.photo-info{margin-top:5px;}
+	.albums-info .icon-edit,.photo-info .icon-edit{cursor:pointer;}
+	.pagination{text-align:center;}
+		.photo-cover{position:relative;display:block;overflow:hidden;width:170px;height:170px;background:#f5f5f5;}
+
+
+/* photo-view */
+.photo-wall{position:relative;text-align:center;width:100%;height:auto;background:#fdfdfd;}
+		.btn-page{margin-left:15px;font-size:13px;color:#ccc}
+		.photo-page{position:absolute;overflow:hidden;zoom:1;z-index:10;right:13px;top:8px}
+		.btn-page .disabled{color:#999;cursor:default;}
+		.btn-page .disabled:hover{color:#999;background:none;}
+
+
+
+
+
 /* footer */
 .footer{margin-top:50px;padding-bottom: 30px;}

@@ -1,0 +1,217 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+	<title>相册列表</title>
+	<link rel="stylesheet" type="text/css" href="http://vchat.co/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="../css/all.css">
+
+	<style type="text/css">
+	ul,li{list-style:none;margin:0px;padding:0px;}
+	.albums-list,.photo-list{margin:0px;padding:0px;zoom:1;overflow:hidden;}
+	.albums-list li,.photo-list li{list-style:none;float:left;width:170px;height:206px;font-size:13px;margin:0px 22px 10px 0px;}
+		.albums-list li:hover small,.photo-list li:hover small{display:none;}
+		.albums-list li:hover .icon-edit,.photo-list li:hover .icon-edit{display:inline-block;opacity:0.8}
+		.albums-info,.photo-info{margin-top:5px;}
+		.albums-info .icon-edit,.photo-info .icon-edit{cursor:pointer;}
+		.pagination{text-align:center;}
+	</style>
+</head>
+<body>
+
+	<div class="top">
+	
+		<ul class="top-nav f-r">
+			<li><a href="/sys/login">登录</a>/</li>
+			<li><a href="/sys/reg">注册</a></li>
+		</ul>
+		
+		<ul class="top-nav">
+			<li><a href="/">Vchat</a></li>
+		</ul>
+	</div>
+
+	<div class="container">
+		<div class="bd">
+
+			<ul class="breadcrumb">
+				<!-- <li><a href="#">CK.Ming的相册</a><span class="divider">/</span></li> -->
+				<li class="active">CK.Ming的相册</li>
+			</ul>
+
+			<ul class="albums-list" id="albums-list">
+				<li>
+					<span class="thumbnail albums-cover">
+						<a href="#">
+							<img src="http://ww3.sinaimg.cn/bmiddle/9b1e4594jw1e5fhjojerzj20dw0dwgmb.jpg">
+						</a>
+					</span>
+					<p class="albums-info">
+						<a title="美好时光美好时光" href="#">美好时光美好时...</a><!--max ： 7-->
+						<small class="muted">200张照片</small>
+						<i class="icon icon-edit hidden" title="编辑"></i>
+					</p>
+				</li>
+
+				<li>
+					<span class="thumbnail albums-cover">
+						<a href="#">
+							<img src="http://ww3.sinaimg.cn/bmiddle/9b1e4594jw1e5fhjojerzj20dw0dwgmb.jpg">
+						</a>
+					</span>
+					<p class="albums-info">
+						<a title="美好时光美好时光" href="#">美好时光美好时...</a><!--max ： 7-->
+						<small class="muted">200张照片</small>
+						<i class="icon icon-edit hidden" title="编辑"></i>
+					</p>
+				</li>
+
+				<li>
+					<span class="thumbnail albums-cover">
+						<a href="#">
+							<img src="http://ww3.sinaimg.cn/bmiddle/9b1e4594jw1e5fhjojerzj20dw0dwgmb.jpg">
+						</a>
+					</span>
+					<p class="albums-info">
+						<a title="美好时光美好时光" href="#">美好时光美好时...</a><!--max ： 7-->
+						<small class="muted">200张照片</small>
+						<i class="icon icon-edit hidden" title="编辑"></i>
+					</p>
+				</li>
+
+				<li>
+					<span class="thumbnail albums-cover">
+						<a href="#">
+							<img src="http://ww3.sinaimg.cn/bmiddle/9b1e4594jw1e5fhjojerzj20dw0dwgmb.jpg">
+						</a>
+					</span>
+					<p class="albums-info">
+						<a title="美好时光美好时光" href="#">美好时光美好时...</a><!--max ： 7-->
+						<small class="muted">200张照片</small>
+						<i class="icon icon-edit hidden" title="编辑"></i>
+					</p>
+				</li>
+
+				<li>
+					<span class="thumbnail albums-cover">
+						<a href="#">
+							<img src="http://ww3.sinaimg.cn/bmiddle/9b1e4594jw1e5fhjojerzj20dw0dwgmb.jpg">
+						</a>
+					</span>
+					<p class="albums-info">
+						<a title="美好时光美好时光" href="#">美好时光美好时...</a><!--max ： 7-->
+						<small class="muted">200张照片</small>
+						<i class="icon icon-edit hidden" title="编辑"></i>
+					</p>
+				</li>
+
+				<li>
+					<span class="thumbnail albums-cover">
+						<a href="#">
+							<img src="http://ww3.sinaimg.cn/bmiddle/9b1e4594jw1e5fhjojerzj20dw0dwgmb.jpg">
+						</a>
+					</span>
+					<p class="albums-info">
+						<a title="美好时光美好时光" href="#">美好时光美好时...</a><!--max ： 7-->
+						<small class="muted">200张照片</small>
+						<i class="icon icon-edit hidden" title="编辑"></i>
+					</p>
+				</li>
+
+				<li>
+					<span class="thumbnail albums-cover">
+						<a href="#">
+							<img src="http://ww3.sinaimg.cn/bmiddle/9b1e4594jw1e5fhjojerzj20dw0dwgmb.jpg">
+						</a>
+					</span>
+					<p class="albums-info">
+						<a title="美好时光美好时光" href="#">美好时光美好时...</a><!--max ： 7-->
+						<small class="muted">200张照片</small>
+						<i class="icon icon-edit hidden" title="编辑"></i>
+					</p>
+				</li>
+			</ul>
+
+			<div class="pagination">
+				<ul>
+					<li class="disabled"><a href="#">«</a></li>
+					<li class="active"><a href="#">1</a></li>
+					<li><a href="#">2</a></li>
+					<li><a href="#">»</a></li>
+					
+				</ul>
+			</div>
+		</div>
+
+	</div>
+
+
+
+<script type="text/template" id="edit-albums">
+<form>
+	<ul>
+		<li>
+			<label>名称</label>
+			<input type="text" value="美好时光美好时光" name="title" class="span4">
+		</li>
+		<li>
+			<label>描述</label>
+			<textarea class="span4" name="des"></textarea>
+		</li>
+		<li>
+			<input type="submit" value="提交" class="btn">
+			<a href="javascript:;" class="out">取消</a>
+		</li>
+	</ul>
+</form>
+</script>
+
+<script type="text/javascript" src="http://vchat.co/js/jquery-1.6.3.min.js"></script>
+<script type="text/javascript" src="http://vchat.co/js/we.min.js"></script>
+
+<script type="text/javascript">
+WE.albums = {
+	init:function(){
+		var albums = $('#albums-list');
+
+		this.ui = {
+			editBtn:albums.find('.icon-edit')
+		}
+
+		this.regEvent();
+	},
+	regEvent:function(){
+		var _this = this;
+
+		this.ui.editBtn.click(function(){
+			_this.editAlbums();
+		});
+	},
+	editAlbums:function(){
+
+		var dialog = new WE.Dialog({
+			title:'编辑相册',
+			id:'editAlbums',
+			width:400,
+			height:200
+		});
+
+		dialog.show();
+
+		//var html = WE.kit.tmpl( $('#edit-albums').html(), )
+		var html = $('#edit-albums').html();
+		dialog.append( html );
+
+
+	}
+}
+
+
+$(function(){
+	WE.albums.init();
+})
+
+
+</script>
+</body>
+</html>
