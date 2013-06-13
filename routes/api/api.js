@@ -8,7 +8,7 @@
 var fs = require("fs");
 var tools = require("../../lib/tools");
 var User = require("../../lib/User");
-var vconfig = require("../../vconfig");
+var config = require("../../config");
 var WebStatus = require("../../lib/WebStatus");
 var LogModel = require("../../lib/LogModel");
 var ChatModel = require("../../lib/ChatModel");
@@ -19,7 +19,7 @@ var NoticeModel = require("../../lib/NoticeModel");
 var Promise = require("../../lib/Promise");
 
 
-var sysWord = vconfig.sysWord;
+var sysWord = config.sysWord;
 
 module.exports = {
 
@@ -45,7 +45,7 @@ module.exports = {
 				UserModel.updateGravatarDefault( user._id, "monsterid", function(){});
 			}
 			
-			name = tools.removalHtmlTag( name );
+			name = tools.removeHtmlTag( name );
 			UserModel.updateName( user._id, name, function( status ){
 
 				// 通知其他用户某用户名字修改
@@ -82,7 +82,7 @@ module.exports = {
 	updateRoom:function(req, res){
 
 		var user = req.session.user;
-		var name = tools.removalHtmlTag( req.body.name ) || "";
+		var name = tools.removeHtmlTag( req.body.name ) || "";
 		var topic = req.body.topic;
 		var des = req.body.des;
 		var id = req.body.id;
@@ -542,7 +542,7 @@ module.exports = {
 
 		if( summary && summary.length < 300){
 
-			summary = tools.removalHtmlTag( summary );
+			summary = tools.removeHtmlTag( summary );
 			UserModel.updateSummary(user._id, summary, function( status ){
 				res.write( status.toString() );
 				res.end();

@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title><%=data.text.slice(0, 50)%></title>
+	<title><%=data.uname%>在对话 <%=room.topic%> 的发言</title>
 
 	<link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap.min.css"/>
 	<link rel="stylesheet" type="text/css" href="/css/all.css"/>
@@ -59,11 +59,11 @@
 						<div class="context">
 							<%if(data.to){%>
 							<div class="reply-quote">
-								<%=data.to.text%>
+								<%-tool.markdown.format(data.to.text)%>
 								<a href="/user/<%=data.to.uid%>"><%=data.to.uname%></a>
 							</div>
 							<%}%>
-							<div class="reply-mine"><%-tool.revertHtmlTag(data.text)%> <a id="chat-reply" class="chat-reply" href="javascript:;">回复</a></div>
+							<div class="reply-mine"><%-tool.markdown.format(data.text)%> <a id="chat-reply" class="chat-reply" href="javascript:;">回复</a></div>
 						</div>
 					</div>
 
@@ -122,11 +122,11 @@
 							<div class="context">
 								<%if(item.to){%>
 								<div class="reply-quote">
-									<%-tool.revertHtmlTag(item.to.text)%>
+									<%-tool.markdown.format(item.to.text)%>
 									<a href="/user/<%=item.to.uid%>"><%=item.to.uname%></a>
 								</div>
 								<%}%>
-								<div class="reply-mine"><%=item.text%></div>
+								<div class="reply-mine"><%-tool.markdown.format(item.text)%></div>
 							</div>
 						</div>
 					</div>

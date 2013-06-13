@@ -15,7 +15,7 @@ WE.extend( WE.markdown,{
 
 				if( markIndex == -1 ){
 					markIndex = i;
-					strarr[i] = tool.removeHtmlTag( strarr[i] );
+					strarr[i] = WE.kit.removeHtmlTag( strarr[i] );
 					strarr[i] = this.lineFormat( strarr[i] );
 					strarr[i] = this.urlFormat( strarr[i] );
 

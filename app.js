@@ -1,46 +1,39 @@
 
 /**
  * Module dependencies.
- 开发原则  先实现功能，允许不合理的编码，效率低下的实现。
 */
-var settings = require("./settings");
-var util = require("util");
-var fs = require("fs");
-var express = require('express');
+var config = require("./config");
+
 var http = require('http');
 var path = require('path');
-var routes = require('./routes');
+var util = require("util");
 
-var system = require("./routes/system");
-var socketio = require('socket.io');
-var socketServer = require("./lib/socketServer");
+var express = require('express');
+
+var httpServerRoutes = require('./routes/httpServerRoutes');
+var socketServerRoutes = require('./routes/socketServerRoutes');
 
 var app = express();
-var server = null;
 
-
-/**  捕获所有程序错误
-process.on('uncaughtException', function( err ){
-
-  var time = Date.now();
-  var buffer = new Buffer( util.inspect(err)+"\n" );
-  var file = time - time%(24*60*60*1000);
-  fs.open(file+".log", "a", function(err, fb){
-      fs.write(fb, buffer, 0, buffer.length, null, function(){});
-  });
-  
-});
-*/
 
 // app 配置
 app.configure(function(){
-  app.set('port', settings.serverPort || 80);
+	
+  app.set('port', config.serverPort || 80);
   app.set('views', __dirname + '/views');
   app.set('view engine', 'ejs');
 
-  app.use(express.favicon());
+  //app.use(express.favicon());
   app.use(express.logger('dev'));
-  app.use(express.bodyParser());
+  //自控制图片上传
+  app.use(express.bodyParser({
+    uploadDir:config.uploadDir,
+    keepExtensions:true,
+    limit:10000000,
+    defer:true
+
+  }));
+
   app.use(express.methodOverride());
 
   app.use(express.cookieParser());
@@ -48,29 +41,29 @@ app.configure(function(){
   app.use(express.static(path.join(__dirname, 'public'), {maxAge:new Date("2030").getTime()}));
 
   //路由
-  routes( app );
+  httpServerRoutes( app );
 
 });
 
+/**
+	开发者模式
+*/
 app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
 // create server
-server = http.createServer(app);
+var server = http.createServer(app);
 
-// socket 服务器
-var io  = socketio.listen( server );
-//socket connection
-io.sockets.on('connection', socketServer.onConnection);
-//socket session实现
-io.set('authorization', system.authorization);
-
+//socket server
+socketServerRoutes( server );
 
 // ** 服务器启动
 server.listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
 });
+
+
 
 
 

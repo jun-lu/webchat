@@ -134,6 +134,7 @@ module.exports = {
 
 			});
 
+			//如果本条信息有针对我的提醒，则标记为已读
 			promise.add(function(){
 				if(String(noticeid).length == 24){
 					NoticeModel.updateStatus(noticeid, 2);
