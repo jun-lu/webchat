@@ -27,8 +27,8 @@ module.exports = {
 	/**
 		photo upload
 	*/
-	//uploadDir:"/Users/jun/github/upload/",
-	uploadDir:"d:/github/upload/",
+	//uploadDir:"d:/github/upload/",
+	uploadDir:"/Users/jun/github/upload/",
 
 	/**
 		系统保留的子域

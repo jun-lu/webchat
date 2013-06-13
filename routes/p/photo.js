@@ -4,7 +4,7 @@
 	photoIndex
 */
 var fs = require("fs");
-var im = require("imagemagick");
+var gm = require("gm");
 var config = require("../../config");
 var WebStatus = require("../../lib/WebStatus");
 var Promise = require("../../lib/Promise");
@@ -112,7 +112,7 @@ module.exports = {
 		//判断是否有文件
 		promise.add(function(){
 
-			if(file.size != 0){
+			if(file && file.size != 0){
 				promise.ok( );
 			}else{
 				res.end( new WebStatus("-1").setMsg("选择上传文件").toString() );
@@ -124,9 +124,11 @@ module.exports = {
 		/*****/
 		promise.then(function(){
 			
-			var filename = file.path.match(/\w+\.\w+$/)[0];
-			im.identify.path = config.uploadDir;
-			im.identify(filename, function(err, features){
+			//var filename = file.path.match(/\w+\.\w+$/)[0];
+
+			//gm.
+			//im.identify.path = config.uploadDir;
+			gm(file.path).identify(function(err, features){
 				console.log(err, features);
 				if(err){
 					res.end( new WebStatus("500").setMsg("服务器错误,无法读取文件信息").toString()  );
@@ -143,13 +145,16 @@ module.exports = {
 		//插入数据库
 		promise.then(function( features ){
 
-			features = features || {};
-			features.size = file.size;
-			var photo = new Photo(file.name, user._id, albumsId, features);
+			var options = {
+				width:features.size.width,
+				height:features.size.height
+			};
+
+			var format = file.path.match(/\.(\w+)/)[0]; 
+			var photo = new Photo(file.name, format, user._id, albumsId, options);
 
 			photoModel.insert(photo, function( status ){
 				if(status.code == "0"){
-					console.log("status", status);
 					promise.ok( status.result[0]);
 				}else{
 
@@ -184,15 +189,18 @@ module.exports = {
 
 		});
 
+		//移动图片
 		promise.then(function(tmpPath, targetPath, photo){
 
 			fs.rename(tmpPath, targetPath, function(err){
 				if(err) throw err;
 				res.redirect("/p/r/"+photo.albumsId+"/"+String(photo._id));
-				//fs.unlink(tmpPath, function(){});
 			});
 
 		});
+
+		// 裁剪小图
+
 
 		promise.start();
 
