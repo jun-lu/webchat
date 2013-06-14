@@ -241,6 +241,40 @@
 }
 ````
 
+
+####图册 Albums
+````javascript
+{
+
+	_id: Objectid,// 数据库id
+	name: name, // string < 100
+	masterId : ObjectId, //所属用户id
+	roomId: ObjectId, //所属对话
+	des : string,// string < 500
+	permissions : 0,//number 0 完全公开 1 半公开 2 房间所有权 3个人所有权
+	time : parseInt( Date.now() / 1000 ),
+	facePhoto : null,//封面 一个图片地址
+	photoCount : 0 //图片数量
+}
+````
+
+####图片 Photos
+````javascript
+{
+
+	_id : null,//数据库id
+	fileName : fileName,//原始文件名
+	masterId : masterId,//上传者的id
+	albumsId : albumsId,//属于某个相册
+	format : format, //图片格式 jpg  bmp  gif ...
+	des : string,//string < 500 | 用户为图片添加的描述
+	size : 0,//图片大小
+	time : parseInt( Date.now() / 1000 );//上传时间
+	subdirectory : parseInt( Date.now()/3600000/24 ),// 物理路劲
+	features : {} //图片的其他信息
+}
+````
+
 ####定义接口返回值  return
 ````javascript
 {

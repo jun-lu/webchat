@@ -1,25 +1,56 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-	<meta charset="UTF-8">
-	<title>albums index page</title>
-	
+	<meta charset="utf-8">
+	<title>相册列表</title>
 	<link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap.min.css"/>
 	<link rel="stylesheet" type="text/css" href="/css/all.css"/>
-
 </head>
 <body>
 <% include ../common/top.ejs %>
-<div class="container">
-	<a href="/p/create-photo/51ac5da669acb2cc0f000001">上传图片</a>
-	
-	<pre>
-user:<%- JSON.stringify(user, '', 2)%>
 
-albums:<%- JSON.stringify(albums, '', 2)%>
+	<div class="container">
+		<div class="bd">
 
-photos:<%- JSON.stringify(photos, '', 2)%>
-	</pre>
-</div>
+			<ul class="breadcrumb">
+				<li> <a href="/p/index">图册</a> /</li>
+				<li> <a href="/p/r/<%=albums._id%>"><%=albums.name%></a> /</li>
+				<li class="active">图片列表</li>
+				<li class="pull-right"><a href="/p/create-photo/<%=albums._id%>">上传图片</a></li>
+			</ul>
+
+			<ul class="albums-list" id="albums-list">
+				<%
+					var item = null;
+					var albumId = albums._id;
+					for(var i=0; i<photos.length; i++){
+						item = photos[i];
+				%>
+
+					<li>
+						<a href="/p/r/<%=albumId%>/<%=item._id%>">
+							<span class="photo-cover">
+								<img src="/p/v/<%=albumId%>/<%=item._id%>.jpg">
+							</span>
+						</a>
+						<p class="photo-info">
+							<a title="<%=item.des%>" href="#"><%=item.fileName%></a><!--max ： 7-->
+							<i class="icon icon-edit hidden" title="编辑"></i>
+						</p>
+					</li>
+				<%}%>
+			</ul>
+
+			<div class="pagination">
+				<ul>
+					<li class="disabled"><a href="#">«</a></li>
+					<li class="active"><a href="#">1</a></li>
+					<li><a href="#">2</a></li>
+					<li><a href="#">»</a></li>
+				</ul>
+			</div>
+		</div>
+
+	</div>
 </body>
 </html>

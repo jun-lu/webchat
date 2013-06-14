@@ -9,13 +9,33 @@
 <body>
 <% include ../common/top.ejs %>
 <div class="container">
-	<img src="/p/v/<%=albumId%>/<%=photoId%>.jpg" alt="" />
-</div>	
-		<pre>
-user:<%- JSON.stringify(user, '', 2)%>
+	<div class="bd">
 
-albumId:<%- albumId%>
-albumId:<%- photoId%>
-	</pre>
+			<ul class="breadcrumb">
+				<li>
+					<a title="" href="/p/r/<%=albums._id%>"><%=albums.name%></a><span class="divider">/</span>
+				</li>
+				<li class="active"><%=photo.fileName%></li>
+			</ul>
+
+			<div class="photo-page">					
+				<div class="pull-right btn-page">
+					<a class="prev " href="#">上一张</a> |
+					<a class="next disabled" href="#">下一张</a>
+				</div>
+
+				<span class="muted pull-right"><small>3 / 20</small></span>
+			</div>
+			<div class="photo-wall">
+				<img src="/p/v/<%=albums._id%>/<%=photo.path_m%>" />
+			</div>
+	
+	</div>
+<pre>
+		
+		<%-JSON.stringify(photo)%>
+
+</pre>
+</div>
 </body>
 </html>

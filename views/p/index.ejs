@@ -1,19 +1,52 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-	<meta charset="UTF-8">
-	<title>photo index page</title>
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+	<title>相册列表</title>
 	<link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap.min.css"/>
 	<link rel="stylesheet" type="text/css" href="/css/all.css"/>
 </head>
 <body>
 <% include ../common/top.ejs %>
-<div class="container">
-	<a href="/p/create-albums">创建图册</a>
-	<pre>
-		user:<%- JSON.stringify(user, '', 2)%>
-		albums:<%- JSON.stringify(albums, '', 2)%>
-	</pre>
-</div>
+	<div class="container">
+		<div class="bd">
+
+			<ul class="breadcrumb">
+				<li class="active">CK.Ming的相册</li>
+			</ul>
+
+			<ul class="albums-list" id="albums-list">
+				<%
+					var item = null;
+					for(var i=0; i<albums.length; i++){
+						item = albums[i];
+				%>
+					<li>
+						<span class="thumbnail albums-cover" >
+							<a  href="/p/r/<%=item._id%>">
+									<img src="<%=item.facePhoto%>">
+							</a>
+						</span>
+						<p class="albums-info">
+							<a title="<%=item.name%>" href="/p/r/<%=item._id%>"><%=item.name%></a>
+							<!--max ： 7-->
+							<small class="muted">200 张照片</small>
+							<i class="icon icon-edit hidden" title="编辑"></i>
+						</p>
+					</li>
+				<%}%>
+			</ul>
+
+			<div class="pagination">
+				<ul>
+					<li class="disabled"><a href="#">«</a></li>
+					<li class="active"><a href="#">1</a></li>
+					<li><a href="#">2</a></li>
+					<li><a href="#">»</a></li>
+				</ul>
+			</div>
+		</div>
+
+	</div>
 </body>
 </html>
