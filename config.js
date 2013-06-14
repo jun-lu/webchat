@@ -2,8 +2,10 @@ module.exports = {
 	
 	/**
 		database ip
+		10.6.0.27
+		128.0.0.1
 	*/
-	db:"10.6.0.27",
+	db:"127.0.0.1",
 	
 	/**
 		database port

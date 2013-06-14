@@ -175,6 +175,13 @@
 		root/上传日期/访问权限/(roomid|userid)-photoshop_id.jpg
 		img_vchat/201203041111/
 
+#2013/06/14 的想法
+	
+	即时的语音对话
+		
+
+
+
 #定义数据体
 
 ####用户定义 User
