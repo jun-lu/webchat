@@ -19,7 +19,7 @@
 
 			<ul class="breadcrumb">
 				<li> <a href="/p/<%=albums.roomId%>">图册</a> /</li>
-				<li> <a href="/p/r/<%=albums._id%>"><%=albums.name%></a> /</li>
+				<li> <a href="/p/r/<%=albums._id%>/page/1"><%=albums.name%></a> /</li>
 				<li class="active">图片列表(<%=albums.photoCount%>)</li>
 				<li class="pull-right"><a href="/p/create-photo/<%=albums._id%>">上传图片</a></li>
 			</ul>
@@ -43,12 +43,7 @@
 			</ul>
 
 			<div class="pagination">
-				<ul>
-					<li class="disabled"><a href="#">«</a></li>
-					<li class="active"><a href="#">1</a></li>
-					<li><a href="#">2</a></li>
-					<li><a href="#">»</a></li>
-				</ul>
+				<%- pagination %>
 			</div>
 		</div>
 

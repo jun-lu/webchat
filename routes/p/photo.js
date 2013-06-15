@@ -38,7 +38,7 @@ module.exports = {
 		promise.add(function(){
 
 			//这里可能存在性能问题，需要优化
-			photoModel.find( {albumsId:albumsId}, function( status ){
+			photoModel.findSort( {albumsId:albumsId}, {_id:-1}, function( status ){
 
 				if( status.code == "0" ){
 

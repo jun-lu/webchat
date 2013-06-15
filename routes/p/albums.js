@@ -10,6 +10,7 @@ var WebStatus = require("../../lib/WebStatus");
 var Promise = require("../../lib/Promise");
 var Albums = require("../../lib/Albums.js");
 var Photo = require("../../lib/Photo");
+var Pagination = require("../../lib/Pagination");
 var AlbumsModel = require("../../lib/AlbumsModel.js");
 var albumsModel = new AlbumsModel();
 
@@ -17,7 +18,8 @@ var PhotoModel = require("../../lib/PhotoModel.js");
 var photoModel = new PhotoModel();
 
 module.exports = {
-		
+	
+	//相册照片列表	
 	view:function( req, res ){
 		
 		var user = req.session.user || null;
@@ -25,12 +27,14 @@ module.exports = {
 		var output = {
 			user:user,
 			albums:null,
-			photos:[]
+			photos:[],
+			pagination: ""
 		};
 		
 		
 		var _id = req.params.albums;
-		
+		var page = parseInt(req.params.page) || 1;
+		var photoMaxNumber = 10;
 		
 		var promise = new Promise();
 		
@@ -48,7 +52,8 @@ module.exports = {
 		
 		
 		promise.then(function( albumsId ){
-			photoModel.findLimitSort({albumsId:albumsId}, 100, {time:-1}, function( status ){
+			//console.log("skip->>", page * photoMaxNumber, page-1 * photoMaxNumber);
+			photoModel.findLimitSkipSort({albumsId:albumsId}, photoMaxNumber, (page-1) * photoMaxNumber, {_id:-1}, function( status ){
 				if(status.code == "0" && status.result){
 					var photos = [];
 					for(var i=0; i<status.result.length; i++){
@@ -62,6 +67,10 @@ module.exports = {
 		});
 		
 		promise.then(function(){
+
+			//console.log("page ->>",page, Math.ceil(output.albums.photoCount/photoMaxNumber) || 1);	
+			output.pagination = new Pagination(page, Math.ceil(output.albums.photoCount/photoMaxNumber) || 1, "/p/r/"+_id+"/").getHTML();
+			
 			res.render('./p/albums', output);
 		});
 		

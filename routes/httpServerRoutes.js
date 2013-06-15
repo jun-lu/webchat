@@ -181,7 +181,7 @@ module.exports = function ( app ) {
 		
 		
 		// albums.get 
-		app.get('/p/r/:albums', albums.view);
+		app.get('/p/r/:albums/page/:page', albums.view);
 		//albums.createView
 		app.get('/p/create-albums', albums.createView);
 		//albums.post
