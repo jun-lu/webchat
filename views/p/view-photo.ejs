@@ -2,9 +2,18 @@
 <html lang="en-US">
 <head>
 	<meta charset="UTF-8">
-	<title>上传照片 - Vchat</title>
+	<title><%=albums.name %> - Vchat</title>
 	<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css" />
 	<link rel="stylesheet" type="text/css" href="/css/all.css"/>
+	<script>
+		var USER = <%- JSON.stringify( user ) %>;
+		var albums = <%- JSON.stringify( albums ) %>;
+		var photo = <%- JSON.stringify( photo ) %>;
+		var nextPhoto = <%- JSON.stringify( nextPhoto )%>;
+		var prevPhoto = <%- JSON.stringify( prevPhoto )%>;
+		var index =  <%- index %>;
+	</script>
+
 </head>
 <body>
 <% include ../common/top.ejs %>
@@ -20,22 +29,29 @@
 
 			<div class="photo-page">					
 				<div class="pull-right btn-page">
-					<a class="prev " href="#">上一张</a> |
-					<a class="next disabled" href="#">下一张</a>
+					<span class="muted"><small><%=index%> / <%= albums.photoCount%></small></span>
+					<%if( prevPhoto ){%>
+					<a class="prev" rel="prev" href="/p/r/<%=albums._id%>/<%= prevPhoto._id %>">上一张</a>
+					<%}else{%>
+					<span class="prev" rel="disabled" > 上一张 </span>
+					<%}%>
+
+					 |
+
+					<%if( nextPhoto ){%>
+					<a class="next" rel="next" href="/p/r/<%=albums._id%>/<%= nextPhoto._id %>">下一张</a>
+					<%}else{%>
+					<span class="next" rel="disabled" > 下一张 </span>
+					<%}%>
 				</div>
 
-				<span class="muted pull-right"><small>3 / 20</small></span>
 			</div>
 			<div class="photo-wall">
-				<img src="/p/v/<%=albums._id%>/<%=photo.path_m%>" />
+				<img src="/p/v/<%=photo.path_m%>" />
 			</div>
 	
 	</div>
-<pre>
-		
-		<%-JSON.stringify(photo)%>
-
-</pre>
 </div>
+<% include ../common/footer.ejs %>
 </body>
 </html>

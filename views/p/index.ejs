@@ -2,9 +2,14 @@
 <html>
 <head>
 	<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-	<title>相册列表</title>
+	<title><%=room.topic%> 图册 - vchat</title>
 	<link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap.min.css"/>
 	<link rel="stylesheet" type="text/css" href="/css/all.css"/>
+	<script>
+		var USER = <%- JSON.stringify( user )%>;
+		var albums = <%- JSON.stringify(albums) %>;
+		var room = <%- JSON.stringify(room) %>;
+	</script>
 </head>
 <body>
 <% include ../common/top.ejs %>
@@ -12,7 +17,7 @@
 		<div class="bd">
 
 			<ul class="breadcrumb">
-				<li class="active">CK.Ming的相册</li>
+				<li><a href="/<%=room.name || room.id %>"><%= room.topic %></a></li>
 			</ul>
 
 			<ul class="albums-list" id="albums-list">
@@ -24,29 +29,19 @@
 					<li>
 						<span class="thumbnail albums-cover" >
 							<a  href="/p/r/<%=item._id%>">
-									<img src="<%=item.facePhoto%>">
+									<img src="/p/v/<%=item.facePhoto%>">
 							</a>
 						</span>
 						<p class="albums-info">
 							<a title="<%=item.name%>" href="/p/r/<%=item._id%>"><%=item.name%></a>
-							<!--max ： 7-->
-							<small class="muted">200 张照片</small>
-							<i class="icon icon-edit hidden" title="编辑"></i>
+							<small class="muted"><%=item.photoCount%> 张照片</small>
 						</p>
 					</li>
 				<%}%>
 			</ul>
-
-			<div class="pagination">
-				<ul>
-					<li class="disabled"><a href="#">«</a></li>
-					<li class="active"><a href="#">1</a></li>
-					<li><a href="#">2</a></li>
-					<li><a href="#">»</a></li>
-				</ul>
-			</div>
 		</div>
 
 	</div>
+<% include ../common/footer.ejs %>
 </body>
 </html>

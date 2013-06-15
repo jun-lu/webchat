@@ -9,6 +9,7 @@ var tools = require("../../lib/tools");
 var WebStatus = require("../../lib/WebStatus");
 var Promise = require("../../lib/Promise");
 var Albums = require("../../lib/Albums.js");
+var Photo = require("../../lib/Photo");
 var AlbumsModel = require("../../lib/AlbumsModel.js");
 var albumsModel = new AlbumsModel();
 
@@ -49,7 +50,12 @@ module.exports = {
 		promise.then(function( albumsId ){
 			photoModel.findLimitSort({albumsId:albumsId}, 100, {time:-1}, function( status ){
 				if(status.code == "0" && status.result){
-					output.photos = status.result;
+					var photos = [];
+					for(var i=0; i<status.result.length; i++){
+						photos.push( new Photo(null, null, null, null, status.result[i]).getInfo() );
+					};
+					
+					output.photos = photos;
 				}
 				promise.resolve();
 			});	
@@ -80,6 +86,7 @@ module.exports = {
 		var name = tools.trim(req.body.name);
 		var des = req.body.des;
 		var permissions = parseInt(req.body.permissions);
+		var roomId = req.body.roomId || null;
 		
 		if(!(name && name.length >0 && name.length < 50)){
 			status.setCode("-1");
@@ -106,8 +113,8 @@ module.exports = {
 		}
 		
 		
-		var albums = new Albums(name , user._id, des, permissions, {});
-		albumsModel.insert( albums.toJSON(), function( status ){
+		var albums = new Albums(name , user._id, roomId, des, permissions, {});
+		albumsModel.insert( albums, function( status ){
 			console.log("status",status);
 			if(status.code == "0"){
 				res.redirect('/p/r/'+ status.result[0]._id );

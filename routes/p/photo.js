@@ -22,30 +22,73 @@ module.exports = {
 		
 		var user = req.session.user || {};
 		var photoId = req.params.photo;
-		var albumId = req.params.albums;
+		var albumsId = req.params.albums;
 		var output = {
 			user:user,
 			albums:null,
-			photo:null
+			photo:null,
+			nextPhoto:null,
+			prevPhoto:null,
+			index:0 //当前图片 位置
 		};
 		
 
 		var promise = new Promise();
 
-		//图片
+		promise.add(function(){
+
+			//这里可能存在性能问题，需要优化
+			photoModel.find( {albumsId:albumsId}, function( status ){
+
+				if( status.code == "0" ){
+
+					for(var i=0, data = status.result, len = data.length ; i<len; i++){
+						if(data[i]._id == photoId){
+							output.index = i+1;
+							output.photo = Photo.Factory( data[i] ).getInfo();
+							if( i+1 < len){
+								output.nextPhoto = Photo.Factory( data[i+1] ).getInfo();
+							}
+							if( i > 0){
+								output.prevPhoto = Photo.Factory( data[i-1] ).getInfo();
+							}
+
+							break;
+						}
+					}
+
+
+					if( output.photo ){
+
+						promise.ok();
+					}else{
+
+						res.status(404).render("404", new WebStatus("404").setMsg("不存在"));
+					}
+
+				}else{
+
+					throw status.result;
+				}
+
+
+			});
+
+		});
+
+		/**
 		promise.add(function(){
 			photoModel.findOne( {_id: photoModel.objectId(photoId) }, function( status ){
 				if(status.code == "0"){
-					//console.log(status.result);
-					//console.log("photo",  new Photo(null, null, null, null, status.result));
 					output.photo = new Photo(null, null, null, null, status.result).getInfo();
 				};
 				promise.ok();
 			});
 		});
+		**/
 		//相册
 		promise.add(function(){
-			albumsModel.findOne( {_id: albumsModel.objectId(albumId) }, function( status ){
+			albumsModel.findOne( {_id: albumsModel.objectId(albumsId) }, function( status ){
 				if(status.code == "0"){
 					output.albums = status.result;
 				};
@@ -72,18 +115,18 @@ module.exports = {
 		//var photo = req.params[1];
 		//var suffix = req.params[2];
 
-		var albums = req.params.albums;
+		//var albums = req.params.albums;
 		var dir = req.params.dir;
 		var photo = req.params.photo;
 		var photoId = photo.replace(/\.\w+$/, '').replace(/_\w+$/,'');
-		console.log(albums,dir,photo);
+		//console.log(albums,dir,photo);
 		
 		var output = {
 			photo:null
 		};
 		
 		
-		if( !(albums && photo && dir) ){
+		if( !( photo && dir) ){
 			res.status(404);
 			res.end();
 			return ;
@@ -214,10 +257,10 @@ module.exports = {
 			fs.exists(config.uploadDir+photo.subdirectory, function( exists ){
 				if(!exists){
 					fs.mkdir(config.uploadDir+photo.subdirectory, function(){
-						promise.ok( photo);
+						promise.ok( photo );
 					});
 				}else{
-					promise.ok( photo);
+					promise.ok( photo );
 				}
 
 			});
@@ -232,11 +275,28 @@ module.exports = {
 
 			fs.rename(tmpPath, targetPath, function(err){
 				if(err) throw err;
-				res.redirect("/p/r/"+photo.albumsId+"/"+String(photo._id));
 				promise.ok( photo );//开始裁剪图片
 			});
 
 		});
+
+		//裁切中图
+		promise.add(function( photo ){
+
+
+			//中图
+			photoTools.resize( 
+				photo.getPath(config.uploadDir), 
+				photo.getModeratePath(config.uploadDir), 
+				photo.m_w, 
+				photo.m_h, 
+				function( status ){
+					res.redirect("/p/r/"+photo.albumsId+"/"+String(photo._id));
+				}
+			);
+
+		});
+
 
 		// 裁剪小图
 		promise.add(function( photo ){
@@ -250,14 +310,15 @@ module.exports = {
 				function( status ){}
 			);
 
-			//中图
-			photoTools.resize( 
-				photo.getPath(config.uploadDir), 
-				photo.getModeratePath(config.uploadDir), 
-				photo.m_w, 
-				photo.m_h, 
-				function( status ){}
-			);
+			
+		});
+
+		//photoCount 
+		promise.add(function( photo ){
+
+			albumsModel.photoCount( photo.albumsId );
+			
+
 		});
 
 		promise.start();

@@ -2,9 +2,14 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>相册列表</title>
+	<title> <%=albums.name%> -vchat</title>
 	<link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap.min.css"/>
 	<link rel="stylesheet" type="text/css" href="/css/all.css"/>
+	<script>
+		var USER = <%- JSON.stringify( user ) %>;
+		var photos = <%- JSON.stringify( photos ) %>;
+		var albums = <%- JSON.stringify( albums ) %>;
+	</script>
 </head>
 <body>
 <% include ../common/top.ejs %>
@@ -13,9 +18,9 @@
 		<div class="bd">
 
 			<ul class="breadcrumb">
-				<li> <a href="/p/index">图册</a> /</li>
+				<li> <a href="/p/<%=albums.roomId%>">图册</a> /</li>
 				<li> <a href="/p/r/<%=albums._id%>"><%=albums.name%></a> /</li>
-				<li class="active">图片列表</li>
+				<li class="active">图片列表(<%=albums.photoCount%>)</li>
 				<li class="pull-right"><a href="/p/create-photo/<%=albums._id%>">上传图片</a></li>
 			</ul>
 
@@ -26,17 +31,13 @@
 					for(var i=0; i<photos.length; i++){
 						item = photos[i];
 				%>
-
 					<li>
-						<a href="/p/r/<%=albumId%>/<%=item._id%>">
+						<a href="/p/r/<%=albumId%>/<%=item._id%>" rel="detail" >
 							<span class="photo-cover">
-								<img src="/p/v/<%=albumId%>/<%=item._id%>.jpg">
+								<img src="/p/v/<%=item.path_s%>" alt="<%=item.des || item.fileName%>" >
 							</span>
 						</a>
-						<p class="photo-info">
-							<a title="<%=item.des%>" href="#"><%=item.fileName%></a><!--max ： 7-->
-							<i class="icon icon-edit hidden" title="编辑"></i>
-						</p>
+						<p><%=item.des%></p>
 					</li>
 				<%}%>
 			</ul>
@@ -52,5 +53,6 @@
 		</div>
 
 	</div>
+<% include ../common/footer.ejs %>
 </body>
 </html>

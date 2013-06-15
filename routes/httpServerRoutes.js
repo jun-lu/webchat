@@ -174,8 +174,11 @@ module.exports = function ( app ) {
 		/p/
 		图片模块
 	*/
-		// photoIndex.get
-		app.get('/p/index', photoIndex.get);
+		app.get('/p/index', function( req, res ){
+			res.write("页面建设中","utf-8");
+			res.end();
+		});
+		
 		
 		// albums.get 
 		app.get('/p/r/:albums', albums.view);
@@ -188,13 +191,16 @@ module.exports = function ( app ) {
 		// photo.get
 		app.get('/p/r/:albums/:photo', photo.view);
 		// photo.image /p/v/:albums/:photo[\.\w+]
-		app.get('/p/v/:albums/:dir/:photo', photo.image);
+		app.get('/p/v/:dir/:photo', photo.image);
 		
 		//photo.createView
 		app.get('/p/create-photo/:albums', photo.createView);
 		//photo.post
 		app.post('/p/create-photo', photo.create);
 		
+
+		// photoIndex.get
+		app.get('/p/:roomId', photoIndex.get);
 	
 };
 
