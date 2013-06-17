@@ -34,7 +34,7 @@ module.exports = {
 		
 		var _id = req.params.albums;
 		var page = parseInt(req.params.page) || 1;
-		var photoMaxNumber = 10;
+		var photoMaxNumber = 20;
 		
 		var promise = new Promise();
 		

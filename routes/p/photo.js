@@ -291,7 +291,9 @@ module.exports = {
 				photo.m_w, 
 				photo.m_h, 
 				function( status ){
-					res.redirect("/p/r/"+photo.albumsId+"/"+String(photo._id));
+					res.write( new WebStatus().setResult( photo ).toString(), "utf-8" );
+					res.end();
+					//res.redirect("/p/r/"+photo.albumsId+"/"+String(photo._id));
 				}
 			);
 

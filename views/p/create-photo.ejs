@@ -4,21 +4,156 @@
 	<meta charset="UTF-8">
 	<title>上传照片 - Vchat</title>
 	<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="/css/all.css">
+	
+	<script> 
+		var USER = <%-JSON.stringify(user)%>;
+		var albums = <%-JSON.stringify(albums)%>;
+	</script>
+
+	<style>
+		
+		.file-list li{position: relative;margin:10px 0;}	
+		.file-list .progress{position:absolute;z-index: 1;width:100%;top:0;}
+		.input-file-box{position: relative;}
+		.inputfile{position: absolute;;width:100%;height: 100%;top:0;left:0;opacity: 0;}
+		.file-item{position: absolute;z-index:2;top:0;}
+	</style>
 </head>
 <body>
 
-	<div>
-		<form action="/p/create-photo" method="post" enctype="multipart/form-data" >
-				<div><input type="text" name="albumsId" value="<%=albums._id%>" /></div>
-				<input type="file" name="photo" id="" class="btn"  multiple="multiple" >
-				<input type="submit" value="提交" class="btn">
-		</form>
-	</div>
-	
-		<pre>
-user:<%- JSON.stringify(user, '', 2)%>
+<% include ../common/top.ejs %>
+<div class="container">
+		<div class="bd">
+			<div class="row">
+				
+				<div class="span8">
+					
+					<h2>上传计算机中的图片</h2>
+					<p>  上传到: <a href="/p/r/<%=albums._id%>/page/1"><%= albums.name%></a> </p>
+					<hr>
+					<div>
+						
+						<div class="file-list">
+								<ul id="fileList"></ul>
+						</div>
+						<div class="span3 input-file-box">
+							<button class="btn btn-block btn-primary">选择计算机中的图片</button>
+							<input type="file" name="" class="span3 inputfile" multiple="multiple" id="inputFile">
+						</div>
+						
 
-albums:<%- JSON.stringify(albums, '', 2)%>
-	</pre>
+					</div>	
+
+				</div>
+				<div class="span4">
+					<h3>注意</h3>
+					<ul>
+						<li>任何注册用户可上传图片到任何相册</li>
+					</ul>
+					
+				</div>	
+
+			</div>
+			<div style="display:none;">
+				<form action="/p/create-photo" method="post" enctype="multipart/form-data" >
+						<div><input type="text" name="albumsId" value="<%=albums._id%>" /></div>
+						<input type="file" name="photo" id="" class="btn"  multiple="multiple" >
+						<input type="submit" value="提交" class="btn">
+				</form>
+			</div>
+		</div>
+</div>
+<script type="text/tmpl" id="uploadFileItem">
+	<li>
+		<div class="file-item">
+			<span>$name$</span>
+			|
+			<span>$size$</span>
+		</div>
+		<div class="progress progress-info" style="margin-bottom: 9px;">
+          <div class="bar" style="width:0%"></div>
+        </div>
+	</li>
+</script>
+<script type="text/javascript" src="/js/jquery-1.6.3.min.js"></script> 
+<script type="text/javascript" src="/js/we.min.js"></script>
+<script>
+		
+	var page = {
+		itemTmpl:"",
+		albumsId:'<%=albums._id%>',
+		uploadIndex:-1,
+		uploadQuery:[],
+		init:function(){
+			this.itemTmpl = $('#uploadFileItem').html();
+			this.regEvent();
+		},
+		regEvent:function(){
+
+			var _this = this;
+			$('#inputFile').change(function(){
+				_this.addUploadFile( this.files );
+				_this.nextUpload();
+			});
+		},
+		addUploadFile:function( files ){
+			for(var i=0; i<files.length; i++){
+				this.addUploadFileItem( files[i] );
+			}
+		},
+		addUploadFileItem:function( file ){
+
+			var itemTmpl = this.itemTmpl;
+			var dom = $(itemTmpl.replace("$name$", file.name).replace("$size$", file.size));
+			$('#fileList').append( dom );
+
+			this.uploadQuery.push({
+
+				ui:dom,
+				file:file,
+				isUploaded:false
+
+			});
+
+
+		},
+		nextUpload:function(){
+
+			var index = this.uploadIndex+1;
+			if(this.uploadQuery[index]){
+				this.uploadIndex++;
+				this.uploadFile( this.uploadQuery[index] );
+			}
+
+		},
+		uploadFile:function( fileQuery ){
+
+			var _this = this;
+			var ui = fileQuery.ui;
+			var formData =new FormData();
+
+			formData.append("albumsId", this.albumsId);
+			formData.append("photo", fileQuery.file);
+
+			var xhr = new XMLHttpRequest();
+			xhr.onprogress = function( e ){
+				ui.find('.bar').css("width", (e.position / e.loaded*100).toFixed()+"%");
+				//console.log("onprogress", e );
+
+			};
+			xhr.onload = function( e ){
+				ui.find('.bar').css("width", "100%");
+				_this.nextUpload();
+			};
+			xhr.open("POST", "/p/create-photo");
+			xhr.send(formData);
+
+		}
+	};
+
+	page.init();
+
+</script>
 </body>
 </html>
