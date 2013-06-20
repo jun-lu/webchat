@@ -4,28 +4,80 @@
 	<meta charset="UTF-8">
 	<title>创建相册 - Vchat</title>
 	<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="/css/all.css">
+	<script> 
+		var USER = <%-JSON.stringify(user)%>;
+		var room = <%-JSON.stringify(room)%>;
+	</script>
 </head>
 <body>
-	创建相册
-	<form action="/p/create-albums" method="post" >
-		<ul>
-			<li>
-				<input type="text" name="roomId" value="1361182575505" >
-				<input type="text" name="name" placeholder="相册名称" />
-			</li>
-			<li>
-				<textarea cols="30" rows="10" name="des">相册描述</textarea>
-			</li>
-			<li>
-				<label><input type="radio" name="permissions" value="0" checked />公开</label>
-				<label><input type="radio" name="permissions" value="1" />非公开</label>
-			</li>
-			<li>
-				<input type="submit" class="btn" value="创建" />
-			</li>
-		</ul>
+<% include ../common/top.ejs %>
+<div class="container">
+		<div class="bd">
 		
-		
-	</form>
+		<div class="row">
+				
+			<div class="span8">
+				
+				<h2>创建图册</h2>
+				<p>为 <a href="/<%=room.name || room.id%>"><%=room.topic%></a> 创建图册
+					<a href="/p/<%=room.id%>" class="pull-right" >返回</a>
+				</p>
+				<hr>
+				<div>
+
+
+					<form class="bs-docs-example form-horizontal" action="/p/create-albums" method="post" >
+			            <div class="control-group">
+			             <input type="hidden" name="roomId" value="<%=room.id%>" >	
+			              <label class="control-label" for="label-name">主题</label>
+			              <div class="controls">
+			                <input type="text" name="name" id="label-name" placeholder="图册名" />
+			              </div>
+			            </div>
+			            <div class="control-group">
+			              <label class="control-label" for="label-des">描述</label>
+			              <div class="controls">
+			                <textarea  rows="3" class="span4" name="des" id="label-des" placeholder="相册描述" ></textarea>
+			              </div>
+			            </div>
+			            <div class="control-group">
+			              <div class="controls">
+			                <label class="radio inline">
+			                  <input type="radio" name="permissions" value="0" checked /> 公开
+			                </label>
+			                <label class="radio inline">
+			                  <input type="radio" name="permissions" value="1" /> 非公开
+			                </label>
+
+			            	</div>
+			            </div>
+
+			        
+			            <div class="control-group" >
+			            	
+			            	<div class="controls">
+			            		<button type="submit" class="btn btn-primary"> 创 建 </button>
+			            	</div>	
+
+			            </div>
+			          </form>
+
+				</div>	
+
+			</div>
+			<div class="span4">
+				<ul style="margin-top:100px;">
+					<li>所有email注册用户可以创建图册</li>
+					<li>图册创建者和房间创建者对图册有管理权限</li>
+				</ul>
+				
+			</div>	
+
+		</div>
+	</div>
+</div>
+<% include ../common/footer.ejs %>
+
 </body>
 </html>

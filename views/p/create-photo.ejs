@@ -47,23 +47,20 @@
 
 				</div>
 				<div class="span4">
-					<h3>注意</h3>
-					<ul>
+					
+					<ul style="margin-top:100px">
 						<li>任何注册用户可上传图片到任何相册</li>
+						<li>图片创建者有编辑删除权限</li>
+						<li>房间创建者，图册创建者有删除权限</li>
 					</ul>
 					
 				</div>	
 
 			</div>
-			<div style="display:none;">
-				<form action="/p/create-photo" method="post" enctype="multipart/form-data" >
-						<div><input type="text" name="albumsId" value="<%=albums._id%>" /></div>
-						<input type="file" name="photo" id="" class="btn"  multiple="multiple" >
-						<input type="submit" value="提交" class="btn">
-				</form>
-			</div>
 		</div>
 </div>
+<% include ../common/footer.ejs %>
+
 <script type="text/tmpl" id="uploadFileItem">
 	<li>
 		<div class="file-item">
@@ -104,6 +101,7 @@
 		},
 		addUploadFileItem:function( file ){
 
+
 			var itemTmpl = this.itemTmpl;
 			var dom = $(itemTmpl.replace("$name$", file.name).replace("$size$", file.size));
 			$('#fileList').append( dom );
@@ -133,6 +131,7 @@
 			var ui = fileQuery.ui;
 			var formData =new FormData();
 
+			//console.log( fileQuery );
 			formData.append("albumsId", this.albumsId);
 			formData.append("photo", fileQuery.file);
 

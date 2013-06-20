@@ -29,9 +29,8 @@ app.configure(function(){
   app.use(express.bodyParser({
     uploadDir:config.uploadDir,
     keepExtensions:true,
-    limit:10000000,
-    defer:true
-
+    limit:1024*1024*10//, 
+   // defer:true
   }));
 
   app.use(express.methodOverride());

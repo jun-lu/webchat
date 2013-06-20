@@ -183,7 +183,7 @@ module.exports = function ( app ) {
 		// albums.get 
 		app.get('/p/r/:albums/page/:page', albums.view);
 		//albums.createView
-		app.get('/p/create-albums', albums.createView);
+		app.get('/p/create-albums/:roomid', albums.createView);
 		//albums.post
 		app.post('/p/create-albums', albums.create);
 		

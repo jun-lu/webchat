@@ -22,16 +22,16 @@
 
 			<ul class="breadcrumb">
 				<li>
-					<a title="" href="/p/r/<%=albums._id%>/page/1"><%=albums.name%></a><span class="divider">/</span>
+					<a title="<%=albums.name%>" href="/p/r/<%=albums._id%>/page/1"><%=albums.name%></a><span class="divider">/</span>
 				</li>
-				<li class="active"><%=photo.fileName%></li>
+				<li class="active"><%=photo.fileName%> <a name="image"></a></li>
 			</ul>
 
 			<div class="photo-page">					
 				<div class="pull-right btn-page">
 					<span class="muted"><small><%=index%> / <%= albums.photoCount%></small></span>
 					<%if( prevPhoto ){%>
-					<a class="prev" rel="prev" href="/p/r/<%=albums._id%>/<%= prevPhoto._id %>">上一张</a>
+					<a class="prev" rel="prev" href="/p/r/<%=albums._id%>/<%= prevPhoto._id %>#image">上一张</a>
 					<%}else{%>
 					<span class="prev" rel="disabled" > 上一张 </span>
 					<%}%>
@@ -39,7 +39,7 @@
 					 |
 
 					<%if( nextPhoto ){%>
-					<a class="next" rel="next" href="/p/r/<%=albums._id%>/<%= nextPhoto._id %>">下一张</a>
+					<a class="next" rel="next" href="/p/r/<%=albums._id%>/<%= nextPhoto._id %>#image">下一张</a>
 					<%}else{%>
 					<span class="next" rel="disabled" > 下一张 </span>
 					<%}%>

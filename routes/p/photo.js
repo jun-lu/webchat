@@ -173,7 +173,9 @@ module.exports = {
 		
 		var albumsId = req.body.albumsId;
 		var file = req.files.photo;
-		
+
+		console.log("req.files", req.files);
+		console.log( "file", file );
 		var promise = new Promise();
 
 		//判断是否有文件
@@ -200,7 +202,7 @@ module.exports = {
 				if(err){
 					res.end( new WebStatus("500").setMsg("服务器错误,无法读取文件信息").toString()  );
 				}else{
-					console.log("features", features);
+					//console.log("features", features);
 					promise.ok( features );
 				}
 			});
@@ -313,6 +315,12 @@ module.exports = {
 			);
 
 			
+		});
+		//删除临时图片
+		promise.add(function( photo ){
+
+			fs.unlink(file.path, function(){});
+
 		});
 
 		//photoCount 

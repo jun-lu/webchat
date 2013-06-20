@@ -12,6 +12,7 @@ var Albums = require("../../lib/Albums.js");
 var Photo = require("../../lib/Photo");
 var Pagination = require("../../lib/Pagination");
 var AlbumsModel = require("../../lib/AlbumsModel.js");
+var RoomModel = require("../../lib/RoomModel");
 var albumsModel = new AlbumsModel();
 
 var PhotoModel = require("../../lib/PhotoModel.js");
@@ -80,7 +81,27 @@ module.exports = {
 	},
 	createView:function( req, res ){
 		
-		res.render('./p/create-albums');
+		var user = req.session.user || null;
+		var output = {
+			user:user,
+			room:null
+		};
+		var roomid = req.params.roomid;
+
+		RoomModel.idFind( roomid, function( status ){
+
+			if( status.code == "0" ){
+
+				output.room = status.result;
+				res.render('./p/create-albums', output);
+
+			}else{
+				res.status("404").render("error", status.setMsg("URL 不正确"));
+			}
+
+		});
+
+		//res.render('./p/create-albums');
 		
 	},
 	create:function(req, res){
@@ -126,7 +147,7 @@ module.exports = {
 		albumsModel.insert( albums, function( status ){
 			console.log("status",status);
 			if(status.code == "0"){
-				res.redirect('/p/r/'+ status.result[0]._id );
+				res.redirect('/p/r/'+ status.result[0]._id+'/page/1' );
 			};
 			res.write(status.toString());
 		});
