@@ -103,6 +103,7 @@ module.exports = function ( app ) {
 	
 		//对话发送信息
 		app.post('/sys/post', chat.post);
+		app.post('/post', chat.post);
 
 		// post 创建对话 /
 		app.post('/sys/create', sysCreate.post);
