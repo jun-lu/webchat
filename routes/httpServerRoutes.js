@@ -195,12 +195,21 @@ module.exports = function ( app ) {
 		
 		//photo.createView
 		app.get('/p/create-photo/:albums', photo.createView);
+		//普通上传
+		app.get('/p/create-photo-2/:albums', photo.createView2);
 		//photo.post
 		app.post('/p/create-photo', photo.create);
 		
 
 		// photoIndex.get
 		app.get('/p/:roomId', photoIndex.get);
+
+
+		//15号接口
+		app.post('/p/sys/delete-photo', photo.deletePhoto);
+		//16号接口
+		//app.post('/p/sys/delete-albums', albums.deleteAlbums);
+
 	
 };
 

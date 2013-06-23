@@ -23,10 +23,10 @@ module.exports = {
 	//相册照片列表	
 	view:function( req, res ){
 		
-		var user = req.session.user || null;
+		var user = req.session.user;
 		
 		var output = {
-			user:user,
+			user:user.getInfo(),
 			albums:null,
 			photos:[],
 			pagination: ""
@@ -81,12 +81,15 @@ module.exports = {
 	},
 	createView:function( req, res ){
 		
-		var user = req.session.user || null;
+		var user = req.session.user;
 		var output = {
-			user:user,
+			user:user.getInfo(),
+			defaultAlbumsName:"",
 			room:null
 		};
 		var roomid = req.params.roomid;
+
+		output.defaultAlbumsName = tools.format(Date.now(), "yyyy-MM-dd");
 
 		RoomModel.idFind( roomid, function( status ){
 
@@ -106,11 +109,11 @@ module.exports = {
 	},
 	create:function(req, res){
 		
-		var user = req.session.user || null;
+		var user = req.session.user;
 		
 		var status = new WebStatus();
 		var output = {
-			user:user
+			user:user.getInfo()
 		};
 		
 		var name = tools.trim(req.body.name);

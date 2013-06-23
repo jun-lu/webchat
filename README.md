@@ -507,3 +507,19 @@ return :{
 	result:null
 }
 ````
+
+
+####删除一张或者多张照片（15）
+````javascript
+url:"/p/sys/delete-photo"
+method:"post",
+param:{
+	ids:""//字符串，多个id用逗号分割
+}
+return :{
+	code:0,
+	msg:"",
+	result:ids// 已经被删除的photo id
+}
+````
+

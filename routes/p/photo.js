@@ -7,6 +7,7 @@ var fs = require("fs");
 var gm = require("gm");
 var config = require("../../config");
 var WebStatus = require("../../lib/WebStatus");
+var UserModel = require("../../lib/UserModel");
 var Promise = require("../../lib/Promise");
 var Photo = require("../../lib/Photo.js");
 var photoTools = require("../../lib/photoTools");
@@ -20,22 +21,33 @@ module.exports = {
 	//查看图片的页面
 	view:function( req, res ){
 		
-		var user = req.session.user || {};
+		var user = req.session.user;
 		var photoId = req.params.photo;
 		var albumsId = req.params.albums;
 		var output = {
-			user:user,
+			user:user.getInfo(),
 			albums:null,
 			photo:null,
 			nextPhoto:null,
 			prevPhoto:null,
+			photoMaster:null,//当前图片的创建者
 			index:0 //当前图片 位置
 		};
 		
 
 		var promise = new Promise();
 
+		//相册
 		promise.add(function(){
+			albumsModel.findOne( {_id: albumsModel.objectId(albumsId) }, function( status ){
+				if(status.code == "0"){
+					output.albums = status.result;
+				};
+				promise.ok();
+			});
+		});
+
+		promise.then(function(){
 
 			//这里可能存在性能问题，需要优化
 			photoModel.findSort( {albumsId:albumsId}, {_id:-1}, function( status ){
@@ -60,15 +72,15 @@ module.exports = {
 
 					if( output.photo ){
 
-						promise.ok();
+						promise.ok( output.photo );
 					}else{
 
 						res.status(404).render("404", new WebStatus("404").setMsg("不存在"));
 					}
 
 				}else{
-
-					throw status.result;
+					res.end( status.toString() );
+					//throw status.result;
 				}
 
 
@@ -76,25 +88,23 @@ module.exports = {
 
 		});
 
-		/**
-		promise.add(function(){
-			photoModel.findOne( {_id: photoModel.objectId(photoId) }, function( status ){
-				if(status.code == "0"){
-					output.photo = new Photo(null, null, null, null, status.result).getInfo();
-				};
+		
+
+		//获取图片创建者信息
+		promise.then(function( photo ){
+			console.log( photo );
+			UserModel.find_id( photo.masterId, function( status ){
+
+				if( status.code == "0" ){
+					output.photoMaster = status.result.getPublicInfo();
+				}
+
 				promise.ok();
+
 			});
 		});
-		**/
-		//相册
-		promise.add(function(){
-			albumsModel.findOne( {_id: albumsModel.objectId(albumsId) }, function( status ){
-				if(status.code == "0"){
-					output.albums = status.result;
-				};
-				promise.ok();
-			});
-		});
+
+
 		//返回
 		promise.then(function(){
 			//res.write("");
@@ -102,7 +112,7 @@ module.exports = {
 			res.end();
 
 		});
-		console.log( promise );
+		//console.log( promise );
 		promise.start();
 		
 
@@ -145,12 +155,13 @@ module.exports = {
 		
 	},
 	
+	//上传图片页面
 	createView:function( req, res ){
 		
-		var user = req.session.user || null;
+		var user = req.session.user;
 		var albumsId = req.params.albums;
 		var output = {
-			user:user,
+			user:user.getInfo(),
 			albums:null
 		};
 		
@@ -164,25 +175,53 @@ module.exports = {
 		})
 		
 	},
-	create:function(req, res){
-		var user = req.session.user || null;
+
+	//普通的文件上传方式
+	createView2:function( req, res ){
 		
+		var user = req.session.user;
+		var albumsId = req.params.albums;
 		var output = {
-			user:user,
+			user:user.getInfo(),
+			albums:null
 		};
 		
+		albumsModel.findOne({_id:albumsModel.objectId(albumsId)}, function( status ){
+			if(status.code == "0" && status.result){
+				output.albums = status.result;
+				res.render('./p/create-photo2', output);
+			}else{
+				res.render("./404", new WebStatus("404").setMsg("找不到相关相册").toJSON());
+			}
+		})
+		
+	},
+
+	//上传图片  api
+	create:function(req, res){
+		var user = req.session.user;
+		
+		var output = {
+			user:user.getInfo(),
+		};
+		
+		var uploadType = req.body.uploadType;
 		var albumsId = req.body.albumsId;
 		var file = req.files.photo;
 
-		console.log("req.files", req.files);
-		console.log( "file", file );
+		//console.log("req.files", req.files);
+		//console.log( "file", file );
 		var promise = new Promise();
 
 		//判断是否有文件
 		promise.add(function(){
 
 			if(file && file.size != 0){
-				promise.ok();
+				if( file.type.indexOf("image") != -1 ){
+					promise.ok();
+				}else{
+					res.end( new WebStatus("-1").setMsg("文件格式不正确").toString() );
+				}
 			}else{
 				res.end( new WebStatus("-1").setMsg("选择上传文件").toString() );
 			}
@@ -276,8 +315,11 @@ module.exports = {
 			var targetPath = photo.getPath( config.uploadDir );
 
 			fs.rename(tmpPath, targetPath, function(err){
-				if(err) throw err;
-				promise.ok( photo );//开始裁剪图片
+				if(err){
+					res.end(new WebStatus("500").setMsg("移动图片出现错误").toString() );
+				}else{// throw err;
+					promise.ok( photo );//开始裁剪图片
+				}
 			});
 
 		});
@@ -293,9 +335,14 @@ module.exports = {
 				photo.m_w, 
 				photo.m_h, 
 				function( status ){
-					res.write( new WebStatus().setResult( photo ).toString(), "utf-8" );
-					res.end();
-					//res.redirect("/p/r/"+photo.albumsId+"/"+String(photo._id));
+					//使用from 表单上传
+					if( uploadType ){
+						res.redirect("/p/r/"+albumsId+"/"+photo._id);
+						res.end();
+					}else{
+						res.write( new WebStatus().setResult( photo ).toString(), "utf-8" );
+						res.end();
+					}
 				}
 			);
 
@@ -329,6 +376,146 @@ module.exports = {
 			albumsModel.photoCount( photo.albumsId );
 			
 
+		});
+
+		promise.start();
+
+	},
+	//删除图片
+	deletePhoto:function( req, res){
+
+		var user = req.session.user;
+
+		var photoIds = req.body.ids;
+		var promise = new Promise();
+		var output = {
+			success:[],
+			error:[]
+		};
+
+		promise.add(function(){
+
+			var ids = null;
+			var objectIds = [];
+			if( ! user ){
+				res.end(new WebStatus("403").toString());
+				return ;
+			}
+			//console.log("photoIds", photoIds);
+			if( photoIds && (ids = photoIds.split(',')) ){
+				for(var i=0; i< ids.length; i++){
+					objectIds.push( photoModel.objectId( ids[i] ) )	;
+				}
+				promise.ok( objectIds );
+			}else{
+				res.end(new WebStatus("-1").setMsg("缺少photoIds,多个id用逗号分割").toString());
+			}
+
+		});
+
+		//确认所有要删除的图片在同一个相册中
+		promise.then(function( objectIds ){
+
+
+
+			photoModel.find({ _id:{"$in":objectIds}}, function( status ){
+
+				//console.log( "status", status );
+				if( status.code == "0" && status.result.length ){
+					
+					var data = status.result;
+					var albumsId = data[0].albumsId;
+
+					var photos = [];
+					//console.log("data", data );
+					//var error = [];
+					for(var i=0; i< data.length; i++){
+
+						if( data[i].albumsId == albumsId ){
+							photos.push( data[i] );
+						}
+
+					};
+
+					//console.log( "albumsId", albumsId );
+					promise.ok( albumsId, photos );
+
+
+				}else{
+					res.end(new WebStatus("404").setMsg("没有发现要删除的图片，请确认id").toString());
+				}
+			});
+
+		});
+
+		//获取相册信息
+		promise.then(function( albumsId, photos ){
+
+			//var currentUserId = user._id;
+			//var albumsMasterId = null;
+
+			albumsModel.findOne({_id:albumsModel.objectId( albumsId )  }, function( status ){
+
+				if( status.code == "0" ){
+					promise.ok( status.result, photos );
+					//albumsMasterId = 
+				
+				}else{
+
+					res.end( new WebStatus("-2").setMsg("图片所在相册不存在，可能已经被删除").toString() );
+				
+				}
+
+			})
+
+		});
+
+		//确认图片删除权限
+		promise.then(function( albums, photos ){
+
+			var ids = [];
+			var currentUserId = user._id;
+			var albumsMasterId = albums.masterId;
+			var myPhotos = [];
+			//如果当前用户是相册创建者
+			if( currentUserId == albumsMasterId ){
+				promise.ok( photos, albums );
+				return ;
+			}
+			//图片创建者id与当前用户ID一致	
+			for(var i=0; i< photos.length; i++){
+				if( photos[i].masterId == currentUserId){
+					myPhotos.push( photos[i] );
+				}
+			};
+
+			promise.ok( myPhotos, albums );
+
+		});
+
+		//删除图片
+		promise.then(function( photos, albums ){
+
+			var ids = [];
+			//console.log( "photos", photos );
+			for(var i=0; i<photos.length; i++){
+
+				ids.push( photos[0]._id );
+
+			};
+
+			photoModel.remove({_id:{"$in":ids}}, function( status ){
+
+				res.end( status.toString() );
+				promise.ok( albums );
+			});
+
+
+		});
+
+		//更新相册
+		promise.then(function( albums ){
+			albumsModel.photoCount( String(albums._id) );
 		});
 
 		promise.start();

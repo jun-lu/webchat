@@ -5,6 +5,10 @@
 	<title> <%=albums.name%> -vchat</title>
 	<link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap.min.css"/>
 	<link rel="stylesheet" type="text/css" href="/css/all.css"/>
+	<style>
+		.albums-list .masthead{text-align: center;display:block;float:none;width:auto;}
+		.masthead .btn{color:#fff;padding:.3em 3em;}
+	</style>
 	<script>
 		var USER = <%- JSON.stringify( user ) %>;
 		var photos = <%- JSON.stringify( photos ) %>;
@@ -18,9 +22,8 @@
 		<div class="bd">
 
 			<ul class="breadcrumb">
-				<li> <a href="/p/<%=albums.roomId%>">图册</a> /</li>
-				<li> <a href="/p/r/<%=albums._id%>/page/1"><%=albums.name%></a> /</li>
-				<li class="active">图片列表(<%=albums.photoCount%>)</li>
+				<li> <a href="/p/<%=albums.roomId%>">全部图册</a> /</li>
+				<li class="active"><%=albums.name%>(<%=albums.photoCount%>)</li>
 				<li class="pull-right"><a href="/p/create-photo/<%=albums._id%>">上传图片</a></li>
 			</ul>
 
@@ -40,6 +43,14 @@
 						<p><%=item.des%></p>
 					</li>
 				<%}%>
+
+				<% if(photos.length == 0) {%>
+					<li  class="masthead">
+						
+						<a href="/p/create-photo/<%=albums._id%>" > 去上传图片 </a>
+
+					</li>
+				<% } %>
 			</ul>
 
 			<div class="pagination">
@@ -49,5 +60,9 @@
 
 	</div>
 <% include ../common/footer.ejs %>
+<script type="text/javascript" src="/js/jquery-1.6.3.min.js"></script> 
+<script type="text/javascript" src="/js/we.min.js"></script>
+<script type="text/javascript" src="/js/we.top.min.js"></script> 
+
 </body>
 </html>

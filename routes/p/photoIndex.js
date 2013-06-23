@@ -14,10 +14,10 @@ var albumsModel = new AlbumsModel();
 
 module.exports = {
 	get:function(req, res){
-		var user = req.session.user || {};
+		var user = req.session.user;
 		var roomId = req.params.roomId;
 		var output = {
-			user:user,
+			user:user.getInfo(),
 			albums:[],
 			room:null
 		};

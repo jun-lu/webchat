@@ -14,7 +14,11 @@ module.exports = {
 	// 实现 session
 	httpSession:function(req, res, next){
 
-		req.session = {};
+		req.session = {
+			getInfo:function(){
+				return null;
+			}
+		};
 
 		if( req.cookies && req.cookies.sid ){
 

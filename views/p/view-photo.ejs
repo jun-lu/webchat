@@ -12,6 +12,7 @@
 		var nextPhoto = <%- JSON.stringify( nextPhoto )%>;
 		var prevPhoto = <%- JSON.stringify( prevPhoto )%>;
 		var index =  <%- index %>;
+		var photoMaster = <%- JSON.stringify( photoMaster )%>
 	</script>
 
 </head>
@@ -46,12 +47,87 @@
 				</div>
 
 			</div>
-			<div class="photo-wall">
-				<img src="/p/v/<%=photo.path_m%>" />
+			<div class="photo-wall" style="height:<%=photo.m_h%>px;">
+				<img src="/p/v/<%=photo.path_m%>" class="big" alt="<%=photo.name%>" />
+			</div>
+			<hr/>
+			<div class="clear-fix">
+				<div class="pull-left" >
+				<strong>
+					<%=photo.fileName%>
+				</strong>
+				<p>
+					<span class="muted"><%= new Date(photo.time*1000)%></span>	
+				</p>
+				</div>
+				<div class="pull-right">
+					<a href="/p/v/<%=photo.path%>" target="_blank">查看原图</a> <span class="muted">
+						(<%=photo.width%>*<%=photo.height%>)
+						</span>  
+					<%if(albums.masterId == user._id || user._id == photo.masterId){%>
+					 | <a data-id="<%=photo._id%>" id="delPhoto" >删除图片</a>
+					<%}%>
+					<div> <a href="/user/<%=photoMaster._id%>"> <%=photoMaster.name%> </a></div>
+				</div>
+			</div>
+			<div>
+				
+				<%if(nextPhoto){%>
+					<a rel="next" style="background-image:url(/p/v/<%=nextPhoto.path_m%>)" ></a>
+				<%}%>
+				<%if(prevPhoto){%>
+					<a rel="prev" style="background-image:url(/p/v/<%=prevPhoto.path_m%>)" ></a>
+				<%}%>
 			</div>
 	
 	</div>
 </div>
 <% include ../common/footer.ejs %>
+<script type="text/javascript" src="/js/jquery-1.6.3.min.js"></script> 
+<script type="text/javascript" src="/js/we.min.js"></script> 
+<script type="text/javascript" src="/js/we.top.min.js"></script> 
+<script>
+	
+	var page = {
+		init:function(){
+			this.regEvent();
+		},
+		regEvent:function(){
+			$('#delPhoto').click(function(){
+
+				if( !confirm("删除照片不可恢复，确认删除？") ){
+
+					return ;
+				}
+				var model = new WE.BaseModel();
+				var ctrl = new WE.Controller();
+				ctrl.update = function( e ){
+					var data = e.data;
+					if( data && data.code == "0" ){
+
+						if( nextPhoto ){
+							window.location.href = "/p/r/"+albums._id+"/"+nextPhoto._id;
+							return ;
+						}
+
+						if( prevPhoto ){
+							window.location.href = "/p/r/"+albums._id+"/"+prevPhoto._id;
+							return ;
+						}
+
+						window.location.href = "/p/r/"+albums._id+"/page/1";	
+					}else{
+						alert( data.msg );
+					}
+
+				};
+				model.addObserver( ctrl );
+				model.post("/p/sys/delete-photo", {ids:photo._id});
+			});	
+		}
+	};
+
+	page.init();
+</script>
 </body>
 </html>

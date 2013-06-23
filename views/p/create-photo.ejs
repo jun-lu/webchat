@@ -31,27 +31,43 @@
 					
 					<h2>上传计算机中的图片</h2>
 					<p>  上传到: <a href="/p/r/<%=albums._id%>/page/1"><%= albums.name%></a> </p>
+					<p>可以选择任意图片类型，第一张照片会作为封面</p>
 					<hr>
-					<div>
+					<%if( user && !(/^d+$/.test(user.mail)) ){%>
+					<div class="clear-fix">
 						
+						
+
 						<div class="file-list">
 								<ul id="fileList"></ul>
 						</div>
+
 						<div class="span3 input-file-box">
-							<button class="btn btn-block btn-primary">选择计算机中的图片</button>
+							<button class="btn btn-primary">选择计算机中的图片</button>
 							<input type="file" name="" class="span3 inputfile" multiple="multiple" id="inputFile">
+							| <a href="/p/r/<%=albums._id%>/page/1">返回图册</a>
 						</div>
 						
 
 					</div>	
-
+					<%}else{%>
+						<div class="alert" >
+							绑定email，或者成为我们的email注册用户<br/>
+							上传照片
+						</div>
+					<%}%>
+					<hr/>
+					<div> 
+						上传遇到问题？ 试试 <a href="/p/create-photo-2/<%=albums._id%>">普通上传</a>
+					</div>
 				</div>
 				<div class="span4">
 					
 					<ul style="margin-top:100px">
 						<li>任何注册用户可上传图片到任何相册</li>
 						<li>图片创建者有编辑删除权限</li>
-						<li>房间创建者，图册创建者有删除权限</li>
+						<li>图册创建者有删除权限</li>
+						<li>第一张照片作为图册封面（被删除仍然有效）</li>
 					</ul>
 					
 				</div>	
@@ -75,6 +91,7 @@
 </script>
 <script type="text/javascript" src="/js/jquery-1.6.3.min.js"></script> 
 <script type="text/javascript" src="/js/we.min.js"></script>
+<script type="text/javascript" src="/js/we.top.min.js"></script> 
 <script>
 		
 	var page = {
@@ -107,11 +124,9 @@
 			$('#fileList').append( dom );
 
 			this.uploadQuery.push({
-
 				ui:dom,
 				file:file,
 				isUploaded:false
-
 			});
 
 
@@ -122,6 +137,8 @@
 			if(this.uploadQuery[index]){
 				this.uploadIndex++;
 				this.uploadFile( this.uploadQuery[index] );
+			}else{
+				alert("所有图片已经上传完毕");
 			}
 
 		},
@@ -141,9 +158,20 @@
 				//console.log("onprogress", e );
 
 			};
-			xhr.onload = function( e ){
-				ui.find('.bar').css("width", "100%");
-				_this.nextUpload();
+			xhr.onload = function(){
+				try{
+					var data = eval("("+ xhr.responseText +")");
+					ui.find('.bar').css("width", "100%");
+					_this.nextUpload();
+					if( data.code != 0 ){
+						ui.find('.file-item:first').append( data.msg );	
+						ui.find('.progress:first').addClass("progress-warning");
+					}
+				}catch(e){
+
+					ui.find('.progress:first').addClass("progress-warning");
+
+				}
 			};
 			xhr.open("POST", "/p/create-photo");
 			xhr.send(formData);
