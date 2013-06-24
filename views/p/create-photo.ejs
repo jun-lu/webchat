@@ -153,7 +153,7 @@
 			formData.append("photo", fileQuery.file);
 
 			var xhr = new XMLHttpRequest();
-			xhr.onprogress = function( e ){
+			xhr.upload.onprogress = function( e ){
 				ui.find('.bar').css("width", (e.position / e.loaded*100).toFixed()+"%");
 				//console.log("onprogress", e );
 
@@ -173,7 +173,7 @@
 
 				}
 			};
-			xhr.open("POST", "/p/create-photo");
+			xhr.open("POST", "/p/create-photo", true);
 			xhr.send(formData);
 
 		}
