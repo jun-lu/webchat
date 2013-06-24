@@ -154,11 +154,12 @@
 
 			var xhr = new XMLHttpRequest();
 			xhr.upload.onprogress = function( e ){
-				ui.find('.bar').css("width", (e.position / e.loaded*100).toFixed()+"%");
-				//console.log("onprogress", e );
+
+				ui.find('.bar').css("width", ((e.position / e.totalSize)*100).toFixed()+"%");
 
 			};
-			xhr.onload = function(){
+			xhr.onload = function( e ){
+				//console.log("onload");
 				try{
 					var data = eval("("+ xhr.responseText +")");
 					ui.find('.bar').css("width", "100%");
