@@ -1,0 +1,360 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title>chat.js 基础库</title>
+	<style type="text/css">
+	body{background:#e5e5e5;padding:0;margin:0;}
+	
+		.vchat-wrapper,.vchat-chats-wrapper{position:fixed;bottom:0;right:0;font-size:14px;}
+		.vchat-chats-wrapper{right:265px;height: 0;}
+		.vchat-wrapper img{display:block;}
+		
+		.vchat-main{width:260px;display:inline-block;text-align:left;color:#6e6e6e;background:#fff;}
+		
+		.vchat-user-title{padding:10px;border:1px solid #dfdfdf;border-width:1px 0;}
+		.vchat-user-list{border-bottom:1px solid #dfdfdf;height:500px;}
+		.vchat-user-init{border:1px solid #dfdfdf;border-width:1px 0;padding:10px;}
+		
+		/*user-card*/
+		.vchat-user-card{padding:10px;min-height:48px;border-bottom:1px solid #dfdfdf;}
+		.vchat-user-avatar{float:left;}
+		.vchat-user-name{color:#727272;}
+		.vchat-user-talk{margin-top:10px;}
+		.vchat-user-info{float:left;margin-left:10px;}
+		
+		
+		/* chat item */
+		.vchat-chats-item{display: inline-block;width:260px;}
+
+		.vchat-chats-item-in{display:inline-block;width:260px;position: absolute;bottom:0;	}
+		.vchat-chats-item-mini .vchat-chat-context{display: none;}
+		.vchat-chats-item-mini .vchat-chat-enter{display: none;}
+		
+		.vchat-chat-title{background:#404040;border-radius:3px 3px 0 0;padding:10px;color:#fff;font-weight:700;}
+		.vchat-chat-item-setting{float:right;}
+			.vchat-chat-item-set{width:24px;height: 24px;text-align:center;opacity:.5;padding:.3em;cursor:pointer;}
+			.vchat-chat-item-set:hover{opacity:1;background:#737373;}
+		.vchat-chat-context{background:#e5e5e5;border:1px solid #c3c3c3;border-width:0 1px;padding:10px;height:300px;overflow:auto;}
+		.vchat-chat-enter{border:1px solid #c3c3c3;border:0 1px;background:#fff;}
+		.vchat-chat-enter:hover{border-color:#3399cc;}
+		
+			.vchat-chat-enter-in{margin:0 5px;}
+			.vchat-chat-input{border:none;outline:none;padding:.4em 0;width:100%;}
+		
+		
+		.vchat-chat,.vchat-chat-left,.vchat-chat-right{position:relative;min-height:24px;padding-bottom:10px;}
+		.vchat-chat-avatar{position:absolute;}
+		.vchat-chat-info{padding:5px;background:#fff;border-radius:0 2px 2px 0;margin-left:24px;display:inline-block;}
+		
+		.vchat-chat-right{text-align:right;}
+		.vchat-chat-right .vchat-chat-avatar{right:0;bottom:10px;}
+		.vchat-chat-right .vchat-chat-info{margin-right:24px;border-radius:2px 0 0 2px;margin-left:0;}
+	</style>
+</head>
+<body>
+	<a href="#aaa">sdlfkdlfjsdflkdsjflsdkj</a><br/>
+	<a href="#aaa">sdlfkdlfjsdflkdsjflsdkj</a><br/>
+	<a href="#aaa">sdlfkdlfjsdflkdsjflsdkj</a><br/>
+	<a href="#aaa">sdlfkdlfjsdflkdsjflsdkj</a><br/>
+	<a href="#aaa">sdlfkdlfjsdflkdsjflsdkj</a><br/>
+	<a href="#aaa">sdlfkdlfjsdflkdsjflsdkj</a><br/>
+	<a href="#aaa">sdlfkdlfjsdflkdsjflsdkj</a><br/>
+	<a href="#aaa">sdlfkdlfjsdflkdsjflsdkj</a><br/>
+	<a href="#aaa">sdlfkdlfjsdflkdsjflsdkj</a><br/>
+	<a href="#aaa">sdlfkdlfjsdflkdsjflsdkj</a><br/>
+	<a href="#aaa">sdlfkdlfjsdflkdsjflsdkj</a><br/>
+	<a href="#aaa">sdlfkdlfjsdflkdsjflsdkj</a><br/>
+	<a href="#aaa">sdlfkdlfjsdflkdsjflsdkj</a><br/>
+	<a href="#aaa">sdlfkdlfjsdflkdsjflsdkj</a><br/>
+	<a href="#aaa">sdlfkdlfjsdflkdsjflsdkj</a><br/>
+	<a href="#aaa">sdlfkdlfjsdflkdsjflsdkj</a><br/>
+	<a href="#aaa">sdlfkdlfjsdflkdsjflsdkj</a><br/>
+	<a href="#aaa">sdlfkdlfjsdflkdsjflsdkj</a><br/>
+	<a href="#aaa">sdlfkdlfjsdflkdsjflsdkj</a><br/>
+	<a href="#aaa">sdlfkdlfjsdflkdsjflsdkj</a><br/>
+	<a href="#aaa">sdlfkdlfjsdflkdsjflsdkj</a><br/>
+	<a href="#aaa">sdlfkdlfjsdflkdsjflsdkj</a><br/>
+	
+
+	<div class="vchat-wrapper">
+			<div class="vchat-chats-wrapper">
+			
+				<div class="vchat-chats-item" >
+					<div class="vchat-chats-item-in">
+						<div class="vchat-chat-title">
+							<span class="#">李佳怡</span>
+							<div class="vchat-chat-item-setting">
+								<span class="vchat-chat-item-set vchat-chat-item-set-mini" title="最小化" >＿</span>
+								<span class="vchat-chat-item-set vchat-chat-item-set-close" title="关闭" >ㄨ</span>
+							</div>
+						</div>
+						<div class="vchat-chat-context">
+							<div class="vchat-chat-left">
+								<div class="vchat-chat-avatar"><img src="http://www.gravatar.com/avatar/e3238e39e72fdb588d6e5bb360fa90b0.jpg?s=24&d=mm&r=g" alt="" /></div>
+								<div class="vchat-chat-info">hello<br/>
+								asdlkfjdaslkfja<br/>
+								654465645645654465645
+								</div>
+							</div>
+							
+							<div class="vchat-chat-left">
+								<div class="vchat-chat-avatar"><img src="http://www.gravatar.com/avatar/e3238e39e72fdb588d6e5bb360fa90b0.jpg?s=24&d=mm&r=g" alt="" /></div>
+								<div class="vchat-chat-info">hello</div>
+							</div>
+							
+							<div class="vchat-chat-left">
+								<div class="vchat-chat-avatar"><img src="http://www.gravatar.com/avatar/e3238e39e72fdb588d6e5bb360fa90b0.jpg?s=24&d=mm&r=g" alt="" /></div>
+								<div class="vchat-chat-info">hello</div>
+							</div>
+							
+							<div class="vchat-chat-right">
+								<div class="vchat-chat-avatar"><img src="http://www.gravatar.com/avatar/e3238e39e72fdb588d6e5bb360fa90b0.jpg?s=24&d=mm&r=g" alt="" /></div>
+								<div class="vchat-chat-info">hello</div>
+							</div>
+							
+							<div class="vchat-chat-right">
+								<div class="vchat-chat-avatar"><img src="http://www.gravatar.com/avatar/e3238e39e72fdb588d6e5bb360fa90b0.jpg?s=24&d=mm&r=g" alt="" /></div>
+								<div class="vchat-chat-info">hello</div>
+							</div>
+							
+							<div class="vchat-chat-right">
+								<div class="vchat-chat-avatar"><img src="http://www.gravatar.com/avatar/e3238e39e72fdb588d6e5bb360fa90b0.jpg?s=24&d=mm&r=g" alt="" /></div>
+								<div class="vchat-chat-info">hello<br/>
+								asdlkfjdaslkfja<br/>
+								654465645645654465645
+								</div>
+							</div>
+							
+							
+							<div class="vchat-chat-right">
+								<div class="vchat-chat-avatar"><img src="http://www.gravatar.com/avatar/e3238e39e72fdb588d6e5bb360fa90b0.jpg?s=24&d=mm&r=g" alt="" /></div>
+								<div class="vchat-chat-info">hello<br/>
+								asdlkfjdaslkfja<br/>
+								
+								</div>
+							</div>
+							
+						</div>
+						<div class="vchat-chat-enter" z-index="0">
+							<div class="vchat-chat-enter-in">
+								<input type="text" class="vchat-chat-input" placeholder="发消息" />
+							</div>
+						</div>
+					</div>
+				</div>
+			
+				<div class="vchat-chats-item vchat-chats-item-mini">
+					<div class="vchat-chats-item-in">
+						<div class="vchat-chat-title">
+							<span class="#">李佳怡</span>
+							<div class="vchat-chat-item-setting">
+								<span class="vchat-chat-item-set vchat-chat-item-set-mini" title="最小化" >＿</span>
+								<span class="vchat-chat-item-set vchat-chat-item-set-noraml" title="还原" >￣</span>
+								<span class="vchat-chat-item-set vchat-chat-item-set-noraml" title="新窗口打开" >↗</span>
+								
+								<span class="vchat-chat-item-set vchat-chat-item-set-noraml" title="回到原网页" >↘</span>
+								<span class="vchat-chat-item-set vchat-chat-item-set-close" title="关闭" >ㄨ</span>
+							</div>
+						</div>
+						<div class="vchat-chat-context">
+							<div class="vchat-chat-left">
+								<div class="vchat-chat-avatar"><img src="http://www.gravatar.com/avatar/e3238e39e72fdb588d6e5bb360fa90b0.jpg?s=24&d=mm&r=g" alt="" /></div>
+								<div class="vchat-chat-info">hello<br/>
+								asdlkfjdaslkfja<br/>
+								654465645645654465645
+								</div>
+							</div>
+							
+							<div class="vchat-chat-left">
+								<div class="vchat-chat-avatar"><img src="http://www.gravatar.com/avatar/e3238e39e72fdb588d6e5bb360fa90b0.jpg?s=24&d=mm&r=g" alt="" /></div>
+								<div class="vchat-chat-info">hello</div>
+							</div>
+							
+							<div class="vchat-chat-left">
+								<div class="vchat-chat-avatar"><img src="http://www.gravatar.com/avatar/e3238e39e72fdb588d6e5bb360fa90b0.jpg?s=24&d=mm&r=g" alt="" /></div>
+								<div class="vchat-chat-info">hello</div>
+							</div>
+							
+							<div class="vchat-chat-right">
+								<div class="vchat-chat-avatar"><img src="http://www.gravatar.com/avatar/e3238e39e72fdb588d6e5bb360fa90b0.jpg?s=24&d=mm&r=g" alt="" /></div>
+								<div class="vchat-chat-info">hello</div>
+							</div>
+							
+							<div class="vchat-chat-right">
+								<div class="vchat-chat-avatar"><img src="http://www.gravatar.com/avatar/e3238e39e72fdb588d6e5bb360fa90b0.jpg?s=24&d=mm&r=g" alt="" /></div>
+								<div class="vchat-chat-info">hello</div>
+							</div>
+							
+							<div class="vchat-chat-right">
+								<div class="vchat-chat-avatar"><img src="http://www.gravatar.com/avatar/e3238e39e72fdb588d6e5bb360fa90b0.jpg?s=24&d=mm&r=g" alt="" /></div>
+								<div class="vchat-chat-info">hello<br/>
+								asdlkfjdaslkfja<br/>
+								654465645645654465645
+								</div>
+							</div>
+							
+							
+							<div class="vchat-chat-right">
+								<div class="vchat-chat-avatar"><img src="http://www.gravatar.com/avatar/e3238e39e72fdb588d6e5bb360fa90b0.jpg?s=24&d=mm&r=g" alt="" /></div>
+								<div class="vchat-chat-info">hello<br/>
+								asdlkfjdaslkfja<br/>
+								
+								</div>
+							</div>
+							
+						</div>
+						<div class="vchat-chat-enter" z-index="0">
+							<div class="vchat-chat-enter-in">
+								<input type="text" class="vchat-chat-input" placeholder="发消息" />
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="vchat-chats-item" >
+					<div class="vchat-chats-item-in">
+						<div class="vchat-chat-title">
+							<span class="#">李佳怡</span>
+							<div class="vchat-chat-item-setting">
+								<span class="vchat-chat-item-set vchat-chat-item-set-mini" title="最小化" >＿</span>
+								<span class="vchat-chat-item-set vchat-chat-item-set-noraml" title="还原" >￣</span>
+								<span class="vchat-chat-item-set vchat-chat-item-set-noraml" title="新窗口打开" >↗</span>
+								
+								<span class="vchat-chat-item-set vchat-chat-item-set-noraml" title="回到原网页" >↘</span>
+								<span class="vchat-chat-item-set vchat-chat-item-set-close" title="关闭" >ㄨ</span>
+							</div>
+						</div>
+						<div class="vchat-chat-context">
+							<div class="vchat-chat-left">
+								<div class="vchat-chat-avatar"><img src="http://www.gravatar.com/avatar/e3238e39e72fdb588d6e5bb360fa90b0.jpg?s=24&d=mm&r=g" alt="" /></div>
+								<div class="vchat-chat-info">hello<br/>
+								asdlkfjdaslkfja<br/>
+								654465645645654465645
+								</div>
+							</div>
+							
+							<div class="vchat-chat-left">
+								<div class="vchat-chat-avatar"><img src="http://www.gravatar.com/avatar/e3238e39e72fdb588d6e5bb360fa90b0.jpg?s=24&d=mm&r=g" alt="" /></div>
+								<div class="vchat-chat-info">hello</div>
+							</div>
+							
+							<div class="vchat-chat-left">
+								<div class="vchat-chat-avatar"><img src="http://www.gravatar.com/avatar/e3238e39e72fdb588d6e5bb360fa90b0.jpg?s=24&d=mm&r=g" alt="" /></div>
+								<div class="vchat-chat-info">hello</div>
+							</div>
+							
+							<div class="vchat-chat-right">
+								<div class="vchat-chat-avatar"><img src="http://www.gravatar.com/avatar/e3238e39e72fdb588d6e5bb360fa90b0.jpg?s=24&d=mm&r=g" alt="" /></div>
+								<div class="vchat-chat-info">hello</div>
+							</div>
+							
+							<div class="vchat-chat-right">
+								<div class="vchat-chat-avatar"><img src="http://www.gravatar.com/avatar/e3238e39e72fdb588d6e5bb360fa90b0.jpg?s=24&d=mm&r=g" alt="" /></div>
+								<div class="vchat-chat-info">hello</div>
+							</div>
+							
+							<div class="vchat-chat-right">
+								<div class="vchat-chat-avatar"><img src="http://www.gravatar.com/avatar/e3238e39e72fdb588d6e5bb360fa90b0.jpg?s=24&d=mm&r=g" alt="" /></div>
+								<div class="vchat-chat-info">hello<br/>
+								asdlkfjdaslkfja<br/>
+								654465645645654465645
+								</div>
+							</div>
+							
+							
+							<div class="vchat-chat-right">
+								<div class="vchat-chat-avatar"><img src="http://www.gravatar.com/avatar/e3238e39e72fdb588d6e5bb360fa90b0.jpg?s=24&d=mm&r=g" alt="" /></div>
+								<div class="vchat-chat-info">hello<br/>
+								asdlkfjdaslkfja<br/>
+								
+								</div>
+							</div>
+							
+						</div>
+						<div class="vchat-chat-enter" z-index="0">
+							<div class="vchat-chat-enter-in">
+								<input type="text" class="vchat-chat-input" placeholder="发消息" />
+							</div>
+						</div>
+					</div>
+				</div>
+				
+
+			</div>
+
+
+			<div class="vchat-main">
+				<div class="vchat-user-title" >Vchat</div>
+				<div class="vchat-user-list" >
+				
+					<div class="vchat-user-card">
+						<div class="vchat-user-avatar">
+							<img src="http://www.gravatar.com/avatar/e3238e39e72fdb588d6e5bb360fa90b0.jpg?s=48&d=mm&r=g" alt="" />
+						</div>
+						<div class="vchat-user-info">
+							<span class="vchat-user-name">Jun.lu</span>
+							<div class="vchat-user-talk">信仰内心最真实的感受</div>
+						</div>
+					</div>
+					
+					<div class="vchat-user-card">
+						<div class="vchat-user-avatar">
+							<img src="http://www.gravatar.com/avatar/e3238e39e72fdb588d6e5bb360fa90b0.jpg?s=48&d=mm&r=g" alt="" />
+						</div>
+						<div class="vchat-user-info">
+							<span class="vchat-user-name">Jun.lu</span>
+							<div class="vchat-user-talk">信仰内心最真实的感受</div>
+						</div>
+					</div>
+					
+					<div class="vchat-user-card">
+						<div class="vchat-user-avatar">
+							<img src="http://www.gravatar.com/avatar/e3238e39e72fdb588d6e5bb360fa90b0.jpg?s=48&d=mm&r=g" alt="" />
+						</div>
+						<div class="vchat-user-info">
+							<span class="vchat-user-name">Jun.lu</span>
+							<div class="vchat-user-talk">信仰内心最真实的感受</div>
+						</div>
+					</div>
+					
+
+					<div class="vchat-user-card">
+						<div class="vchat-user-avatar">
+							<img src="http://www.gravatar.com/avatar/e3238e39e72fdb588d6e5bb360fa90b0.jpg?s=48&d=mm&r=g" alt="" />
+						</div>
+						<div class="vchat-user-info">
+							<span class="vchat-user-name">Jun.lu</span>
+							<div class="vchat-user-talk">信仰内心最真实的感受</div>
+						</div>
+					</div>
+					
+
+					<div class="vchat-user-card">
+						<div class="vchat-user-avatar">
+							<img src="http://www.gravatar.com/avatar/e3238e39e72fdb588d6e5bb360fa90b0.jpg?s=48&d=mm&r=g" alt="" />
+						</div>
+						<div class="vchat-user-info">
+							<span class="vchat-user-name">Jun.lu</span>
+							<div class="vchat-user-talk">信仰内心最真实的感受</div>
+						</div>
+					</div>
+					
+
+					<div class="vchat-user-card">
+						<div class="vchat-user-avatar">
+							<img src="http://www.gravatar.com/avatar/e3238e39e72fdb588d6e5bb360fa90b0.jpg?s=48&d=mm&r=g" alt="" />
+						</div>
+						<div class="vchat-user-info">
+							<span class="vchat-user-name">Jun.lu</span>
+							<div class="vchat-user-talk">信仰内心最真实的感受</div>
+						</div>
+					</div>
+					
+				</div>
+				<div class="vchat-user-init" >V - Chat</div>
+			</div>
+		
+	</div>
+	
+</body>
+</html>
