@@ -154,8 +154,10 @@
 
 			var xhr = new XMLHttpRequest();
 			xhr.upload.onprogress = function( e ){
-
-				ui.find('.bar').css("width", ((e.position / e.totalSize)*100).toFixed()+"%");
+				//console.log( e );
+				var position = e.loaded || e.position;
+				var totalSize = e.total || e.totalSize;
+				ui.find('.bar').css("width", ((position / totalSize)*100).toFixed()+"%");
 
 			};
 			xhr.onload = function( e ){
