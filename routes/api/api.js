@@ -209,7 +209,7 @@ module.exports = {
 		var roomid = req.query.roomid;
 		var time = parseInt(req.query.time, 10);
 		var limit = req.query.limit || 10;
-		var chatModel = new ChatModel();
+		//var chatModel = new ChatModel();
 
 		ChatModel.findMoreChats(roomid, time, function( status ){
 

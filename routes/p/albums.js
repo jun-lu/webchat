@@ -150,7 +150,7 @@ module.exports = {
 		albumsModel.insert( albums, function( status ){
 			console.log("status",status);
 			if(status.code == "0"){
-				res.redirect('/p/r/'+ status.result[0]._id+'/page/1' );
+				res.redirect('/p/r/'+ status.result._id+'/page/1' );
 			};
 			res.write(status.toString());
 		});

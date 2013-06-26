@@ -59,8 +59,9 @@ module.exports = {
 			promise.then(function(){
 
 				//var _this = this;
-				ChatModel.findOne(_id, function( status ){
+				ChatModel.findChatOne(_id, function( status ){
 
+					console.log( "status", status );
 					if( status.code == "0" ){
 						output.data = status.result;
 						promise.resolve( status.result.roomid );

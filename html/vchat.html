@@ -4,20 +4,22 @@
 	<meta charset="UTF-8">
 	<title>chat.js 基础界面</title>
 	<style type="text/css">
-	body{background:#e5e5e5;padding:0;margin:0;}
+	body{background:#fff;padding:0;margin:0;}
 	
 		.vchat-wrapper,.vchat-chats-wrapper{position:fixed;bottom:0;right:0;font-size:14px;}
 		.vchat-chats-wrapper{right:265px;height: 0;}
 		.vchat-wrapper img{display:block;}
 		
-		.vchat-main{width:260px;display:inline-block;text-align:left;color:#6e6e6e;background:#fff;}
-		
+		.vchat-main{width:260px;display:inline-block;text-align:left;color:#6e6e6e;background:#fff;box-shadow:#000 0px 0px 5px -1px;border-radius:2px 0 0 0;}
+		.vchat-main-mini{width:80px;}
+		.vchat-main-mini .vchat-user-list,.vchat-main-mini .vchat-user-title{display: none;}
+
 		.vchat-user-title{padding:10px;border:1px solid #dfdfdf;border-width:1px 0;}
 		.vchat-user-list{border-bottom:1px solid #dfdfdf;height:500px;}
 		.vchat-user-init{border:1px solid #dfdfdf;border-width:1px 0;padding:10px;}
 		
 		/*user-card*/
-		.vchat-user-card{padding:10px;min-height:48px;border-bottom:1px solid #dfdfdf;}
+		.vchat-user-card{padding:10px;min-height:48px;border-bottom:1px solid #dfdfdf;cursor:pointer;}
 		.vchat-user-avatar{float:left;}
 		.vchat-user-name{color:#727272;}
 		.vchat-user-talk{margin-top:10px;}
@@ -28,8 +30,7 @@
 		.vchat-chats-item{display: inline-block;width:260px;}
 
 		.vchat-chats-item-in{display:inline-block;width:260px;position: absolute;bottom:0;	}
-		.vchat-chats-item-mini .vchat-chat-context{display: none;}
-		.vchat-chats-item-mini .vchat-chat-enter{display: none;}
+		.vchat-chats-item-mini .vchat-chat-context,.vchat-chats-item-mini .vchat-chat-enter{display: none;}
 		
 		.vchat-chat-title{background:#404040;border-radius:3px 3px 0 0;padding:10px;color:#fff;font-weight:700;}
 		.vchat-chat-item-setting{float:right;}
@@ -282,7 +283,7 @@
 			</div>
 
 
-			<div class="vchat-main">
+			<div class="vchat-main ">
 				<div class="vchat-user-title" >Vchat</div>
 				<div class="vchat-user-list" >
 				

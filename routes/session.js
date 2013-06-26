@@ -19,7 +19,7 @@ module.exports = {
 				return null;
 			}
 		};
-
+		//console.log( "UserModel", UserModel );
 		if( req.cookies && req.cookies.sid ){
 
 			var a = req.cookies.sid.split("|");

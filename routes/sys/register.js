@@ -59,6 +59,8 @@ module.exports = {
 
 				UserModel.create( email, pwd, name, function( status ){
 
+					//console.log("status", status);
+
 					if(status.code == "0"){
 						var user = status.result;
 						res.setHeader("Set-Cookie", ["sid="+user.toCookie()+";path=/;expires="+new Date("2030") ]);

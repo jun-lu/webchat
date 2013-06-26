@@ -125,7 +125,7 @@ module.exports = {
 						//创建用户日志  如果是搜索引擎user信息为空
 						if(!isSpiderBot(ua) && user.name){
 							//console.log("加入", ua);
-							LogModel.create( user._id, "into_room",  room.getInfo() );
+							LogModel.create( user._id, "into_room",  room.getInfo(), function(){} );
 						}
 
 					}else{
@@ -178,7 +178,7 @@ module.exports = {
 					if(status.code == "0"){
 						var chat = status.result;
 						//console.log( "chat", chat );
-						socketServer.newChat( chat[0] );
+						socketServer.newChat( chat );
 
 						//添加提醒
 						if(to){

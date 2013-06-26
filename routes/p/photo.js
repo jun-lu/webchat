@@ -279,7 +279,7 @@ module.exports = {
 
 			photoModel.insert(photo, function( status ){
 				if(status.code == "0"){
-					photo._id = status.result[0]._id;
+					photo._id = status.result._id;
 					promise.ok( photo );//status.result[0]
 				}else{
 
