@@ -167,7 +167,7 @@ module.exports = {
 			//请把验证写得更详细，比如限制最长字符长度与最短字符长度
 			if(topic.length && des){
 
-				RoomModel.update(id, name, topic, des, password, function( status ){
+				RoomModel.updateInfo(id, name, topic, des, password, function( status ){
 
 					if(password != null){
 						UserModel.addRoomPassword(user._id, room.id, password, function( status ){

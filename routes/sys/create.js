@@ -62,13 +62,14 @@ module.exports = {
 				des = tools.removeHtmlTag( des );
 				RoomModel.create( topic, des, masterid , user.name, function( status ){
 					
+					//console.log("status", status);
 					if( status.code == "0" ){
 
 						var room = status.result;
 						ChatModel.create( room.id, "Your first message!", user, null);
 						res.redirect('/'+room.id);
 						//记录用户日志
-						LogModel.create( masterid, "create_room", room.getInfo() );
+						LogModel.create( masterid, "create_room", room.getInfo(), function(){} );
 					}else{
 
 						res.redirect('/');

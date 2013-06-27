@@ -53,10 +53,12 @@ WE.pageSetting = {
 				_this.summery = summery;
 				_this.ui.modifyForm.hide();
 				_this.ui.des.show();
+			}else{
+
+				alert(data.msg);
 			}
 		};
 		model.addObserver( ctrl );
-
 		model.updateUserSummery( summery );
 	}
 }

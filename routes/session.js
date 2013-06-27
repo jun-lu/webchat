@@ -15,8 +15,10 @@ module.exports = {
 	httpSession:function(req, res, next){
 
 		req.session = {
-			getInfo:function(){
-				return null;
+			user:{
+				getInfo:function(){
+					return null;
+				}
 			}
 		};
 		//console.log( "UserModel", UserModel );
