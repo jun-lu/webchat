@@ -186,28 +186,69 @@
 	<% include common/footer.ejs %>
 
 
-
 <!--Chat Page-->
 <script type="text/javascript" src="/js/we.chat.min.js"></script>
-<!--Top Page-->
-<script type="text/javascript" src="/js/we.top.min.js"></script>
-<script type="text/javascript">
-	WE.pageChat.init();
-	WE.pageChat.timeLine.init( <%- JSON.stringify( indexChats ) %> );
-	WE.pageChat.notice.init();
-	WE.pageChat.userlist.regEvent();
-</script>
-<script src="/js/socket.io.min.js"></script>
 <script type="text/javascript">
 	//匿名用户
 
 	//WE.pageChat.setUserName( USER );
-
-	if(USER.name == "" && /^\d+$/.test(USER.mail)){
-		WE.pageTop.setUserName( USER );
-		//匿名用户不连接 socket
-	}
 	
+
+	var socket = new WebSocket("ws://vchat.com:8080");
+	var socketMessage = {
+		"connection":function(){
+			//登录到房间
+			socket.send( JSON.stringify({ type:"login", data:{roomid:ROOM.id} }) );
+
+		},
+		"on-line":function( data ){
+			WE.pageChat.userlist.init( data );
+		},
+		"off-line":function( data ){
+			WE.pageChat.userlist.remove( data );
+		},
+		"user-list":function( data ){
+			WE.pageChat.userlist.init( data );
+		},
+		"new-chat":function( data ){
+			WE.pageChat.timeLine.prepend( data );
+			WE.pageChat.notice.onUpdate();
+			if( data.to && data.to.uid == USER._id ){
+				new WE.api.NoticeModel().noticeStatus( data._id );
+			}
+		}
+	};
+
+	socket.onopen = function( e ){};
+	/*
+	{
+		type:"on-line,off-line,user-list,new-chat,connection",
+
+		data:
+
+	}
+	*/
+	socket.onmessage = function( e ){
+		var data = JSON.parse(e.data);
+		//console.log("onmessage", data);
+		if( socketMessage[data.type] ){
+			socketMessage[data.type]( data.data );
+		}else{
+			console.log("onmessage miss", data);
+		}
+	}
+
+	socket.onclose = function(){
+	  	$('#offlineTip').show();
+		$('#userlist').hide();
+	}
+
+
+
+	/**
+
+
+
 	var socket = io.connect( document.location.host );
 
 	socket.on('connect', function(){
@@ -251,8 +292,27 @@
 		$('#userlist').hide();
 	});
 
-
+	*/
 		
+</script>
+
+<!--Top Page-->
+<script type="text/javascript" src="/js/we.top.min.js"></script>
+
+<script type="text/javascript">
+	WE.pageChat.init();
+	WE.pageChat.timeLine.init( <%- JSON.stringify( indexChats ) %> );
+	WE.pageChat.notice.init();
+	WE.pageChat.userlist.regEvent();
+
+
+	if(USER.name == "" && /^\d+$/.test(USER.mail)){
+		WE.pageTop.setUserName( USER );
+		//匿名用户不连接 socket
+	}
+
+
+
 </script>
 
 </body>

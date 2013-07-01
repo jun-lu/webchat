@@ -62,6 +62,12 @@ module.exports = function ( app ) {
 	*/
 		// index /
 		app.get('/', home.get);
+		
+		app.get('/a/test', function(req, res){
+
+			res.render("test");
+
+		});
 
 		// chat
 		app.get('/:key', chat.get);

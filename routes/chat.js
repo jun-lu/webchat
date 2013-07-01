@@ -13,7 +13,7 @@ var ChatModel = require('../lib/ChatModel');
 var LogModel = require('../lib/LogModel');
 var WebStatus = require('../lib/WebStatus');
 var NoticeModel = require('../lib/NoticeModel');
-var socketServer = require('../lib/socketServer');
+var socketServerRoutes = require('./socketServerRoutes');
 //var maxIndex = {};
 var roomLimit = require("./sys/room_limit");
 
@@ -48,10 +48,10 @@ module.exports = {
 			var ua = req.header("User-Agent");
 			var i = 0;
 			var key = req.params.key;
-			var user = req.session.user ? req.session.user : null;
+			var user = req.session.user;
 			var time = parseInt(req.query.t) || parseInt(Date.now()/1000) + 1000;
 			var indexData = {
-				user:user ? user.getInfo() : user,
+				user:user.getInfo(),
 				nextTime:"",
 				prevTime:parseInt(req.query.t) || ""
 			};
@@ -65,7 +65,7 @@ module.exports = {
 			//["Baiduspider","Googlebot","MSNBot","YoudaoBot","JikeSpider","Sosospider","360Spider"]
 
 			//如果是搜索引擎也不创建匿名用户
-			if( user == null){
+			if( user.getInfo() == null){
 
 				UserModel.createAnonymousUser( function( status ){
 
@@ -176,9 +176,9 @@ module.exports = {
 
 					//console.log("create", status );
 					if(status.code == "0"){
-						var chat = status.result;
-						//console.log( "chat", chat );
-						socketServer.newChat( chat );
+						var chat = status.result[0];
+						console.log( "chat", chat );
+						socketServerRoutes.distribute( chat.roomid, chat );
 
 						//添加提醒
 						if(to){

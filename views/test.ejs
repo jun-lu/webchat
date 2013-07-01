@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>vchat.co</title>
+	<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css" />
+	<style type="text/css">
+		h1{margin:50px 0;}
+		ul{list-style: none;margin:20px 0;}
+		ul li{float:left;margin-right: 70px;text-align: center;}
+		strong{display: block;}
+	</style>
+</head>
+<body>
+	<h1>Socket Test Page</h1>
+	<div>
+		
+		<input type="text" value="test" id="testMessage"> <input type="button" value="send" onclick="testMessage()" >	
+
+	</div>
+
+	<script>
+
+		var a = new WebSocket("ws://vchat.com:8080");
+
+		a.onopen = function( e ){
+		  console.log( "onopen", e.data );
+		  a.send( JSON.stringify({ type:"login", data:{roomid:"abc"} }) );
+		}
+
+		a.onmessage = function( e ){
+		  console.log( "onmessage", e.data );
+		}
+
+		a.onclose = function(){
+		  console.log( "onclose", arguments );
+		}
+
+
+		function testMessage(){
+
+			var val = document.getElementById('testMessage').value;
+
+			a.send( JSON.stringify({ type:"chat", data:{text:val} }) );
+
+		}
+
+		//a.send(JSON.stringify({type:"chat",data:"xxxxx"}))
+
+
+	</script>
+</body>
+</html>
