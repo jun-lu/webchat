@@ -62,7 +62,7 @@ module.exports = function ( app ) {
 	*/
 		// index /
 		app.get('/', home.get);
-		
+
 		app.get('/a/test', function(req, res){
 
 			res.render("test");
@@ -175,7 +175,10 @@ module.exports = function ( app ) {
 		app.get('/sys/notice_list', api.noticeList);
 		//14号接口
 		app.post('/sys/notice_status', api.noticeStauts);
-		
+		//17号接口
+		 app.post('/sys/vchat-create', api.vchatCreate);
+		//18号接口
+		 app.post('/sys/vchat-login', api.vchatLogin);
 	
 	/**
 		/p/
@@ -216,6 +219,9 @@ module.exports = function ( app ) {
 		app.post('/p/sys/delete-photo', photo.deletePhoto);
 		//16号接口
 		//app.post('/p/sys/delete-albums', albums.deleteAlbums);
+
+
+
 
 	
 };

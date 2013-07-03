@@ -180,6 +180,21 @@
 	即时的语音对话
 		
 
+#2013/07/01 vchat.js
+	
+	vchat.js 插件
+	让所有网站在线用户拥有即时对话功能。
+
+
+	__vchat_setting = {
+
+		server:document.domain,
+
+		uid: String //每个用户唯一，并且保证不会被冒用
+		uname: String //用户名
+		uavatar: String URL
+
+	}	
 
 
 #定义数据体
@@ -523,3 +538,68 @@ return :{
 }
 ````
 
+##vchat.js接口
+
+####登录vchat 17号
+````javascript
+/**
+	uid为空
+		创建uid账户，下次可使用uid登录
+	uid有值
+		查询uid是否注册，若已经注册直接登录到账户
+		未注册使用uid创建账户
+
+*/
+url:"/sys/vchat-create"
+method:"post",
+param:{
+	server: //必选
+	uid:"自动生成一个24位MD5值" //可选
+	uname: "匿名"//可选
+	uavatar: ""//可选
+}
+
+return {
+	code:0,
+	msg:"",
+	result:{
+		user:User,
+		multiple:User, //留言器已经保存在用户
+		roomid:13623984732, //server对应的roomid,
+		isNew:[0,1]// 0旧账户  1新账户
+	}
+}
+
+````
+
+####登录 chat server 18
+````javascript
+/**
+	uid为空
+		创建uid账户，下次可使用uid登录
+	uid有值
+		查询uid是否注册，若已经注册直接登录到账户
+		未注册使用uid创建账户
+
+*/
+url:"/sys/vchat-login"
+method:"post",
+param:{
+	server: //必选
+	uid:"自动生成一个24位MD5值" //可选
+	uname: "匿名"//可选
+	uavatar: ""//可选
+}
+
+return {
+	code:0,
+	msg:"",
+	result:{
+		user:User,
+		multiple:User, //留言器已经保存在用户
+		roomid:13623984732, //server对应的roomid,
+		isNew:[0,1]// 0旧账户  1新账户
+	}
+}
+
+````

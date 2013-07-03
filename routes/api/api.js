@@ -13,6 +13,7 @@ var WebStatus = require("../../lib/WebStatus");
 var LogModel = require("../../lib/LogModel");
 var ChatModel = require("../../lib/ChatModel");
 var UserModel = require("../../lib/UserModel");
+var Room = require("../../lib/Room");
 var RoomModel = require("../../lib/RoomModel");
 var socketServer = require("../../lib/socketServer");
 var NoticeModel = require("../../lib/NoticeModel");
@@ -661,5 +662,117 @@ module.exports = {
 			res.end();
 
 		});
+	},
+	//17号接口
+	vchatCreate:function( req, res ){
+
+		var user = req.session.user;
+		var server = req.body.domain;
+		var uid = req.body.uid || "";
+		var uname = req.body.uname || "匿名";
+		var uavatar = req.body.uavatar || null;
+
+		var output = {
+			user:null,
+			multiple:user,
+			isNew:0
+		};
+		
+		var promise = new Promise();
+
+
+		if( !server ){
+
+			res.end( new WebStatus("-1").setMsg("Miss 'server'") );
+			return ;
+		}
+
+		promise.then(function(){
+
+
+			UserModel.findVchatUser( uid, function( status ){
+
+				promise.ok( status );
+
+			});
+
+		});
+
+		promise.then(function( status ){
+
+			//已经存在用户
+			if( status.code == "0" ){
+				output.isNew = 0;
+				promise.ok( status );
+			}else{
+				output.isNew = 1;
+				UserModel.createVchatUser( uid, server, uname, uavatar, function( status ){
+					promise.ok( status );
+
+				});
+			}
+		});
+
+		promise.then(function( status ){
+			//console.log( "status", status );
+			var user = status.result;
+			output.user = user;
+			res.setHeader("Set-Cookie", ["sid="+user.toCookie()+";path=/;domain="+config.domain+";expires="+new Date("2030") ]);
+			res.end( JSON.stringify(output) );
+
+		});
+
+		promise.start();
+	},
+	//18号接口
+	vchatLogin:function( req, res ){
+
+		var user = req.session.user;
+		var domain = req.body.domain;
+		var haxid = null;
+
+		if( !user ){
+			res.end( new WebStatus("304").setMsg("not login") );
+			return ;
+		}
+
+		if( !domain ){
+			res.end( new WebStatus("-1").setMsg("Miss 'domain'") );
+			return ;
+		}
+
+		haxid = Room.toHex( domain );
+
+		var promise = new Promise();
+
+		promise.add(function(){
+			RoomModel.idFind(haxid, function( status ){
+
+				promise.ok( status );
+
+			});
+		});
+
+		promise.then(function( status ){
+
+			if( status.code == "0" ){
+				promise.ok( status );
+			}else{
+
+				var room = new Room(domain, domain, user._id);
+				room.setdomain( domain );
+				RoomModel.insert(room.toJSON(), function( status ){
+					promise.ok( status );
+				});
+			}
+		});
+
+		promise.then(function( status ){
+
+			res.end( status.toString() );
+		});	
+
+		promise.start();
+
 	}
 };

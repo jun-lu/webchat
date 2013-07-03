@@ -57,7 +57,7 @@ module.exports = {
 			UserModel.emailPwdFind( email, pwd, function( status ){
 
 				//status.user = user;
-               	console.log( "status", status );
+               	//console.log( "status", status );
 				if( status.code == "0" ){
 					var newUser = status.result;
 					res.setHeader("Set-Cookie", ["sid="+newUser.toCookie()+";path=/;domain="+config.domain+";expires="+new Date("2030") ]);

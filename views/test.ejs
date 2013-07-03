@@ -4,6 +4,8 @@
 	<meta charset="utf-8">
 	<title>vchat.co</title>
 	<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css" />
+	<script type="text/javascript" src="/js/jquery-1.6.3.min.js"></script> 	
+	<script type="text/javascript" src="/js/we.min.js"></script>
 	<style type="text/css">
 		h1{margin:50px 0;}
 		ul{list-style: none;margin:20px 0;}
@@ -15,38 +17,68 @@
 	<h1>Socket Test Page</h1>
 	<div>
 		
-		<input type="text" value="test" id="testMessage"> <input type="button" value="send" onclick="testMessage()" >	
+		<input type="text" value="f6aec25d971e1a2961e161bf52d39f05" id="roomid"> <input type="button" value="登录到" onclick="loginVchat()" >
+		<div>
+		<input type="text" value="f6aec25d971e1a2961e161bf52d39f05" id="testmsg">	
+		<input type="button" value="testmessage" onclick="testMessage()" >	
+	
+		</div>	
+		
+	</div>
+	<div>
+		<h2>创建用户</h2>
+			<form action="/sys/vchat-create" method="post" >
+			<input type="text" value="vchat.co" name="domain" >
+			<input type="text" name="uid" value="xxoox">
+			
+			<input type="submit" value="创建vchat.js账户" onclick="createVchatUser()">
+		</form>
+	</div>
+	
 
+	<div>
+		<h2>获取 chat server</h2>
+			<form action="/sys/vchat-login" method="post" >
+			<input type="text" value="vchat.co" name="domain" >
+			
+			<input type="submit" value="获取 chat server" onclick="createVchatUser()">
+		</form>
 	</div>
 
 	<script>
 
-		var a = new WebSocket("ws://vchat.com:8080");
+		
+		var socket = null;
 
-		a.onopen = function( e ){
-		  console.log( "onopen", e.data );
-		  a.send( JSON.stringify({ type:"login", data:{roomid:"abc"} }) );
+		function loginVchat(){
+
+			var roomid = document.getElementById('roomid').value;
+			socket = new WebSocket("ws://vchat.com:8080");
+
+			socket.onopen = function( e ){
+			  console.log( "onopen", e.data );
+			  socket.send( JSON.stringify({ type:"login", data:{roomid:roomid} }) );
+			}
+
+			socket.onmessage = function( e ){
+			  console.log( "onmessage", e.data );
+			}
+
+			socket.onclose = function(){
+			  console.log( "onclose", arguments );
+			}
+
+			//var val = document.getElementById('testMessage').value;
+			//new WE.BaseModel().post("/post",{roomid:1361182575505, text:val});
+			//a.send( JSON.stringify({ type:"chat", data:{text:val} }) );
+
 		}
-
-		a.onmessage = function( e ){
-		  console.log( "onmessage", e.data );
-		}
-
-		a.onclose = function(){
-		  console.log( "onclose", arguments );
-		}
-
 
 		function testMessage(){
-
-			var val = document.getElementById('testMessage').value;
-
-			a.send( JSON.stringify({ type:"chat", data:{text:val} }) );
-
+			var msg = document.getElementById('testmsg').value;
+			var roomid = document.getElementById('roomid').value;
+			new WE.BaseModel().post("/post",{roomid:roomid, text:msg});
 		}
-
-		//a.send(JSON.stringify({type:"chat",data:"xxxxx"}))
-
 
 	</script>
 </body>
