@@ -53,24 +53,41 @@
 		function loginVchat(){
 
 			var roomid = document.getElementById('roomid').value;
-			socket = new WebSocket("ws://vchat.com:8080");
+			socket = new WebSocket("ws://"+window.location.host);
+			var socketMessage = {
+				"connection":function(){
+					//登录到房间
+					socket.send( JSON.stringify({ type:"login", data:{roomid:roomid} }) );
 
-			socket.onopen = function( e ){
-			  console.log( "onopen", e.data );
-			  socket.send( JSON.stringify({ type:"login", data:{roomid:roomid} }) );
-			}
+				},
+				"on-line":function( data ){
+					console.log("on-line", data);
+				},
+				"off-line":function( data ){
+					console.log("off-line", data);
+				},
+				"user-list":function( data ){
+					console.log("user-list", data);
+					//WE.pageChat.userlist.init( data );
+				},
+				"new-chat":function( data ){
+					console.log("new-chat", data);
+				}
+			};
 
+			socket.onopen = function( e ){};
+			
 			socket.onmessage = function( e ){
-			  console.log( "onmessage", e.data );
+				var data = JSON.parse(e.data);
+				//console.log("onmessage", data);
+				if( socketMessage[data.type] ){
+					socketMessage[data.type]( data.data );
+				}else{
+					console.log("onmessage miss", data);
+				}
 			}
 
-			socket.onclose = function(){
-			  console.log( "onclose", arguments );
-			}
-
-			//var val = document.getElementById('testMessage').value;
-			//new WE.BaseModel().post("/post",{roomid:1361182575505, text:val});
-			//a.send( JSON.stringify({ type:"chat", data:{text:val} }) );
+			socket.onclose = function(){}
 
 		}
 

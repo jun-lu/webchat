@@ -6,6 +6,7 @@
 */
 
 var WebSocketServer = require('ws').Server;
+var config = require("../config");
 var UserModel = require("../lib/UserModel");
 var session = require("./session");
 var wss = null;
@@ -40,8 +41,11 @@ var socketHashList = {
 module.exports = {
 	init:function( server ){
 
-		wss = new WebSocketServer({port:8080,server:server});
-
+		wss = new WebSocketServer({
+			//port:8080,
+			server:server//,
+			//host:'sys/chat-server'
+		});
 		/**
 			识别用户身份
 

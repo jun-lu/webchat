@@ -45,11 +45,8 @@
 				<div class="">
 					<ul>
 						<li>创建者：<a href="/user/<%=room.masterId%>" data-masterid="<%=room.masterId%>"><%=room.master.name%></a></li>
-						<li>地址：
-							<a href="http://vchat.co/<%=room.name ? room.name : room.id%>">http://vchat.co/<%=room.name ? room.name : room.id%></a>
-						</li>
-						<li>图册:
-							<a href="/p/<%=room.id%>">/p/<%=room.id%></a>
+						<li>图册：
+							<a href="/p/<%=room.id%>">访问图册</a>
 						</li>
 					</ul>
 				</div>
@@ -104,7 +101,7 @@
 						<div class="info">
 							<div id="wepost">
 								<form method="post" class="post-form post-box" action="/sys/post" > 
-									<input type="hidden" name="to" class="jsto" value=""> 
+									<input type="hidden" name="aim" class="jsaim" value=""> 
 									<input type="hidden" name="roomid" class="jsroomid" value="<%=room.id%>"> 
 									<div class="post-box-in">
 										<ul class="nav nav-tabs">
@@ -149,21 +146,21 @@
 								for(var i=0; i<indexChats.length; i++){
 									item = indexChats[i];
 							%>	
-							<div class="chat <% if(item.uid == user._id){ %> my <%}%>">
+							<div class="chat <% if(item.from._id == user._id){ %> my <%}%>">
 								<div class="dot"></div>
 								<div class="photo">
-									<a href="/user/<%=item.uid%>" target="_blank" data-uid="<%=item.uid%>" >
-										<img src="<%=item.uavatar%>" alt="<%=item.uname%>" class="avatar" />
+									<a href="/user/<%=item.from._id%>" target="_blank" data-uid="<%=item.from._id%>" >
+										<img src="<%=item.from.avatar%>" alt="<%=item.from.name%>" class="avatar" />
 									</a>
 								</div>
 								<div class="info">
 									<div class="head">
-										<a href="/user/<%=item.uid%>" target="_blank" class="name"><%=item.uname%></a>
+										<a href="/user/<%=item.from._id%>" target="_blank" class="name"><%=item.from.name%></a>
 										<a href="/d/<%=item._id%>" target="_blank" class="time"><%=tool.format(item.time*1000, "MM-dd hh:mm:ss")%></a>
 									</div>
 									<div class="context">
-										<%if(item.to){%>
-										<div class="reply-quote"><%=item.to.text%> <a href="/user/<%=item.to.uid%>"><%= item.to.uname%></a></div>
+										<%if(item.aim){%>
+										<div class="reply-quote"><%=item.aim.text%></div>
 										<%}%>
 										<div class="reply-mine"><%- tool.markdown.format(item.text) %> <a class="chat-reply" href="javascript:;" data-mid="<%=item._id%>" >回复</a></div>
 									</div>
@@ -194,7 +191,7 @@
 	//WE.pageChat.setUserName( USER );
 	
 
-	var socket = new WebSocket("ws://vchat.com:8080");
+	var socket = new WebSocket("ws://"+window.location.host);
 	var socketMessage = {
 		"connection":function(){
 			//登录到房间
@@ -220,14 +217,7 @@
 	};
 
 	socket.onopen = function( e ){};
-	/*
-	{
-		type:"on-line,off-line,user-list,new-chat,connection",
-
-		data:
-
-	}
-	*/
+	
 	socket.onmessage = function( e ){
 		var data = JSON.parse(e.data);
 		//console.log("onmessage", data);

@@ -142,10 +142,11 @@ module.exports = {
 		// 发布一条信息
 		post:function( req, res ){
 
-			var user = req.session.user;
+			var user = req.session.user.getInfo();
 			var text = req.body.text;
 			var roomid = req.body.roomid;
-			var to = req.body.to || null;//针对某条信息的回复 源信息id
+			var to = req.body.to || "*";
+			var aim = req.body.aim || null;//针对某条信息的回复 源信息id
 			var status = new WebStatus();
 			
 			if( text.length == 0  || text.length > 5000 ){
@@ -158,18 +159,16 @@ module.exports = {
 
 			};
 
+			if( !user ){
 
-			if(text && roomid && (to == null || to.length == 24)){
+				res.end( new WebStatus("304").setMsg("not login").toString() );
+				return ;
+			}
 
-				var userjson = {
 
-					"uid":user._id,
-					"uname":user.name,
-					"uavatar":user.getGravatar()
+			if(text && roomid && (aim == null || aim.length == 24)){
 
-				};
-
-				ChatModel.create(roomid, text, userjson, to, function( status ){
+				ChatModel.create(roomid, text, to, user._id, aim , function( status ){
 
 					res.write( status.toString(), "utf-8" );
 					res.end();

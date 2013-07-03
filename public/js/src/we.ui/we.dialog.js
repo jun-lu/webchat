@@ -149,24 +149,10 @@ WE.Dialog.prototype = {
 */
 
 
-
-
 WE.ui.Post = function( dom ){
 		
 	this.quotetmpl = '<span class="quote-text"><%=text%></span>\
-				<a href="/user/<%=uid%>" class="quote-user"><%=uname%></a>\
-				<a class="quote-del pull-right" href="javascript:;">×</a>';
-	
-	this.islock = false;
-	this.dom = $(dom);
-	this.postType = 1;// 1 ctrl+enter  2 enter
-	this.isFullscreen = false;
-	this.init();
-};
-WE.ui.Post = function( dom ){
-		
-	this.quotetmpl = '<span class="quote-text"><%=text%></span>\
-				<a href="/user/<%=uid%>" class="quote-user"><%=uname%></a>\
+				<a href="/user/<%=from._id%>" class="quote-user"><%=from.name%></a>\
 				<a class="quote-del pull-right" href="javascript:;">×</a>';
 	
 	this.islock = false;
@@ -182,7 +168,7 @@ WE.ui.Post.prototype = {
 		var dom = this.dom;
 		this.ui = {
 			form:dom.find("form:first"),
-			to:dom.find(".jsto"),
+			aim:dom.find(".jsaim"),
 			roomid:dom.find(".jsroomid"),
 			textarea:dom.find("textarea:first"),
 			fullscreen:dom.find('.icon-fullscreen'),
@@ -212,10 +198,10 @@ WE.ui.Post.prototype = {
 		var _this = this;
 		this.ui.form.submit(function(){
 			var text = $.trim( _this.ui.textarea.val() );
-			var to = _this.ui.to.val();
+			var aim = _this.ui.aim.val();
 			var roomid = _this.ui.roomid.val();
 			if(text && _this.islock == false){
-				_this.onpost(roomid, text, to);
+				_this.onpost(roomid, text, aim);
 			}
 			return false;
 		});
@@ -296,7 +282,7 @@ WE.ui.Post.prototype = {
 			this.ui.textarea.show();
 		}
 	},
-	onpost:function(roomid, text , to){
+	onpost:function(roomid, text , aim){
 		//text, roomid, to
 	},
 	setMini:function(){
@@ -309,7 +295,7 @@ WE.ui.Post.prototype = {
 		
 		var _this = this;
 		var html = WE.kit.tmpl(this.quotetmpl, chat);
-		this.ui.to.val( chat._id );
+		this.ui.aim.val( chat._id );
 		this.ui.quote.html( html ).show();
 		this.ui.quote.find(".quote-del").click(function(){
 			_this.removeReply();
@@ -333,7 +319,7 @@ WE.ui.Post.prototype = {
 		this.ui.postSendBtn.attr("disabled",false);
 	},
 	removeReply:function(){
-		this.ui.to.val('');
+		this.ui.aim.val('');
 		this.ui.quote.hide();
 	}
 };
