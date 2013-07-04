@@ -55,9 +55,14 @@
 			var roomid = document.getElementById('roomid').value;
 			socket = new WebSocket("ws://"+window.location.host);
 			var socketMessage = {
-				"connection":function(){
+				"connection":function( data ){
 					//登录到房间
-					socket.send( JSON.stringify({ type:"login", data:{roomid:roomid} }) );
+					if( data.code == "0" ){
+						socket.send( JSON.stringify({ type:"login", data:{roomid:roomid} }) );
+					}else{
+
+						console.log("connection", data);
+					}
 
 				},
 				"on-line":function( data ){

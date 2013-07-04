@@ -54,13 +54,11 @@
 				<div class="slide-module">
 					<div class="title">Online</div>
 					<div class="list">
+						<ul class="reset clear-fix" id="userlist"></ul>
+						<div class="we-loading" style="width:32px;height:32px;" id="socketConnectioning" ></div>
 						<div id="offlineTip" style="display:none;" class="alert">
-							您已经断开即时连接，
-							<a href="/<%=room.name ? room.name : room.id%>">刷新页面</a>可解决
+							您已经断开即时连接，正尝试重连。
 						</div>
-						<ul class="reset clear-fix" id="userlist">
-							<li><div class="we-loading" style="width:32px;height:32px;"></div></li>
-						</ul>
 					</div>
 				</div>
 				
@@ -186,103 +184,84 @@
 <!--Chat Page-->
 <script type="text/javascript" src="/js/we.chat.min.js"></script>
 <script type="text/javascript">
-	//匿名用户
-
-	//WE.pageChat.setUserName( USER );
 	
+	//与服务器建立socket连接
+	var connectionSocketServer = {
+		socket:null,
+		weightTime:0,
 
-	var socket = new WebSocket("ws://"+window.location.host);
-	var socketMessage = {
-		"connection":function(){
-			//登录到房间
-			socket.send( JSON.stringify({ type:"login", data:{roomid:ROOM.id} }) );
+		init:function(){
 
-		},
-		"on-line":function( data ){
-			WE.pageChat.userlist.init( data );
-		},
-		"off-line":function( data ){
-			WE.pageChat.userlist.remove( data );
-		},
-		"user-list":function( data ){
-			WE.pageChat.userlist.init( data );
-		},
-		"new-chat":function( data ){
-			WE.pageChat.timeLine.prepend( data );
-			WE.pageChat.notice.onUpdate();
-			if( data.to && data.to.uid == USER._id ){
-				new WE.api.NoticeModel().noticeStatus( data._id );
+			var socket = this.socket = new WebSocket("ws://"+window.location.host);
+			var socketMessage = {
+				"connection":function(){
+					//登录到房间
+					socket.send( JSON.stringify({ type:"login", data:{roomid:ROOM.id} }) );
+
+				},
+				"on-line":function( data ){
+					WE.pageChat.userlist.init( data );
+				},
+				"off-line":function( data ){
+					WE.pageChat.userlist.remove( data );
+				},
+				"user-list":function( data ){
+					$('#socketConnectioning').hide();
+					$('#offlineTip').hide();
+					$('#userlist').show();
+					WE.pageChat.userlist.init( data );
+				},
+				"new-chat":function( data ){
+					WE.pageChat.timeLine.prepend( data );
+					WE.pageChat.notice.onUpdate();
+					if( data.to && data.to.uid == USER._id ){
+						new WE.api.NoticeModel().noticeStatus( data._id );
+					}
+				}
+			};
+
+			socket.onopen = function( e ){
+
+				window.console && console.log("onopen");
+
+			};
+			
+			socket.onmessage = function( e ){
+				var data = JSON.parse(e.data);
+				//console.log("onmessage", data);
+				if( socketMessage[data.type] ){
+					socketMessage[data.type]( data.data );
+				}else{
+					window.console && console.log("onmessage miss", data);
+				}
 			}
+
+			socket.onclose = function(){
+				$('#socketConnectioning').hide();
+			  	$('#offlineTip').show();
+				$('#userlist').hide();
+				connectionSocketServer.startDisconnectionWeightTraining();
+			}
+
+			$('#socketConnectioning').show();
+		},
+		//开启短线重连
+		startDisconnectionWeightTraining:function(){
+
+			var _this = this;
+			setTimeout(function(){
+
+				console.log("重新连接"+ _this.weightTime/2000 +"次");
+				_this.socket && _this.socket.close();
+				_this.init();
+
+			}, this.weightTime+= 2000 );
+
 		}
-	};
+	};	
 
-	socket.onopen = function( e ){};
-	
-	socket.onmessage = function( e ){
-		var data = JSON.parse(e.data);
-		//console.log("onmessage", data);
-		if( socketMessage[data.type] ){
-			socketMessage[data.type]( data.data );
-		}else{
-			console.log("onmessage miss", data);
-		}
-	}
-
-	socket.onclose = function(){
-	  	$('#offlineTip').show();
-		$('#userlist').hide();
-	}
-
-
-
-	/**
-
-
-
-	var socket = io.connect( document.location.host );
-
-	socket.on('connect', function(){
-
-		socket.emit("setting", {roomid:ROOM.id});
-		$('#offlineTip').hide();
-		$('#userlist').show();
-
-	});
-
-	socket.on('userlist', function( data ){
-		//console.log( data );
-		WE.pageChat.userlist.init( data );
-	});
-
-	socket.on("online", function(data){
-
-		WE.pageChat.userlist.append( data );
-
-	});
-
-	socket.on("offline", function( data ){
-
-		WE.pageChat.userlist.remove( data );
-	});
-
-	socket.on('newChat', function(data) {
-		//console.log(data);
-		WE.pageChat.timeLine.prepend( data );
-
-		//及时消息通知更新
-		WE.pageChat.notice.onUpdate();
-		if( data.to && data.to.uid == USER._id ){
-			new WE.api.NoticeModel().noticeStatus( data._id );
-		}
+	connectionSocketServer.init();
 		
-	});
-
-	socket.on('disconnect', function(err){
-		$('#offlineTip').show();
-		$('#userlist').hide();
-	});
-
-	*/
 		
 </script>
 
@@ -300,9 +279,6 @@
 		WE.pageTop.setUserName( USER );
 		//匿名用户不连接 socket
 	}
-
-
-
 </script>
 
 </body>

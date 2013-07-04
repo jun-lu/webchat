@@ -55,6 +55,14 @@ module.exports = {
 			//console.log("ws", ws.upgradeReq);
 			session.verificationUserAccount( ws.upgradeReq, function( status ){
 
+				//console.log("status", status);
+
+				if( status.code != "0" ){
+
+					ws.send(JSON.stringify({type:"connection", data:status.toJSON()}));
+					return ;
+				}
+
 				//console.log( "status", status );
 				ws.session = {};
 				ws.session.user = status.result;
@@ -105,7 +113,7 @@ module.exports = {
 
 				});
 
-				ws.send(JSON.stringify({type:"connection",data:null}));
+				ws.send(JSON.stringify({type:"connection",data:status.toJSON()}));
 
 			});
 
