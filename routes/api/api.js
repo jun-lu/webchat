@@ -666,8 +666,9 @@ module.exports = {
 	//17号接口
 	vchatCreate:function( req, res ){
 
+		res.setHeader("Access-Control-Allow-Origin", "*");//{Access-Control-Allow-Origin Response Header});
 		var user = req.session.user;
-		var server = req.body.domain;
+		var domain = req.body.domain;
 		var uid = req.body.uid || "";
 		var uname = req.body.uname || "匿名";
 		var uavatar = req.body.uavatar || null;
@@ -681,9 +682,9 @@ module.exports = {
 		var promise = new Promise();
 
 
-		if( !server ){
+		if( !domain ){
 
-			res.end( new WebStatus("-1").setMsg("Miss 'server'") );
+			res.end( new WebStatus("-1").setMsg("Miss 'domain'").toString() );
 			return ;
 		}
 
@@ -706,7 +707,7 @@ module.exports = {
 				promise.ok( status );
 			}else{
 				output.isNew = 1;
-				UserModel.createVchatUser( uid, server, uname, uavatar, function( status ){
+				UserModel.createVchatUser( uid, domain, uname, uavatar, function( status ){
 					promise.ok( status );
 
 				});
@@ -716,9 +717,9 @@ module.exports = {
 		promise.then(function( status ){
 			//console.log( "status", status );
 			var user = status.result;
-			output.user = user;
+			output.user = user.getPublicInfo();
 			res.setHeader("Set-Cookie", ["sid="+user.toCookie()+";path=/;domain="+config.domain+";expires="+new Date("2030") ]);
-			res.end( JSON.stringify(output) );
+			res.end( status.setResult( output ).toString() );
 
 		});
 
@@ -726,6 +727,8 @@ module.exports = {
 	},
 	//18号接口
 	vchatLogin:function( req, res ){
+
+		res.setHeader("Access-Control-Allow-Origin", "*");//{Access-Control-Allow-Origin Response Header});
 
 		var user = req.session.user;
 		var domain = req.body.domain;
@@ -773,6 +776,50 @@ module.exports = {
 		});	
 
 		promise.start();
+
+	},
+	vchatHistory:function( req, res ){
+
+		var user = req.session.user;
+		var uid = req.query.uid;
+		var limit = parseInt(req.query.limit) || 10;
+
+		var promise = new Promise();
+		promise.add(function(){
+
+			ChatModel.findLimitSort({
+				time:{"$lt":parseInt(Date.now()/1000)},
+				from:{"$in":[uid, user._id]}, 
+				to:{"$in":[uid, user._id]}
+			}, 10, {time:1}, function( status ){
+				promise.ok( status );
+			})
+
+		});
+
+		promise.then(function( status ){
+
+			if(status.code == 0){
+				ChatModel.serialization( status, function( status ){
+
+					promise.ok( status );
+
+				})
+			}else{
+				promise( status );
+			}
+
+		});
+
+		promise.then(function( status ){
+
+			res.end( status.toString() );
+		})
+
+		
+
+		promise.start();
+		
 
 	}
 };

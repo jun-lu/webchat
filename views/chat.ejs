@@ -189,7 +189,6 @@
 	var connectionSocketServer = {
 		socket:null,
 		weightTime:0,
-
 		init:function(){
 
 			var socket = this.socket = new WebSocket("ws://"+window.location.host);
@@ -214,7 +213,7 @@
 				"new-chat":function( data ){
 					WE.pageChat.timeLine.prepend( data );
 					WE.pageChat.notice.onUpdate();
-					if( data.to && data.to.uid == USER._id ){
+					if( data.to && data.from._id == USER._id ){
 						new WE.api.NoticeModel().noticeStatus( data._id );
 					}
 				}
@@ -245,7 +244,7 @@
 
 			$('#socketConnectioning').show();
 		},
-		//开启短线重连
+		//开启断线重连
 		startDisconnectionWeightTraining:function(){
 
 			var _this = this;

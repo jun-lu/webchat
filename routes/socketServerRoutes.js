@@ -20,7 +20,7 @@ var socketHashList = {
 		var list = this[roomid];
 		var userlist = [];
 		for(var i=0; i<list.length; i++){
-			userlist.push( list[i].session.user.getPublicInfo() );
+			userlist.push( list[i].session.user.getPublicInfo(48) );
 		}
 		return userlist;
 	}
@@ -88,7 +88,7 @@ module.exports = {
 				//新消息
 				ws.on('chat', function( data ){
 
-					console.log( 'chat', data , this.session.roomid);
+					//console.log( 'chat', data , this.session.roomid);
 					socketHashList.distribute( this.session.roomid, {
 						type:"new-chat",
 						data:data
@@ -108,7 +108,7 @@ module.exports = {
 					//通知其他人他上线
 					socketHashList.distribute( data.roomid, {
 						type:"on-line",
-						data:socketHashList.getUserList( data.roomid )
+						data:ws.session.user.getPublicInfo(48)
 					});
 
 				});
