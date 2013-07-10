@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>vchat.co</title>
+</head>
+<body>
+	<h1>Chat.js</h1>
+	<pre>
+<%- JSON.stringify(user, "	", 4) %>
+	<pre>
+
+
+	<script>
+	
+		var __vchat_config = {
+			domain:document.domain,
+			uid:"<%=user ? user._id : ''%>",
+			uname:"<%=user ? user.name : ''%>",
+			init:true
+		};
+
+		;;(function(){
+
+			var chat = document.createElement("script");chat.type = 'text/javascript';chat.async = true;
+			chat.src = "http://vchat.com:3000/js/chat.js";
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(chat, s); 
+
+		})();
+
+	</script>
+
+
+</body>
+</html>

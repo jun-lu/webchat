@@ -17,7 +17,7 @@ module.exports = {
 		var user = req.session.user;
 		var roomId = req.params.roomId;
 		var output = {
-			user:user.getInfo(),
+			user:user ? user.getInfo() : null,
 			albums:[],
 			room:null
 		};

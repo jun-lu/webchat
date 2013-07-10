@@ -20,8 +20,6 @@ module.exports = {
 				referer:referer,
 				status:new WebStatus().toJSON()
 			}
-			//res.setHeader("Set-Cookie", ["sid=0|0|0;path=/;domain=vchat.co;expires="+new Date("2000")]);
-			//status.user = user ? user.getInfo(): user;
 			res.render('sys/login', output);
 		},
 		// 登录

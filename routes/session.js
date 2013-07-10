@@ -15,13 +15,7 @@ module.exports = {
 	// 实现 session
 	httpSession:function(req, res, next){
 
-		req.session = {
-			user:{
-				getInfo:function(){
-					return null;
-				}
-			}
-		};
+		req.session = {user:null};
 		//console.log( "UserModel", UserModel );
 		if( req.cookies && req.cookies.sid ){
 

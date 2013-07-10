@@ -51,7 +51,7 @@ module.exports = {
 			var user = req.session.user;
 			var time = parseInt(req.query.t) || parseInt(Date.now()/1000) + 1000;
 			var indexData = {
-				user:user.getInfo(),
+				user:user ? user.getInfo() : null,
 				nextTime:"",
 				prevTime:parseInt(req.query.t) || ""
 			};
@@ -65,7 +65,7 @@ module.exports = {
 			//["Baiduspider","Googlebot","MSNBot","YoudaoBot","JikeSpider","Sosospider","360Spider"]
 
 			//如果是搜索引擎也不创建匿名用户
-			if( user.getInfo() == null){
+			if( user == null){
 
 				UserModel.createAnonymousUser( function( status ){
 
@@ -141,6 +141,10 @@ module.exports = {
 		},
 		// 发布一条信息
 		post:function( req, res ){
+		
+			res.setHeader('Access-Control-Allow-Credentials', 'true');
+			res.setHeader("Access-Control-Allow-Origin", req.headers.origin);
+
 
 			var user = req.session.user.getInfo();
 			var text = req.body.text;

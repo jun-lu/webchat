@@ -64,7 +64,7 @@
 					<a href="/p/v/<%=photo.path%>" target="_blank">查看原图</a> <span class="muted">
 						(<%=photo.width%>*<%=photo.height%>)
 						</span>  
-					<%if(albums.masterId == user._id || user._id == photo.masterId){%>
+					<%if(user && (albums.masterId == user._id || user._id == photo.masterId)){%>
 					 | <a data-id="<%=photo._id%>" id="delPhoto" >删除图片</a>
 					<%}%>
 					<div> <a href="/user/<%=photoMaster._id%>"> <%=photoMaster.name%> </a></div>

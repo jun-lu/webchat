@@ -26,7 +26,7 @@ module.exports = {
 		var user = req.session.user;
 		
 		var output = {
-			user:user.getInfo(),
+			user:user ? user.getInfo() : null,
 			albums:null,
 			photos:[],
 			pagination: ""
@@ -83,7 +83,7 @@ module.exports = {
 		
 		var user = req.session.user;
 		var output = {
-			user:user.getInfo(),
+			user:user ? user.getInfo() : null,
 			defaultAlbumsName:"",
 			room:null
 		};
@@ -113,7 +113,7 @@ module.exports = {
 		
 		var status = new WebStatus();
 		var output = {
-			user:user.getInfo()
+			user:user ? user.getInfo() : null
 		};
 		
 		var name = tools.trim(req.body.name);

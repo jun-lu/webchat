@@ -25,7 +25,7 @@ module.exports = {
 		var photoId = req.params.photo;
 		var albumsId = req.params.albums;
 		var output = {
-			user:user.getInfo(),
+			user:user ? user.getInfo() : null,
 			albums:null,
 			photo:null,
 			nextPhoto:null,
@@ -161,7 +161,7 @@ module.exports = {
 		var user = req.session.user;
 		var albumsId = req.params.albums;
 		var output = {
-			user:user.getInfo(),
+			user:user ? user.getInfo() : null,
 			albums:null
 		};
 		
@@ -182,9 +182,14 @@ module.exports = {
 		var user = req.session.user;
 		var albumsId = req.params.albums;
 		var output = {
-			user:user.getInfo(),
+			user:user ? user.getInfo() : null,
 			albums:null
 		};
+
+		if( !user ){
+			res.render('./error', new WebStatus("304").setMsg("请先登录以后再上传图片"));
+			return ;
+		}
 		
 		albumsModel.findOne({_id:albumsModel.objectId(albumsId)}, function( status ){
 			if(status.code == "0" && status.result){
@@ -202,17 +207,20 @@ module.exports = {
 		var user = req.session.user;
 		
 		var output = {
-			user:user.getInfo(),
+			user:user ? user.getInfo() : null,
 		};
 		
 		var uploadType = req.body.uploadType;
 		var albumsId = req.body.albumsId;
 		var file = req.files.photo;
-
-		//console.log("req.files", req.files);
-		//console.log( "file", file );
 		var promise = new Promise();
 
+		if( !user ){
+
+			res.end("error", new WebStatus("304").toString());
+			return ;
+		}
+		
 		//判断是否有文件
 		promise.add(function(){
 

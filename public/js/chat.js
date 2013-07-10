@@ -1,14 +1,16 @@
 ;;(function(win){
 
-
+	__vchat_config = window.__vchat_config || {};
+	if(!win.WebSocket){
+		throw "vchat not support your browser";
+	}
 	var HTML_TMPL = {
 
 		chat_main:'<div class="vchat-wrapper">\
 							<div class="vchat-chats-wrapper" id="__vchat_chat_wrap"></div>\
 							<div class="vchat-main vchat-main-mini" id="__vchat_main" >\
-								<div class="vchat-user-title">Vchat</div>\
 								<div class="vchat-user-list" id="__vchat_online_user"></div>\
-								<div class="vchat-user-init" id="__vchat_init" onclick="__vchat.openAndClose()" >V - Chat</div>\
+								<div class="vchat-user-init" id="__vchat_init" onclick="__vchat.openAndClose()" >V-chat</div>\
 							</div>\
 					</div>',
 		chat_box:'<div class="vchat-chats-item" id="__vchat_<%=_id%>" >\
@@ -28,18 +30,21 @@
 					</div>\
 				</div>',
 
-		chat_item:'<div class="<%=isSelf ? \'vchat-chat-left\' : \'vchat-chat-right\'%>">\
+		chat_item:'<div class="<%=isSelf ? \'vchat-chat-right\' : \'vchat-chat-left\'%>">\
 							<div class="vchat-chat-avatar"><img src="<%=from.avatar%>" width="24" alt="" /></div>\
-							<div class="vchat-chat-info"><%=text%></div>\
+							<div class="vchat-chat-info">\
+								<%=text%>\
+								<%if(!_id){%><div class="vchat-chat-status">...</div><%}%>\
+							</div>\
 						</div>',
 
-		user_card:'<div class="vchat-user-card" data-uid="<%=_id%>" onclick="__vchat.chat.open(\'<%=_id%>\')" >\
+		user_card:'<div class="vchat-user-card" id="__vchat_uid_<%=_id%>" onclick="__vchat.chat.open(\'<%=_id%>\')" >\
 						<div class="vchat-user-avatar">\
-							<img src="<%=avatar%>" alt="<%=name%>" />\
+							<img src="<%=avatar%>" alt="<%=name%>" width="48" height="48" />\
 						</div>\
 						<div class="vchat-user-info">\
-							<span class="vchat-user-name"><%=name%></span>\
-							<div class="vchat-user-talk"><%=summary%></div>\
+							<div class="vchat-user-name"><%=name%><%if(_id == __vchat.user._id){%>(我自己)<%}%></div>\
+							<div class="vchat-user-talk"></div>\
 						</div>\
 					</div>',
 		chat_tip:'<div class="vchat-connection-tip <%code != 0 ? \'vchat-connection-tip-error\' : \'vchat-connection-tip-success\'%> ">msg</div>'				
@@ -131,19 +136,21 @@
 
 			var xhr = new XMLHttpRequest();
 
-			xhr.open(type, url+ (type == "get"? "?"+dataArr.join("&") : ""));
+			xhr.open(type, url+ (type == "get"? "?"+dataArr.join("&") : ""), true);
+			xhr.withCredentials = true;
 			xhr.onload = function(){
-				try{
+				//try{
 					successfunction( JSON.parse( xhr.responseText ) ) ;
-				}catch(e){
-					console.log(e);
+				//}catch(e){
+				//	console.log(e);
 					//errorfunction( xhr.responseText );
-				}
+				//}
 			};
 			xhr.onerror = function(){
 				errorfunction( xhr );
 			};
-			xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); 
+			xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			//xhr.withCredentials = 'true';
 			xhr.send( type == "post" ? dataArr.join("&") : null  );
 		},
 
@@ -166,14 +173,21 @@
 		ui:{},
 		init:function(){
 
+			this.loadAkim();
 			this.setConfig();
 			this.addMainUI();
+		},
+		loadAkim:function(){
+			var link = document.createElement("link");
+			link.rel="stylesheet";
+			link.href="http://vchat.com:3000/css/__chat.css";
+			document.getElementsByTagName("head")[0].appendChild( link );
 		},
 		//和并用户配置
 		setConfig:function(){
 
 			this.config.domain = window.__vchat_config.domain || document.domain;
-			this.config.uid = window.__vchat_config.uid || this.domain + (new Date().getTime());
+			this.config.uid = window.__vchat_config.uid || "";
 			this.config.uname = window.__vchat_config.uname || "匿名";
 			this.config.uavatar = window.__vchat_config.uavatar || null;
 
@@ -195,7 +209,7 @@
 				this.createUser();
 
 				//读取缓存
-				this.localStorage.init();	
+				//this.localStorage.init();	
 				//this.userList.init();
 			}
 		},
@@ -205,6 +219,7 @@
 			this.api.create( this.config.domain, this.config.uid, this.config.uname, this.config.uavatar, function( data ){
 				if(data.code == 0){
 					self.user = data.result.user;
+					self.userList.initList([self.user]);
 					self.login();
 				}else{
 					alert(data.msg);
@@ -246,8 +261,8 @@
 			TOOL.post( this.server+"/sys/post", {roomid:roomid, text:text, to:to, from:from, aim:aim}, successfunction, errorfunction);
 
 		},
-		history:function( to, limit, successfunction, errorfunction ){
-			TOOL.get( this.server+"/sys/vchat-history", {to:to, limit:limit || 10}, successfunction, errorfunction);
+		history:function( roomid, to, limit, successfunction, errorfunction ){
+			TOOL.get( this.server+"/sys/vchat-history", {to:to, limit:limit || 10, roomid:roomid}, successfunction, errorfunction);
 		}
 	};
 
@@ -264,8 +279,10 @@
 
 			var html = "";
 			for(var i=0; i < data.length; i++){
-				this.list.push( data[i] );
-				html += TOOL.tmpl(HTML_TMPL.user_card, data[i]);
+				if(this.hasOnline(data[i]) == false){
+					this.list.push( data[i] );
+					html += TOOL.tmpl(HTML_TMPL.user_card, data[i]);
+				}
 			};
 			TOOL.appendHTML( this.ui.list, html );
 		},
@@ -280,18 +297,33 @@
 			return null;
 		},
 		online:function(data){
-			if(data._id != __vchat.user._id){
+			if(data._id != __vchat.user._id && this.hasOnline(data) == false){
 				this.initList([data])
 			}else{
 				console.log("on-line miss self", data._id);
 			}
 		},
 		offline:function( data ){
+			var isoff = 0;
 			for(var i=0; i<this.list.length; i++){
 				if(this.list[i]._id == data._id){
 					this.list.splice(i, 1);
+					isoff = 1;
+					break;
 				}
 			}
+
+			if(isoff){
+				TOOL.removeElement( TOOL.$('__vchat_uid_'+data._id) );
+			}
+		},
+		hasOnline:function( data ){
+			for(var i=0; i<this.list.length; i++){
+				if(this.list[i]._id == data._id){
+					return true;
+				}
+			}
+			return false;
 		}
 	};
 
@@ -308,22 +340,25 @@
 			var roomid = this.room.id;
 			var socket = this.socket = new WebSocket("ws://"+this.serverHost);
 			var socketMessage = {
-				"connection":function(){
+				"connection":function( data ){
 					//登录到房间
-					socket.send( JSON.stringify({ type:"login", data:{roomid:roomid} }) );
-
+					if( data.code == 0 ){
+						socket.send( JSON.stringify({ type:"login", data:{roomid:roomid} }) );
+					}else{
+						console.log( data.msg );
+					}
 				},
 				"on-line":function( data ){
-					console.log("on-line", data);
+					//console.log("on-line", data);
 					//WE.pageChat.userlist.init( data );
 					__vchat.userList.online( data );
 				},
 				"off-line":function( data ){
-					console.log("off-line", data);
+					//console.log("off-line", data);
 					__vchat.userList.offline( data );
 				},
 				"user-list":function( data ){
-					console.log("user-list", data);
+					//console.log("user-list", data);
 					__vchat.userList.initList( data );
 					//__vchat.showOnlineList( data );
 				},
@@ -354,7 +389,7 @@
 				__vchat.socketController.startDisconnectionWeightTraining();
 			}
 
-			$('#socketConnectioning').show();
+			//$('#socketConnectioning').show();
 		},
 		//开启断线重连
 		startDisconnectionWeightTraining:function(){
@@ -373,8 +408,10 @@
 
 	//对话控制
 	
-	__vchat.chat = function( user ){
+	__vchat.chat = function( user, roomid, ishistory ){
 
+		this.roomid = roomid;
+		this.ishistory = ishistory;
 		this.chat_item = HTML_TMPL.chat_item;
 		this.user = user;
 		this.wrap = __vchat.chat.ui.wrap;
@@ -421,7 +458,7 @@
 			}
 			this.ui.input.onkeyup = function( e ){
 				e = e || window.event;
-				if(e.keyCode == 13){
+				if(e.keyCode == 13 && this.value != ""){
 					//console.log( "发送" );
 					self.sendMessage( this.value );
 					this.value = '';
@@ -431,18 +468,13 @@
 			this.ui.input.focus();
 		},
 		initChats:function(){
-			/**
-			var chats = __vchat.localStorage.readCache(this.user._id, 10);
-			for(var i=0; i<chats.length; i++){
-				this.addChat( chats[i] );
+			if(this.ishistory){
+				this.getHistory();
 			}
-			*/
-
-			this.getHistory();
 		},
 		getHistory:function( ){
 			var self = this;
-			__vchat.api.history(this.user._id, 10, function( status ){
+			__vchat.api.history(this.roomid, this.user._id, 10, function( status ){
 
 				var chats = status.result;
 				if( status.code == "0" ){
@@ -453,9 +485,17 @@
 			});
 		},
 		addChat:function( chat ){ 
-			chat.isSelf = (chat.from._id == this.user._id);
+			
+			chat.isSelf = (chat.from._id == __vchat.user._id);
 			var html = TOOL.tmpl( this.chat_item, chat);
 			TOOL.appendHTML(this.ui.list, html);
+			this.ui.list.scrollTop = this.ui.list.scrollHeight;
+			
+		},
+		//正在发送中的消息
+		addMessage:function( message ){
+			this.ui.list.appendChild( message.ui.wrap );
+			this.ui.list.scrollTop = this.ui.list.scrollHeight;
 		},
 		setClose:function(){
 			TOOL.removeElement( this.ui.wrap );
@@ -468,14 +508,38 @@
 			TOOL.removeClassName( this.ui.wrap, 'vchat-chats-item-mini');
 			this.ui.input.focus();
 		},
+		//接收一条消息，并且返回自己是否处理它
 		newChat:function( data ){
-			if(data.from._id == this.user._id || data.to._id == this.user._id){
-				this.addChat( data );
-				__vchat.localStorage.writeCache( data );
+			//我给当前对话框发出的信息
+			if( data.to._id == this.user._id && data.from._id == __vchat.user._id ){
+				return true;
 			}
+
+			//当前对话框发给我的
+			if(data.from._id == this.user._id || data.to._id == __vchat.user._id){
+				this.addChat( data );
+				return true;
+			}
+			return false;
 		},
 		sendMessage:function( text ){
-			this.onPostMessage( text, this.user._id );
+			var to = this.user;
+			var roomid = this.roomid;
+			var from = __vchat.user;
+			var message = this.localMessage( text );
+			
+			this.addMessage( new __vchat.Message(roomid, to, from, text, null) );
+
+			
+			
+		},
+		localMessage:function(text){
+			return {
+				from:__vchat.user,
+				to:this.user,
+				text:text,
+				time:parseInt(new Date().getTime()/1000)
+			}
 		}
 
 	};
@@ -490,7 +554,7 @@
 			}
 		}
 	};
-	__vchat.chat.open = function( id ){
+	__vchat.chat.open = function( id, ishistory ){
 
 		var user = __vchat.userList.getUser( id );
 		var chat = null;
@@ -507,11 +571,8 @@
 				this.list[0].setClose();
 			}
 
-			var chat = new __vchat.chat( user );
-			chat.onPostMessage = function( text, to ){
-				__vchat.chat.postMessage(__vchat.room.id, text, to, __vchat.user._id);
-			};
-			this.list.push( chat )
+			var chat = new __vchat.chat( user, __vchat.room.id, ishistory == undefined ? true : false );
+			this.list.push( chat );
 		}
 
 	};
@@ -519,55 +580,106 @@
 	__vchat.chat.newMessage = function( data ){
 
 		//是对我说的 或者 我发出的
+		var isReceive = false;
 		if((data.to && data.to._id == __vchat.user._id) || data.from._id == __vchat.user._id){
 			for(var i=0; i<this.list.length; i++){
-				this.list[i].newChat( data );
+				if( this.list[i].newChat( data ) ){
+					isReceive = true;
+					break;
+				};
 			}
+		}
+		//没有任何打开窗口处理此消息
+		/**
+			打开与此人的聊天窗口
+		*/
+		if(isReceive == false){
+			this.open( data.from._id, false );
+			this.newMessage( data );//重新发送这条信息
 		}
 
 	};
 
-	__vchat.chat.postMessage = function(roomid, text, to, from){
-		__vchat.api.postMessage( roomid, text, to, from);
-	};
 
 	__vchat.chat.init = function(){
 		this.ui.wrap = TOOL.$('__vchat_chat_wrap');
 	};
 
 
-	/**
-		__vchat_uid = {
-			uid:[],
-			uid:[]
-		}
+
+	/***
+		一条信息
+
+		_id 如果id为空为一条待发送的信息 Message应该调用发送程序，并处理结果
 	*/
-	__vchat.localStorage = {
-		key:"__vchat__",
-		map:{},//内存缓存聊天记录
+
+	__vchat.Message = function(roomid, to, from, text, _id){
+
+		this.parentElement = null;
+		this.chat_item = HTML_TMPL.chat_item;
+		this.ui = {};
+		this.data = {
+			isSelf:from._id ==__vchat.user._id,
+			roomid:roomid,
+			to:to,
+			from:from,
+			text:text,
+			_id:_id,
+			time:parseInt(new Date().getTime()/1000)
+		};
+		this.interid = null;
+		this.init();
+	};
+	__vchat.Message.prototype = {
+		constructor:__vchat.Message,
 		init:function(){
-			try{
-				this.map = JSON.parse(window.localStorage.getItem(this.key+__vchat.user._id));
-			}catch(e){
-				console.log("没有任何记录");
+			//chat.isSelf = (chat.from._id == this.user._id);
+			this.ui.wrap = TOOL.htmlToDom( TOOL.tmpl( this.chat_item, this.data) ).firstChild;
+			this.ui.status = this.ui.wrap.getElementsByClassName('vchat-chat-status')[0];
+			if(!this.data._id){
+				//this.ui.status.innerHTML = "...";
+				this.postMessage();
 			}
-		},
 
-		readCache:function( uid, limit ){
-			var chats = this.map[uid];
-			return chats ? chats.slice(limit) : [];
 		},
-		writeCache:function( chat ){
-			var toid = chat.to != "*" ? chat.to._id : "*";
-			if(!this.map[toid]){
-				this.map[toid] = [];
-			}
-			this.map[toid].push( chat );
+		appendTo:function( element ){
+			element.appendChild( this.ui.wrap );
 		},
-		save:function(){
-			window.localStorage.setItem(this.key+__vchat.user._id, JSON.stringify( this.map ));
+		setTime:function( time ){
+			this.data.time = time;
+		},
+		postMessage:function(){
+
+			var self = this;
+			var roomid = this.data.roomid;
+			var text = this.data.text;
+			var to = this.data.to._id;
+			var from = this.data.from._id;
+
+			self.showSendIngStatus();
+			__vchat.api.postMessage(roomid, text, to, from, null, function( successData ){
+				self.stopSendIngStatus();
+				self.ui.status.innerHTML = "";
+			}, function(){
+				self.ui.status.innerHTML = "error";
+			});
+		},
+		stopSendIngStatus:function(){
+			clearInterval( this.interid );
+		},
+		showSendIngStatus:function(){
+			var self = this;
+			var i = 0;
+			this.interid = setInterval(function(){
+				self.ui.status.innerHTML = "...".slice(0, (++i%3)+1);
+			},300);
 		}
+		
+	};
 
+	//自动初始化
+	if(__vchat_config.init == undefined || __vchat_config.init){
+		__vchat.init();
 	}
 
 })(window);

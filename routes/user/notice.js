@@ -15,7 +15,7 @@ module.exports = {
 
 		get:function(req, res){
 
-			var user = req.session.user || null;
+			var user = req.session.user;
 			var noticeStatus = req.query.status == "read" ? "read" : "unread";// read  unread
 			var time = req.query.time || parseInt(Date.now()/1000) + 100;//时间推向未来10秒
 			var output = {

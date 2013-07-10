@@ -49,6 +49,13 @@ var photo = require('./p/photo');
 var albums = require('./p/albums');
 
 
+function CORS_OPTIONS( req, res ){
+	res.setHeader('Access-Control-Allow-Origin', req.headers.origin);
+	res.setHeader('Access-Control-Allow-Credentials', true);
+	res.setHeader('Access-Control-Allow-Methods', 'POST, GET, PUT, DELETE, OPTIONS');
+	res.end();
+
+}
 
 module.exports = function ( app ) {
 
@@ -64,8 +71,18 @@ module.exports = function ( app ) {
 		app.get('/', home.get);
 
 		app.get('/a/test', function(req, res){
+			res.render("test", {});
+		});
 
-			res.render("test");
+		app.get('/c/chat-js', function(req, res){
+
+			var user = req.session.user;
+
+			var output = {
+				user:user ? user.getInfo() : null
+			};
+
+			res.render("c/chat", output);
 
 		});
 
@@ -108,12 +125,7 @@ module.exports = function ( app ) {
 	*/
 	
 		//对话发送信息
-		app.options('/sys/post', function(req, res){
-			res.setHeader('Access-Control-Allow-Origin', '*')
-			res.setHeader('Access-Control-Allow-Credentials', true)
-			res.setHeader('Access-Control-Allow-Methods', 'POST, GET, PUT, DELETE, OPTIONS')
-			res.setHeader('Access-Control-Allow-Headers', 'Content-Type')
-		});
+		app.options('/sys/post', CORS_OPTIONS);
 
 		app.post('/sys/post', chat.post);
 		//app.post('/post', chat.post);
@@ -183,25 +195,9 @@ module.exports = function ( app ) {
 		//14号接口
 		app.post('/sys/notice_status', api.noticeStauts);
 
-		app.options('/sys/vchat-create', function(req, res){
-			res.setHeader('Access-Control-Allow-Origin', '*')
-			res.setHeader('Access-Control-Allow-Credentials', true)
-			res.setHeader('Access-Control-Allow-Methods', 'POST, GET, PUT, DELETE, OPTIONS')
-			res.setHeader('Access-Control-Allow-Headers', 'Content-Type')
-		});
-		app.options('/sys/vchat-login', function(req, res){
-			res.setHeader('Access-Control-Allow-Origin', '*')
-			res.setHeader('Access-Control-Allow-Credentials', true)
-			res.setHeader('Access-Control-Allow-Methods', 'POST, GET, PUT, DELETE, OPTIONS')
-			res.setHeader('Access-Control-Allow-Headers', 'Content-Type')
-		});
-		app.options('/sys/vchat-history', function(req, res){
-			res.setHeader('Access-Control-Allow-Origin', '*')
-			res.setHeader('Access-Control-Allow-Credentials', true)
-			res.setHeader('Access-Control-Allow-Methods', 'POST, GET, PUT, DELETE, OPTIONS')
-			res.setHeader('Access-Control-Allow-Headers', 'Content-Type')
-
-		});
+		app.options('/sys/vchat-create', CORS_OPTIONS);
+		app.options('/sys/vchat-login', CORS_OPTIONS);
+		app.options('/sys/vchat-history', CORS_OPTIONS);
 
 		//17号接口
 		app.post('/sys/vchat-create', api.vchatCreate);

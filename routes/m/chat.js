@@ -27,7 +27,7 @@ module.exports = {
 		get:function(req, res){
 
 			var i = 0;
-			var user = req.session.user ? req.session.user : null;
+			var user = req.session.user;
 			var time = parseInt(req.query.t) || parseInt(Date.now()/1000) + 1000;
 			var indexData = {
 				user:user ? user.getInfo() : user,

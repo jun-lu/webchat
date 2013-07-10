@@ -12,7 +12,7 @@ module.exports = {
 
 	get:function(req, res){
 
-		var user = req.session.user || null;
+		var user = req.session.user;
 		var querySuccess = 0;
 		var log = {};
 		var newRoom = [];

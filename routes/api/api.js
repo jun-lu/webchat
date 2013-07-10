@@ -665,8 +665,9 @@ module.exports = {
 	},
 	//17号接口
 	vchatCreate:function( req, res ){
-
-		res.setHeader("Access-Control-Allow-Origin", "*");//{Access-Control-Allow-Origin Response Header});
+		//console.log(1111);
+		res.setHeader('Access-Control-Allow-Credentials', 'true');
+		res.setHeader("Access-Control-Allow-Origin", req.headers.origin);
 		var user = req.session.user;
 		var domain = req.body.domain;
 		var uid = req.body.uid || "";
@@ -689,24 +690,30 @@ module.exports = {
 		}
 
 		promise.then(function(){
+			//如果uid为空，user存在就使用vchat的用户
+			output.isNew = 0;
+			if(uid == "" && user){
+				output.isNew = 2;//vchat用户
+				promise.ok( new WebStatus().setResult( user ) );
+			}else{
+				
+				uid = uid ? uid : Date.now();
+				UserModel.findVchatUser( uid, function( status ){
 
+					promise.ok( status );
 
-			UserModel.findVchatUser( uid, function( status ){
-
-				promise.ok( status );
-
-			});
-
+				});
+			}
 		});
 
 		promise.then(function( status ){
 
 			//已经存在用户
 			if( status.code == "0" ){
-				output.isNew = 0;
 				promise.ok( status );
 			}else{
 				output.isNew = 1;
+				uid = domain + Date.now();
 				UserModel.createVchatUser( uid, domain, uname, uavatar, function( status ){
 					promise.ok( status );
 
@@ -717,7 +724,7 @@ module.exports = {
 		promise.then(function( status ){
 			//console.log( "status", status );
 			var user = status.result;
-			output.user = user.getPublicInfo();
+			output.user = user.getPublicInfo(48);
 			res.setHeader("Set-Cookie", ["sid="+user.toCookie()+";path=/;domain="+config.domain+";expires="+new Date("2030") ]);
 			res.end( status.setResult( output ).toString() );
 
@@ -727,8 +734,8 @@ module.exports = {
 	},
 	//18号接口
 	vchatLogin:function( req, res ){
-
-		res.setHeader("Access-Control-Allow-Origin", "*");//{Access-Control-Allow-Origin Response Header});
+		res.setHeader('Access-Control-Allow-Credentials', 'true');
+		res.setHeader("Access-Control-Allow-Origin", req.headers.origin);
 
 		var user = req.session.user;
 		var domain = req.body.domain;
@@ -779,19 +786,33 @@ module.exports = {
 
 	},
 	vchatHistory:function( req, res ){
-
+		res.setHeader('Access-Control-Allow-Credentials', 'true');
+		res.setHeader("Access-Control-Allow-Origin", req.headers.origin);
 		var user = req.session.user;
-		var uid = req.query.uid;
+		var to = req.query.to;
 		var limit = parseInt(req.query.limit) || 10;
-
+		var roomid = req.query.roomid;
 		var promise = new Promise();
+
+		if( !user ){
+
+			res.end(new WebStatus("304").toString());
+			return ;
+
+		};
+
+		if( !roomid ){
+			res.end(new WebStatus("-1"));
+			return ;
+		}
 		promise.add(function(){
 
 			ChatModel.findLimitSort({
+				roomid:roomid,
 				time:{"$lt":parseInt(Date.now()/1000)},
-				from:{"$in":[uid, user._id]}, 
-				to:{"$in":[uid, user._id]}
-			}, 10, {time:1}, function( status ){
+				from:{"$in":[to, user._id]}, 
+				to:{"$in":[user._id, to]},
+			}, limit, {time:-1}, function( status ){
 				promise.ok( status );
 			})
 
@@ -812,7 +833,7 @@ module.exports = {
 		});
 
 		promise.then(function( status ){
-
+			status.result && status.result.reverse();
 			res.end( status.toString() );
 		})
 

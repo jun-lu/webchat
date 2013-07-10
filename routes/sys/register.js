@@ -13,7 +13,7 @@ var WebStatus = require("../../lib/WebStatus");
 module.exports = {
 	get:function(req, res){
 
-		var user = req.session ? req.session.user : null;
+		var user = req.session.user;
 		var status = new WebStatus().toJSON();
 		status.user = user ? user.getInfo() : user;
 

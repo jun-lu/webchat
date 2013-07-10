@@ -199,12 +199,13 @@
 
 				},
 				"on-line":function( data ){
-					WE.pageChat.userlist.init( data );
+					WE.pageChat.userlist.append( data );
 				},
 				"off-line":function( data ){
 					WE.pageChat.userlist.remove( data );
 				},
 				"user-list":function( data ){
+					console.log("daga", data);
 					$('#socketConnectioning').hide();
 					$('#offlineTip').hide();
 					$('#userlist').show();

@@ -18,13 +18,13 @@ module.exports = {
 
 	get:null,
 	post:function(req, res){
-	
+		
 		var user = req.session.user;//测试时候使用管理员
 		var topic = req.body.topic;
 		var des = req.body.des;
 
 		var output = {
-			user:user.getInfo()
+			user:user ? user.getInfo() : null
 		};
 
 
@@ -41,11 +41,10 @@ module.exports = {
 				UserModel.createAnonymousUser( function( status ){
 
 					if(status.code == 0){
+						var user = status.result;
 						output.user = status.result.getInfo();
 						res.setHeader("Set-Cookie", ["sid="+user.toCookie()+";domain="+ config.domain +";path=/;expires="+new Date("2030") ]);
 						promise.ok();
-						//masterid = user._id;
-						//create();
 					}else{
 						status.setMsg("createAnonymousUser error");
 						res.write(status.toString());
@@ -70,7 +69,7 @@ module.exports = {
 			if( topic ){
 				topic = tools.removeHtmlTag( topic );
 				des = tools.removeHtmlTag( des );
-				RoomModel.create( topic, des, masterid , user.name, function( status ){
+				RoomModel.create( topic, des, String(output.user._id) , output.user.name, function( status ){
 					
 					promise.ok( status );
 					
@@ -87,9 +86,9 @@ module.exports = {
 			if( status.code == "0" ){
 
 				var room = status.result;
-				ChatModel.create( room.id, "Your first message!", "*", user._id, null);
+				ChatModel.create( room.id, "Your first message!", "*", output.user._id, null);
 				res.redirect('/'+room.id);
-				LogModel.create( masterid, "create_room", room.getInfo(), function(){} );
+				LogModel.create( String(output.user._id), "create_room", room.getInfo(), function(){} );
 			}else{
 
 				res.redirect('/');
