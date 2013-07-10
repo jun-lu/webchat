@@ -1,6 +1,8 @@
 ;;(function(win){
 
-	__vchat_config = window.__vchat_config || {};
+	win.__vchat_config = win.__vchat_config || {};
+	__vchat_config.server = __vchat_config.server || "http://vchat.co";
+
 	if(!win.WebSocket){
 		throw "vchat not support your browser";
 	}
@@ -64,7 +66,6 @@
 			div.innerHTML = html;
 
 			while( div.firstElementChild ){
-				//console.log(div.firstElementChild );
 				dc.appendChild( div.firstElementChild );
 			}
 
@@ -171,25 +172,27 @@
 		room:null,
 		isStart:0,
 		ui:{},
+		config:{},
 		init:function(){
 
-			this.loadAkim();
 			this.setConfig();
+			this.loadAkim();
 			this.addMainUI();
 		},
 		loadAkim:function(){
 			var link = document.createElement("link");
 			link.rel="stylesheet";
-			link.href="http://vchat.com:3000/css/__chat.css";
+			link.href=this.config.server+"/css/__chat.css";
 			document.getElementsByTagName("head")[0].appendChild( link );
 		},
 		//和并用户配置
 		setConfig:function(){
 
-			this.config.domain = window.__vchat_config.domain || document.domain;
-			this.config.uid = window.__vchat_config.uid || "";
-			this.config.uname = window.__vchat_config.uname || "匿名";
-			this.config.uavatar = window.__vchat_config.uavatar || null;
+			this.config.server = win.__vchat_config.server;
+			this.config.domain = win.__vchat_config.domain || document.domain;
+			this.config.uid = win.__vchat_config.uid || "";
+			this.config.uname = win.__vchat_config.uname || "匿名";
+			this.config.uavatar = win.__vchat_config.uavatar || null;
 
 		},
 		addMainUI:function(){
@@ -241,16 +244,9 @@
 
 	};
 
-	__vchat.config = {
-		serverHost:"vchat.com:3000",
-		domain:null,
-		uid:null,
-		uname:null,
-		uavatar:null
-	};
 
 	__vchat.api = {
-		server:"http://"+__vchat.config.serverHost,
+		server:__vchat_config.server,
 		create:function( domain, uid, uname, uavatar, successfunction, errorfunction ){
 			TOOL.post( this.server+"/sys/vchat-create", {domain:domain, uid:uid, uname:uname, uavatar:uavatar}, successfunction, errorfunction )
 		},
@@ -331,7 +327,7 @@
 		socket:null,
 		weightTime:0,
 		room:null,
-		serverHost:__vchat.config.serverHost,
+		serverHost:__vchat_config.server.replace("http://",''),
 		init:function( room ){
 
 			if( !this.room && room ){

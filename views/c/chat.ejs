@@ -5,31 +5,65 @@
 	<title>vchat.co</title>
 </head>
 <body>
-	<h1>Chat.js</h1>
-	<pre>
-<%- JSON.stringify(user, "	", 4) %>
-	<pre>
-
-
-	<script>
+	<h1>Chat.js v1.0<small style="font-size:12px;">即时对话组件</small></h1>
+	<h2>说明</h2>
+	<p>只需要在您网站引入简单的js代码，即可让登录您网站的用户之间实现即时通信</p>
 	
+	<h2>如何使用？</h2>
+	在页面添加以下js
+	<pre style="border:1px solid #ddd;background:#d8d8d8">
+var __vchat_config = {
+	domain:document.domain,
+	uid:"5125d4b5cf3ffd4895000001",
+	uname:"lujun",
+	uavatar:"http://tp4.sinaimg.cn/1685239567/180/5608887021/1"
+};
+
+;;(function(){
+	var chat = document.createElement("script");chat.type = 'text/javascript';chat.async = true;
+	chat.src = "http://vchat.co/js/chat.js";
+	var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(chat, s); 
+})();
+	</pre>
+
+	<h3>__vchat_config 配置</h3>
+	<pre>
+domain: 登录的“空间”，只有登录相同“空间”的用户彼此可见。比如登录 vchat.co 与登录 test.vchat.co 的用户不能相互看见。让网站主域与子域的用户可以相互通信，可在初始化设置为主域。例如 dimain = "vchat.co";
+uid:标示用户唯一身份，请为每个用户传递不一样的uid,并且uid是不公开的。保证uid唯一可使用：uid = md5(用户名+密码)。非网站注册用户可以传递空字符串 。
+	__chat对于uid的处理逻辑
+	uid有值 查询用户是否存，是：返回uid用户，否：以uid创建用户。
+	uid无值 检查当前浏览器是否注册过vchat，是：返回vchat账户，否：创建新的账户，并保存到用户浏览器。
+uname:用户昵称，默认采用 “匿名” 。 可选
+uavatar:用户头像，默认会采用随机头像。可选		
+	</pre>
+
+	<h2>End</h2>
+	<div>
+		
+		__vchat.js 在不断改进，如果你在使用中遇到任何问题。都可以到 <a href="http://vchat.co/chat.js">http://vchat.co/chat.js</a>求助
+	</div>
+
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<script>
+
 		var __vchat_config = {
-			domain:document.domain,
-			uid:"<%=user ? user._id : ''%>",
-			uname:"<%=user ? user.name : ''%>",
-			init:true
+			domain:"vchat.co/chat.js",//登录到vchatjs的讨论空间
+			uid:""//使用vchat的登录用户
 		};
 
 		;;(function(){
 
 			var chat = document.createElement("script");chat.type = 'text/javascript';chat.async = true;
-			chat.src = "http://vchat.com:3000/js/chat.js";
+			chat.src = "http://vchat.co/js/chat.min.js";
 			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(chat, s); 
 
 		})();
 
 	</script>
 
-
+	
 </body>
 </html>
