@@ -85,7 +85,7 @@ WE.pageChat = {
 				// 					text : talk
 				// 				}
 				// 			];
-				console.log(WE.pageChat.review._id);
+			
 				_this.post( ROOM.id,text, WE.pageChat.review._id );
 				// _this.prepend( datas );
 
