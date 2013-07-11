@@ -42,11 +42,11 @@
 
 		user_card:'<div class="vchat-user-card" id="__vchat_uid_<%=_id%>" onclick="__vchat.chat.open(\'<%=_id%>\')" >\
 						<div class="vchat-user-avatar">\
-							<img src="<%=avatar%>" alt="<%=name%>" width="48" height="48" />\
+							<img src="<%=avatar%>" alt="<%=name%>" width="36" height="36" />\
 						</div>\
 						<div class="vchat-user-info">\
-							<div class="vchat-user-name"><%=name%><%if(_id == __vchat.user._id){%>(我自己)<%}%></div>\
-							<div class="vchat-user-talk"></div>\
+							<div class="vchat-user-name"><%=name%></div>\
+							<div class="vchat-user-talk"><%if(_id == __vchat.user._id){%>(我自己)<%}%></div>\
 						</div>\
 					</div>',
 		chat_tip:'<div class="vchat-connection-tip <%code != 0 ? \'vchat-connection-tip-error\' : \'vchat-connection-tip-success\'%> ">msg</div>'				
@@ -554,6 +554,12 @@
 
 		var user = __vchat.userList.getUser( id );
 		var chat = null;
+
+		if( id == __vchat.user._id ){
+			window.console && console.log("miss self");
+			return false;
+		}
+		
 		if( user ){
 
 			for(var i=0; i<this.list.length; i++){
