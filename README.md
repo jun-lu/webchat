@@ -6,22 +6,55 @@
 		
 	/** config.js */
 
+````javascript
+module.exports = {
+	
+	/**
+		database ip
+		10.6.0.27
+		128.0.0.1
+	*/
+	db:"127.0.0.1",
+	
+	/**
+		database port
+	*/
+	port:27017,
+	
+	/**
+		database name
+	*/
+	dbname:"webchat",
+	
+	/**
+		http server port
+	*/
+	serverPort:3000,
+	
+	/**
+		cookie domain
+	*/
+    domain:".vchat.com",
+	/**
+		photo upload
+	*/
+	//uploadDir:"d:/github/upload/",
+	uploadDir:"/Users/jun/github/upload/",
 
-	module.exports = {
+	/**
+		系统保留的子域
+	*/
+	sysWord: "a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,0,1,2,3,4,5,6,7,8,9,sys,m,user,tmpl,images,image".split(","),
 
-		host:"127.0.0.1",
-		dbip:"127.0.0.1",
-		dbname:"webchat",
-		domain:"127.0.0.1" 
-	};
+	socketHost:"ws://vchat.com/sys/chat-server",
+	/**
+		推荐的房间
+	*/
+	recommendRooms:["1365651264385","1361458149047","1361182575505"]
+	
 
-
-	/* vconfig.js */
-
-	module.exports = {
-		recommendRooms:["1365651264385","1361458149047","1361182575505"], 
-		sysWord: "a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,0,1,2,3,4,5,6,7,8,9,sys,m,user,tmpl,images,image".split(",")
-	};
+};
+‘’‘’
 
 	5:访问webchat 127.0.0.1:3000
 
@@ -226,7 +259,7 @@
 ````
 
 
-####对话定义 Chat old
+####对话定义 Chat (已经过期)
 ````javascript
 {
 	_id:"51419a0c2128205e66000024", //数据库唯一 _id
@@ -241,7 +274,7 @@
 ````
 
 
-####对话定义 Chat  new
+####对话定义 Chat
 ````javascript
 {
 	_id:"51419a0c2128205e66000024", //数据库唯一 _id
@@ -249,7 +282,7 @@
 	to:User || "*", 如果是两人对话则为User对象，否则为 "*"
 	time: 1363252238, //时间戳/1000
 	from: User 发送者,
-	aim:"51419a0c2128205e660000xx"  针对某条信息的回复
+	aim:"51419a0c2128205e660000xx" || null  针对某条信息的回复 
 }
 ````
 
