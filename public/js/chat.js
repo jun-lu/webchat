@@ -519,7 +519,7 @@
 			}
 
 			//当前对话框发给我的
-			if(data.from._id == this.user._id || data.to._id == __vchat.user._id){
+			if(data.from._id == this.user._id && data.to._id == __vchat.user._id){
 				this.addChat( data );
 				return true;
 			}
@@ -589,20 +589,24 @@
 	__vchat.chat.newMessage = function( data ){
 
 		//是对我说的 或者 我发出的
-		var isReceive = false;
+		var isReceive = 0;
 		if((data.to && data.to._id == __vchat.user._id) || data.from._id == __vchat.user._id){
+
 			for(var i=0; i<this.list.length; i++){
 				if( this.list[i].newChat( data ) ){
-					isReceive = true;
+					isReceive = 2;
 					break;
 				};
 			}
+		}else{
+
+			isReceive = 1;
 		}
 		//没有任何打开窗口处理此消息
 		/**
 			打开与此人的聊天窗口
 		*/
-		if(isReceive == false){
+		if(isReceive == 0){
 			this.open( data.from._id, false );
 			this.newMessage( data );//重新发送这条信息
 		}
