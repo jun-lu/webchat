@@ -16,20 +16,19 @@ WE.api.ChatModel = function(){
 	this.updateAvatorURL = "/sys/set_avatar";
 	this.historyListURL = "/sys/history";
 	this.uniqueKeyURL = "/sys/check_room_key";
-
-	this.mpostUrl = location.pathname.replace("/m/","/");
 };
 
 WE.api.ChatModel.prototype = WE.BaseModel.prototype;
 
 // 手机post
-WE.api.ChatModel.prototype.mpostChat = function( roomid, text, to ){
+WE.api.ChatModel.prototype.mpostChat = function( roomid, text, aim ){
 	var param = { roomid:roomid, text:text};
-	if(to){
-		param.to = to;
+	if(aim){
+		param.aim = aim;
 	}
+	param.to = "*";
 
-	this.post(this.mpostUrl,  param);
+	this.post(this.postUrl,  param);
 };
 
 WE.api.ChatModel.prototype.postChat = function( roomid, text, aim ){
