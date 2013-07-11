@@ -39,6 +39,7 @@ module.exports = {
 			var output = {
 				tool:tools,
 				user:user,
+				data:null,
 				room:null
 			};
 			
@@ -129,7 +130,7 @@ module.exports = {
 			//页面输出
 			promise.then(function(){
 
-				//console.log(1);
+				//console.log("output",output);
 				res.render("d/detail", output);
 				promise.resolve();
 

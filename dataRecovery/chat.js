@@ -95,7 +95,7 @@ while(chats.hasNext()){
 	delete item.uavatar;
 
 	item.to = "*";
-	item.from = item.uid;
+	item.from = item.uid.toString();
 
 	delete item.uid;
 
