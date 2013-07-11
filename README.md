@@ -56,8 +56,6 @@ module.exports = {
 };
 ````
 
-	5:访问webchat 127.0.0.1:3000
-
 #第一版本规划	
 	1: 讨论组创建过程和操作
 	
@@ -130,7 +128,7 @@ module.exports = {
 		修改对话信息（按钮）
 		
 
-#投票插件
+#投票插件 （搁浅）
 	
 	应用场景 : Chat页面
 	使用权限 : 
@@ -374,7 +372,7 @@ method: post
 param:
 	roomid:number // 房间id
 	text:string < 2000
-	[to]:string //回应某条信息的 _id
+	[aim]:string //回应某条信息的 _id
 return:{
 	code:0,
 	msg:"正确",
@@ -431,7 +429,7 @@ method:get
 param:
 	roomid:"1361182575505" //房间id
 	/**
-		小于此时间错的最近 size 条信息
+		小于此时间戳的最近 size 条信息
 		可以使用未来时间戳获取最新的10条
 	*/
 	time:"时间戳"/1000 
@@ -631,7 +629,7 @@ return {
 url:"/sys/vchat-login"
 method:"post",
 param:{
-	server: //必选
+	domain: //必选
 	uid:"自动生成一个24位MD5值" //可选
 	uname: "匿名"//可选
 	uavatar: ""//可选
