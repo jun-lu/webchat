@@ -14,14 +14,14 @@
 	<pre style="border:1px solid #ddd;background:#d8d8d8">
 var __vchat_config = {
 	domain:document.domain,
-	uid:"5125d4b5cf3ffd4895000001",
+	uid:"5125d4b5cf3ffd4895000001xx",
 	uname:"lujun",
 	uavatar:"http://tp4.sinaimg.cn/1685239567/180/5608887021/1"
 };
 
 ;;(function(){
 	var chat = document.createElement("script");chat.type = 'text/javascript';chat.async = true;
-	chat.src = "http://vchat.co/js/chat.js";
+	chat.src = "http://vchat.co/js/chat.min.js";
 	var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(chat, s); 
 })();
 	</pre>
@@ -50,7 +50,7 @@ uavatar:用户头像，默认会采用随机头像。可选
 	<script>
 
 		var __vchat_config = {
-			server:"http://"+document.location.host,
+			server:"http://"+document.location.host,//实际使用中 server 是不必要的，这里是 lujun 为了方便调试
 			domain:"vchat.co/chat.js",//登录到vchatjs的讨论空间
 			uid:""//使用vchat的登录用户
 		};

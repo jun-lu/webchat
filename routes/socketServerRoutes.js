@@ -20,7 +20,7 @@ var socketHashList = {
 		var list = this[roomid];
 		var userlist = [];
 		for(var i=0; i<list.length; i++){
-			userlist.push( list[i].session.user.getPublicInfo(48) );
+			userlist.push( list[i].session.user.getPublicInfo(36) );
 		}
 		return userlist;
 	}

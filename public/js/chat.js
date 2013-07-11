@@ -11,6 +11,7 @@
 		chat_main:'<div class="vchat-wrapper">\
 							<div class="vchat-chats-wrapper" id="__vchat_chat_wrap"></div>\
 							<div class="vchat-main vchat-main-mini" id="__vchat_main" >\
+								<div class="vchat-self-card" id="__vchat_self" ></div>\
 								<div class="vchat-user-list" id="__vchat_online_user"></div>\
 								<div class="vchat-user-init" id="__vchat_init" onclick="__vchat.openAndClose()" >V-chat</div>\
 							</div>\
@@ -40,7 +41,7 @@
 							</div>\
 						</div>',
 
-		user_card:'<div class="vchat-user-card" id="__vchat_uid_<%=_id%>" onclick="__vchat.chat.open(\'<%=_id%>\')" >\
+		user_card:'<div class="vchat-user-card vchat-user-card-self" id="__vchat_uid_<%=_id%>" onclick="__vchat.chat.open(\'<%=_id%>\')" >\
 						<div class="vchat-user-avatar">\
 							<img src="<%=avatar%>" alt="<%=name%>" width="36" height="36" />\
 						</div>\
@@ -222,7 +223,8 @@
 			this.api.create( this.config.domain, this.config.uid, this.config.uname, this.config.uavatar, function( data ){
 				if(data.code == 0){
 					self.user = data.result.user;
-					self.userList.initList([self.user]);
+					self.userList.addMe( self.user );
+					//self.userList.initList([self.user]);
 					self.login();
 				}else{
 					alert(data.msg);
@@ -277,10 +279,15 @@
 			for(var i=0; i < data.length; i++){
 				if(this.hasOnline(data[i]) == false){
 					this.list.push( data[i] );
-					html += TOOL.tmpl(HTML_TMPL.user_card, data[i]);
+					if( data[i]._id != __vchat.user._id ){
+						html += TOOL.tmpl(HTML_TMPL.user_card, data[i]);
+					}
 				}
 			};
 			TOOL.appendHTML( this.ui.list, html );
+		},
+		addMe:function( user ){
+			TOOL.$('__vchat_self').innerHTML = TOOL.tmpl(HTML_TMPL.user_card, user);
 		},
 		getUser:function( id ){
 
@@ -559,7 +566,7 @@
 			window.console && console.log("miss self");
 			return false;
 		}
-		
+
 		if( user ){
 
 			for(var i=0; i<this.list.length; i++){
