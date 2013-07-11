@@ -175,6 +175,28 @@
 		root/上传日期/访问权限/(roomid|userid)-photoshop_id.jpg
 		img_vchat/201203041111/
 
+#2013/06/14 的想法
+	
+	即时的语音对话
+		
+
+#2013/07/01 vchat.js
+	
+	vchat.js 插件
+	让所有网站在线用户拥有即时对话功能。
+
+
+	__vchat_setting = {
+
+		server:document.domain,
+
+		uid: String //每个用户唯一，并且保证不会被冒用
+		uname: String //用户名
+		uavatar: String URL
+
+	}	
+
+
 #定义数据体
 
 ####用户定义 User
@@ -231,6 +253,40 @@
 	response:Chat _id //数据库ID
 	status:0 // 0未知晓  1已知晓  2已读（0，1都是未读状态，区别在于用户是否知晓）
 	time:1363252238// 消息发生时间 时间戳/1000
+}
+````
+
+
+####图册 Albums
+````javascript
+{
+
+	_id: Objectid,// 数据库id
+	name: name, // string < 100
+	masterId : ObjectId, //所属用户id
+	roomId: ObjectId, //所属对话
+	des : string,// string < 500
+	permissions : 0,//number 0 完全公开 1 半公开 2 房间所有权 3个人所有权
+	time : parseInt( Date.now() / 1000 ),
+	facePhoto : null,//封面 一个图片地址
+	photoCount : 0 //图片数量
+}
+````
+
+####图片 Photos
+````javascript
+{
+
+	_id : null,//数据库id
+	fileName : fileName,//原始文件名
+	masterId : masterId,//上传者的id
+	albumsId : albumsId,//属于某个相册
+	format : format, //图片格式 jpg  bmp  gif ...
+	des : string,//string < 500 | 用户为图片添加的描述
+	size : 0,//图片大小
+	time : parseInt( Date.now() / 1000 );//上传时间
+	subdirectory : parseInt( Date.now()/3600000/24 ),// 物理路劲
+	features : {} //图片的其他信息
 }
 ````
 
@@ -465,4 +521,85 @@ return :{
 	msg:"",
 	result:null
 }
+````
+
+
+####删除一张或者多张照片（15）
+````javascript
+url:"/p/sys/delete-photo"
+method:"post",
+param:{
+	ids:""//字符串，多个id用逗号分割
+}
+return :{
+	code:0,
+	msg:"",
+	result:ids// 已经被删除的photo id
+}
+````
+
+##vchat.js接口
+
+####登录vchat 17号
+````javascript
+/**
+	uid为空
+		创建uid账户，下次可使用uid登录
+	uid有值
+		查询uid是否注册，若已经注册直接登录到账户
+		未注册使用uid创建账户
+
+*/
+url:"/sys/vchat-create"
+method:"post",
+param:{
+	server: //必选
+	uid:"自动生成一个24位MD5值" //可选
+	uname: "匿名"//可选
+	uavatar: ""//可选
+}
+
+return {
+	code:0,
+	msg:"",
+	result:{
+		user:User,
+		multiple:User, //留言器已经保存在用户
+		roomid:13623984732, //server对应的roomid,
+		isNew:[0,1]// 0旧账户  1新账户
+	}
+}
+
+````
+
+####登录 chat server 18
+````javascript
+/**
+	uid为空
+		创建uid账户，下次可使用uid登录
+	uid有值
+		查询uid是否注册，若已经注册直接登录到账户
+		未注册使用uid创建账户
+
+*/
+url:"/sys/vchat-login"
+method:"post",
+param:{
+	server: //必选
+	uid:"自动生成一个24位MD5值" //可选
+	uname: "匿名"//可选
+	uavatar: ""//可选
+}
+
+return {
+	code:0,
+	msg:"",
+	result:{
+		user:User,
+		multiple:User, //留言器已经保存在用户
+		roomid:13623984732, //server对应的roomid,
+		isNew:[0,1]// 0旧账户  1新账户
+	}
+}
+
 ````

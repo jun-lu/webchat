@@ -49,6 +49,13 @@ var photo = require('./p/photo');
 var albums = require('./p/albums');
 
 
+function CORS_OPTIONS( req, res ){
+	res.setHeader('Access-Control-Allow-Origin', req.headers.origin);
+	res.setHeader('Access-Control-Allow-Credentials', true);
+	res.setHeader('Access-Control-Allow-Methods', 'POST, GET, PUT, DELETE, OPTIONS');
+	res.end();
+
+}
 
 module.exports = function ( app ) {
 
@@ -62,6 +69,22 @@ module.exports = function ( app ) {
 	*/
 		// index /
 		app.get('/', home.get);
+
+		app.get('/a/test', function(req, res){
+			res.render("test", {});
+		});
+
+		app.get('/c/chat-js', function(req, res){
+
+			var user = req.session.user;
+
+			var output = {
+				user:user ? user.getInfo() : null
+			};
+
+			res.render("c/chat", output);
+
+		});
 
 		// chat
 		app.get('/:key', chat.get);
@@ -102,7 +125,10 @@ module.exports = function ( app ) {
 	*/
 	
 		//对话发送信息
+		app.options('/sys/post', CORS_OPTIONS);
+
 		app.post('/sys/post', chat.post);
+		//app.post('/post', chat.post);
 
 		// post 创建对话 /
 		app.post('/sys/create', sysCreate.post);
@@ -168,19 +194,31 @@ module.exports = function ( app ) {
 		app.get('/sys/notice_list', api.noticeList);
 		//14号接口
 		app.post('/sys/notice_status', api.noticeStauts);
-		
-	
+
+		app.options('/sys/vchat-create', CORS_OPTIONS);
+		app.options('/sys/vchat-login', CORS_OPTIONS);
+		app.options('/sys/vchat-history', CORS_OPTIONS);
+
+		//17号接口
+		app.post('/sys/vchat-create', api.vchatCreate);
+		//18号接口
+		app.post('/sys/vchat-login', api.vchatLogin);
+		//19号接口
+		app.get('/sys/vchat-history', api.vchatHistory);
 	/**
 		/p/
 		图片模块
 	*/
-		// photoIndex.get
-		app.get('/p/index', photoIndex.get);
+		app.get('/p/index', function( req, res ){
+			res.write("页面建设中","utf-8");
+			res.end();
+		});
+		
 		
 		// albums.get 
-		app.get('/p/r/:albums', albums.view);
+		app.get('/p/r/:albums/page/:page', albums.view);
 		//albums.createView
-		app.get('/p/create-albums', albums.createView);
+		app.get('/p/create-albums/:roomid', albums.createView);
 		//albums.post
 		app.post('/p/create-albums', albums.create);
 		
@@ -188,13 +226,28 @@ module.exports = function ( app ) {
 		// photo.get
 		app.get('/p/r/:albums/:photo', photo.view);
 		// photo.image /p/v/:albums/:photo[\.\w+]
-		app.get(/\/p\/v\/(\w+)\/(\w+)(\.\w+)/, photo.image);
+		app.get('/p/v/:dir/:photo', photo.image);
 		
 		//photo.createView
 		app.get('/p/create-photo/:albums', photo.createView);
+		//普通上传
+		app.get('/p/create-photo-2/:albums', photo.createView2);
 		//photo.post
 		app.post('/p/create-photo', photo.create);
 		
+
+		// photoIndex.get
+		app.get('/p/:roomId', photoIndex.get);
+
+
+		//15号接口
+		app.post('/p/sys/delete-photo', photo.deletePhoto);
+		//16号接口
+		//app.post('/p/sys/delete-albums', albums.deleteAlbums);
+
+
+
+
 	
 };
 

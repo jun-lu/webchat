@@ -13,6 +13,7 @@ var WebStatus = require("../../lib/WebStatus");
 var LogModel = require("../../lib/LogModel");
 var ChatModel = require("../../lib/ChatModel");
 var UserModel = require("../../lib/UserModel");
+var Room = require("../../lib/Room");
 var RoomModel = require("../../lib/RoomModel");
 var socketServer = require("../../lib/socketServer");
 var NoticeModel = require("../../lib/NoticeModel");
@@ -167,7 +168,7 @@ module.exports = {
 			//请把验证写得更详细，比如限制最长字符长度与最短字符长度
 			if(topic.length && des){
 
-				RoomModel.update(id, name, topic, des, password, function( status ){
+				RoomModel.updateInfo(id, name, topic, des, password, function( status ){
 
 					if(password != null){
 						UserModel.addRoomPassword(user._id, room.id, password, function( status ){
@@ -209,7 +210,7 @@ module.exports = {
 		var roomid = req.query.roomid;
 		var time = parseInt(req.query.time, 10);
 		var limit = req.query.limit || 10;
-		var chatModel = new ChatModel();
+		//var chatModel = new ChatModel();
 
 		ChatModel.findMoreChats(roomid, time, function( status ){
 
@@ -661,5 +662,185 @@ module.exports = {
 			res.end();
 
 		});
+	},
+	//17号接口
+	vchatCreate:function( req, res ){
+		//console.log(1111);
+		res.setHeader('Access-Control-Allow-Credentials', 'true');
+		res.setHeader("Access-Control-Allow-Origin", req.headers.origin);
+		var user = req.session.user;
+		var domain = req.body.domain;
+		var uid = req.body.uid || "";
+		var uname = req.body.uname || "匿名";
+		var uavatar = req.body.uavatar || null;
+
+		var output = {
+			user:null,
+			multiple:user,
+			isNew:0
+		};
+		
+		var promise = new Promise();
+
+
+		if( !domain ){
+
+			res.end( new WebStatus("-1").setMsg("Miss 'domain'").toString() );
+			return ;
+		}
+
+		promise.then(function(){
+			//如果uid为空，user存在就使用vchat的用户
+			output.isNew = 0;
+			if(uid == "" && user){
+				output.isNew = 2;//vchat用户
+				promise.ok( new WebStatus().setResult( user ) );
+			}else{
+				
+				uid = uid ? uid : Date.now();
+				UserModel.findVchatUser( uid, function( status ){
+
+					promise.ok( status );
+
+				});
+			}
+		});
+
+		promise.then(function( status ){
+
+			//已经存在用户
+			if( status.code == "0" ){
+				promise.ok( status );
+			}else{
+				output.isNew = 1;
+				uid = domain + Date.now();
+				UserModel.createVchatUser( uid, domain, uname, uavatar, function( status ){
+					promise.ok( status );
+
+				});
+			}
+		});
+
+		promise.then(function( status ){
+			//console.log( "status", status );
+			var user = status.result;
+			output.user = user.getPublicInfo(48);
+			res.setHeader("Set-Cookie", ["sid="+user.toCookie()+";path=/;domain="+config.domain+";expires="+new Date("2030") ]);
+			res.end( status.setResult( output ).toString() );
+
+		});
+
+		promise.start();
+	},
+	//18号接口
+	vchatLogin:function( req, res ){
+		res.setHeader('Access-Control-Allow-Credentials', 'true');
+		res.setHeader("Access-Control-Allow-Origin", req.headers.origin);
+
+		var user = req.session.user;
+		var domain = req.body.domain;
+		var haxid = null;
+
+		if( !user ){
+			res.end( new WebStatus("304").setMsg("not login") );
+			return ;
+		}
+
+		if( !domain ){
+			res.end( new WebStatus("-1").setMsg("Miss 'domain'") );
+			return ;
+		}
+
+		haxid = Room.toHex( domain );
+
+		var promise = new Promise();
+
+		promise.add(function(){
+			RoomModel.idFind(haxid, function( status ){
+
+				promise.ok( status );
+
+			});
+		});
+
+		promise.then(function( status ){
+
+			if( status.code == "0" ){
+				promise.ok( status );
+			}else{
+
+				var room = new Room(domain, domain, user._id);
+				room.setdomain( domain );
+				RoomModel.insert(room.toJSON(), function( status ){
+					promise.ok( status );
+				});
+			}
+		});
+
+		promise.then(function( status ){
+
+			res.end( status.toString() );
+		});	
+
+		promise.start();
+
+	},
+	vchatHistory:function( req, res ){
+		res.setHeader('Access-Control-Allow-Credentials', 'true');
+		res.setHeader("Access-Control-Allow-Origin", req.headers.origin);
+		var user = req.session.user;
+		var to = req.query.to;
+		var limit = parseInt(req.query.limit) || 10;
+		var roomid = req.query.roomid;
+		var promise = new Promise();
+
+		if( !user ){
+
+			res.end(new WebStatus("304").toString());
+			return ;
+
+		};
+
+		if( !roomid ){
+			res.end(new WebStatus("-1"));
+			return ;
+		}
+		promise.add(function(){
+
+			ChatModel.findLimitSort({
+				roomid:roomid,
+				time:{"$lt":parseInt(Date.now()/1000)},
+				from:{"$in":[to, user._id]}, 
+				to:{"$in":[user._id, to]},
+			}, limit, {time:-1}, function( status ){
+				promise.ok( status );
+			})
+
+		});
+
+		promise.then(function( status ){
+
+			if(status.code == 0){
+				ChatModel.serialization( status, function( status ){
+
+					promise.ok( status );
+
+				})
+			}else{
+				promise( status );
+			}
+
+		});
+
+		promise.then(function( status ){
+			status.result && status.result.reverse();
+			res.end( status.toString() );
+		})
+
+		
+
+		promise.start();
+		
+
 	}
 };

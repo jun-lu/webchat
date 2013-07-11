@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="en-US">
+<html>
 <head>
 	<meta charset="UTF-8">
 	<title>需要验证访问权限 - Vchat</title>
@@ -10,6 +10,7 @@
 	<script type="text/javascript" src="/js/we.min.js"></script>
 	<script type="text/javascript">
 		var USER = <%- JSON.stringify(user)%>;
+		var status = <%- JSON.stringify(status)%>;
 	</script>
 </head>
 <body>
@@ -25,11 +26,7 @@
 
 			<h1><%=room.topic%></h1>
 
-			<div class="alert">
-				对话访问限制，  请输入访问密码
-			</div>
-
-			<%if(code != 0){%><div class="alert alert-error"><%=msg%></div><%}%>
+			<%if(status.code != 0){%><div class="alert alert-error"><%=status.msg%></div><%}%>
 
 			<form method="post" action="/sys/room_limit" class="bs-docs-example">
 				

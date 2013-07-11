@@ -4,6 +4,7 @@
 */
 var config = require("./config");
 
+var WebSocket = require("ws");
 var http = require('http');
 var path = require('path');
 var util = require("util");
@@ -29,9 +30,8 @@ app.configure(function(){
   app.use(express.bodyParser({
     uploadDir:config.uploadDir,
     keepExtensions:true,
-    limit:10000000,
-    defer:true
-
+    limit:1024*1024*10//, 
+   // defer:true
   }));
 
   app.use(express.methodOverride());
@@ -56,7 +56,7 @@ app.configure('development', function(){
 var server = http.createServer(app);
 
 //socket server
-socketServerRoutes( server );
+socketServerRoutes.init( server );
 
 // ** 服务器启动
 server.listen(app.get('port'), function(){
@@ -65,5 +65,20 @@ server.listen(app.get('port'), function(){
 
 
 
+
+/**
+
+var a = new WebSocket("ws://www.vchat.com:8080")
+a.onopen = function(){
+  console.log( "onopen", arguments );
+}
+
+a.onmessage = function(){
+  console.log( "onmessage", arguments );
+}
+a.onclose = function(){
+  console.log( "onclose", arguments );
+}
+*/
 
 

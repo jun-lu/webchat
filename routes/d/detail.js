@@ -39,6 +39,7 @@ module.exports = {
 			var output = {
 				tool:tools,
 				user:user,
+				data:null,
 				room:null
 			};
 			
@@ -59,8 +60,9 @@ module.exports = {
 			promise.then(function(){
 
 				//var _this = this;
-				ChatModel.findOne(_id, function( status ){
+				ChatModel.findChatOne(_id, function( status ){
 
+					console.log( "status", status );
 					if( status.code == "0" ){
 						output.data = status.result;
 						promise.resolve( status.result.roomid );
@@ -128,7 +130,7 @@ module.exports = {
 			//页面输出
 			promise.then(function(){
 
-				//console.log(1);
+				//console.log("output",output);
 				res.render("d/detail", output);
 				promise.resolve();
 

@@ -13,7 +13,7 @@ var WebStatus = require("../../lib/WebStatus");
 module.exports = {
 	get:function(req, res){
 
-		var user = req.session ? req.session.user : null;
+		var user = req.session.user;
 		var status = new WebStatus().toJSON();
 		status.user = user ? user.getInfo() : user;
 
@@ -58,6 +58,8 @@ module.exports = {
 			if( status.code == "404" ){
 
 				UserModel.create( email, pwd, name, function( status ){
+
+					//console.log("status", status);
 
 					if(status.code == "0"){
 						var user = status.result;

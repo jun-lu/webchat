@@ -14,10 +14,15 @@ module.exports = {
 	get:function( req, res ){
 
 		var roomid = req.query.roomid;
-		var user = req.session.user || user;
+		var user = req.session.user;
 		var roomid = req.query.roomid;
 		var status = new WebStatus();
 
+		var output = {
+			status:status,
+			user:user ? user.getInfo() : null,
+			room:null
+		};
 		if( !roomid ){
 			status.setCode("-1");
 			res.status(404).render("404", status.toJSON());
@@ -26,8 +31,9 @@ module.exports = {
 
 		RoomModel.idOrNameFind( roomid, roomid, function( status ){
 			if( status.code == "0" ){
-				var data = status.toJSON({user:user.getInfo(), room:status.result.toJSON()})
-				res.render("sys/room_limit", data);
+				output.room = status.result;
+				//var data = status.toJSON({user:user.getInfo(), room:status.result.toJSON()})
+				res.render("sys/room_limit", output);
 			}else{
 				res.status(404).render("404", status.toJSON());
 			}
@@ -39,15 +45,19 @@ module.exports = {
 	},
 	post:function(req, res){
 		
-		var user = req.session.user || null;
+		var user = req.session.user;
 		var roomid = tools.trim(req.body.roomid);
 		var password = tools.trim(req.body.password);
 		var status = new WebStatus();
-
-		if( user == null ){
+		var output = {
+			user : user ? user.getInfo() : null,
+			status:status,
+			room:null
+		}
+		if( !user ){
 			status.setCode("403");
 			status.addMsg("没有权限访问资源");
-			res.status(403).render("error", status.toJSON());
+			res.status(403).render("error", status);
 			return ;
 		};
 		
@@ -55,16 +65,14 @@ module.exports = {
 	
 			if( status.code == "0"){
 				var room = status.result;
-
+				output.room = room;
 				if( room.password == null ){
-					//console.log("不需要密码的房间",roomid);
 					res.redirect("/"+roomid);
 					return ;
 				}
 
 				if( room.password === password ){
 					UserModel.addRoomPassword( user._id, room.id, password, function( status ){
-						//console.log("addRoomPassword", status );
 						if(status.code == "0"){
 							res.redirect("/"+roomid);
 						}
@@ -72,7 +80,8 @@ module.exports = {
 				}else{
 					status.setCode("403");
 					status.setMsg("输入的密码不正确");
-					res.render("sys/room_limit", status.toJSON({room:room, user:user.getInfo()}));
+					output.status = status;
+					res.render("sys/room_limit", output);
 				}
 			}else{
 

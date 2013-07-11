@@ -83,7 +83,7 @@ WE.pageChat = {
 		this.postui.setLock();
 		//$('#postTypeGroup button').attr('disabled','disabled').text('发送中...');
 
-		to = !to ? undefined : to;
+		aim = !to ? undefined : to;
 		var _this = this;
 		var model = new WE.api.ChatModel();//
 		var ctrl = new WE.Controller();
@@ -101,7 +101,7 @@ WE.pageChat = {
 
 		};
 		model.addObserver( ctrl );
-		model.postChat( roomid, text, to );
+		model.postChat( roomid, text, aim );
 	},
 	
 	/*
@@ -323,21 +323,21 @@ WE.pageChat.timeLine = {
 			}
 		}
 	*/
-	tmpl:'<div class="chat <% if(uid == USER._id){ %> my <%}%>">\
+	tmpl:'<div class="chat <% if(from._id == USER._id){ %> my <%}%>">\
 		<div class="dot"></div>\
 		<div class="photo">\
-			<a href="/user/<%=uid%>" target="_blank" data-uid="<%=uid%>" >\
-				<img src="<%=uavatar%>" alt="<%=uname%>" class="avatar" />\
+			<a href="/user/<%=from._id%>" target="_blank" data-uid="<%=from._id%>" >\
+				<img src="<%=from.avatar%>" alt="<%=from.name%>" class="avatar" />\
 			</a>\
 		</div>\
 		<div class="info">\
 			<div class="head">\
-				<a href="/user/<%=uid%>" target="_blank" class="name"><%=uname%></a>\
+				<a href="/user/<%=from._id%>" target="_blank" class="name"><%=from.name%></a>\
 				<a href="/d/<%=_id%>" target="_blank" class="time"><%=WE.kit.format( new Date( time*1000 ),"MM-dd hh:mm:ss" )%></a>\
 			</div>\
 			<div class="context">\
-				<%if(obj.to){%>\
-				<div class="reply-quote"><%=to.text%> <a href="/user/<%=to.uid%>"><%= to.uname%></a></div>\
+				<%if(obj.aim){%>\
+				<div class="reply-quote"><%=aim.text%></div>\
 				<%}%>\
 				<div class="reply-mine"><%=WE.markdown.format(text)%> <a class="chat-reply" href="javascript:;" data-mid="<%=_id%>" >回复</a></div>\
 			</div>\

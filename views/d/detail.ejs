@@ -20,6 +20,7 @@
 			.orig .head{background:#F4FBDC;}
 	</style>
 	<script type="text/javascript">
+		var USER = <%- JSON.stringify(user)%>;
 		var ROOM = <%- JSON.stringify(room)%>;
 	</script>
 </head>
@@ -47,20 +48,19 @@
 
 				<div class="chat orig">
 					<div class="photo">
-						<a href="/user/<%=data.uid%>" target="_blank" data-uid="<%=data.uid%>">
-						    <img src="<%=data.uavatar%>" alt="<%=data.uname%>" class="avatar">
+						<a href="/user/<%=data.from._id%>" target="_blank" data-uid="<%=data.uid%>">
+						    <img src="<%=data.from.avatar%>" alt="<%=data.from.name%>" class="avatar">
 						</a>  
 					</div>
 					<div class="info">
 						<div class="head">
-							<a href="/user/<%=data.uid%>" target="_blank" class="name"><%=data.uname%></a>
+							<a href="/user/<%=data.from._id%>" target="_blank" class="name"><%=data.from.name%></a>
 							<a href="/d/<%=data._id%>" class="time"><%=tool.format(data.time*1000)%></a>
 						</div>
 						<div class="context">
-							<%if(data.to){%>
+							<%if(data.aim){%>
 							<div class="reply-quote">
-								<%-tool.markdown.format(data.to.text)%>
-								<a href="/user/<%=data.to.uid%>"><%=data.to.uname%></a>
+								<%-tool.markdown.format(data.aim.text)%>
 							</div>
 							<%}%>
 							<div class="reply-mine"><%-tool.markdown.format(data.text)%> <a id="chat-reply" class="chat-reply" href="javascript:;">回复</a></div>
@@ -69,7 +69,7 @@
 
 					<div id="wepost">
 						<form method="post" class="post-form post-box" action="/sys/post" > 
-							<input type="hidden" name="to" class="jsto" value="<%=data._id%>"> 
+							<input type="hidden" name="aim" class="jsaim" value="<%=data._id%>"> 
 							<input type="hidden" name="roomid" class="jsroomid" value="<%=room.id%>"> 
 							<div class="post-box-in">
 								<ul class="nav nav-tabs">
@@ -110,8 +110,8 @@
 					<div class="chat">
 						<a name="<%= item._id %>"></a>
 						<div class="photo">
-							<a href="/user/<%=item.uid%>" target="_blank" data-uid="<%=item.uid%>">
-							    <img src="<%=item.uavatar%>" alt="<%=item.uname%>" class="avatar">
+							<a href="/user/<%=item.from._id%>" target="_blank" data-uid="<%=item.from._id%>">
+							    <img src="<%=item.from.avatar%>" alt="<%=item.from.name%>" class="avatar">
 							</a>  
 						</div>
 						<div class="info">
@@ -120,10 +120,9 @@
 								<a href="/d/<%=item._id%>" class="time"><%=tool.format(item.time*1000)%></a>
 							</div>
 							<div class="context">
-								<%if(item.to){%>
+								<%if(item.aim){%>
 								<div class="reply-quote">
-									<%-tool.markdown.format(item.to.text)%>
-									<a href="/user/<%=item.to.uid%>"><%=item.to.uname%></a>
+									<%-tool.markdown.format(item.aim.text)%>
 								</div>
 								<%}%>
 								<div class="reply-mine"><%-tool.markdown.format(item.text)%></div>

@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="en-US">
+<html>
 <head>
 	<meta charset="UTF-8">
 	<title>登录 - Vchat</title>
@@ -42,8 +42,8 @@
 				<div class="create">
 					<h3>登录</h3>
 					<form action="#" method="post" id="login" >
-						<% if( code  != 0 ){ %>
-							<div class="alert"><%= msg %></div>
+						<% if( status.code  != 0 ){ %>
+							<div class="alert"><%= status.msg %></div>
 						<% } %>
 						<input type="hidden" name="referer" value="<%=referer%>" >
 						<ul class="reset">

@@ -73,3 +73,43 @@ while(rooms.hasNext()){
 
 
 
+
+/**
+	修复chat表的 
+	del 
+		uname
+		uavatar
+
+	update
+		uid->from
+	add
+		to->*
+
+
+*/
+var chats = db.chat.find();
+while(chats.hasNext()){
+	var item = chats.next();
+
+	delete item.uname;
+	delete item.uavatar;
+
+	item.to = "*";
+	item.from = item.uid.toString();
+
+	delete item.uid;
+
+	db.chat.save(item);
+}
+
+
+var chats = db.chat.find();
+while(chats.hasNext()){
+	var item = chats.next();
+
+	item.from =item.from.replace("ObjectId(\"","").replace("\")","");
+	
+	db.chat.save(item);
+}
+
+

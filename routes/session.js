@@ -5,6 +5,7 @@
 	处理 session
 */
 
+var WebStatus = require("../lib/WebStatus");
 var UserModel = require("../lib/UserModel");
 
 var cookie = require("express/node_modules/cookie");
@@ -14,8 +15,8 @@ module.exports = {
 	// 实现 session
 	httpSession:function(req, res, next){
 
-		req.session = {};
-
+		req.session = {user:null};
+		//console.log( "UserModel", UserModel );
 		if( req.cookies && req.cookies.sid ){
 
 			var a = req.cookies.sid.split("|");
@@ -81,4 +82,30 @@ module.exports = {
 	    
 
 	},
+	//根据cookie验证用户身份
+	verificationUserAccount:function( ws, callback ){
+		var status = new WebStatus();
+		if(ws.headers.cookie){
+
+			var cookies = cookie.parse(ws.headers.cookie);
+
+			if( cookies && cookies.sid ){
+
+				var a = cookies.sid.split("|");
+				var hexMail = a[0];
+				var hexPwd = a[1];
+				var hexRandom = a[2];
+
+
+				UserModel.hexFind(hexMail, hexPwd, hexRandom, callback || function(){}); 
+				return ;	
+			}
+
+		}
+
+		status.setCode("403");
+		status.setMsg("无法读取到用户cookie");
+		callback && callback( status );
+		
+	}
 }
