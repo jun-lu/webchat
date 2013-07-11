@@ -48,6 +48,9 @@
 								<p class="summery">
 									<span id="summery" >
 										<%-tool.revertHtmlTag(accessUser.summary)%>
+										<%if(!accessUser.summary){%>
+											一句话描述
+										<%}%>
 									</span>
 									<%if( user._id == accessUser._id ){%>
 										<small>	

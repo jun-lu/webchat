@@ -140,10 +140,10 @@
 	<script type="text/javascript">
 		var post = new WE.ui.Post('#wepost');
 		
-		post.onpost = function(roomid, text, to){
+		post.onpost = function(roomid, text, aim){
 			post.setLock();
 
-			to = !to ? undefined : to;
+			aim = !aim ? undefined : aim;
 			var _this = this;
 			var model = new WE.api.ChatModel();//
 			var ctrl = new WE.Controller();
@@ -157,7 +157,7 @@
 
 			};
 			model.addObserver( ctrl );
-			model.postChat( roomid, text, to );	
+			model.postChat( roomid, text, aim );	
 		};
 	</script>
 
