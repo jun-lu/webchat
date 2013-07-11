@@ -9,7 +9,6 @@
     "express": "3.1.0",
     "ejs": "*",
     "mongodb":">=0.3.6",
-    "socket.io":">=0.9.13",
     "nodemailer":">0",
     "gm":">0",
     "ws":">0"

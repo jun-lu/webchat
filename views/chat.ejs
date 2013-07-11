@@ -143,6 +143,9 @@
 								var item = null;
 								for(var i=0; i<indexChats.length; i++){
 									item = indexChats[i];
+									if(!item.from || !item.from._id){
+										continue;	
+									}
 							%>	
 							<div class="chat <% if(item.from._id == user._id){ %> my <%}%>">
 								<div class="dot"></div>

@@ -55,6 +55,8 @@ module.exports = {
 
 };
 ````
+	内存  free -m  磁盘 df -h  top
+
 
 #第一版本规划	
 	1: 讨论组创建过程和操作
