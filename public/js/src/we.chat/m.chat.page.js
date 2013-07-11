@@ -18,27 +18,26 @@ WE.pageChat = {
 	 */
 
 	chatTmpl : '<% for(var i = 0;i<obj.length;i++){ %>\
-					<div class="chat <% if(obj[i].uid == USER._id){ %> my <% } %>">\
-						<input name="uid" type="hidden" value="<%=obj[i].uid%>"/>\
+					<div class="chat <% if(obj[i].from._id == USER._id){ %> my <% } %>">\
+						<input name="uid" type="hidden" value="<%=obj[i].from._id%>"/>\
 						<input name="txt" type="hidden" value="<%=obj[i].text%>"/>\
-						<input name="uname" type="hidden" value="<%=obj[i].uname%>"/>\
+						<input name="uname" type="hidden" value="<%=obj[i].from.name%>"/>\
 						<input name="mid" type="hidden" value="<%=obj[i]._id%>"/>\
 						<div class="avator">\
-							<a href="/user/<%=obj[i].uid%>">\
-								<img width="32" height="32" src="<%=obj[i].uavatar%>" alt="<%=obj[i].uname%>"/>\
+							<a href="/user/<%=obj[i].from._id%>">\
+								<img width="32" height="32" src="<%=obj[i].from.avatar%>" alt="<%=obj[i].from.name%>"/>\
 							</a>\
 						</div>\
 						<div class="info">\
 							<div class="talk">\
 								<i class="arrow"></i>\
 								<div class="talk-cont">\
-									<% if( obj[i].to ){ %>\
+									<% if( obj[i].aim ){ %>\
 									<div class="review-orig">\
-										<span><%=WE.kit.chatFormate(obj[i].to.text) %></span>\
-										<a class="u-name" href="/user/<%=obj[i].to.uid%>"><%=obj[i].to.uname%></a>\
+										<span><%=obj[i].aim.text %></span>\
 									</div>\
 									<% } %>\
-									<a class="name" href="/user/<%=obj[i].uid%>"><%=obj[i].uname%> : </a><%=WE.kit.chatFormate(obj[i].text)%>\
+									<a class="name" href="/user/<%=obj[i].from._id%>"><%=obj[i].from.name%> : </a><%=WE.markdown.format(obj[i].text)%>\
 								</div>\
 								<p class="review-time">\
 									<a class="review-btn" href="javascript:;">回复</a>\
