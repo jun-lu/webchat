@@ -182,9 +182,9 @@
 		},
 		loadAkim:function(){
 			var link = document.createElement("link");
-			link.rel="stylesheet";
-			link.type = "text/css";
-			link.charset = "utf-8";
+			link.setAttribute("rel", "stylesheet");
+			link.setAttribute("type", "text/css");
+			link.setAttribute("charset","utf-8");
 			link.href=this.config.server+"/css/__chat.css";
 			document.getElementsByTagName("head")[0].appendChild( link );
 		},
