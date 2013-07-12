@@ -4,7 +4,8 @@
 	__vchat_config.server = __vchat_config.server || "http://vchat.co";
 
 	if(!win.WebSocket){
-		throw "vchat not support your browser";
+		window.console && window.console.log("vchat not support your browser");
+		return ;
 	}
 	var HTML_TMPL = {
 
