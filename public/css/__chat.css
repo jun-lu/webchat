@@ -37,7 +37,7 @@
 	.vchat-chat-item-set-noraml{display:none;}
 	.vchat-chats-item-mini .vchat-chat-item-set-noraml{display:initial;}
 	.vchat-chats-item-mini .vchat-chat-item-set-mini{display: none;}
-.vchat-chat-context{background:#e5e5e5;border:1px solid #c3c3c3;border-width:0 1px;padding:10px;height:300px;overflow:auto;}
+.vchat-chat-context{background:#e5e5e5;border:1px solid #c3c3c3;border-width:0 1px;padding:10px;height:300px;overflow-y:auto;}
 .vchat-chat-enter{background:#fff;}
 
 	.vchat-chat-enter-in{margin:0 5px;}
