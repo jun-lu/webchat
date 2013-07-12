@@ -1,7 +1,7 @@
 ;;(function(win){
 
 	win.__vchat_config = win.__vchat_config || {};
-	__vchat_config.server = __vchat_config.server || "http://vchat.co/";
+	__vchat_config.server = __vchat_config.server || "http://vchat.co";
 
 	if(!win.WebSocket){
 		window.console && window.console.log("vchat not support your browser");
@@ -20,7 +20,7 @@
 		chat_box:'<div class="vchat-chats-item" id="__vchat_<%=_id%>" >\
 					<div class="vchat-chats-item-in">\
 						<div class="vchat-chat-title">\
-							<span><%=name%></span>\
+							<span><%=name ? name : "??"%></span>\
 							<div class="vchat-chat-item-setting">\
 								<span class="vchat-chat-item-set vchat-chat-item-set-mini" title="最小化" >＿</span>\
 								<span class="vchat-chat-item-set vchat-chat-item-set-noraml" title="还原" >￣</span>\
