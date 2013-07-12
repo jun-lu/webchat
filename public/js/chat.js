@@ -1,7 +1,7 @@
 ;;(function(win){
 
 	win.__vchat_config = win.__vchat_config || {};
-	__vchat_config.server = __vchat_config.server || "http://vchat.co";
+	__vchat_config.server = __vchat_config.server || "http://vchat.co/";
 
 	if(!win.WebSocket){
 		window.console && window.console.log("vchat not support your browser");
@@ -344,7 +344,7 @@
 				this.room = room;
 			};
 			var roomid = this.room.id;
-			var socket = this.socket = new WebSocket("ws://"+this.serverHost);
+			var socket = this.socket = new WebSocket("ws://"+this.serverHost+"/s");
 			var socketMessage = {
 				"connection":function( data ){
 					//登录到房间
