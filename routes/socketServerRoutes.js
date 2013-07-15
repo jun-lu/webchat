@@ -118,9 +118,9 @@ module.exports = {
 					//console.log( "roomid", data.roomid );
 					this.session.roomid = data.roomid;
 					//给当前连接推送在线用户列表
-					this.send( JSON.stringify({type:"user-list", data:socketHashList.getUserList( data.roomid )}) );
 					var haseoline = socketHashList.hasOnline(this.session.roomid, this.session.user._id);
 					socketHashList.add( data.roomid, this);
+					this.send( JSON.stringify({type:"user-list", data:socketHashList.getUserList( data.roomid )}) );
 					//通知其他人他上线
 					if(haseoline == false){
 						socketHashList.distribute( data.roomid, {
