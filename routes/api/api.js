@@ -665,9 +665,9 @@ module.exports = {
 	},
 	//17号接口
 	vchatCreate:function( req, res ){
-		console.log(11111111111);
-		//res.setHeader('Access-Control-Allow-Credentials', 'true');
-		//res.setHeader("Access-Control-Allow-Origin", req.headers.origin);
+		//console.log(11111111111);
+		res.setHeader('Access-Control-Allow-Credentials', 'true');
+		res.setHeader("Access-Control-Allow-Origin", req.headers.origin);
 		var user = req.session.user;
 		var domain = req.body.domain;
 		var uid = req.body.uid || "";
@@ -734,8 +734,8 @@ module.exports = {
 	},
 	//18号接口
 	vchatLogin:function( req, res ){
-		//res.setHeader('Access-Control-Allow-Credentials', 'true');
-		//res.setHeader("Access-Control-Allow-Origin", req.headers.origin);
+		res.setHeader('Access-Control-Allow-Credentials', 'true');
+		res.setHeader("Access-Control-Allow-Origin", req.headers.origin);
 
 		var user = req.session.user;
 		var domain = req.body.domain;
@@ -788,8 +788,8 @@ module.exports = {
 
 	},
 	vchatHistory:function( req, res ){
-		//res.setHeader('Access-Control-Allow-Credentials', 'true');
-		//res.setHeader("Access-Control-Allow-Origin", req.headers.origin);
+		res.setHeader('Access-Control-Allow-Credentials', 'true');
+		res.setHeader("Access-Control-Allow-Origin", req.headers.origin);
 		var user = req.session.user;
 		var to = req.query.to;
 		var limit = parseInt(req.query.limit) || 10;
