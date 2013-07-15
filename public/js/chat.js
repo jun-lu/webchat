@@ -197,6 +197,8 @@
 			this.config.uid = win.__vchat_config.uid || "";
 			this.config.uname = win.__vchat_config.uname || "匿名";
 			this.config.uavatar = win.__vchat_config.uavatar || null;
+			this.config.topic = win.__vchat_config.topic || "";
+			this.config.des = win.__vchat_config.des || "";
 
 		},
 		addMainUI:function(){
@@ -237,7 +239,7 @@
 		//获取server
 		login:function(){
 			var self = this;
-			this.api.login( this.config.domain, function( data ){
+			this.api.login( this.config.domain, this.config.topic, this.config.des, function( data ){
 
 				if(data.code == 0){
 					self.room = data.result;
@@ -255,8 +257,8 @@
 		create:function( domain, uid, uname, uavatar, successfunction, errorfunction ){
 			TOOL.post( this.server+"/sys/vchat-create", {domain:domain, uid:uid, uname:uname, uavatar:uavatar}, successfunction, errorfunction )
 		},
-		login:function( domain, successfunction, errorfunction ){
-			TOOL.post( this.server+"/sys/vchat-login", {domain:domain}, successfunction, errorfunction );
+		login:function( domain, topic, des, successfunction, errorfunction ){
+			TOOL.post( this.server+"/sys/vchat-login", {domain:domain, topic:topic, des:des}, successfunction, errorfunction );
 		},
 		postMessage:function(roomid, text, to, from, aim, successfunction, errorfunction){
 			TOOL.post( this.server+"/sys/post", {roomid:roomid, text:text, to:to, from:from, aim:aim}, successfunction, errorfunction);

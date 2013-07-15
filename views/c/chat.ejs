@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8"> 
-		<title>Chat.js -即时对话组件</title> 
+		<title>Chat.js -即时对话组件</title>
 		<meta name="keywords" content="Chat.js, Chat, vchat.co"/> 
 		<meta name="description" content="网站在线用户即时对话组件,即时对话"/>
 		<style type="text/css"> 
@@ -29,7 +29,9 @@
 		domain:document.domain, 
 		uid:"5125d4b5cf3ffd489500000xx1", 
 		uname:"爱因斯坦", 
-		uavatar:"http://tp4.sinaimg.cn/1685239567/180/5608887021/1" 
+		uavatar:"http://tp4.sinaimg.cn/1685239567/180/5608887021/1",
+		topic:"",
+		des: ""
 	}; 
 	 
 	;;(function(){ 
@@ -47,7 +49,9 @@
 					<strong>uid:</strong> String 当前登录用户的唯一标识 例如: uid : MD5(email + pwd) 可选
 				</li>	 
 				<li><strong>uname:</strong> String 用户昵称 可选</li>	  
-				<li><strong>uavatar</strong> String url 用户头像 可选</li>	 
+				<li><strong>uavatar</strong> String url 用户头像 可选</li>
+				<li><strong>topic</strong> String 如果domain所执行的对话空间不存在，创建对话空间的时候会以 topic 作为主题 可选</li>
+				<li><strong>des</strong> String 创建对话空间的描述信息 可选</li>	 
 			</ul>	
 			<h2 class="explain-chat">End</h2>
 
@@ -62,7 +66,9 @@
 
 	var __vchat_config = {
 		domain:"vchat.co/chat.js",//登录到vchatjs的讨论空间
-		uid:""//使用vchat的登录用户
+		uid:"",//使用vchat的登录用户
+		topic:"chat.js对话讨论",//主题
+		des:"欢迎使用"//描述
 	};
 
 	;;(function(){
