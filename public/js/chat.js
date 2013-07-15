@@ -312,6 +312,9 @@
 			}
 		},
 		offline:function( data ){
+			if(data._id == __vchat.user._id){ //自己
+				return false;
+			}
 			var isoff = 0;
 			for(var i=0; i<this.list.length; i++){
 				if(this.list[i]._id == data._id){

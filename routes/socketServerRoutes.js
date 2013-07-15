@@ -10,6 +10,7 @@ var config = require("../config");
 var UserModel = require("../lib/UserModel");
 var session = require("./session");
 var wss = null;
+var clientid = 0;
 
 
 var socketHashList = {
@@ -17,12 +18,24 @@ var socketHashList = {
 	remove:remove,
 	distribute:distribute,
 	getUserList:function( roomid ){
-		var list = this[roomid];
+		var list = this[roomid] || [];
 		var userlist = [];
 		for(var i=0; i<list.length; i++){
 			userlist.push( list[i].session.user.getPublicInfo(36) );
 		}
 		return userlist;
+	},
+	//如果在多个客户端登录会有同一个人的多个连接
+	hasOnline:function(roomid, _id){
+
+		var list = this[roomid] || [];
+		for(var i=0; i<list.length; i++){
+			if( list[i].session.user._id ==  _id){
+				return true;
+			}
+		}
+		return false;
+
 	}
 };
 
@@ -53,6 +66,7 @@ module.exports = {
 		wss.on('connection', function( ws ){
 
 			//console.log("ws", ws.upgradeReq);
+			//ws.session.user.clientid = ++clientid;
 			session.verificationUserAccount( ws.upgradeReq, function( status ){
 
 				//console.log("status", status);
@@ -77,18 +91,21 @@ module.exports = {
 
 				ws.on('close', function( data ){
 					socketHashList.remove( this.session.roomid, this );
-					socketHashList.distribute( this.session.roomid, {
 
-						type:"off-line",
-						data:this.session.user.getPublicInfo()
+					//需要判断当前用户是否保持了多个socket连接。
 
-					});
+					var haseoline = socketHashList.hasOnline(this.session.roomid, this.session.user._id);
+					//console.log("haseoline", this.session.roomid, ws.session.user._id, haseoline);
+					if( haseoline == false ){
+						socketHashList.distribute( this.session.roomid, {
+							type:"off-line",
+							data:this.session.user.getPublicInfo()
+						});
+					}
 				});
 
 				//新消息
 				ws.on('chat', function( data ){
-
-					//console.log( 'chat', data , this.session.roomid);
 					socketHashList.distribute( this.session.roomid, {
 						type:"new-chat",
 						data:data
@@ -100,16 +117,17 @@ module.exports = {
 
 					//console.log( "roomid", data.roomid );
 					this.session.roomid = data.roomid;
-					socketHashList.add( data.roomid, this);
-
 					//给当前连接推送在线用户列表
 					this.send( JSON.stringify({type:"user-list", data:socketHashList.getUserList( data.roomid )}) );
-
+					var haseoline = socketHashList.hasOnline(this.session.roomid, this.session.user._id);
+					socketHashList.add( data.roomid, this);
 					//通知其他人他上线
-					socketHashList.distribute( data.roomid, {
-						type:"on-line",
-						data:ws.session.user.getPublicInfo(48)
-					});
+					if(haseoline == false){
+						socketHashList.distribute( data.roomid, {
+							type:"on-line",
+							data:ws.session.user.getPublicInfo(36)
+						});
+					}
 
 				});
 
