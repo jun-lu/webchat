@@ -348,6 +348,9 @@
 
 			if(isoff){
 				TOOL.removeElement( TOOL.$('__vchat_uid_'+data._id) );
+				if(this.list.length == 1){
+					this.ui.list.innerHTML = HTML_TMPL.chat_no_user;
+				}
 			}
 		},
 		hasOnline:function( data ){
