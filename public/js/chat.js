@@ -12,22 +12,25 @@
 		chat_main:'<div class="vchat-wrapper">\
 							<div class="vchat-chats-wrapper" id="__vchat_chat_wrap"></div>\
 							<div class="vchat-main vchat-main-mini" id="__vchat_main" >\
-								<div class="vchat-self-card" id="__vchat_self" ></div>\
-								<div class="vchat-user-list" id="__vchat_online_user"></div>\
+								<div class="vchat-self-card" id="__vchat_self" ><div class="vchat-loading" title="loading"></div></div>\
+								<div class="vchat-user-list" id="__vchat_online_user">\
+									<div class="vchat-loading" title="loading"></div>\
+								</div>\
 								<div class="vchat-user-init" id="__vchat_init" onclick="__vchat.openAndClose()" >V-chat</div>\
 							</div>\
 					</div>',
+		chat_no_user:'<div style="text-align:center;margin:10px 0;">没有其他用户在线</div>',
 		chat_box:'<div class="vchat-chats-item" id="__vchat_<%=_id%>" >\
 					<div class="vchat-chats-item-in">\
 						<div class="vchat-chat-title">\
-							<span><%=name ? name : "??"%></span>\
+							<span class="vchat-chat-title-name"><%=name ? name : "??"%></span>\
 							<div class="vchat-chat-item-setting">\
 								<span class="vchat-chat-item-set vchat-chat-item-set-mini" title="最小化" >＿</span>\
 								<span class="vchat-chat-item-set vchat-chat-item-set-noraml" title="还原" >￣</span>\
 								<span class="vchat-chat-item-set vchat-chat-item-set-close" title="关闭" >ㄨ</span>\
 							</div>\
 						</div>\
-						<div class="vchat-chat-context"></div>\
+						<div class="vchat-chat-context"><div class="vchat-loading" title="loading"></div></div>\
 						<div class="vchat-chat-enter" z-index="0">\
 								<input type="text" class="vchat-chat-input" placeholder="发消息" />\
 						</div>\
@@ -99,7 +102,7 @@
 		appendHTML:function( element, html ){
 			element.appendChild( this.htmlToDom( html ) );
 		},
-		insertHTML:function( element, html ){
+		insertFirstHTML:function( element, html ){
 			if(element.firstElementChild){
 				element.insertBefore( this.htmlToDom( html ), element.firstElementChild );
 			}else{
@@ -289,7 +292,12 @@
 					}
 				}
 			};
-			TOOL.appendHTML( this.ui.list, html );
+
+			if( html == "" ){
+				this.ui.list.innerHTML = HTML_TMPL.chat_no_user;
+				return ;	
+			}
+			this.ui.list.innerHTML = html || HTML_TMPL.chat_no_user;
 		},
 		addMe:function( user ){
 			TOOL.$('__vchat_self').innerHTML = TOOL.tmpl(HTML_TMPL.user_card, user);
@@ -306,7 +314,21 @@
 		},
 		online:function(data){
 			if(data._id != __vchat.user._id && this.hasOnline(data) == false){
-				this.initList([data])
+
+				var html = "";
+				if(this.hasOnline(data) == false){
+					console.log( this.list.length );
+					if(this.list.length == 1){
+						this.ui.list.innerHTML = "";
+						//TOOL.insertHTML( this.ui.list, "");
+					}
+					this.list.push( data );
+					if( data._id != __vchat.user._id ){
+						html += TOOL.tmpl(HTML_TMPL.user_card, data);
+					}
+				}
+
+				TOOL.appendHTML( this.ui.list, html );
 			}else{
 				console.log("on-line miss self", data._id);
 			}
@@ -443,7 +465,7 @@
 			var html = TOOL.tmpl(HTML_TMPL.chat_box, this.user);
 			var btn = null;
 			//TOOL.appendHTML( this.wrap, html );
-			TOOL.insertHTML( this.wrap, html );
+			TOOL.insertFirstHTML( this.wrap, html );
 			this.ui.wrap = TOOL.$('__vchat_'+this.user._id);
 			btn = this.ui.wrap.getElementsByClassName('vchat-chat-item-set');
 			this.ui.mini = btn[0];
@@ -481,6 +503,8 @@
 		initChats:function(){
 			if(this.ishistory){
 				this.getHistory();
+			}else{
+				this.ui.list.innerHTML = "";
 			}
 		},
 		getHistory:function( ){
@@ -488,12 +512,26 @@
 			__vchat.api.history(this.roomid, this.user._id, 10, function( status ){
 
 				var chats = status.result;
+
 				if( status.code == "0" ){
-					for(var i=0; i<chats.length; i++){
-						self.addChat( chats[i] );
-					}
+					self.insertHistoryChats( chats );
+				}else{
+					console.log("读取聊天记录错误");
 				}
 			});
+		},
+		insertHistoryChats:function( chats ){
+
+			var html = "";
+			var chat = null, loadingui = null;
+			for(var i=0; i<chats.length; i++){
+				chat = chats[i]
+				chat.isSelf = (chat.from._id == __vchat.user._id);
+				html += TOOL.tmpl( this.chat_item, chat);
+			}
+			loadingui = this.ui.list.getElementsByClassName("vchat-loading");
+			loadingui && TOOL.removeElement( loadingui[0] );
+			html && TOOL.insertFirstHTML( this.ui.list, html);
 		},
 		addChat:function( chat ){ 
 			
