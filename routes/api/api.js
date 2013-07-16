@@ -775,6 +775,9 @@ module.exports = {
 				room.setdomain( domain );
 				RoomModel.insert(room.toJSON(), function( status ){
 					promise.ok( status );
+					if(status.code == "0"){
+						ChatModel.create( status.result.id, "Your first message!", "*", user._id, null);
+					}
 				});
 			}
 		});
