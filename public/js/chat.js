@@ -47,7 +47,7 @@
 
 		user_card:'<div class="vchat-user-card vchat-user-card-self" id="__vchat_uid_<%=_id%>" onclick="__vchat.chat.open(\'<%=_id%>\')" >\
 						<div class="vchat-user-avatar">\
-							<img src="<%=avatar%>" alt="<%=name%>" width="36" height="36" />\
+							<img src="<%=avatar%>" alt="<%=name%>" style="width:36px;height:36px;" width="36" height="36" />\
 						</div>\
 						<div class="vchat-user-info">\
 							<div class="vchat-user-name"><%=name%></div>\
