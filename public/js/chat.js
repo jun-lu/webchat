@@ -38,7 +38,7 @@
 				</div>',
 
 		chat_item:'<div class="<%=isSelf ? \'vchat-chat-right\' : \'vchat-chat-left\'%>">\
-							<div class="vchat-chat-avatar"><img src="<%=from.avatar%>" width="24" alt="" /></div>\
+							<div class="vchat-chat-avatar"><img src="<%=from.avatar%>" style="width:24px;height:24px;" width="24" alt="" /></div>\
 							<div class="vchat-chat-info">\
 								<%=text%>\
 								<%if(!_id){%><div class="vchat-chat-status">...</div><%}%>\
@@ -412,8 +412,8 @@
 			};
 			
 			socket.onmessage = function( e ){
+				//console.log("onmessage", e);
 				var data = JSON.parse(e.data);
-				//console.log("onmessage", data);
 				if( socketMessage[data.type] ){
 					socketMessage[data.type]( data.data );
 				}else{

@@ -43,7 +43,7 @@
 .vchat-chat-enter{background:#fff;}
 
 	.vchat-chat-enter-in{margin:0 5px;}
-.vchat-chat-enter .vchat-chat-input{border:1px solid #c3c3c3 !important;outline:none!important;padding:.6em 5px !important;margin:0px !important;width:248px !important;}
+.vchat-chat-enter .vchat-chat-input{border:1px solid #c3c3c3 !important;outline:none!important;padding:.6em 5px !important;margin:0px !important;width:248px !important;border-radius:0 !important;}
 .vchat-chat-enter .vchat-chat-input:focus{border-color:#3399cc !important;}
 
 
