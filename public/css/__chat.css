@@ -49,7 +49,7 @@
 
 .vchat-chat,.vchat-chat-left,.vchat-chat-right{position:relative;min-height:24px;padding-bottom:10px;}
 .vchat-chat-avatar{position:absolute;}
-.vchat-chat-info{padding:5px;background:#fff;border-radius:0 2px 2px 0;margin-left:24px;display:inline-block;word-break: break-word;}
+.vchat-chat-info{padding:5px;background:#fff;border-radius:0 2px 2px 0;margin-left:24px;display:inline-block;word-break: break-word;font-size:12px;}
 
 .vchat-chat-right{text-align:right;}
 .vchat-chat-right .vchat-chat-avatar{right:0;bottom:10px;}
