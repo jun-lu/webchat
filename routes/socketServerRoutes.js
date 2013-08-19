@@ -59,6 +59,7 @@ module.exports = {
 			server:server//,
 			//host:'sys/chat-server'
 		});
+		wss.on("error", function(){});
 		/**
 			识别用户身份
 
@@ -67,6 +68,7 @@ module.exports = {
 
 			//console.log("ws", ws.upgradeReq);
 			//ws.session.user.clientid = ++clientid;
+			ws.on("error", function(){});
 			session.verificationUserAccount( ws.upgradeReq, function( status ){
 
 				//console.log("status", status);
