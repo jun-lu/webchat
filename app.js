@@ -30,7 +30,7 @@ d.run(function(){
 
   // app 配置
   app.configure(function(){
-  	
+      
     app.set('port', config.serverPort || 80);
     app.set('views', __dirname + '/views');
     app.set('view engine', 'ejs');
@@ -57,8 +57,8 @@ d.run(function(){
 
   });
 
-  /**
-  	开发者模式
+/**
+ 开发者模式
   
   app.configure('development', function(){
     app.use(express.errorHandler());
