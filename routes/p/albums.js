@@ -148,11 +148,13 @@ module.exports = {
 		
 		var albums = new Albums(name , user._id, roomId, des, permissions, {});
 		albumsModel.insert( albums, function( status ){
-			console.log("status",status);
+			//console.log("status",status);
 			if(status.code == "0"){
 				res.redirect('/p/r/'+ status.result._id+'/page/1' );
-			};
-			res.write(status.toString());
+			}else{
+				res.write(status.toString());
+				res.end();
+			}
 		});
 		
 	}

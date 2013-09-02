@@ -5,6 +5,10 @@
 	<title><%=albums.name %> - Vchat</title>
 	<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css" />
 	<link rel="stylesheet" type="text/css" href="/css/all.css"/>
+	<style>
+		.photo-wall .small{position:absolute;z-index:1;left:0;top:0;}
+		.photo-wall .big{position:relative;z-index:2;}
+	</style>
 	<script>
 		var USER = <%- JSON.stringify( user ) %>;
 		var albums = <%- JSON.stringify( albums ) %>;
@@ -47,8 +51,9 @@
 				</div>
 
 			</div>
-			<div class="photo-wall" style="height:<%=photo.m_h%>px;">
-				<img src="/p/v/<%=photo.path_m%>" class="big" alt="<%=photo.name%>" />
+			<div class="photo-wall" style="height:<%=photo.m_h%>px" >
+				<img src="/p/v/<%=photo.path_m%>" class="big" alt="<%=photo.fileName%>" width="<%=photo.m_w%>"  height="<%=photo.m_h%>" />
+				<img src="/p/v/<%=photo.path_s%>" class="small" alt="<%=photo.fileName%>" width="<%=photo.m_w%>"  height="<%=photo.m_h%>" style="margin-left:<%=(960-photo.m_w)/2%>px" >
 			</div>
 			<hr/>
 			<div class="clear-fix">
