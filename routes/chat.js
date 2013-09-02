@@ -117,7 +117,7 @@ module.exports = {
 					}else{
 						status.setMsg("没有找到对话，请确认输入");
 						res.status(404).render("404", status.toJSON() );
-						res.end();
+						//res.end();
 					}
 
 

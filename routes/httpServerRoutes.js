@@ -211,7 +211,7 @@ module.exports = function ( app ) {
 	*/
 		app.get('/p/index', function( req, res ){
 			res.write("页面建设中","utf-8");
-			res.end();
+			//res.end();
 		});
 		
 		

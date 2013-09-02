@@ -109,7 +109,7 @@ module.exports = {
 		promise.then(function(){
 			//res.write("");
 			res.render("./p/view-photo", output);
-			res.end();
+			//res.end();
 
 		});
 		//console.log( promise );

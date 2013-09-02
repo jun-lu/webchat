@@ -87,7 +87,7 @@ module.exports = {
 										"sid="+user.toCookie()+";path=/;domain="+config.domain+";expires="+new Date("2030")
 									]);
 									res.render("sys/sina_login", {state:state, user:user.getInfo()} );
-									res.end();	
+									//res.end();	
 								});
 
 							});
@@ -102,7 +102,7 @@ module.exports = {
 								"sid="+user.toCookie()+";path=/;domain="+config.domain+";expires="+new Date("2030")
 							]);
 							res.render("sys/sina_login", {state:state, user:user.getInfo()} );
-							res.end();
+							//res.end();
 						}
 
 					});

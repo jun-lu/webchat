@@ -35,9 +35,9 @@ d.run(function(){
     app.set('views', __dirname + '/views');
     app.set('view engine', 'ejs');
 
+    app.use(express.compress());//gzip,deflate,sdch 
     //app.use(express.favicon());
     app.use(express.logger('dev'));
-    app.use(express.compress());//gzip,deflate,sdch 
     //自控制图片上传
     app.use(express.bodyParser({
       uploadDir:config.uploadDir,
