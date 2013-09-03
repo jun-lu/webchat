@@ -49,11 +49,11 @@
 						<ul class="reset">
 							<li>
 								<label for="email">Email</label>
-								<input type="text" id="email" name="email" placeholder="Email">
+								<input type="text" id="email" name="email" maxlength="100" placeholder="Email">
 							</li>
 							<li>
 								<label for="pwd">密码</label>
-								<input type="password" id="pwd" name="pwd" placeholder="password">
+								<input type="password" id="pwd" name="pwd" maxlength="50" placeholder="password">
 							</li>
 							
 							<li><input type="submit" class="btn" value="登录" /></li>
@@ -92,19 +92,14 @@
 			},
 			{
 				id:"pwd",
-				minLength:{rule:6,msg:"密码长度不够"},
-				maxLength:{rule:16,msg:"密码不正确"}
-
+				minLength:{rule:6,msg:"密码长度不够"}
 			}
 		];
 
 		var regForm = new  CheckForm(json);
 
-		$('#login').click(function(){
-			if( regForm.okay() ){
-				return  true;
-			};
-			return false;
+		$('#login').submit(function(){
+			 return regForm.okay();
 		});
 
 	</script>

@@ -35,7 +35,7 @@
 			</a> 
 			<div class="drop-down-items"> 
 				<ul> 
-					<% if( !/^\d+$/.test(user.mail) ){ %>
+					<% if( /^[\w._\-]+@[\w_\-]+\.\w+$/.test(user.mail) ){ %>
 					<li><a href="/user/<%=user._id%>" id="chatme_bak" target="_blank" >我的vchat</a></li>
 					<li><a href="javascript:;" id="username">修改昵称</a></li>
 				
