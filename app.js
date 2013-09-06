@@ -16,7 +16,7 @@ d.run(function(){
   
   var config = require("./config");
 
-  var WebSocket = require("ws");
+  //var WebSocket = require("ws");
   var http = require('http');
   var path = require('path');
   var util = require("util");

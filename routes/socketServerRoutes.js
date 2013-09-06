@@ -20,8 +20,13 @@ var socketHashList = {
 	getUserList:function( roomid ){
 		var list = this[roomid] || [];
 		var userlist = [];
+		var map = {};
+		var user = null;
 		for(var i=0; i<list.length; i++){
-			userlist.push( list[i].session.user.getPublicInfo(36) );
+			user = list[i].session.user.getPublicInfo(36);
+			if( map[user._id] == undefined){//去重复
+				userlist.push( user );
+			}
 		}
 		return userlist;
 	},
@@ -69,6 +74,7 @@ module.exports = {
 			//console.log("ws", ws.upgradeReq);
 			//ws.session.user.clientid = ++clientid;
 			ws.on("error", function(){});
+			//验证用户身份
 			session.verificationUserAccount( ws.upgradeReq, function( status ){
 
 				//console.log("status", status);
