@@ -195,7 +195,7 @@
 		init:function(){
 
 			// add "/s" ie 10 bug?
-			var socket = this.socket = new WebSocket("ws://"+window.location.host+"/s");
+			var socket = this.socket = new WebSocket("wss://"+window.location.host+"/s");
 			var socketMessage = {
 				"connection":function(){
 					//登录到房间

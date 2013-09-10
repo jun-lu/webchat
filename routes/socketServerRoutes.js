@@ -57,20 +57,23 @@ var socketHashList = {
 */
 
 module.exports = {
-	init:function( server ){
+	init:function( httpServer ){
 
 		wss = new WebSocketServer({
-			//port:8080,
-			server:server//,
-			//host:'sys/chat-server'
+			server:httpServer
 		});
-		wss.on("error", function(){});
+
+		
+	
+		wss.on("error", function(){
+			console.log("err", arguments)
+		});
 		/**
 			识别用户身份
 
 		*/
 		wss.on('connection', function( ws ){
-
+			console.log("123456789")
 			//console.log("ws", ws.upgradeReq);
 			//ws.session.user.clientid = ++clientid;
 			ws.on("error", function(){});
@@ -144,6 +147,7 @@ module.exports = {
 			});
 
 		});
+		
 	},
 	distribute:function( roomid, data){
 		console.log("distribute",roomid, data);

@@ -1,7 +1,7 @@
 ;;(function(win){
 
 	win.__vchat_config = win.__vchat_config || {};
-	__vchat_config.server = __vchat_config.server || "http://vchat.co";
+	__vchat_config.server = __vchat_config.server || "https://vchat.co";
 
 	if(!win.WebSocket){
 		window.console && window.console.log("vchat not support your browser");
@@ -367,14 +367,14 @@
 		socket:null,
 		weightTime:0,
 		room:null,
-		serverHost:__vchat_config.server.replace("http://",''),
+		serverHost:__vchat_config.server.replace("https://",''),
 		init:function( room ){
 
 			if( !this.room && room ){
 				this.room = room;
 			};
 			var roomid = this.room.id;
-			var socket = this.socket = new WebSocket("ws://"+this.serverHost+"/s");
+			var socket = this.socket = new WebSocket("wss://"+this.serverHost+"/s");
 			var socketMessage = {
 				"connection":function( data ){
 					//登录到房间

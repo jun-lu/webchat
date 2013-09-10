@@ -7,7 +7,7 @@
 .vchat-main{width:200px;display:inline-block;text-align:left;color:#6e6e6e;background:#fff;box-shadow:#000 0px 0px 5px -1px;border-radius:2px 0 0 0;}
 .vchat-main-mini{width:80px;}
 .vchat-main-mini .vchat-user-list,.vchat-main-mini .vchat-user-title,.vchat-main-mini .vchat-self-card{display: none;}
-.vchat-loading{background:url(http://vchat.co/images/loading_m.gif) no-repeat center center;min-height: 32px;}
+.vchat-loading{background:url(https://vchat.co/images/loading_m.gif) no-repeat center center;min-height: 32px;}
 
 .vchat-user-title{padding:10px;border:1px solid #dfdfdf;border-width:1px 0;}
 .vchat-user-list{border-bottom:1px solid #dfdfdf;min-height:310px;max-height:400px;overflow-y:auto;}

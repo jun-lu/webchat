@@ -12,7 +12,7 @@ var RoomModel = require("../../lib/RoomModel");
 var UserModel = require("../../lib/UserModel");
 var ChatModel = require("../../lib/ChatModel");
 var Promise = require("../../lib/Promise");
-
+var Cookie = require("../../lib/Cookie");
 
 module.exports = {
 
@@ -43,7 +43,8 @@ module.exports = {
 					if(status.code == 0){
 						var user = status.result;
 						output.user = status.result.getInfo();
-						res.setHeader("Set-Cookie", ["sid="+user.toCookie()+";domain="+ config.domain +";path=/;expires="+new Date("2030") ]);
+						var cookie = new Cookie("sid", user.toCookie());
+						res.setHeader("Set-Cookie", [cookie.toString()]);
 						promise.ok();
 					}else{
 						status.setMsg("createAnonymousUser error");

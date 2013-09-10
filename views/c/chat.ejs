@@ -34,10 +34,10 @@ var __vchat_config = {
 	des: "" 
 };  
   
-;;(function(){  
-	var chat = document.createElement("script");chat.type = 'text/javascript';chat.async = true;  
-	chat.src = "http://vchat.co/js/chat.min.js";  
-	var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(chat, s);   
+;;(function(){
+	var c = document.createElement('script'); c.type = 'text/javascript'; c.async = true;
+    c.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'vchat.co/js/chat.min.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(c, s);
 })();				
 </pre>
 </div>
@@ -70,21 +70,18 @@ var __vchat_config = {
 <script>
 
 	var __vchat_config = {
-		domain:"vchat.co/chat.js",//登录到vchatjs的讨论空间
 		uid:"",//使用vchat的登录用户
 		topic:"chat.js对话讨论",//主题
 		des:"欢迎使用"//描述
 	};
 
 	;;(function(){
-
-		var chat = document.createElement("script");chat.type = 'text/javascript';chat.async = true;
-		chat.src ="http://vchat.co/js/chat.min.js";
-		chat.onload = function(){//加载成功自动打开 chat
+		var c = document.createElement('script'); c.type = 'text/javascript'; c.async = true;
+		c.src = 'https://www.vchat.co/js/chat.min.js';
+		c.onload = function(){//加载成功自动打开 chat
 			__vchat.openAndClose();
 		};
-		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(chat, s); 
-
+		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(c, s);
 	})();
 
 </script>

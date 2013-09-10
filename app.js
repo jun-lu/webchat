@@ -7,8 +7,8 @@ var d = require('domain').create();
 var fs = require("fs");
 
 d.on("error", function( err ){
-
-  fs.appendFile("log.txt", "\r\n"+new Date().toString()+"\r\n"+err.stack+"\r\n", function(){});
+	console.log(err.stack);
+  //fs.appendFile("log.txt", "\r\n"+new Date().toString()+"\r\n"+err.stack+"\r\n", function(){});
 
 });
 
@@ -18,6 +18,7 @@ d.run(function(){
 
   //var WebSocket = require("ws");
   var http = require('http');
+  var https = require('https');
   var path = require('path');
   var util = require("util");
 
@@ -31,7 +32,7 @@ d.run(function(){
   // app 配置
   app.configure(function(){
       
-    app.set('port', config.serverPort || 80);
+    app.set('port', config.httpPort);
     app.set('views', __dirname + '/views');
     app.set('view engine', 'ejs');
 
@@ -64,15 +65,24 @@ d.run(function(){
     app.use(express.errorHandler());
   });
 */
-  // create server
-  var server = http.createServer(app);
-
+  var options = {
+	key: fs.readFileSync('ssl/ssl.key'),
+	cert: fs.readFileSync('ssl/ssl.crt')
+  };
+  
+  var httpsServer = https.createServer(options, app).listen(config.httpsPort);
   //socket server
-  socketServerRoutes.init( server );
-
-  // ** 服务器启动
-  server.listen(app.get('port'), function(){
-    console.log("Express server listening on port " + app.get('port'));
+  
+  var httpServer = http.createServer(function(req, res){
+	res.writeHead(302, {
+		Location:"https://www"+config.domain+req.url
+	});
+	res.end();
   });
-
+  httpServer.listen(config.httpPort);
+  
+  
+  socketServerRoutes.init( httpsServer );
+  
+  
 })
