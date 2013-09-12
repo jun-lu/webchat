@@ -62,9 +62,8 @@ module.exports = {
 					var cookie = new Cookie("sid", newUser.toCookie());
 					cookie.setExpires(new Date("2030"));
 					res.setHeader("Set-Cookie", [cookie.toString()]);
+					res.redirect( referer );
 					res.end();
-					//res.redirect( referer );
-
 				}else{
 
 					status.setMsg("用户名密码错误");

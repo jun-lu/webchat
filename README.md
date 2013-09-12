@@ -658,3 +658,18 @@ return {
 }
 
 ````
+
+####获取前端js所需要的模版 19
+````javascript
+
+	action: 获取前端js所需要的模版
+	logic：从 /views/tmpl/ 下获取 path 文件并返回内容
+	
+	
+	url:/sys/tmpl
+	method:get
+	param:
+		path: string
+	
+	return string
+````

@@ -16,7 +16,6 @@ d.run(function(){
   
   var config = require("./config");
 
-  //var WebSocket = require("ws");
   var http = require('http');
   var https = require('https');
   var path = require('path');
@@ -84,5 +83,5 @@ d.run(function(){
   
   socketServerRoutes.init( httpsServer );
   
-  
+  console.log("server ok");
 })

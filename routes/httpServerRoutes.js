@@ -32,15 +32,9 @@ var detail = require("./d/detail");
 
 var mobile = require("./m/chat");
 // 提供给前台的ajax api 
-var api = require("./api/api");
+var apiRoutes = require("./api/index");
 
 var socketServer = require("../lib/socketServer");
-
-var socketio = require('socket.io');
-
-var SystemMail = require("../lib/SystemMail");
-
-var admin = require("./sys/admin");
 
 var notice = require("./user/notice");
 
@@ -144,6 +138,8 @@ module.exports = function ( app ) {
 
 		//输入房间密码
 		app.get('/sys/room_limit', roomLimit.get);
+		//输入房间密码
+		app.post('/sys/room_limit', roomLimit.post);
 
 		//用户提醒
 		app.get('/user/notices',notice.get);
@@ -151,60 +147,6 @@ module.exports = function ( app ) {
 		//用户个人页面
 		app.get('/user/:key', personal.get);
 
-	
-
-	
-
-	/**
-		ajax api 
-	*/
-	
-		//获取模板
-		app.get('/sys/tmpl', api.getTmpl);
-		
-
-		//获取某房间更多chat
-		app.get('/sys/getmore', api.getMore);
-
-		//修改用户信息
-		app.post('/sys/set_user_name', api.setUserName);
-		//输入房间密码
-		app.post('/sys/room_limit', roomLimit.post);
-
-		//修改对话房间信息
-		app.post('/sys/room_update', api.updateRoom);
-
-		//匿名用户绑定email  bindmail
-		app.post('/sys/bindmail', api.bindMail);
-		//获取我的活动记录
-		app.get('/sys/ichats', api.ichats);
-		//检查用户名是否注册
-		app.get('/sys/checkmail', api.checkMailIsReg);
-		//修改用户头像
-		app.post('/sys/set_avatar', api.setAvatar);
-		//检查roomKey是否被注册
-		app.get('/sys/check_room_key', api.checkRoomKey);
-		//读取房间历史
-		app.get('/sys/history', api.getHistory);
-		//修改用户的介绍
-		app.post('/sys/user_summary', api.userSummary);
-		//12号接口
-		app.get('/sys/notice_count', api.noticeCount);
-		//13号接口
-		app.get('/sys/notice_list', api.noticeList);
-		//14号接口
-		app.post('/sys/notice_status', api.noticeStauts);
-
-		app.options('/sys/vchat-create', CORS_OPTIONS);
-		app.options('/sys/vchat-login', CORS_OPTIONS);
-		app.options('/sys/vchat-history', CORS_OPTIONS);
-
-		//17号接口
-		app.post('/sys/vchat-create', api.vchatCreate);
-		//18号接口
-		app.post('/sys/vchat-login', api.vchatLogin);
-		//19号接口
-		app.get('/sys/vchat-history', api.vchatHistory);
 	/**
 		/p/
 		图片模块
@@ -234,7 +176,6 @@ module.exports = function ( app ) {
 		app.get('/p/create-photo-2/:albums', photo.createView2);
 		//photo.post
 		app.post('/p/create-photo', photo.create);
-		
 
 		// photoIndex.get
 		app.get('/p/:roomId', photoIndex.get);
@@ -242,11 +183,10 @@ module.exports = function ( app ) {
 
 		//15号接口
 		app.post('/p/sys/delete-photo', photo.deletePhoto);
-		//16号接口
-		//app.post('/p/sys/delete-albums', albums.deleteAlbums);
 
 
-
+		// ajax api routes
+		apiRoutes( app );
 
 	
 };
