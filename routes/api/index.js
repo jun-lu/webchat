@@ -61,4 +61,5 @@ module.exports = function( app ){
 	//19号接口
 	app.get('/sys/vchat-history', require("./chatjsGetChatHistory"));
 	
+	
 }

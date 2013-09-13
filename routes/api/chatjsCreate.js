@@ -33,8 +33,8 @@ var config = require('../../config');
 var Promise = require('../../lib/Promise');
 var WebStatus = require('../../lib/WebStatus');
 var UserModel = require('../../lib/UserModel');
-
-
+var PhotoModel = require('../../lib/PhotoModel');
+var photoModel = new PhotoModel();
 module.exports = function( req, res ){
 
 		res.setHeader('Access-Control-Allow-Credentials', 'true');
@@ -76,7 +76,7 @@ module.exports = function( req, res ){
 				});
 			}
 		});
-
+		
 		promise.then(function( status ){
 
 			//已经存在用户
@@ -85,12 +85,30 @@ module.exports = function( req, res ){
 			}else{
 				output.isNew = 1;
 				uid = domain + Date.now();
-				UserModel.createVchatUser( uid, domain, uname, uavatar, function( status ){
-					promise.ok( status );
-
+				//从网络上获取用户头像
+				photoModel.getNetworkImage( uavatar, function( status ){
+					if(status.code == 0){
+						//把头像保存到相册中 查看 copyPhoto
+						photoModel.copyPhoto(status.result, null, {s_w:48, s_h:48, m_w:960, m_h:10000}, function( status ){
+							var path = null;
+							if(status.code == 0){
+								path = status.result.getSmallPath("https://www.vchat.co/p/v/");
+							}
+							UserModel.createVchatUser( uid, domain, uname, path, function( status ){
+								promise.ok( status );
+							});
+						})
+					}else{
+						UserModel.createVchatUser( uid, domain, uname, null, function( status ){
+							promise.ok( status );
+						});
+					}
 				});
+				
 			}
 		});
+		
+		
 
 		promise.then(function( status ){
 			//console.log( "status", status );

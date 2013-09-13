@@ -9,10 +9,10 @@ var config = require("../../config");
 var WebStatus = require("../../lib/WebStatus");
 var UserModel = require("../../lib/UserModel");
 var Promise = require("../../lib/Promise");
-var Photo = require("../../lib/Photo.js");
+var Photo = require("../../lib/Photo");
 var photoTools = require("../../lib/photoTools");
-var PhotoModel = require("../../lib/PhotoModel.js");
-var AlbumsModel = require("../../lib/AlbumsModel.js");
+var PhotoModel = require("../../lib/PhotoModel");
+var AlbumsModel = require("../../lib/AlbumsModel");
 var photoModel = new PhotoModel();
 var albumsModel = new AlbumsModel();
 
