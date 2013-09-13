@@ -11,7 +11,7 @@
 		result: 3//(未读信息条数)
 	}
 */
-
+var WebStatus = require("../../lib/WebStatus");
 var NoticeModel = require("../../lib/NoticeModel");
 
 
