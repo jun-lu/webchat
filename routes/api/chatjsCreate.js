@@ -86,6 +86,10 @@ module.exports = function( req, res ){
 				output.isNew = 1;
 				uid = domain + Date.now();
 				//从网络上获取用户头像
+				UserModel.createVchatUser( uid, domain, uname, uavatar, function( status ){
+					promise.ok( status );
+				});
+				/**			
 				photoModel.getNetworkImage( uavatar, function( status ){
 					if(status.code == 0){
 						//把头像保存到相册中 查看 copyPhoto
@@ -104,7 +108,7 @@ module.exports = function( req, res ){
 						});
 					}
 				});
-				
+				*/
 			}
 		});
 		

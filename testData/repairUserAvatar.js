@@ -20,7 +20,6 @@ function updateUserAvatar( user ){
 				console.log("status", status)
 				if(status.code == 0){
 					var path = status.result.getSmallPath("https://www.vchat.co/p/v/");
-					console.log(path)
 					setUserAvatar(user, path);
 				}else{
 					setUserAvatar(user, null)
@@ -33,5 +32,5 @@ function updateUserAvatar( user ){
 }
 
 function setUserAvatar( user, path ){
-	UserModel.update({_id:UserModel.objectId( user._id )}, {avatar:null}, function(){})
+	UserModel.update({_id:UserModel.objectId( user._id )}, {avatar:path}, function(){})
 }
