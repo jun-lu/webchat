@@ -143,10 +143,41 @@ WE.extend(WE.kit, {
 	},
 	chatFormate:function( text ){
 
-		return text.replace(/\n/gi, "<br/>").replace(/http:\/\/[\w\.]+/gi, function( a ){
+		return text.replace(/\n/gi, "<br/>").replace(/http:\/\/[\w\.\/\:\?\&\=\#\-\_]+/gi, function( a ){
 			return '<a href="'+a+'" target="_blank">'+a+'</a>'
 		})
 
+	},
+	removeHtmlTag:function(a){return a.replace(/<|>/g,function(a){return a=="<"?"&lt;":"&gt;"})},
+	revertHtmlTag:function( text ){
+
+		return text.replace(/\n/gi, "<br/>").replace(/http:\/\/[\w\.\/\:\?\&\=\#\-\_]+/gi, function( a ){
+			return '<a href="'+a+'" target="_blank">'+a+'</a>'
+		})
+
+	},
+	getHidden:function(){
+		var hidden;
+		if( typeof document.hidden !== "undefined" ){
+			hidden = "hidden";
+		}else if( typeof document.mozHidden !== "undefined" ){
+			hidden = "mozHidden";
+		}else if( typeof document.msHidden !== "undefined" ){
+			hidden = "msHidden";
+		}else if( typeof document.webkitHidden !== "undefined" ){
+			hidden = 'webkitHidden';
+		}
+		return document[hidden];
+	},
+	titleRoll:function(title,speed){
+		var titleArr = title.split(''),
+			run = function(){
+				titleArr.push(titleArr[0]);
+				titleArr.shift();
+				document.title = titleArr.join('');
+			};
+
+		setInterval(run,speed);
 	}
 });
 	

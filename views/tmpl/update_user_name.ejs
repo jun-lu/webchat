@@ -12,10 +12,10 @@
 			<input type="submit" value="提交" class="btn"> 
 			<%if(name == ""){%>
 			| <a href="javascript:;" id="anonymous" >匿名加入</a> 
-			| <a href="/sys/login">切换账户?</a>
+			| <a href="/sys/login?referer=<%=encodeURIComponent(document.location.href)%>">切换账户?</a>
 			<%}else{%>
 			| <a href="javascript:;" class="out">取消</a> 
-			| <a href="/sys/login">登陆其他账户?</a>
+			| <a href="/sys/login?referer=<%=encodeURIComponent(document.location.href)%>">登录其他账户?</a>
 			<%}%>
 			
 		</li>

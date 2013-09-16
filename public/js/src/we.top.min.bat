@@ -1,5 +1,4 @@
 @echo off
-set inputlist=%inputlist% --js we.top\we.api.top.js
 set inputlist=%inputlist% --js we.top\we.page.top.js
 
 

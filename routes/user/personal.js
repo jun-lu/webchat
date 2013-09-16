@@ -29,10 +29,12 @@ module.exports = {
 			if(id.length != 24){
 
 				status.setCode("-1");
-				res.render("404", status.toJSON());
+				res.status(404).render("404", status.toJSON());
 
 				return false;	
 			};
+
+			//console.log(id);
 
 			UserModel.find_id(id, function( status ){
 
@@ -42,14 +44,14 @@ module.exports = {
 					//console.log( accessUser );
 					LogModel.getLog( accessUser._id, 1000, function( status ){
 
+						//进入过
+						var intos = [];
+						//创建过
+						var creates = [];
+
 						if(status.code == "0"){
 
 							var logs = status.result;
-							//进入过
-							var intos = [];
-							//创建过
-							var creates = [];
-
 							for(var i=0; i< logs.length; i++){
 
 								logs[i].info.time = logs[i].time;
@@ -64,28 +66,23 @@ module.exports = {
 								}
 							}
 
-							res.render("user/personal", status.toJSON({
-								user:user ? user.getInfo() : user,
-								accessUser:accessUser.getPublicInfo( 180 ),
-								creates:creates,
-								intos:tools.unique(intos, function(item){  return item.id; }),
-								tool:tools
-							}));
-
-						}else{
-
-							res.write( status.toJSON() );
-							res.end();
-
 						}
+
+						res.render("user/personal", status.toJSON({
+							user:user ? user.getInfo() : user,
+							accessUser:accessUser.getPublicInfo( 180 ),
+							creates:creates,
+							intos:tools.unique(intos, function(item){  return item.id; }),
+							tool:tools
+						}));
 					} )
 
 
 				}else{
-
+					//console.log("-----------------","no find");
 					status.addMsg("没有找到用户");
 
-					res.write("404", status.toJSON() );
+					res.status(404).render("404", status.toJSON() );
 				}
 
 			});

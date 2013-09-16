@@ -1,0 +1,56 @@
+﻿@charset utf-8;
+
+.vchat-wrapper,.vchat-chats-wrapper{position:fixed;bottom:0;right:0;font-size:13px;line-height: 1.25em;}
+.vchat-chats-wrapper{right:205px;height: 0;text-align:right;z-index:1000;}
+.vchat-wrapper img{display:block;}
+
+.vchat-main{width:200px;display:inline-block;text-align:left;color:#6e6e6e;background:#fff;box-shadow:#000 0px 0px 5px -1px;border-radius:2px 0 0 0;}
+.vchat-main-mini{width:80px;}
+.vchat-main-mini .vchat-user-list,.vchat-main-mini .vchat-user-title,.vchat-main-mini .vchat-self-card{display: none;}
+.vchat-loading{background:url(https://vchat.co/images/loading_m.gif) no-repeat center center;min-height: 32px;}
+
+.vchat-user-title{padding:10px;border:1px solid #dfdfdf;border-width:1px 0;}
+.vchat-user-list{border-bottom:1px solid #dfdfdf;min-height:310px;max-height:400px;overflow-y:auto;}
+.vchat-user-init{border:1px solid #dfdfdf;border-width:1px 0;padding:10px;cursor:pointer;white-space:nowrap;}
+
+/*user-card*/
+.vchat-self-card .vchat-user-card{background:#f5f5f5;border-bottom-color:#ccc}
+.vchat-user-card{padding:10px;min-height:36px;border-bottom:1px solid #f1f1f1;cursor:pointer;}
+.vchat-user-card:hover{background:#f5f5f5;}
+.vchat-user-avatar{float:left;}
+.vchat-user-name{color:#727272;padding:.2em 0;}
+.vchat-user-talk{}
+.vchat-user-info{float:left;margin-left:10px;min-width:30px;}
+
+
+/* chat item */
+.vchat-chats-item{width:260px;position:relative;display:inline-block;vertical-align:top;margin-left:10px;text-align: left;}
+
+.vchat-chats-item-in{width:260px;position:absolute;bottom:0;}
+.vchat-chats-item-mini .vchat-chat-context,.vchat-chats-item-mini .vchat-chat-enter{display: none;}
+
+.vchat-chat-title{background:#404040;border-radius:3px 3px 0 0;padding:10px;color:#fff;font-weight:700;}
+.vchat-chat-title-name{display: inline-block;}
+.vchat-connection-tip{border-bottom:1px solid #c3c3c3;padding:10px;}
+.vchat-connection-tip-error{background:#db4439;}
+.vchat-chat-item-setting{float:right;}
+	.vchat-chat-item-set{width:24px;height: 24px;text-align:center;opacity:.5;padding:.3em;cursor:pointer;}
+	.vchat-chat-item-set:hover{opacity:1;background:#737373;}
+	.vchat-chat-item-set-noraml{display:none;}
+	.vchat-chats-item-mini .vchat-chat-item-set-noraml{display:initial;}
+	.vchat-chats-item-mini .vchat-chat-item-set-mini{display: none;}
+.vchat-chat-context{background:#e5e5e5;border:1px solid #c3c3c3;border-width:0 1px;padding:10px;height:300px;overflow-y:auto;}
+.vchat-chat-enter{background:#fff;}
+
+	.vchat-chat-enter-in{margin:0 5px;}
+.vchat-chat-enter .vchat-chat-input{border:1px solid #c3c3c3 !important;outline:none!important;padding:.6em 5px !important;margin:0px !important;width:248px !important;border-radius:0 !important;}
+.vchat-chat-enter .vchat-chat-input:focus{border-color:#3399cc !important;}
+
+
+.vchat-chat,.vchat-chat-left,.vchat-chat-right{position:relative;min-height:24px;padding-bottom:10px;}
+.vchat-chat-avatar{position:absolute;}
+.vchat-chat-info{padding:5px;background:#fff;border-radius:0 2px 2px 0;margin-left:24px;display:inline-block;word-break: break-word;font-size:12px;}
+
+.vchat-chat-right{text-align:right;}
+.vchat-chat-right .vchat-chat-avatar{right:0;bottom:10px;}
+.vchat-chat-right .vchat-chat-info{margin-right:24px;border-radius:2px 0 0 2px;margin-left:0;}
