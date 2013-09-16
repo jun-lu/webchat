@@ -12,6 +12,8 @@ var WebStatus = require("../../lib/WebStatus");
 var UserModel = require("../../lib/UserModel");
 var tool = require("../../lib/tools");
 var ServerRequest = require("../../lib/ServerRequest");
+var Cookie = require("../../lib/Cookie");
+
 
 var weibo_req_options = {
 
@@ -82,12 +84,18 @@ module.exports = {
 
 								UserModel.createOauthUser(user, function( status ){
 									var user = status.result;
+									var outcookie = new Cookie("sid","0|0|0");
+									outcookie.setExpires(new Date("2000"));
+									
+									var cookie = new Cookie("sid",user.toCookie());
+									cookie.setExpires(new Date("2030"));
+									
 									res.setHeader("Set-Cookie", [
-										"sid=0|0|0;path=/;expires="+new Date("2000"),
-										"sid="+user.toCookie()+";path=/;domain="+config.domain+";expires="+new Date("2030")
+										outcookie.toString(),
+										cookie.toString()
 									]);
 									res.render("sys/sina_login", {state:state, user:user.getInfo()} );
-									res.end();	
+									//res.end();	
 								});
 
 							});
@@ -102,7 +110,7 @@ module.exports = {
 								"sid="+user.toCookie()+";path=/;domain="+config.domain+";expires="+new Date("2030")
 							]);
 							res.render("sys/sina_login", {state:state, user:user.getInfo()} );
-							res.end();
+							//res.end();
 						}
 
 					});

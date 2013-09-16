@@ -16,7 +16,7 @@ var NoticeModel = require('../lib/NoticeModel');
 var socketServerRoutes = require('./socketServerRoutes');
 //var maxIndex = {};
 var roomLimit = require("./sys/room_limit");
-
+var Promise = require("../lib/Promise");
 var spiderAU = ["Baiduspider","Googlebot","MSNBot","YoudaoBot","JikeSpider","Sosospider","360Spider"];
 
 tool.markdown = require('../lib/markdown');
@@ -50,47 +50,60 @@ module.exports = {
 			var key = req.params.key;
 			var user = req.session.user;
 			var time = parseInt(req.query.t) || parseInt(Date.now()/1000) + 1000;
-			var indexData = {
-				user:user ? user.getInfo() : null,
-				nextTime:"",
-				prevTime:parseInt(req.query.t) || ""
-			};
 
-			//手机访问
-			if(ua.indexOf("Android") != -1 || ua.indexOf("iPhone") != -1 || ua.indexOf("Mobile") != -1){
-				res.redirect("/m/"+key);
-				return ;
+			var output = {
+				user : user ? user.getInfo() : null,
+				nextTime:"",
+				prevTime:parseInt(req.query.t) || "",
+				tool:tool
 			}
+
+			var promise = new Promise();
+
+			promise.add(function(){
+				//手机访问
+				if(ua.indexOf("Android") != -1 || ua.indexOf("iPhone") != -1 || ua.indexOf("Mobile") != -1){
+					res.redirect("/m/"+key);
+					return ;
+				}else{
+					promise.ok();
+				}
+
+			});
 
 			//["Baiduspider","Googlebot","MSNBot","YoudaoBot","JikeSpider","Sosospider","360Spider"]
 
-			//如果是搜索引擎也不创建匿名用户
-			if( user == null){
+			promise.then(function(){
 
-				UserModel.createAnonymousUser( function( status ){
+				//如果是搜索引擎也不创建匿名用户
+				if( user == null){
 
-					if(status.code == 0){
-						user = status.result;//User.factory( userjson );
-						res.setHeader("Set-Cookie", ["sid="+user.toCookie()+";path=/;domain="+config.domain+";expires="+new Date("2030") ]);
-						indexData.user = user.getInfo();
-						intoPage();
-					}else{
-						status.code("500");
-						status.setMsg("创建匿名用户错误");
-						res.render("error", status.toJSON());	
-					}
-				});
+					UserModel.createAnonymousUser( function( status ){
 
-			}else{
+						if(status.code == 0){
+							user = status.result;//User.factory( userjson );
+							res.setHeader("Set-Cookie", ["sid="+user.toCookie()+";path=/;domain="+config.domain+";expires="+new Date("2030") ]);
+							output.user = user.getInfo();
+							promise.ok();
+							//intoPage();
+						}else{
+							status.code("500");
+							status.setMsg("创建匿名用户错误");
+							res.render("error", status.toJSON());	
+						}
+					});
 
-				intoPage();
-			}
+				}else{
+					promise.ok();
+					//intoPage();
+				}
 
 
-			function intoPage(){
-				//var i = 0;
-				
-				
+			});
+			
+
+			//查找对话，确定权限
+			promise.then(function(){
 
 				//查找对话房间信息
 
@@ -99,44 +112,51 @@ module.exports = {
 					//console.log("idOrNameFind", status);
 					if(status.code == "0"){
 
-						var room = status.result;
-						var roomid = room.id;
-
-						//房间设置了密码，用户没有权限访问
-						if( room.password  && !user.isRoomPasswrod(room.id, room.password) ){
-						//if( true ){
-							res.redirect("/sys/room_limit?roomid="+room.id);
-							return ;
-								
-						}
-
-						indexData.room = room.getInfo();
-
-						//查找首页数据 
-						ChatModel.findChats( roomid , time, 10, function( status ){
-
-							indexData.indexChats = status.result || [];
-							indexData.tool = tool;
-							indexData.nextTime = status.result && status.result.length ? status.result[status.result.length-1].time : "";
-							res.render('chat', indexData);
-
-						});
-
-						//创建用户日志  如果是搜索引擎user信息为空
-						if(!isSpiderBot(ua) && user.name){
-							//console.log("加入", ua);
-							LogModel.create( user._id, "into_room",  room.getInfo(), function(){} );
-						}
+						promise.ok( status );
 
 					}else{
 						status.setMsg("没有找到对话，请确认输入");
 						res.status(404).render("404", status.toJSON() );
-						res.end();
+						//res.end();
 					}
 
 
 				});
-			}
+
+			});
+
+			promise.then(function( status ){
+
+				var room = status.result;
+				var roomid = room.id;
+
+				//房间设置了密码，用户没有权限访问
+				if( room.password  && !user.isRoomPasswrod(room.id, room.password) ){
+					res.redirect("/sys/room_limit?roomid="+room.id);
+					return ;
+						
+				}
+
+				output.room = room.getInfo();
+
+				//查找首页数据 
+				ChatModel.findChats( roomid , time, 10, function( status ){
+
+					output.indexChats = status.result || [];
+					output.nextTime = status.result && status.result.length ? status.result[status.result.length-1].time : "";
+					res.render('chat', output);
+
+				});
+
+				//创建用户日志  如果是搜索引擎user信息为空
+				if(!isSpiderBot(ua) && user.name){
+					//console.log("加入", ua);
+					LogModel.create( user._id, "into_room",  room.getInfo(), function(){} );
+				}
+
+			});
+
+			promise.start();
 
 		},
 		// 发布一条信息

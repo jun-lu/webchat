@@ -8,6 +8,7 @@ var config = require("../../config");
 var User = require("../../lib/User");
 var WebStatus = require("../../lib/WebStatus");
 var UserModel = require("../../lib/UserModel");
+var Cookie = require("../../lib/Cookie");
 
 module.exports = {
 
@@ -58,9 +59,11 @@ module.exports = {
                	//console.log( "status", status );
 				if( status.code == "0" ){
 					var newUser = status.result;
-					res.setHeader("Set-Cookie", ["sid="+newUser.toCookie()+";path=/;domain="+config.domain+";expires="+new Date("2030") ]);
+					var cookie = new Cookie("sid", newUser.toCookie());
+					cookie.setExpires(new Date("2030"));
+					res.setHeader("Set-Cookie", [cookie.toString()]);
 					res.redirect( referer );
-
+					res.end();
 				}else{
 
 					status.setMsg("用户名密码错误");

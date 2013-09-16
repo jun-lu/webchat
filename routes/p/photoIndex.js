@@ -51,7 +51,7 @@ module.exports = {
 				
 				//promise.ok();
 				res.render("./p/index", output);
-				res.end();
+				//res.end();
 			
 			});
 

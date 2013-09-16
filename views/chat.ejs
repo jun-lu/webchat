@@ -11,8 +11,8 @@
 
 	<link rel="next"  href="/<%=room.name ? room.name : room.id%>?t=<%=nextTime%>">
 	<link rel="prev"  href="/<%=room.name ? room.name : room.id%>?t=<%=prevTime%>">
-
-	<!--[if lte IE 7]>  <script> location.href = "/sys/ie"; </script> <![endif]-->
+	
+	<!--[if lte IE 9]>  <script> location.href = "/sys/ie"; </script> <![endif]-->
 
 	<script type="text/javascript" src="/js/jquery-1.6.3.min.js"></script>
 	<script type="text/javascript" src="/js/we.min.js"></script>
@@ -143,6 +143,9 @@
 								var item = null;
 								for(var i=0; i<indexChats.length; i++){
 									item = indexChats[i];
+									if(!item.from || !item.from._id){
+										continue;	
+									}
 							%>	
 							<div class="chat <% if(item.from._id == user._id){ %> my <%}%>">
 								<div class="dot"></div>
@@ -191,7 +194,8 @@
 		weightTime:0,
 		init:function(){
 
-			var socket = this.socket = new WebSocket("ws://"+window.location.host);
+			// add "/s" ie 10 bug?
+			var socket = this.socket = new WebSocket("wss://"+window.location.host+"/s");
 			var socketMessage = {
 				"connection":function(){
 					//登录到房间
@@ -205,7 +209,7 @@
 					WE.pageChat.userlist.remove( data );
 				},
 				"user-list":function( data ){
-					console.log("daga", data);
+					//console.log("daga", data);
 					$('#socketConnectioning').hide();
 					$('#offlineTip').hide();
 					$('#userlist').show();

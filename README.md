@@ -6,24 +6,64 @@
 		
 	/** config.js */
 
+````javascript
+module.exports = {
+	
+	/**
+		database ip
+		10.6.0.27
+		128.0.0.1
+	*/
+	dbs:[
+        {
+            ip:"127.0.0.1",
+            port:27017
 
-	module.exports = {
+        }
+    ],
+	
+	/**
+		database port
+	*/
+	port:27017,
+	
+	/**
+		database name
+	*/
+	dbname:"webchat",
+	
+	/**
+		http server port
+	*/
+    httpPort:80,
+    httpsPort:443,
+	
+	/**
+		cookie domain
+	*/
+    domain:".vchat.com",
+	/**
+		photo upload
+	*/
+	//uploadDir:"d:/github/upload/",
+	uploadDir:"/Users/jun/github/upload/",
 
-		host:"127.0.0.1",
-		dbip:"127.0.0.1",
-		dbname:"webchat",
-		domain:"127.0.0.1" 
-	};
+	/**
+		系统保留的子域
+	*/
+	sysWord: "a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,0,1,2,3,4,5,6,7,8,9,sys,m,user,tmpl,images,image".split(","),
 
+	socketHost:"ws://vchat.com/sys/chat-server",
+	/**
+		推荐的房间
+	*/
+	recommendRooms:["1365651264385","1361458149047","1361182575505"]
+	
 
-	/* vconfig.js */
+};
+````
+	内存  free -m  磁盘 df -h  top
 
-	module.exports = {
-		recommendRooms:["1365651264385","1361458149047","1361182575505"], 
-		sysWord: "a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,0,1,2,3,4,5,6,7,8,9,sys,m,user,tmpl,images,image".split(",")
-	};
-
-	5:访问webchat 127.0.0.1:3000
 
 #第一版本规划	
 	1: 讨论组创建过程和操作
@@ -97,7 +137,7 @@
 		修改对话信息（按钮）
 		
 
-#投票插件
+#投票插件 （搁浅）
 	
 	应用场景 : Chat页面
 	使用权限 : 
@@ -178,6 +218,15 @@
 #2013/06/14 的想法
 	
 	即时的语音对话
+	
+#新页面设计
+	对话页面
+		当前对话信息展示，在线用户，历史在线，主题信息
+		发布框
+		多人对话
+		单独对话
+		视频和语音扩展
+		
 		
 
 #2013/07/01 vchat.js
@@ -226,7 +275,7 @@
 ````
 
 
-####对话定义 Chat
+####对话定义 Chat (已经过期)
 ````javascript
 {
 	_id:"51419a0c2128205e66000024", //数据库唯一 _id
@@ -237,6 +286,19 @@
 			 // 用户头像地址  遵循 gravatar 网站头像规则
 	time: 1363252238, //时间戳/1000
 	to:(null || Chat) //如果是回应某个对话有此项目
+}
+````
+
+
+####对话定义 Chat
+````javascript
+{
+	_id:"51419a0c2128205e66000024", //数据库唯一 _id
+	roomdid: "1361182575505",  //房间 _id
+	to:User || "*", 如果是两人对话则为User对象，否则为 "*"
+	time: 1363252238, //时间戳/1000
+	from: User 发送者,
+	aim:"51419a0c2128205e660000xx" || null  针对某条信息的回复 
 }
 ````
 
@@ -328,7 +390,7 @@ method: post
 param:
 	roomid:number // 房间id
 	text:string < 2000
-	[to]:string //回应某条信息的 _id
+	[aim]:string //回应某条信息的 _id
 return:{
 	code:0,
 	msg:"正确",
@@ -385,7 +447,7 @@ method:get
 param:
 	roomid:"1361182575505" //房间id
 	/**
-		小于此时间错的最近 size 条信息
+		小于此时间戳的最近 size 条信息
 		可以使用未来时间戳获取最新的10条
 	*/
 	time:"时间戳"/1000 
@@ -585,7 +647,7 @@ return {
 url:"/sys/vchat-login"
 method:"post",
 param:{
-	server: //必选
+	domain: //必选
 	uid:"自动生成一个24位MD5值" //可选
 	uname: "匿名"//可选
 	uavatar: ""//可选
@@ -602,4 +664,19 @@ return {
 	}
 }
 
+````
+
+####获取前端js所需要的模版 19
+````javascript
+
+	action: 获取前端js所需要的模版
+	logic：从 /views/tmpl/ 下获取 path 文件并返回内容
+	
+	
+	url:/sys/tmpl
+	method:get
+	param:
+		path: string
+	
+	return string
 ````

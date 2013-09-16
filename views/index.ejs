@@ -69,7 +69,7 @@
 							if(i>5){ break; }
 						%>
 							<li>
-								<a href="/<%=log[ keys[i] ].name ? log[ keys[i] ].name : log[ keys[i] ].id%>"><%=log[ keys[i] ].topic%></a>
+								<a href="/<%=log[ keys[i] ].name ? log[ keys[i] ].name : log[ keys[i] ].id%>"><%=tool.cutOff(log[ keys[i] ].topic, 20)%></a>
 							</li>
 						<%}%>
 					</ul>
@@ -112,7 +112,6 @@
 		</div>
 		
 	</div>
-
 	<% include common/footer.ejs %>
 	
 

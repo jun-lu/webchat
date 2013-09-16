@@ -156,7 +156,7 @@ WE.pageChat.review = {
 				uid = chatBox.find('input[name=uid]').val();
 				uname = chatBox.find('input[name=uname]').val(),
 				text = chatBox.find('input[name=txt]').val();
-				console.log( chatBox.find('input[name=uid]') );
+				//console.log( chatBox.find('input[name=uid]') );
 				_this.setOrigData( text,uname,uid );
 		});
 	},

@@ -665,7 +665,7 @@ module.exports = {
 	},
 	//17号接口
 	vchatCreate:function( req, res ){
-		//console.log(1111);
+		//console.log(11111111111);
 		res.setHeader('Access-Control-Allow-Credentials', 'true');
 		res.setHeader("Access-Control-Allow-Origin", req.headers.origin);
 		var user = req.session.user;
@@ -739,6 +739,8 @@ module.exports = {
 
 		var user = req.session.user;
 		var domain = req.body.domain;
+		var topic = req.body.topic;
+		var des = req.body.des;
 		var haxid = null;
 
 		if( !user ){
@@ -769,10 +771,13 @@ module.exports = {
 				promise.ok( status );
 			}else{
 
-				var room = new Room(domain, domain, user._id);
+				var room = new Room(topic || domain, des || domain, user._id);
 				room.setdomain( domain );
 				RoomModel.insert(room.toJSON(), function( status ){
 					promise.ok( status );
+					if(status.code == "0"){
+						ChatModel.create( status.result.id, "Your first message!", "*", user._id, null);
+					}
 				});
 			}
 		});

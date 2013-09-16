@@ -1,5 +1,5 @@
 /** chat page */
-.side{position:absolute;width:300px;left:0;}
+.side{width:300px;float:left;}
 	.room{margin-bottom:20px;}
 	.room .topic{font-size:25px;font-weight:700;margin-bottom:10px;}
 		  .topic .icon-edit{vertical-align: middle;cursor:pointer;display:none;}

@@ -9,6 +9,7 @@ var crypto = require("crypto");
 var User = require("../../lib/User");
 var UserModel = require("../../lib/UserModel");
 var WebStatus = require("../../lib/WebStatus");
+var Cookie = require("../../lib/Cookie");
 
 module.exports = {
 	get:function(req, res){
@@ -63,7 +64,9 @@ module.exports = {
 
 					if(status.code == "0"){
 						var user = status.result;
-						res.setHeader("Set-Cookie", ["sid="+user.toCookie()+";path=/;expires="+new Date("2030") ]);
+						var cookie = new Cookie("sid", newUser.toCookie());
+						cookie.setExpires(new Date("2030"));
+						res.setHeader("Set-Cookie", [cookie.toString()]);
 						res.render("sys/wellcome", user);
 					}else{
 						status.user = user;

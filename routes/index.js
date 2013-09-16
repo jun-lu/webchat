@@ -89,7 +89,7 @@ module.exports = function ( app ) {
 	//ie
 	app.get('/sys/ie', function(req, res){
 		res.render("ie.ejs");
-		res.end();
+		//res.end();
 	});
 
 	//图片上传页面
