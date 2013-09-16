@@ -83,5 +83,5 @@ d.run(function(){
   
   socketServerRoutes.init( httpsServer );
   
-  console.log("server ok");
+  console.log("server ok  http:"+config.httpPort+" https:"+ config.httpsPort);
 })
