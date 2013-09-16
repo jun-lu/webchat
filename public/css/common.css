@@ -1,0 +1,56 @@
+/*
+		page layout
+		.global : for all website;
+		.header
+		.main : 
+		.l-l-aside
+		.r-l-aside
+		.footer
+	 */
+	/* reset */
+
+/* yahoo reset */
+html{color:#000;background:#FFF}
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td{margin:0;padding:0;}
+h1,h2,h3,h4,h5,h6{line-height:1.2}
+table{border-collapse:collapse;border-spacing:0}
+fieldset,images{border:0}
+address,caption,cite,code,dfn,em,strong,th,var{font-style:normal;font-weight:normal}
+ol,ul{list-style:none}
+caption,th{text-align:left}
+h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal}
+q:before,q:after{content:''}
+abbr,acronym{border:0;font-variant:normal}
+sup{vertical-align:text-top}
+sub{vertical-align:text-bottom}
+input,textarea,select{font-family:inherit;font-size:inherit;font-weight:inherit}
+input,textarea,select{*font-size:100%}
+legend{color:#000}
+ul,li,body,h1,h2,h3,input{padding:0px;margin:0px;}
+a{text-decoration:none;}
+.clear-fix{zoom:1;clear: both;}
+.clear-fix:after{content:"\20";display:block;clear:both;}
+.hidden{display:none;}
+
+::-webkit-scrollbar {width: 8px;height: 8px;}
+::-webkit-scrollbar-thumb {border-width: 1px;border-style: solid;border-color: #fff;border-radius: 6px;background: #d7d7d7;}
+::-webkit-scrollbar-track-piece {width: 11px;height: 11px;}
+
+
+
+
+/* common */
+body{font-family: "Ebrima",tahoma,arial,\5b8b\4f53;}
+header{height: 35px;background: red;position: relative;z-index: 30;}
+
+.icon-chat{width:13px;height:13px;display:inline-block;vertical-align:middle;background:url(../images/all.png);background-position:-5px -41px;margin-right:5px;}
+.icon-screen{display: inline-block;width: 13px;height: 13px;float: right;background: url(../images/all.png);background-position: -5px -59px;}
+.icon-close{width: 8px;height: 8px;background: url(../images/all.png);background-position: -6px -116px;display: inline-block;}
+.icon-clock{width: 12px;height: 12px;display: inline-block;vertical-align: middle;background: url(../images/all.png);background-position: -4px -79px;margin-right: 5px;margin-top: -2px}
+.icon-reply{width: 17px;height: 12px;display: inline-block;background: url(../images/all.png);background-position: -3px -99px;vertical-align: middle;}
+.icon-add{background: url(../images/all.png);width: 16px;height: 16px;display: inline-block;margin-top: 1px;vertical-align: text-top;background-position: -1px -1px}
+.icon-talk{width: 21px;height: 18px;display: inline-block;background: url(../images/all.png);background-position: 0px -18px;float: right;}
+.icon-back{width:9px;height:11px;background:url(../images/all.png);background-position:-5px -128px;display:inline-block;}
+.icon-down{width:17px;height:19px;background:url(../images/all.png);background-position:-3px -130px;display:inline-block;}
+.icon-larrow-black{width: 17px;height: 27px;;background:url(../images/all.png);background-position:-40px -49px;display:inline-block;}
+.icon-larrow-black:hover{background-position:-40px -78px;};
