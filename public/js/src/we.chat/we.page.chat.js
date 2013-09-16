@@ -2,75 +2,30 @@ WE.pageChat = {
 
 	isLoading:0,
 	lastTime:null,
-	postui:null,
-	init:function(){
+	init: function(){
 
 		this.ui = {
-			header:$('#header'),
-			postBox:$('#postbox'),
-			postBoxIn:$('#postboxIn')
+			postBox: $('#post-box'),
+			replayBox: $('#replay-box')
 		};
-		// 设置全部事件绑定
+
 		this.regEvent();
-
-		//聚焦
-		//$('#postText').focus();
-
-
-		// 回复的注册 :ck
-		//WE.pageChat.reply.init();
-
-		// 初始化History用户列表
-		WE.pageChat.userlist.historyList(ROOM.id);
-
-		//this.initSendType();
 	},
 
-	
-	regEvent:function(){
+	regEvent: function(){
 
 		var _this = this;
-	
 
-		$('#setting').click(function(){
-			_this.setRoomInfo( ROOM );
-		});
+		this.ui.postBox.find('.text-box input').keyup(function( e ){
 
-		$('#user-Avator').click(function(){
-			_this.selectAvatar( USER );
-		})
+			if( e.keyCode == 13 ){
 
-	
-
-		$(window).bind("scroll", function(){
-
-			if(_this.isLoading == 0){
-
-				var isbottom = $(window).scrollTop() + $(window).height() + 100 > $(document.body).innerHeight();
-
-				if( isbottom ){
-
-					_this.isLoading = 1;
-					_this.getMore();
-
-				}
-
+				var text = $.trim( $(this).val() );
+				_this.post( ROOM.id, text );
 			}
-		});
 
-		//input tips
-		$('#text-tip').click(function(){
-			
-			WE.pageTop.showTextTips();
 		});
-
-		this.postui = new WE.ui.Post("#wepost");
-		this.postui.onpost = function(a, b, c){
-			_this.post(a, b, c);
-		};
 	},
-
-
 
 	/*
 	 * 发布对话信息
@@ -78,225 +33,54 @@ WE.pageChat = {
 	 * @param {string} text 对话内容
 	 * @param {string} [to] 原对话的id(回复功能需发送) 
 	 */
-	post:function(roomid, text, to){
-
-		this.postui.setLock();
-		//$('#postTypeGroup button').attr('disabled','disabled').text('发送中...');
+	post: function(roomid, text, to){
 
 		aim = !to ? undefined : to;
-		var _this = this;
-		var model = new WE.api.ChatModel();//
-		var ctrl = new WE.Controller();
-		
-		ctrl.update = function( e ){
-
-			var data = e.data;
-			if( data.code == 0 ){//post提交成功
-
-				_this.postui.removeLock();
-				_this.postui.setClear();
-				_this.postui.removeReply();
-				_this.postui.setMini();
-			}
-
-		};
-		model.addObserver( ctrl );
-		model.postChat( roomid, text, aim );
-	},
-	
-	/*
-	 * 修改房间信息
-	 * @param {ROOM} room : 当前房间信息
-	 */
-	setRoomInfo:function( room ){
-
-		var dialog = new WE.Dialog( {
-			title:"修改房间信息",
-			id:"setRoom",
-			width:500,
-			height:300
-		});
-		dialog.show();
-
-		WE.kit.getTmpl("set_room.ejs", function( data ){
-
-			var canForm = true;
-			
-			var html = WE.kit.tmpl( data,room );
-			dialog.append( html );
-
-
-			var eleRoomName = $('#roomName'),
-				eleRoomTopic = $('#roomTopic'),
-				eleRoomDes = $('#roomDes'),
-				eleRoomid = $('#roomid'),
-				eleRoomPwd = $('#roomPwd'),
-				eleRoomIsSetLimit = $('#isSetLimit'),
-				eleFormRoom = $('#updateRoomForm');
-
-			//设置房间权限的显示
-			eleRoomIsSetLimit.change(function(){
-				var status = $("input[type='checkbox']").is(':checked');
-				if( !status ){
-					eleRoomPwd.val('');
-					eleRoomPwd.hide();
-				}else{
-					eleRoomPwd.show();
-				}
-			});
-
-			//修改访问地址
-			eleRoomName.keyup(function(){
-				var eleRoomNameTip = $('#roomName-tip'),
-					strRoonNameTip = eleRoomNameTip.text(),
-					strInput =  $.trim( eleRoomName.val()),
-					host = document.location.host + '/';
-				eleRoomNameTip.text( host + strInput);
-			});
-
-			//检测key是否唯一
-			eleRoomName.blur(function(){
-
-				var name = $.trim( eleRoomName.val() );
-
-				if( name != ROOM.name && name != "" ){
-					var model = new WE.api.ChatModel();
-					var ctrl = new WE.Controller();
-					ctrl.update = function(e){
-						var data = e.data;
-						eleRoomName.removeClass('error');
-						if( data.code == 0 ){
-							canForm = true;
-							eleFormRoom.find('.keyerror').hide();
-							eleRoomName.removeClass('error');
-						}else{
-							canForm = false;
-							eleFormRoom.find('.keyerror').text( data.msg ).show();
-							eleRoomName.addClass('error');
-						}
-					}
-					model.addObserver( ctrl );
-					model.uniqueKey( name );
-				}else if( name == "" ){
-					canForm = false;
-					eleFormRoom.find('.keyerror').text("访问地址不能为空").show();
-					eleRoomName.addClass('error');
-				}else{
-					canForm = true;
-					eleFormRoom.find('.keyerror').hide();
-					eleRoomName.removeClass('error');
-				}			
-			});
-
-			//表单提交
-			eleFormRoom.submit(function(){
-				var id = eleRoomid.val(),
-					name = eleRoomName.val(),
-					topic = eleRoomTopic.val(),
-					des = eleRoomDes.val(),
-					password = eleRoomPwd.val();
-
-				//如果并没有设置新的访问地址
-				name = name == id ? "" : name;
-				if( topic && des && canForm ){
-					var model = new WE.api.ChatModel();
-					var ctrl = new WE.Controller();
-					ctrl.update = function( e ){
-						var data = e.data;
-
-						if( data.code == 0 ){
-
-							dialog.close();
-							setTimeout(function(){
-								//console.log(window.location.host +"/"+ name);
-								window.location.href = "http://"+window.location.host+"/"+(name || id);//reload();
-							}, 500)
-						}
-					}
-					model.addObserver( ctrl );
-					model.updateRoom( id, name, topic, des,password );
-				}
-				return false;
-			});
-
-
-		
-		});
-	},
-
-	/*
-	 * 鼠标下滚获取更多对话信息
-	 */
-	getMore:function(){
-
-		$('#timelineLoading').removeClass('hidden');
 		var _this = this;
 		var model = new WE.api.ChatModel();
 		var ctrl = new WE.Controller();
 		ctrl.update = function( e ){
-			$('#timelineLoading').addClass('hidden');
-			var data = e.data;
-			if(data.code == 0 && data.result.length){
-				_this.isLoading = 0;
-				WE.pageChat.timeLine.appends( data.result );
-			}else{
-				_this.isLoading = 2;//没有数据了
-			}
 
-		};
-		ctrl.error = function(){
-			$('#timelineLoading').addClass('hidden');
-		};
+			var data = e.data;
+			if( data.code == 0 ){
+				_this.ui.postBox.find('.text-box input').val('');
+			}
+		}
 		model.addObserver( ctrl );
-		model.getMore( ROOM.id , this.lastTime );	
+		model.postChat( roomid, text, aim );
+	},
+
+	setReply: function( chat ){
+		var _this = this;
+		// var _this = this;
+		// var html = $( WE.kit.tmpl( this.replyTmpl ) );
+		// 	html.find('.close-btn').click(function(){
+		// 		html.remove();
+		// 		_this.ui.replayBox.hide();
+		// 	});
+		//console.log('chat=======',chat);
+
+		//console.log( 'html',html,this.ui.replayBox );
+
+		// console.log('===chat',chat);
+		this.ui.replayBox.html(  WE.kit.tmpl( this.replyTmpl,chat ) );
+		this.ui.replayBox.removeClass('hidden');
+		this.ui.replayBox.find('.close-btn').click(function(){
+			_this.ui.replayBox.empty();
+			_this.ui.replayBox.addClass('hidden');
+		});
+
 
 	},
 
-	/*
-	 * 修改头像
-	 */
-	selectAvatar:function( user ){
-
-		var hexMail = user.hexMail;
-		var dialog = new WE.Dialog({
-				title:"选择头像",
-				id:"selectAvatar"
-		});
-		dialog.show();
-
-		WE.kit.getTmpl("select_avatar.ejs", function( data ){
-
-			dialog.append( data );
-
-			$( '#'+user.gravatarDefault ).attr('checked','checked');
-
-			$('#setAvator').submit(function(){
-				submitForm();
-				return false;
-			});
-			$('#setAvator li img').each(function(){
-				$(this).attr("src", WE.kit.getAvatar( hexMail, 48, $(this).data("avatar")));
-			});
-		});
-
-		function submitForm(){
-
-			var gravatarDefault = WE.kit.getRadioValue('gravatarAvatar');
-
-			var model = new WE.api.ChatModel();
-			var ctrl = new WE.Controller();
-			ctrl.update = function( e ){
-				var data = e.data;
-
-				if( data.code == 0 ){
-					
-					document.location.reload();
-				}
-			}
-			model.addObserver( ctrl );
-			model.updateAvator( gravatarDefault );
-		}
-	}
+	replyTmpl: '<div class="replay-box">\
+					<div class="arrow"></div>\
+					<span class="icon-close close-btn"></span>\
+					<div>\
+						<a href="/user/<%=from._id%>" class="name"><%=from.name%></a>\
+					</div>\
+					<div class="context"><%=text %></div>\
+				</div>'
 };
 
 
@@ -306,57 +90,49 @@ WE.pageChat = {
 WE.pageChat.timeLine = {
 	/**
 		{
-	
-			_id
-			uid
-			uname
-			text
-			uavatar
-			time
-			to:{
-				_id:
-				uid:
-				uname:
-				text
-				uavatar
-				to:""
-			}
+			from
+			{
+				_id
+			},
+			aim
 		}
 	*/
-	tmpl:'<div class="chat <% if(from._id == USER._id){ %> my <%}%>">\
-		<div class="dot"></div>\
-		<div class="photo">\
-			<a href="/user/<%=from._id%>" target="_blank" data-uid="<%=from._id%>" >\
-				<img src="<%=from.avatar%>" alt="<%=from.name%>" class="avatar" />\
-			</a>\
-		</div>\
-		<div class="info">\
-			<div class="head">\
-				<a href="/user/<%=from._id%>" target="_blank" class="name"><%=from.name%></a>\
-				<a href="/d/<%=_id%>" target="_blank" class="time"><%=WE.kit.format( new Date( time*1000 ),"MM-dd hh:mm:ss" )%></a>\
-			</div>\
-			<div class="context">\
-				<%if(obj.aim){%>\
-				<div class="reply-quote"><%=aim.text%></div>\
-				<%}%>\
-				<div class="reply-mine"><%=WE.markdown.format(text)%> <a class="chat-reply" href="javascript:;" data-mid="<%=_id%>" >回复</a></div>\
-			</div>\
-		</div>\
-	</div>',
+	tmpl:  '<div class="talk <% if( from._id == USER._id ){ %> me <% } %>">\
+				<div class="photo">\
+					<a href="/user/<%=from._id%>" target="_blank" data-uid="<%=from._id%>">\
+						<img src="<%=from.avatar%>">\
+					</a>\
+				</div>\
+				<div class="info">\
+					<div class="head">\
+						<a href="/user/<%=from._id%>" target="_blank" class="name"><%=from.name%></a>\
+						<a target="_blank" href="/d/<%=_id%>" class="time">\
+							<i class="icon-clock"></i><%=WE.kit.format( new Date( time*1000 ),"MM-dd hh:mm:ss" )%>\
+						</a>\
+					</div>\
+					<% if(obj.aim){ %>\
+					<div class="reply"><%=aim.text%></div>\
+					<% } %>\
+					<div class="context">\
+						<%=WE.markdown.format(text)%><a href="javascript:;" data-mid="<%=_id%>" class="icon-reply chat-reply" title="回复"></a>\
+					</div>\
+				</div>\
+			</div>',
 	mapData:{},
 	/**
 		初始化时间轴数据
 	*/
-	init:function( datas ){
+	init: function( datas ){
 		var _this = this;
    		var i = 0;
 		var len = datas.length;
-		//this.appends( datas );
 
 		for(; i<len; i++){
 			//WE.kit.tmpl(WE.pageChat.timeLine.tmpl)
 			this.mapData[ datas[i]._id ] = datas[i];
 		}
+
+		this.appends( datas );
 
 		if(len && datas[len-1].time){
 			WE.pageChat.lastTime = datas[len-1].time;
@@ -366,12 +142,14 @@ WE.pageChat.timeLine = {
 			//console.log( "lastTime 失败" );
 		}
 
-		$('#timelineChats').delegate(".chat-reply", 'click', function(){
+		$('#timeline-talks').delegate('.chat-reply','click',function(){
 
-			var id = $(this).attr("data-mid");
+			console.log('_this.mapData[id]',_this.mapData[id]);
+			var id = $(this).attr('data-mid');
 			chat = _this.mapData[id];
 			if(chat){
-				WE.pageChat.postui.setReply( chat );
+				// do replay
+				WE.pageChat.setReply( chat );
 			}
 		});
 	},
@@ -380,9 +158,10 @@ WE.pageChat.timeLine = {
 	 * 用户发送对话Ajax提交后更新页面数据
 	 * @param {object} data : 对话数据
 	 */
-	prepend:function( data ){
+	append:function( data ){
 		this.mapData[ data._id ] = data;
-		$('#timelineChats').prepend( WE.kit.tmpl( this.tmpl, data ) );
+		$('#timeline-talks').append( WE.kit.tmpl( this.tmpl, data ) );
+		$('#timeline-bar').scrollTop(99999);
 	},
 
 	/*
@@ -401,7 +180,7 @@ WE.pageChat.timeLine = {
 			html += WE.kit.tmpl( this.tmpl, datas[i] );
 		}
 
-		$('#timelineChats').append( html );
+		$('#timeline-talks').append( html );
 
 		if(datas[len-1].time){
 			WE.pageChat.lastTime = datas[len-1].time;
@@ -418,11 +197,16 @@ WE.pageChat.timeLine = {
 */
 WE.pageChat.userlist = {
 
-	tmpl:'<li id="uid_<%=_id%>"><a href="/user/<%=_id%>" target="_blank" title="<%=name%>">\
-	<img src="<%=avatar%>" width="32" class="avatar" />\
-	</a></li>',
-	data:null,
-	init:function( data ){
+	tmpl:  '<li id="uid_<%=_id%>" <% if( _id == USER._id){ %> class="me" <% } %>>\
+				<a href="/user/<%=_id%>" target="_blank">\
+					<img src="<%=avatar%>"><%=name%>\
+				</a>\
+				<% if( _id != USER._id ){ %>\
+				<a href="javascript:;" title="邀请加入私密聊天" class="icon-talk"></a>\
+				<% } %>\
+			</li>',
+	data: null,
+	init: function(data){
 
 		var i = 0;
 		var html = "";
@@ -434,15 +218,10 @@ WE.pageChat.userlist = {
 				html += WE.kit.tmpl(this.tmpl, data[i]);	
 			}
 
-			$('#userlist').empty().html( html );
+			$('#user-list').empty().html( html );
 		}
-
-		//this.regEvent();
 	},
-	regEvent:function(){
 
-		var _this = this;
-	},
 
 	/*
 	 * 用户上线之后添加该用户头像
@@ -457,7 +236,13 @@ WE.pageChat.userlist = {
 
 				this.data = [data];
 			}
-			$('#userlist').append(  WE.kit.tmpl(this.tmpl, data) );
+
+			var html = WE.kit.tmpl(this.tmpl, data);
+				html.addClass('insert-li');
+			setTimeout(function(){
+				html.removeClass('insert-li');
+			},300);
+			$('#user-list').append(  html );
 		}
 	},
 
@@ -478,96 +263,91 @@ WE.pageChat.userlist = {
 			}
 
 		}	
-	},
-
-
-	/*
-	 * 房间历史访客
-	 * @param {ROOM.id} roomid : 房间id 
-	 */
-	historyList : function( roomid ){
-		var _this = this;
-
-		var model = new WE.api.ChatModel();
-		var ctrl = new WE.Controller();
-		ctrl.update = function( e ){
-			
-			var data = e.data,
-				html = "";
-			if( data.code == 0 ){
-
-				
-
-				for(var i = 0; i<data.result.length; i++){
-					html += WE.kit.tmpl(_this.tmpl, data.result[i]);	
-				}
-				$('#history-list').empty().html( html );
-			}
-			
-			//console.log('data:',data);
-		}
-		model.addObserver(ctrl);
-		model.historyList(roomid);
 	}
-
 };
 
 
-
 /**
-	及时消息通知
+	历史在线用户列表
 */
-WE.pageChat.notice = {
+WE.pageChat.historylist = {
 
-	newsNum : 0,
+	isLoadData: false,
 
-	hidden : false,
+	tmpl:  '<li>\
+			    <a href="/user/<%=_id%>" target="_blank" title="<%=name%>">\
+					<img src="<%=avatar%>">\
+				</a>\
+		    </li>',
 
-	title : document.title, 
+	init: function(){
 
-	init : function(){
-		var _this = this;
-		$(document).click(function(){
-			_this.restoreTitle();
-			_this.hidden = false;
-		});
+		this.ui = {
+			wall: $('#history'),
+			list: $('#history-list'),
+			activeBtn: $('#history-btn'),
+			hideBtn: $('#history-hide')
+		}
 
-		$(window).blur(function(){
-			_this.hidden = true;
-		});
-
-		$(window).focus(function(){
-			_this.restoreTitle();
-			_this.hidden = false;
-		})
-	},
-	
-	restoreTitle : function(){
-		var _this = this;
-		document.title = _this.title;
+		this.regEvent();
 	},
 
-	onUpdate : function(){
+	regEvent: function(){
+
 		var _this = this;
 
-		if( _this.hidden ){
-			_this.newsNum ++;
-			_this.addNews();
-		}else{
-			_this.newsNum = 0;
-			if( _this.restoreTitle != document.title ){
-				_this.restoreTitle();
+		this.ui.activeBtn.click(function(){
+
+			_this.displayHistory();
+		});
+
+		this.ui.hideBtn.click(function(){
+
+			_this.hideHistory();
+		});
+	},
+
+	displayHistory: function(){
+
+		var _this = this;
+
+
+		if( !this.isLoadData ){
+
+			var model = new WE.api.ChatModel();
+			var ctrl = new WE.Controller();
+			ctrl.update = function( e ){
+				
+				var data = e.data,
+					html = "";
+				if( data.code == 0 ){
+
+					_this.isLoadData = true;
+
+					for(var i = 0; i<data.result.length; i++){
+						html += WE.kit.tmpl(_this.tmpl, data.result[i]);	
+					}
+					_this.ui.list.empty().html( html );
+
+
+				}
 			}
-			
-		}	
+			model.addObserver(ctrl);
+			model.historyList( ROOM.id );
+		}
+
+		setTimeout(function(){
+			_this.ui.hideBtn.css('top','0px');
+		},500);
+		this.ui.wall.css('top','0px');
 	},
 
-	addNews : function(){
-		var _this = this,
-			title = '(' + _this.newsNum + ') '+ _this.title;
-		document.title = title;
+	hideHistory: function(){
+		var _this = this;
+		this.ui.hideBtn.css('top','-30px');
+		setTimeout(function(){
+			_this.ui.wall.css('top','100%')
+		},500);
 	}
-
 }
-
 
