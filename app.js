@@ -73,10 +73,10 @@ d.run(function(){
   //socket server
   
   var httpServer = http.createServer(function(req, res){
-	res.writeHead(302, {
-		Location:"https://www"+config.domain+req.url
-	});
-	res.end();
+  	res.writeHead(302, {
+  		Location:"https://www"+config.domain+req.url
+  	});
+  	res.end();
   });
   httpServer.listen(config.httpPort);
   
