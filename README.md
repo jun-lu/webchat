@@ -14,7 +14,13 @@ module.exports = {
 		10.6.0.27
 		128.0.0.1
 	*/
-	db:"127.0.0.1",
+	dbs:[
+        {
+            ip:"127.0.0.1",
+            port:27017
+
+        }
+    ],
 	
 	/**
 		database port
@@ -29,7 +35,8 @@ module.exports = {
 	/**
 		http server port
 	*/
-	serverPort:3000,
+    httpPort:80,
+    httpsPort:443,
 	
 	/**
 		cookie domain
