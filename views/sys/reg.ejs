@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="en-US">
+<html>
 <head>
 	<meta charset="UTF-8">
 	<title>注册 - Vchat</title>
@@ -30,21 +30,23 @@
 						<ul class="reset">
 							<li>
 								<label for="email">Email</label>
-								<input type="text" id="email" name="email" placeholder="Email">
+								<input type="text" id="email" name="email" maxlength="100" placeholder="Email">
 							</li>
 							<li>
 								<label for="name">昵称</label>
-								<input type="text" id="name" name="name" placeholder="name">
+								<input type="text" id="name" name="name" maxlength="50"  placeholder="name">
 							</li>
 							<li>
 								<label for="des">密码</label>
-								<input type="password" id="pwd" name="pwd" placeholder="password">
-							</li>
-							<li>
-								<label for="des">再次输入密码</label>
-								<input type="password" id="pwd2" name="pwd2" placeholder="password">
+								<input type="password" id="pwd" name="pwd" maxlength="50" placeholder="password">
 							</li>
 							<li><input type="submit" class="btn" value="注册" /></li>
+							<li>
+								<br/>
+								<p class="muted" >
+									注册成功你会接收到一份包含密码的Email。
+								</p>
+							</li>
 						</ul>
 					</form>
 				</div>
@@ -52,21 +54,18 @@
 			<div class="span5">
 				<div class="into">
 					<h3>已经有一个账户了?</h3>
-					<div> <a href="/sys/login">登陆</a> </div>
+					<div> <a href="/sys/login">登录</a> </div>
 				</div>
 			</div>
 		</div>
 		
 	</div>
-	<div class="footer">
-		<div class="container">
-		<p><a href="/about">about</a></p>	
-		</div>
-	</div>
+	<% include ../common/footer.ejs %>
 
 	<script type="text/javascript" src="/js/we.min.js"></script>
 	<script type="text/javascript" src="/js/Stip.js"></script>
 	<script type="text/javascript" src="/js/Checkform.js"></script>
+	<script type="text/javascript" src="/js/we.top.min.js"></script>
 
 	<script type="text/javascript">
 		var json = [
@@ -82,30 +81,15 @@
 			},
 			{
 				id:"pwd",
-				minLength:{rule:6,msg:"密码最少6位"},
-				maxLength:{rule:16,msg:"密码最长16位"}
+				minLength:{rule:6,msg:"密码最少6位"}
 
-			},
-			{
-				id:"pwd2",
-				minLength:{rule:6,msg:"确认密码"},
-				maxLength:{rule:16,msg:"确认密码"}
 			}
 		];
 
 		var regForm = new CheckForm(json);
 
-		$('#regForm').click(function(){
-			if( regForm.okay() ){
-				if(regForm.getValue("pwd") == regForm.getValue("pwd2")){
-					return true;
-				}else{
-					alert("两次密码不一致");
-					return false;	
-				}
-			};
-
-			return false;
+		$('#regForm').submit(function(){
+			return  regForm.okay();
 		});
 	</script>
 </body>

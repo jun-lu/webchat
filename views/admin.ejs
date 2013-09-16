@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>404 - Vchat</title>
+	<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css" />
+	<style type="text/css">
+		body{padding:20px;}
+		.by{display: none;}
+		.code404{background:url(/images/404.gif) no-repeat 0 -10px;height:200px;}
+		.code404 .error-info{margin-left:400px;}
+		.code404 .by{display:block;}
+	</style>
+</head>
+<body>
+
+	<form method="post" action="/sys/admin" >
+		<input type="text" name="roomid" value="<%=room?room.id : ''%>" > <input type="submit" value="删除" >
+	</form>
+
+
+	<textarea style="width:700px;height:200px;"><%= room ? JSON.stringify( room ) : '' %></textarea>
+
+</body>
+</html>

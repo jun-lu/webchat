@@ -2,7 +2,7 @@
 	
 	into
 	
-	登陆
+	登录
 */
 
 module.exports = {

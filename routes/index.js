@@ -7,7 +7,7 @@ var system = require("./system");
 var home = require("./home");
 //对话页面
 var chat = require("./chat");
-//登陆
+//登录
 var sysLogin = require("./sys/login");
 //登出
 var sysOut = require("./sys/out");
@@ -22,6 +22,14 @@ var roomLimit = require("./sys/room_limit");
 
 var personal = require("./user/personal");
 
+var weiboLogin = require("./sys/weibo_login");
+
+var qqLogin = require("./sys/qq_login");
+
+//信息详细页面
+var detail = require("./d/detail");
+
+var mobile = require("./m/chat");
 // 提供给前台的ajax api 
 var api = require("./sys/api");
 
@@ -29,11 +37,29 @@ var socketServer = require("../lib/socketServer");
 
 var socketio = require('socket.io');
 
+var SystemMail = require("../lib/SystemMail");
 
+var admin = require("./sys/admin");
 
+var notice = require("./user/notice");
+
+var uploadPhoto = require('./p/uploadPhoto');
 
 module.exports = function ( app ) {
 
+	/* test */
+
+	app.get("/sys/sendmail", function( req, res ){
+		
+		SystemMail.replyremind("idche@qq.com", "CK.ming 回复了你", "回复原文是这样的", function( status ){
+
+			console.log( status );
+
+		});	
+
+		res.end("ok")
+
+	});
 
 	//处理 session
 	app.all("*", system.session);
@@ -41,11 +67,17 @@ module.exports = function ( app ) {
 	// index /
 	app.get('/', home.get);
 
+	//m
+	app.get('/m/:key', mobile.get);
+
 	// chat
 	app.get('/:key', chat.get);
 
+	//admin 
+	app.get('/sys/admin', admin.get);
+	app.post('/sys/admin', admin.post);
 	
-	//登陆
+	//登录
 	app.get('/sys/login', sysLogin.get);
 	
 	//登出
@@ -54,13 +86,23 @@ module.exports = function ( app ) {
 	//注册
 	app.get('/sys/reg', sysReg.get);
 
-	//注册
+	//ie
 	app.get('/sys/ie', function(req, res){
 		res.render("ie.ejs");
-		res.end();
+		//res.end();
 	});
-	
 
+	//图片上传页面
+	app.get('/p/upload_photo', uploadPhoto.get);
+
+	//图片上传功能
+	app.post('/p/upload_photo', uploadPhoto.post);
+
+	//weibo login
+	app.get('/sys/weibo_login', weiboLogin.get);
+	
+	//qq登录
+	app.get('/sys/qq_login', qqLogin.get);
 	/** 
 		post 数据提交
 	
@@ -84,8 +126,13 @@ module.exports = function ( app ) {
 	//输入房间密码
 	app.get('/sys/room_limit', roomLimit.get);
 
+	app.get('/user/notices',notice.get);
+
 	app.get('/user/:key', personal.get);
 
+	
+
+	app.get('/d/:_id', detail.get);
 
 	/**
 		ajax api 
@@ -117,7 +164,13 @@ module.exports = function ( app ) {
 	//读取房间历史
 	app.get('/sys/history', api.getHistory);
 	//修改用户的介绍
-	app.get('/sys/user_summary', api.userSummary);
+	app.post('/sys/user_summary', api.userSummary);
+	//12号接口
+	app.get('/sys/notice_count', api.noticeCount);
+	//13号接口
+	app.get('/sys/notice_list', api.noticeList);
+	//14号接口
+	app.post('/sys/notice_status', api.noticeStauts);
 	
 };
 
