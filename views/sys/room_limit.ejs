@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>需要验证访问权限 - Vchat</title>
+	<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="/css/all.css" />
+	<link rel="stylesheet" href="/css/Stip.css" />
+	<script type="text/javascript" src="/js/jquery-1.6.js"></script>
+	<script type="text/javascript" src="/js/we.min.js"></script>
+	<script type="text/javascript">
+		var USER = <%- JSON.stringify(user)%>;
+		var status = <%- JSON.stringify(status)%>;
+	</script>
+</head>
+<body>
+	<!-- top {user:{user}} -->
+	<% include ../common/top.ejs %>
+
+	<div class="container">
+
+		<div class="bd">
+		<div class="row">
+			<div class="span8">
+
+
+			<h1><%=room.topic%></h1>
+
+			<%if(status.code != 0){%><div class="alert alert-error"><%=status.msg%></div><%}%>
+
+			<form method="post" action="/sys/room_limit" class="bs-docs-example">
+				
+				<input type="hidden" name="roomid" value="<%=room.name || room.id%>" >
+	            <div class="control-group">
+	              <label class="control-label" for="password">访问密码：</label>
+	              <div class="controls">
+	                <input type="text" id="password" name="password" placeholder="password">
+	              </div>
+	            </div>
+	            
+	            <div class="control-group">
+	              <div class="controls">
+	                <button type="submit" class="btn">继续</button>
+	              </div>
+	            </div>
+	         </form>
+         	</div>
+         	<div class="span4">
+         		<div style="margin-top:60px;background:#f2f7f6;border-radius:4px;padding:18px;">
+	         		<ul>
+	         			<li>私密对话需要输入访问密码</li>
+	         			<li>一次输入即可，下次直接访问</li>
+	         			<li>如果对话密码修改，所有访问者需要重新输入密码</li>
+	         		</ul>
+         		</div>
+         	</div>
+		</div>
+		</div>
+	</div>
+	<% include ../common/footer.ejs %>
+<script type="text/javascript" src="/js/we.top.min.js"></script>
+</body>
+</html>

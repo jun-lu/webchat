@@ -1,0 +1,54 @@
+﻿/**
+	moxian ui
+*/
+
+/** 
+	js 
+		MX.ui.ok
+		MX.ui.confirm
+		MX.ui.alert
+		MX.ui.tip
+	
+	by lujun
+*/
+.moxian-ui-tip{position:fixed;_position:absolute;z-index:1000;_width:288px;}
+.ui-tip-wrapper{position:relative;z-index:2;background:#fff;margin:4px;min-width:280px;overflow:hidden;_width:288px;}
+/**不使用rgba 兼容IE8 */
+.ui-tip-bg{height:100%;width:100%;position:absolute;top:0;_width:296px;_height:127px;
+	background:#000;z-index:1;border-radius:5px;
+	opacity:0.3;filter:alpha(opacity=30);
+	-moz-box-shadow:rgb(17, 17, 17) 1px 7px 10px -5px;
+	-webkit-box-shadow:rgb(17, 17, 17) 1px 7px 10px -5px;
+	-ms-box-shadow:rgb(17, 17, 17) 1px 7px 10px -5px;
+	-o-box-shadow:rgb(17, 17, 17) 1px 7px 10px -5px;
+	box-shadow:rgb(17, 17, 17) 1px 7px 10px -5px;
+}
+
+.ui-tip-context,.ui-tip-title,.ui-tip-btn{margin:2px;}
+.ui-tip-title{background:#f2f2f2;padding:0.5em;color:#898788;font-size:12px;}
+.ui-tip-context{margin-top:15px;margin-bottom:15px;}
+.ui-tip-context .p{text-align:center;padding:0 20px;font-size:14px;color:#4e4d52;}
+.ui-tip-btn{text-align:center;margin-bottom:20px;}
+.ui-btn-ok,.ui-btn-cancel{background:url(../images/allbtn.png) no-repeat -235px 2px;color: white;font-size:13px;
+cursor: pointer;display: inline-block;height:29px;line-height:29px;margin-right:10px;text-align:center;width:60px;font-size:14px;text-decoration: none;border:none;}
+.ui-btn-ok:hover,.ui-btn-cancel:hover,.ui-btn-ok:focus,.ui-btn-cancel:focus{background-position: -235px -32px;outline:none;}
+.ui-btn-close{background: url(../images/mxico.png) no-repeat scroll -3px -1116px transparent;cursor: pointer;display:inline-block;height: 14px;position: absolute;right: 10px;top: 10px;width: 14px;border:0 none;outline:none;}
+.ui-tip-icon{background:url(../images/mainspirte.png) no-repeat -216px -387px;display:inline-block;width:24px;height:24px;vertical-align:middle;margin-right:10px;}
+.ui-tip-correct{background:url(../images/mainspirte.png) no-repeat -216px -451px;width:35px;height:27px;vertical-align:middle;margin-right:10px;}
+.ui-tip-success{background-position:-216px -412px;}
+.ui-tip-warn{background:url(../images/prompt_ico.png) no-repeat 0 -906px;width:35px;height:28px;vertical-align:middle;margin-right:10px;}
+#mxDialogMask{_display:none}
+
+
+/*--------------------------有透明背景层 end---------------------*/
+/** mx.at.js */
+.hidden{display:none;}
+.mx-at-box{position:absolute;width:200px;z-index:150;}
+.mx-at{color:#4f4c53;background:#f2f0f1;border:1px solid #9a9899;}
+.mx-at-title{padding:7px 6px;border-bottom:1px solid #dedcdd;color:#9a9899;}
+.mx-at-list{border-top:1px solid #fff;}
+.mx-at-list li{list-style:none;}
+.mx-at-list ul{margin:0;}
+.mx-at li a{padding:5px 12px;display:block;color:#4f4c53;border-bottom:1px solid #dedcdd;word-wrap:break-word;}
+.mx-at li a:hover{text-decoration:none;}
+.mx-at .on{background:#dedcdd;}

@@ -1,0 +1,89 @@
+/** chat page */
+.side{position:absolute;width:300px;left:0;}
+	.room{margin-bottom:20px;}
+	.room .topic{font-size:25px;font-weight:700;margin-bottom:10px;}
+		  .topic .icon-edit{vertical-align: middle;cursor:pointer;display:none;}
+		  .room:hover .icon-edit{display:inline-block;}
+	.room .des{color:#666666;}
+	
+	.slide-module{clear:both;padding-top:20px;}
+	.slide-module .title{font-size:14px;font-weight:700;}
+	.slide-module .list li{float:left;margin:1px;}
+
+.share-box{padding:5px 0;}
+.share{display:inline-block;background-image:url(/images/share_icons.png);height:19px;width:20px;}
+.share:hover{background-color:transparent; }
+.share-sina{background-position:-52px 0;}
+.share-sina:hover{background-position:-52px 18px;}
+
+.share-qq{background-position:-117px 0}
+.share-qq:hover{background-position:-117px 18px;}
+
+
+.main{margin-left:300px;position:relative;}
+	.chat-list{}
+	.chats{padding-left:30px;margin-left:30px;}
+
+	.chats .timeline{width:4px;height:100%;background:#9fc9ea;position:absolute;left:40px;}
+
+	.chats .dot:hover body .timeline{opacity:0.4;}
+	
+	.post-box-in{border:1px solid #c6c6c6;position:relative;margin-bottom:10px;background:#fff;}
+	.post-box{margin:5px 0 0px 0;}  
+		.post-box .btns{text-align:right;background:#f7f7f7;}
+			.btns .btn-group{text-align: right;}
+			.dropdown-menu .icon-ok{display:none}
+			.on .icon-ok{display:inline-block;}
+		.post-box-in{margin:0;}
+	.post-box .post-text-box{margin:3px 5px;}
+	.post-box .post-text{border:none;width:100%;max-width:100%;min-height:45px;padding:0;margin:0;outline:none;border:none;box-shadow:none;-webkit-box-shadow:none;-moz-box-shadow:none;}
+	.post-box .post-text:focus{outline:none;border:none;box-shadow:none;}
+	.send-type-select{right:0;min-width:100px;left:auto;}
+	form.post-form{margin: 0px;}
+		.quote{background: #e8eef2;padding:5px;}
+
+	.post-form .nav-tabs{display:none;margin-bottom:0;}
+	.fullscreen .nav-tabs{display:block;}
+	
+	.post-text-box .icon-fullscreen{position:absolute;right:10px;cursor:pointer;}
+	.fullscreen{position:fixed;z-index:11;width:100%;height:100%;top:0;left:0;box-shadow: 0 0 5px 2px #cfcfcf;}
+	.fullscreen .post-text{}
+	.fullscreen .post-form{margin:0 50px;height:99%;box-shadow: 0 0 5px 2px #cfcfcf;}
+
+
+	.avatar{background:#f2fbf2;}
+	.chat{position:relative;font-size:12px;}
+	.chat .photo{position:absolute;width:48px;}
+	.chat .photo img{width:36px;height:36px;}
+	.chat .info{min-height:48px;margin-left:45px;margin-bottom:20px;position:relative;}
+	.chat .dot{background:#9fc9ea;width:8px;height:8px;border-radius:10px;border:5px solid #fff;left:-27px;top:8px;position:absolute;cursor:pointer;}
+	.chat .chat-reply{font-size:12px;visibility: hidden;}
+	.chat:hover .chat-reply{visibility: visible;}
+
+
+
+			.info .my{}
+			.info .head{background:#f2fbf2;padding:1px 5px;margin:0;height:20px;}
+			.info .head a{font-size:12px;}
+			.info .context{margin-top:10px;line-height:1.62em;word-break: break-word;}
+			.info .context pre{font-size:12px;padding:5px;background-color:#f8f8f8;border:none;}
+			.info .reply-quote{border-left:1px solid #666;padding-left:10px;color:#a5a5a5;}
+			.info .reply-mine{margin-top:7px;}
+			.info .head .time{float:right;color: #999;font-size: 12px;}
+			.info .head .time:hover{background: none; text-decoration: underline;}
+			.info .text-tip{position:absolute;right:-19px;top:0px;height:14px;width:14px;display:inline-block;opacity:0.6;}
+			.info .text-tip:hover{background-color:#fff;opacity:1;}
+		.my .head{background: #e6f8f8;}
+
+	/*ÀúÊ·ÓÃ»§*/
+	.history-list li{width:32px;height:32px;}
+	.history-list li a{display: block;}
+	.history-list li img{opacity: 0.4;moz-opacity:0.4;o-opacity:0.4;wekit-opacity:0.4;}
+
+.timeline-loading{height:30px;background-color:#e7ebf2; }
+.time-search-box{position:absolute;right:-20px;}
+.time-search{position:fixed;}
+.time-search ul{list-style:none;}
+.time-search li{text-align:left;margin:1px 0;}
+.time-name{display:inline-block;border-left:5px solid #c7c7c7;padding:2px 5px;color:#ccc;}
+.time-name:hover,.time-name.on{border-color:#3988d0;color:#5ca8c8;}

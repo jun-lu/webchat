@@ -3,31 +3,37 @@
 <head>
 	<meta charset="UTF-8">
 	<title>WE ui.CK.Huang</title>
-	<link rel="stylesheet" href="css/all.css" />
-	<!-- test fork -->
+	<link rel="stylesheet" href="../public/bootstrap/css/bootstrap.min.css" />
+	<link rel="stylesheet" type="text/css" href="css/all.css">
 </head>
 <body>
 	
 	<div class="top">
-		<ul class="nav f-r">
-			<li class="drop-down">
-				<a href="#" class="account" >
-					<span>Lujun的帐号</span>
-					<span class="arrow"></span>
-				</a>
-				<div class="drop-down-items">
-					<ul>
-						<li><a href="#">修改昵称</a></li>
-						<li><a href="#">我参与过的对话</a></li>
-					</ul>
-				</div>
-			</li>
-		</ul>
-		<ul class="nav">
-			<li><a href="#">Vchat</a></li>
-			<li><a href="#">创建对话</a></li>
-		</ul>
-	</div>
+	
+	<ul class="top-nav f-r">
+		<li class="drop-down">
+			<a href="#" class="account">
+				<span>HELLO的帐号</span>
+				<span class="arrow"></span>
+			</a>
+			<div class="drop-down-items">
+				<ul>
+					<li><a href="javascript:;" id="username">修改昵称</a></li>
+					
+						<li><a href="javascript:;" id="bindmail">绑定Email</a></li> 
+					
+					<li><a href="javascript:;" id="chatme">我参与过的对话</a></li>
+					<li><a href="/sys/login">切换用户</a></li>
+				</ul>
+			</div>
+		</li>
+	</ul>
+	
+	<ul class="top-nav">
+		<li><a href="/">Vchat</a></li>
+		<li><a href="/">创建对话</a></li>
+	</ul>
+</div>
 	
 	<div class="container">
 		<div class="bd">
@@ -51,146 +57,14 @@
 				<div class="user-list">
 					<div class="title">Online</div>
 					<div class="list">
-						<ul>
-							<li>
-								<a href="#">
-									lujun
-								</a>
-							</li>
-							
-							<li>
-								<a href="#">
-									lujun
-								</a>
-							</li>
-							
-							<li>
-								<a href="#">
-									lujun
-								</a>
-							</li>
-							
-							<li>
-								<a href="#">
-									lujun
-								</a>
-							</li>
-							
-							<li>
-								<a href="#">
-									lujun
-								</a>
-							</li>
-							
-							<li>
-								<a href="#">
-									lujun
-								</a>
-							</li>
-							
-							<li>
-								<a href="#">
-									lujun
-								</a>
-							</li>
-							
-							<li>
-								<a href="#">
-									lujun
-								</a>
-							</li>
-							
-							<li>
-								<a href="#">
-									lujun
-								</a>
-							</li>
-							
-							<li>
-								<a href="#">
-									lujun
-								</a>
-							</li>
-							
-							<li>
-								<a href="#">
-									lujun
-								</a>
-							</li>
-						</ul>
+						<ul class="reset clear-fix" id="userlist"><li id="uid_5146769b054d718b86000001"><a href="#" title="HELLO"> <img src="http://www.gravatar.com/avatar/c0c877a97bda6226a02bfae0e8e91771.jpg?s=48&amp;d=monsterid" width="32"> </a></li></ul>
 					</div>
 				</div>
 				
 				<div class="user-list">
 					<div class="title">Offline</div>
 					<div class="list">
-						<ul>
-							<li>
-								<a href="#">
-									<img src="http://img3.douban.com/icon/u67009572-6.jpg" width="32" height="32" alt="" />
-								</a>
-							</li>
-							
-							<li>
-								<a href="#">
-									<img src="http://img3.douban.com/icon/u67009572-6.jpg" width="32" height="32" alt="" />
-								</a>
-							</li>
-							
-							<li>
-								<a href="#">
-									<img src="http://img3.douban.com/icon/u67009572-6.jpg" width="32" height="32" alt="" />
-								</a>
-							</li>
-							
-							<li>
-								<a href="#">
-									<img src="http://img3.douban.com/icon/u67009572-6.jpg" width="32" height="32" alt="" />
-								</a>
-							</li>
-							
-							<li>
-								<a href="#">
-									<img src="http://img3.douban.com/icon/u67009572-6.jpg" width="32" height="32" alt="" />
-								</a>
-							</li>
-							
-							<li>
-								<a href="#">
-									<img src="http://img3.douban.com/icon/u67009572-6.jpg" width="32" height="32" alt="" />
-								</a>
-							</li>
-							
-							<li>
-								<a href="#">
-									<img src="http://img3.douban.com/icon/u67009572-6.jpg" width="32" height="32" alt="" />
-								</a>
-							</li>
-							
-							<li>
-								<a href="#">
-									<img src="http://img3.douban.com/icon/u67009572-6.jpg" width="32" height="32" alt="" />
-								</a>
-							</li>
-							
-							<li>
-								<a href="#">
-									<img src="http://img3.douban.com/icon/u67009572-6.jpg" width="32" height="32" alt="" />
-								</a>
-							</li>
-							
-							<li>
-								<a href="#">
-									<img src="http://img3.douban.com/icon/u67009572-6.jpg" width="32" height="32" alt="" />
-								</a>
-							</li>
-							
-							<li>
-								<a href="#">
-									<img src="http://img3.douban.com/icon/u67009572-6.jpg" width="32" height="32" alt="" />
-								</a>
-							</li>
-						</ul>
+						<ul class="reset clear-fix" id="userlist"><li id="uid_5146769b054d718b86000001"><a href="#" title="HELLO"> <img src="http://www.gravatar.com/avatar/c0c877a97bda6226a02bfae0e8e91771.jpg?s=48&amp;d=monsterid" width="32"> </a></li></ul>
 					</div>
 				</div>
 				
@@ -218,7 +92,7 @@
 									</div>
 									<div class="btns">
 										<div class="btn-group" id="postTypeGroup">
-											<button class="btn" tabindex="-1" type="submit">发送</button>
+											<button class="btn" disabled tabindex="-1" type="submit">发送中...</button>
 										</div> 
 									</div>
 								</div>
@@ -238,6 +112,10 @@
 							</div>
 						</div>
 						
+						<div class="chat" style="margin-bottom:20px;">
+							<div class="dot"></div>
+							<div class="time-tag"><h4>2009年</h4></div>
+						</div>
 						<div class="chat">
 							<div class="dot"></div>
 							<div class="photo">
@@ -285,6 +163,9 @@
 							</div>
 						</div>
 						
+						<div class="chat" style="margin-bottom:20px;">
+							<div class="time-tag"><h4>1月</h4></div>
+						</div>
 						
 						<div class="chat">
 							<div class="dot"></div>

@@ -2,7 +2,7 @@
 	
 	login
 	
-	登陆
+	登录
 */
 
 var crypto = require("crypto");
@@ -13,9 +13,9 @@ var WebStatus = require("../../lib/WebStatus");
 module.exports = {
 	get:function(req, res){
 
-		var user = req.session ? req.session.user : null;
+		var user = req.session.user;
 		var status = new WebStatus().toJSON();
-		status.user = user;
+		status.user = user ? user.getInfo() : user;
 
 		res.render('sys/reg',  status );
 
@@ -29,16 +29,18 @@ module.exports = {
 		var name = req.body.name;
 		var pwd = req.body.pwd;
 		var pwd2 = req.body.pwd2;
-
+		var output = {
+			user:user,
+		};
 		var status = new WebStatus();
-			status.user = user;
+			//status.user = user;
 
 		if( !User.checkMail( email ) ){
 
 			status.setCode( "-3" );
 			status.setMsg( "email 格式错误" );
 
-			res.render('sys/reg', status.toJSON() );
+			res.render('sys/reg', status.toJSON(output) );
 			return ;
 		}
 
@@ -47,7 +49,7 @@ module.exports = {
 			status.setCode( "-4" );
 			status.setMsg( "两次密码不配" );
 
-			res.render('sys/reg', status.toJSON() );
+			res.render('sys/reg', status.toJSON(output) );
 			return ;
 		}
 
@@ -57,13 +59,15 @@ module.exports = {
 
 				UserModel.create( email, pwd, name, function( status ){
 
+					//console.log("status", status);
+
 					if(status.code == "0"){
 						var user = status.result;
 						res.setHeader("Set-Cookie", ["sid="+user.toCookie()+";path=/;expires="+new Date("2030") ]);
 						res.render("sys/wellcome", user);
 					}else{
 						status.user = user;
-						res.render('sys/reg', status.toJSON() );	
+						res.render('sys/reg', status.toJSON(output) );	
 					}
 
 				});
@@ -73,7 +77,7 @@ module.exports = {
 				status.setMsg("email已经被使用");
 				status.user = user;
 				
-				res.render('sys/reg', status.toJSON() );
+				res.render('sys/reg', status.toJSON(output) );
 
 			}
 

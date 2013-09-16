@@ -1,17 +1,23 @@
 <!DOCTYPE HTML>
-<html lang="en-US">
+<html>
 <head>
 	<meta charset="UTF-8">
 	<title>Vchat - 基于主题的多人对话</title>
+	<meta name="keywords" content="vchat,vchat.co,多人讨论,话题,活动,兴趣"/>
+	<meta name="description" content="基于话题的多人讨论平台"/>
 	<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css" />
 	<link rel="stylesheet" type="text/css" href="css/all.css">
-	<style type="text/css">
 
-		.top-color{padding:5px 20px;text-align:right;}
-		.create,.join{border-right: 1px solid #ccc;}
-		.into{min-height:230px;}
-		
+	<style type="text/css">
+		.head{background:#f6f6f6;position:relative;margin-top:40px;border-radius:3px;margin-bottom: 50px;}
+		.logo{width:100px;float:left;margin-top:15px;margin-left:20px;line-height: 50px;text-align: center;}
+		.recommend{margin-left:130px;margin-right:300px;padding:10px;}
+		.recommend h2{font-size:16px;}
+
+		.create-form{position:absolute;top:0;right:20px;background: #fff;padding:10px 30px;
+			border:1px solid #e9eef2;border-top:none;border-radius:3px; }
 	</style>
+
 	<script type="text/javascript">
 		var USER = <%- JSON.stringify(user)%>;
 	</script>
@@ -20,54 +26,48 @@
 	<!-- top {user:{user}} -->
 	<% include common/top.ejs %>
 	
+	
 	<div class="container">
 		<div class="head">
-			<h1>Vchat</h1>
-			<p class="subtitle" > --- 基于主题的多人对话</p>
-		</div>
-		<div class="row">
-			<div class="span4">
-				<div class="create">
-					<h3>创建一个对话</h3>
-					<form action="/sys/create" method="post" >
+			<div class="logo"><img src="/images/logo.png" title="vchat" > </div>
+			<div class="recommend">
+				<h2>Vchat基于主题的多人对话</h2>
+				<%if(recommendOne){
+				%>
+				<div>
+					<a href="/<%=recommendOne.name ? recommendOne.name : recommendOne.id%>" title="<%=recommendOne.topic%>" >
+						<%=recommendOne.topic%>
+					</a>
+					<p>
+						<small class="muted" title="<%=recommendOne.des%>" >
+							<%=tool.cutOff(recommendOne.des, 50)%>
+						</small>
+					</p>
+				</div>
+				<%}%>
+			</div>
+			<div class="create-form">
+					<h3>创建对话</h3>
+					<form action="/sys/create" method="post">
 						<ul class="reset">
 							<li>
-								<label for="topic">主题</label>
-								<input type="text" id="topic" name="topic" placeholder="讨论主题">
+								<input type="text" id="topic" name="topic" maxlength="200" placeholder="讨论主题">
 							</li>
 							<li>
-								<label for="des">描述</label>
-								<textarea placeholder="描述" name="des" id="des" ></textarea> 
+								<textarea placeholder="描述" name="des" maxlength="500" style="height:100px;" id="des"></textarea> 
 							</li>
-							<li><input type="submit" class="btn" value="创建" /></li>
+							<li><input type="submit" class="btn" value="创建对话"></li>
 						</ul>
 					</form>
-				</div>
-			</div>
-			<div class="span4">
-				<div class="into join">
-					<h3>加入一个对话</h3>
-					<form action="/sys/into" method="post" >
-						<ul class="reset">
-							<li>
-								<label for="chatid">输入对话KEY</label>
-								<input type="text" id="webchatid" name="roomid" placeholder="输入对话KEY" >
 
-							</li>
-							<li><input type="submit" class="btn"  value="进入" ></li>
-						</ul>
-					</form>
-				</div>
-			</div>
-			<div class="span4">
-				<div class="room-list">
 					<%
 						var keys = Object.keys( log );
 						if( keys.length ){
 					%>
-					<h3>去过的地方</h3>
 					<ul>
-						<%for(var i=0; i<keys.length; i++){%>
+						<%for(var i=0; i<keys.length; i++){
+							if(i>5){ break; }
+						%>
 							<li>
 								<a href="/<%=log[ keys[i] ].name ? log[ keys[i] ].name : log[ keys[i] ].id%>"><%=log[ keys[i] ].topic%></a>
 							</li>
@@ -75,28 +75,50 @@
 					</ul>
 					<%}%>
 					
-
-					<h3>推荐的对话</h3>
+			</div>
+		</div>
+		<div class="row">
+			<div class="span4">
+				<h4>最新对话...</h4>
+				<div class="new-list">
 					<ul>
-						<li><a href="/webchat">WebChat开发讨论</a></li>
-						<li><a href="/test">web开发测试</a></li>
+						<%for(var i=0; i<newRoom.length; i++){%>
+						<li>
+							<a href="/<%=newRoom[i].name ? newRoom[i].name : newRoom[i].id%>" title="<%=newRoom[i].topic%>" >
+							<%=tool.cutOff(newRoom[i].topic,20)%></a>
+							<p><small title="<%=newRoom[i].des%>" ><%=tool.cutOff(newRoom[i].des, 20)%></small></p>
+						</li>
+						<%}%>
+						
 					</ul>
 					
+				</div>
+			</div>
+			<div class="span4">
+				<h4>推荐的对话</h4>
+				<div class="new-list">
+					<ul>
+
+						<%for(var i=0; i<recommendRooms.length; i++){%>
+						<li>
+							<a href="/<%=recommendRooms[i].name ? recommendRooms[i].name : recommendRooms[i].id%>" title="<%=recommendRooms[i].topic%>" >
+							<%=tool.cutOff(recommendRooms[i].topic,20)%></a>
+							<p><small title="<%=recommendRooms[i].des%>" ><%=tool.cutOff(recommendRooms[i].des, 20)%></small></p>
+						</li>
+						<%}%>
+					</ul>
 				</div>
 			</div>
 		</div>
 		
 	</div>
-	<div class="footer">
-		<div class="container">
-		<p><a href="/about">about</a></p>	
-		</div>
-	</div>
 
-	<script type="text/javascript" src="/js/jquery-1.6.3.min.js"></script>
-	<script type="text/javascript" src="/js/we.min.js"></script>
+	<% include common/footer.ejs %>
+	
 
-	<script type="text/javascript" src="/js/we.top.min.js"></script>
+	<script type="text/javascript" src="/js/jquery-1.6.3.min.js" ></script>
+	<script type="text/javascript" src="/js/we.min.js"  ></script>
+	<script type="text/javascript" src="/js/we.top.min.js" ></script>
 
 </body>
 </html>

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title><%=data.uname%>在对话 <%=room.topic%> 的发言</title>
+
+	<link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap.min.css"/>
+	<link rel="stylesheet" type="text/css" href="/css/all.css"/>
+	<link rel="stylesheet" type="text/css" href="/css/chat.css"/>
+
+	<style type="text/css">
+	.reset-width{width:920px;}
+		.message{font-size:13px;padding:8px;background:#f2fbf2;}
+		.message p{text-indent:2em;line-height:1.9em;margin:0px;}
+		.title{color:#999;margin-bottom:8px;}
+		.title .time{margin-left:20px;}
+		.room{margin-bottom:30px;}
+		.review-box{padding:3px;border:1px solid #c6c6c6;width:30em;margin:10px 0px;}
+		.orig{margin-bottom:15px;border-bottom:#ccc dotted 1px;padding-bottom:15px;}
+			.orig .head{background:#F4FBDC;}
+	</style>
+	<script type="text/javascript">
+		var USER = <%- JSON.stringify(user)%>;
+		var ROOM = <%- JSON.stringify(room)%>;
+	</script>
+</head>
+<body>	
+
+	<!-- top {user:{user}} -->
+	<% include ../common/top.ejs %>
+
+	<div class="container">
+		<div class="bd reset-width">
+
+			<div class="room">
+				<blockquote>
+					<h1 class="topic">
+						<span>
+							<a href="http://vchat.co/<%=room.name ? room.name : room.id%>"><%=room.topic%></a>
+						</span>
+					</h1>
+					<p class="des"><small class="des"><%=room.des%></small></p>
+				</blockquote>
+			</div>
+
+			<div class="chat-container">
+				
+
+				<div class="chat orig">
+					<div class="photo">
+						<a href="/user/<%=data.from._id%>" target="_blank" data-uid="<%=data.uid%>">
+						    <img src="<%=data.from.avatar%>" alt="<%=data.from.name%>" class="avatar">
+						</a>  
+					</div>
+					<div class="info">
+						<div class="head">
+							<a href="/user/<%=data.from._id%>" target="_blank" class="name"><%=data.from.name%></a>
+							<a href="/d/<%=data._id%>" class="time"><%=tool.format(data.time*1000)%></a>
+						</div>
+						<div class="context">
+							<%if(data.aim){%>
+							<div class="reply-quote">
+								<%-tool.markdown.format(data.aim.text)%>
+							</div>
+							<%}%>
+							<div class="reply-mine"><%-tool.markdown.format(data.text)%> <a id="chat-reply" class="chat-reply" href="javascript:;">回复</a></div>
+						</div>
+					</div>
+
+					<div id="wepost">
+						<form method="post" class="post-form post-box" action="/sys/post" > 
+							<input type="hidden" name="aim" class="jsaim" value="<%=data._id%>"> 
+							<input type="hidden" name="roomid" class="jsroomid" value="<%=room.id%>"> 
+							<div class="post-box-in">
+								<ul class="nav nav-tabs">
+								  <li class="active jsmodeEdit" ><a href="javascript:;">编辑</a></li>
+								  <li class="jsmodePreview" ><a href="javascript:;">预览</a></li>
+								</ul>
+								<div class="post-text-box">
+									<i class="icon-fullscreen" title="扩大/缩小" ></i>
+									<textarea class="post-text" maxlength="5000" name="text" ></textarea>
+									<div class="jspreviewbox" style="diplay:none;" ></div>
+								</div> 
+								<div class="btns"> 
+									<div class="btn-group"> 
+										<button class="btn btn-small postSendBtn">回复</button> 
+										<button class="btn btn-small dropdown-toggle"  data-toggle="dropdown"><span class="caret"></span></button> 
+										<ul class="dropdown-menu send-type-select"> 
+										  <li><a href="javascript:;" data-type="2">enter <span style="display: none;" class="dui">√</span></a></li> 
+										  <li><a href="javascript:;" data-type="1">ctrl+enter  
+											<span class="dui">√</span></a></li> 
+										</ul> 
+									  </div> 
+								</div>
+								<div class="quote" style="display:none;">
+									<span class="quote-text">hello</span>
+									<a href="javascript:void(0);" class="quote-user">lujun</a>
+									<a class="quote-del pull-right" href="javascript:void(0)">×</a>
+								</div>	
+							</div> 
+						</form>
+					</div>
+
+				</div>
+
+				<%
+					for(var i=0; list && i<list.length; i++){
+					var item = list[i];
+				%>
+					<div class="chat">
+						<a name="<%= item._id %>"></a>
+						<div class="photo">
+							<a href="/user/<%=item.from._id%>" target="_blank" data-uid="<%=item.from._id%>">
+							    <img src="<%=item.from.avatar%>" alt="<%=item.from.name%>" class="avatar">
+							</a>  
+						</div>
+						<div class="info">
+							<div class="head">
+								<a href="/user/<%=item.uid%>" target="_blank" class="name"><%=item.uname%></a>
+								<a href="/d/<%=item._id%>" class="time"><%=tool.format(item.time*1000)%></a>
+							</div>
+							<div class="context">
+								<%if(item.aim){%>
+								<div class="reply-quote">
+									<%-tool.markdown.format(item.aim.text)%>
+								</div>
+								<%}%>
+								<div class="reply-mine"><%-tool.markdown.format(item.text)%></div>
+							</div>
+						</div>
+					</div>
+				<%}%>
+			</div>	
+		</div>
+	</div>
+	<% include ../common/footer.ejs %>
+
+	<script type="text/javascript" src="/js/jquery-1.6.3.min.js"></script>
+	<script type="text/javascript" src="/js/we.min.js"></script>
+	<script type="text/javascript">
+		var post = new WE.ui.Post('#wepost');
+		
+		post.onpost = function(roomid, text, to){
+			post.setLock();
+
+			to = !to ? undefined : to;
+			var _this = this;
+			var model = new WE.api.ChatModel();//
+			var ctrl = new WE.Controller();
+			
+			ctrl.update = function( e ){
+
+				var data = e.data;
+				if( data.code == 0 ){//post提交成功
+					window.location.reload();
+				}
+
+			};
+			model.addObserver( ctrl );
+			model.postChat( roomid, text, to );	
+		};
+	</script>
+
+	<script type="text/javascript" src="/js/we.top.min.js"></script>
+
+
+</body>
+</html>

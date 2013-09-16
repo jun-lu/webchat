@@ -1,0 +1,25 @@
+
+
+
+/** personal page */
+
+	.personal-page .content{overflow:hidden;}
+
+	.personal-page .info-box .u-detail{margin-top:10px;}
+		.personal-page .photo-box{padding:1px;border:#ddd solid 1px;overflow: hidden;zoom:1;display:block;background:#fff;}
+		.personal-page .info-box .photo-box,.personal-page .info-box .u-detail{float:left;}
+		.personal-page .info-box .u-detail h2,.personal-page .info-box .u-detail p{display:inline-block;}
+		.personal-page .info-box .u-detail h2{font-size:200%;}
+		.personal-page .info-box .u-detail p{float:left;margin-top: 4px;color:#666;}
+		.u-detail .icon-edit{margin:2px 0px 0px 5px;display:none;cursor:pointer;}
+		.u-detail:hover .icon-edit{display:inline-block;}
+		
+		.personal-page .main-bar{padding-top:20px;}
+		.personal-page .main-bar .build,.personal-page .main-bar .join{margin-top:20px;}
+			.personal-page .main-bar h3{font-size:14px;color:#409d96;line-height:20px;}
+			.personal-page .main-bar h3 span.uname{font-weight:normal;}
+			.personal-page .main-bar a{color:#8a8a8a;}
+			.personal-page .main-bar a:hover{color:#fff;padding:1px 8px;}
+			.personal-page .main-bar ul{margin-top: 6px;}
+			.personal-page .main-bar ul li{margin-top:5px;border-bottom:#eee dotted 1px;}
+			.personal-page .main-bar ul li span{float:right;color:#8a8a8a;font-size:12px;}
