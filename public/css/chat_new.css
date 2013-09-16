@@ -25,6 +25,7 @@
 	 @media (max-width:800px){
 		.l-aside{left:-200px;opacity:0}
 		.main{margin-left:0px;}
+		.main-content .talk .time{display:none;}
 	}
 	@media (max-width:259px){
 		.content-inner{padding-top: 69px;}

@@ -107,7 +107,7 @@ WE.pageChat.timeLine = {
 					<div class="head">\
 						<a href="/user/<%=from._id%>" target="_blank" class="name"><%=from.name%></a>\
 						<a target="_blank" href="/d/<%=_id%>" class="time">\
-							<i class="icon-clock"></i><%=WE.kit.format( new Date( time*1000 ),"MM-dd hh:mm:ss" )%>\
+							<%=WE.kit.format( new Date( time*1000 ),"MM-dd hh:mm:ss" )%>\
 						</a>\
 					</div>\
 					<% if(obj.aim){ %>\
