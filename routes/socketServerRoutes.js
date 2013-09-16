@@ -26,6 +26,7 @@ var socketHashList = {
 			user = list[i].session.user.getPublicInfo(36);
 			if( map[user._id] == undefined){//去重复
 				userlist.push( user );
+				map[user._id] = 1;
 			}
 		}
 		return userlist;
@@ -73,7 +74,7 @@ module.exports = {
 
 		*/
 		wss.on('connection', function( ws ){
-			console.log("123456789")
+			//console.log("123456789")
 			//console.log("ws", ws.upgradeReq);
 			//ws.session.user.clientid = ++clientid;
 			ws.on("error", function(){});
