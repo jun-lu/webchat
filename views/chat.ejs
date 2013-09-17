@@ -31,7 +31,7 @@
 					<!-- <div class="main-message">
 						<img class="user-photo" src="http://tp3.sinaimg.cn/2764528354/180/22831103583/1">
 						<span class="user-name">AeroJin</span>上线
-					</div>		 -->
+					</div>	 -->	
 				</div>
 
 
@@ -356,6 +356,8 @@
 
 						},
 						"on-line":function( data ){
+
+							console.log('data',data);
 							WE.pageChat.userlist.append( data );
 						},
 						"off-line":function( data ){
@@ -369,6 +371,7 @@
 							WE.pageChat.userlist.init( data );
 						},
 						"new-chat":function( data ){
+							console.log('data',data);
 							WE.pageChat.timeLine.append( data );
 							//WE.pageChat.notice.onUpdate();
 							if( data.to && data.from._id == USER._id ){

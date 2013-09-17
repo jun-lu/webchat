@@ -2,6 +2,7 @@ WE.pageChat = {
 
 	isLoading:0,
 	lastTime:null,
+	replyTo:null,
 	init: function(){
 
 		this.ui = {
@@ -21,7 +22,7 @@ WE.pageChat = {
 			if( e.keyCode == 13 ){
 
 				var text = $.trim( $(this).val() );
-				_this.post( ROOM.id, text );
+				_this.post( ROOM.id, text, _this.replyTo );
 			}
 
 		});
@@ -35,7 +36,7 @@ WE.pageChat = {
 	 */
 	post: function(roomid, text, to){
 
-		aim = !to ? undefined : to;
+		aim = to == null ? undefined : to;
 		var _this = this;
 		var model = new WE.api.ChatModel();
 		var ctrl = new WE.Controller();
@@ -44,6 +45,8 @@ WE.pageChat = {
 			var data = e.data;
 			if( data.code == 0 ){
 				_this.ui.postBox.find('.text-box input').val('');
+
+				_this.hideReply();
 			}
 		}
 		model.addObserver( ctrl );
@@ -63,25 +66,31 @@ WE.pageChat = {
 		//console.log( 'html',html,this.ui.replayBox );
 
 		// console.log('===chat',chat);
+		this.replyTo = chat['_id'];
 		this.ui.replayBox.html(  WE.kit.tmpl( this.replyTmpl,chat ) );
 		this.ui.replayBox.removeClass('hidden');
 		this.ui.replayBox.find('.close-btn').click(function(){
 			_this.ui.replayBox.empty();
 			_this.ui.replayBox.addClass('hidden');
 		});
+	},
 
+	hideReply: function(){
 
+		this.ui.replayBox.empty();
+		this.ui.replayBox.addClass('hidden');
 	},
 
 	replyTmpl: '<div class="replay-box">\
 					<div class="arrow"></div>\
 					<span class="icon-close close-btn"></span>\
 					<div>\
-						<a href="/user/<%=from._id%>" class="name"><%=from.name%></a>\
+						<a href="/user/<%=from._id%>" class="name"><%=from.name == ""? "(暂无昵称)" : from.name %></a>\
 					</div>\
 					<div class="context"><%=text %></div>\
 				</div>'
 };
+
 
 
 /**
@@ -105,9 +114,9 @@ WE.pageChat.timeLine = {
 				</div>\
 				<div class="info">\
 					<div class="head">\
-						<a href="/user/<%=from._id%>" target="_blank" class="name"><%=from.name%></a>\
+						<a href="/user/<%=from._id%>" target="_blank" class="name <% if(from.name==""){ %> no-name <% } %>"><%= from.name == ""? "(暂无昵称)" : from.name %></a>\
 						<a target="_blank" href="/d/<%=_id%>" class="time">\
-							<i class="icon-clock"></i><%=WE.kit.format( new Date( time*1000 ),"MM-dd hh:mm:ss" )%>\
+							<%=WE.kit.format( new Date( time*1000 ),"MM-dd hh:mm:ss" )%>\
 						</a>\
 					</div>\
 					<% if(obj.aim){ %>\
@@ -197,9 +206,9 @@ WE.pageChat.timeLine = {
 */
 WE.pageChat.userlist = {
 
-	tmpl:  '<li id="uid_<%=_id%>" <% if( _id == USER._id){ %> class="me" <% } %>>\
-				<a href="/user/<%=_id%>" target="_blank">\
-					<img src="<%=avatar%>"><%=name%>\
+	tmpl:  '<li id="uid_<%=_id%>" class="<% if( _id == USER._id){ %> me <% } %><% if( typeof obj.online != "undefined" ){ %> insert-li <% } %>" >\
+				<a href="/user/<%=_id%>" target="_blank"  class="name <% if(name == ""){ %>no-name<% } %>" >\
+					<img src="<%=avatar%>"><%= name == ""? "(暂无昵称)" : name%>\
 				</a>\
 				<% if( _id != USER._id ){ %>\
 				<a href="javascript:;" title="邀请加入私密聊天" class="icon-talk"></a>\
@@ -237,10 +246,10 @@ WE.pageChat.userlist = {
 				this.data = [data];
 			}
 
+			data.online = true;
 			var html = WE.kit.tmpl(this.tmpl, data);
-				html.addClass('insert-li');
 			setTimeout(function(){
-				html.removeClass('insert-li');
+				$( '#uid_'+data._id ).removeClass('insert-li');
 			},300);
 			$('#user-list').append(  html );
 		}
