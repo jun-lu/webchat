@@ -143,6 +143,7 @@ module.exports = {
 				ChatModel.findChats( roomid , time, 10, function( status ){
 
 					output.indexChats = status.result || [];
+					output.indexChats.reverse();
 					output.nextTime = status.result && status.result.length ? status.result[status.result.length-1].time : "";
 					res.render('chat', output);
 
