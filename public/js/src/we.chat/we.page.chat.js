@@ -34,7 +34,9 @@ WE.pageChat = {
 
 			if( _this.isLoading == 0 ){
 
-				if( $this.scrollTop() == 0 && WE.pageChat.timeLine > 0 ){
+
+				console.log('32321321',WE.pageChat.timeLine.leave_count);
+				if( $this.scrollTop() == 0 && WE.pageChat.timeLine.leave_count > 0 ){
 
 					_this.isLoading = 1;
 					_this.getMore();
@@ -56,16 +58,20 @@ WE.pageChat = {
 		var ctrl = new WE.Controller();
 		ctrl.update = function( e ){
 			// $('#timelineLoading').addClass('hidden');
-			$('#timeline-talks .more-talks').addClass('hidden');
+			
 			var data = e.data;
-			if(data.code == 0 && data.result.length){
+			setTimeout(function(){
+				if(data.code == 0 && data.result.length){
 
-				_this.isLoading = 0;
-				WE.pageChat.timeLine.leave_count =  WE.pageChat.timeLine.leave_count - data.result.length;
-				WE.pageChat.timeLine.prepends( data.result );
-			}else{
-				_this.isLoading = 2;//没有数据了
-			}
+					_this.isLoading = 0;
+					WE.pageChat.timeLine.leave_count =  WE.pageChat.timeLine.leave_count - data.result.length;
+					WE.pageChat.timeLine.prepends( data.result );
+				}else{
+					_this.isLoading = 2;//没有数据了
+				}
+				$('#timeline-talks .more-talks').addClass('hidden');
+			},500);
+			
 
 		};
 		ctrl.error = function(){
@@ -111,6 +117,7 @@ WE.pageChat = {
 			_this.ui.replayBox.empty();
 			_this.ui.replayBox.addClass('hidden');
 		});
+		this.ui.postBox.find('.text-box input').focus();
 	},
 
 	hideReply: function(){
