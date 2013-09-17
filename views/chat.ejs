@@ -298,50 +298,6 @@
 		<!--<script type="text/javascript" src="/js/we.chat.min.js"></script>-->
 		<script type="text/javascript" src="/js/src/we.chat/we.page.chat.js"></script>
 
-
-		<script type="text/javascript">
-
-			var Event = {};
-
-			$(function(){
-
-			
-
-				// function showPics(){
-				// 	$('.wall-room').addClass('display-raside');
-				// }
-
-				// function hidePics(){
-				// 	$('.wall-room').removeClass('display-raside');
-				// }
-				// Event.hide = hide;
-				// Event.show = show;
-
-				// Event.showPics = showPics;
-				// Event.hidePics = hidePics;
-				
-
-
-			// 	Event.testIn = function(){
-
-
-			// var item = $('<li class="insert-li">\
-			// 				<img src="http://www.gravatar.com/avatar/e3238e39e72fdb588d6e5bb360fa90b0.jpg?s=36&d=mm&r=g">Jun_0ooo\
-			// 				<a href="javascript:;" title="邀请加入私密聊天" class="icon-talk"></a>\
-			// 			</li>');
-			// 		setTimeout(function(){
-			// 			item.removeClass('insert-li');
-			// 		},300);
-			// 		$('.l-aside-online .users').prepend( item );
-
-					
-					
-
-			// 	};
-
-			});
-		</script>
-
 		<script type="text/javascript">
 	
 			//与服务器建立socket连接
@@ -360,7 +316,7 @@
 						},
 						"on-line":function( data ){
 
-							console.log('data',data);
+							// console.log('data',data);
 							WE.pageChat.userlist.append( data );
 						},
 						"off-line":function( data ){
@@ -371,6 +327,8 @@
 							// $('#socketConnectioning').hide();
 							// $('#offlineTip').hide();
 							// $('#userlist').show();
+
+							console.log('user-list',data);
 							WE.pageChat.userlist.init( data );
 						},
 						"new-chat":function( data ){
