@@ -140,11 +140,13 @@ module.exports = {
 				output.room = room.getInfo();
 
 				//查找首页数据 
-				ChatModel.findChats( roomid , time, 10, function( status ){
+				ChatModel.findChats( roomid , time, 30, function( status ){
 
 					output.indexChats = status.result || [];
+					output.indexChats.reverse();
 					output.nextTime = status.result && status.result.length ? status.result[status.result.length-1].time : "";
-					res.render('chat', output);
+					promise.ok( roomid );
+					//res.render('chat', output);
 
 				});
 
@@ -154,6 +156,15 @@ module.exports = {
 					LogModel.create( user._id, "into_room",  room.getInfo(), function(){} );
 				}
 
+			});
+			promise.then(function( roomid ){
+
+				ChatModel.count({roomid:roomid, to:"*"}, function( status ){
+
+					output.chats_count = status.result;
+					//console.log( output );
+					res.render('chat', output);
+				});
 			});
 
 			promise.start();

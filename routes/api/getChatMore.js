@@ -33,6 +33,11 @@ module.exports = function(req, res){
 
 	ChatModel.findMoreChats(roomid, time, function( status ){
 
+		if(status.code == 0){
+
+			status.result.reverse();
+		}
+
 		res.write( status.toString(), "utf-8" );
 		res.end();
 
