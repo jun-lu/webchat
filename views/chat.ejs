@@ -41,6 +41,9 @@
 							<div class="line"></div>
 							
 							<div class="talks" id="timeline-talks">
+								<div class="more-talks hidden">
+									<span class="tips">查看更多信息...</span>	
+								</div>
 								<!-- <div class="talk">
 									<div class="photo">
 										<a href="#">
@@ -427,7 +430,7 @@
 		<script type="text/javascript">
 			WE.pageChat.init();
 			WE.pageChat.historylist.init();
-			WE.pageChat.timeLine.init( <%- JSON.stringify( indexChats ) %> );
+			WE.pageChat.timeLine.init( <%- JSON.stringify( indexChats ) %>,<%- chats_count %> );
 			//WE.pageChat.notice.init();
 		</script>
 </body>
