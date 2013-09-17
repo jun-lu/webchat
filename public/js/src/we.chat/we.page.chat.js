@@ -26,7 +26,56 @@ WE.pageChat = {
 			}
 
 		});
+
+
+		$('#timeline-bar').bind('scroll', function(){
+
+			var $this = $(this);
+
+			if( _this.isLoading == 0 ){
+
+				if( $this.scrollTop() == 0 && WE.pageChat.timeLine > 0 ){
+
+					_this.isLoading = 1;
+					_this.getMore();
+				}
+			}
+		});
 	},
+
+
+	/* 
+		鼠标滚动获取更多信息 
+	*/
+	getMore: function(){
+
+		$('#timeline-talks .more-talks').removeClass('hidden');
+
+		var _this = this;
+		var model = new WE.api.ChatModel();
+		var ctrl = new WE.Controller();
+		ctrl.update = function( e ){
+			// $('#timelineLoading').addClass('hidden');
+			$('#timeline-talks .more-talks').addClass('hidden');
+			var data = e.data;
+			if(data.code == 0 && data.result.length){
+
+				_this.isLoading = 0;
+				WE.pageChat.timeLine.leave_count =  WE.pageChat.timeLine.leave_count - data.result.length;
+				WE.pageChat.timeLine.prepends( data.result );
+			}else{
+				_this.isLoading = 2;//没有数据了
+			}
+
+		};
+		ctrl.error = function(){
+			$('#timeline-talks .more-talks').addClass('hidden');
+			//$('#timelineLoading').addClass('hidden');
+		};
+		model.addObserver( ctrl );
+		model.getMore( ROOM.id , this.lastTime );	
+	},
+
 
 	/*
 	 * 发布对话信息
@@ -55,17 +104,6 @@ WE.pageChat = {
 
 	setReply: function( chat ){
 		var _this = this;
-		// var _this = this;
-		// var html = $( WE.kit.tmpl( this.replyTmpl ) );
-		// 	html.find('.close-btn').click(function(){
-		// 		html.remove();
-		// 		_this.ui.replayBox.hide();
-		// 	});
-		//console.log('chat=======',chat);
-
-		//console.log( 'html',html,this.ui.replayBox );
-
-		// console.log('===chat',chat);
 		this.replyTo = chat['_id'];
 		this.ui.replayBox.html(  WE.kit.tmpl( this.replyTmpl,chat ) );
 		this.ui.replayBox.removeClass('hidden');
@@ -131,10 +169,13 @@ WE.pageChat.timeLine = {
 	/**
 		初始化时间轴数据
 	*/
-	init: function( datas ){
+	init: function( datas,chats_count ){
 		var _this = this;
    		var i = 0;
 		var len = datas.length;
+
+		_this.chats_count = chats_count;
+		_this.leave_count = chats_count > 30 ? chats_count - 30  : 0 ;
 
 		for(; i<len; i++){
 			//WE.kit.tmpl(WE.pageChat.timeLine.tmpl)
@@ -197,6 +238,31 @@ WE.pageChat.timeLine = {
 
 			console.log( "lastTime 失败" );
 		}
+
+		$('#timeline-bar').scrollTop(99999);
+	},
+
+	prepends: function( datas ){
+
+		var i = 0;
+		var len = datas.length;
+		var html = "";
+
+		for(; i<len; i++){
+			//WE.kit.tmpl(WE.pageChat.timeLine.tmpl)
+			this.mapData[ datas[i]._id ] = datas[i];
+			html += WE.kit.tmpl( this.tmpl, datas[i] );
+		}
+
+		$('#timeline-talks').prepend( html );
+
+		if(datas[len-1].time){
+			WE.pageChat.lastTime = datas[len-1].time;
+		}else{
+
+			console.log( "lastTime 失败" );
+		}
+
 	}
 };
 
