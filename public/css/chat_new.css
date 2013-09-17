@@ -52,6 +52,8 @@
 	.main-message .user-name{margin-right:5px;}
 	.main-message .user-photo{width:15px;height:15px;border-radius:4px;vertical-align: middle;margin-right:5px;}
 	.main-content .talks{padding:0px 20px 0px 40px;}
+	.main-content .talks .more-talks{width:100%;padding:3px 0px;text-align:center;}
+	.main-content .talks .more-talks .tips{display:inline-block;padding:2px 10px;;color:#AAA8A8;background:#F3F3F3;border-radius:4px;font-size:12px;}
 
 	.main-content .talk{position: relative;border-bottom: #f6f6f6 solid 1px}
 		.main-content .talk .photo{position: absolute;top: 18px;left: -13px}
@@ -65,7 +67,7 @@
 	.main-content .talks .me .no-name{color:#F3A6A6}
 		.main-content .talk .time{float:right;color: #bbb;vertical-align: top}
 		.main-content .talk .time:hover{text-decoration:underline;}
-		.main-content .talk .context{color:#555;font-size:14px;}
+		.main-content .talk .context{color:#555;font-size:14px;word-wrap: break-word;}
 		.main-content .talk .reply{font-size: 14px;color: #C9C9C9;border-left: #C9C9C9 solid 1px;padding-left: 10px;line-height: 1.0;margin-bottom: 11px}
 
 			.main-content .talk .context .icon-reply{visibility:hidden;margin-left:5px;}
