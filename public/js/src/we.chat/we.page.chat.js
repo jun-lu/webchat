@@ -34,15 +34,35 @@ WE.pageChat = {
 
 			if( _this.isLoading == 0 ){
 
+				if( $this.scrollTop() == 0 ){
 
-				console.log('32321321',WE.pageChat.timeLine.leave_count);
-				if( $this.scrollTop() == 0 && WE.pageChat.timeLine.leave_count > 0 ){
+					if( WE.pageChat.timeLine.leave_count > 0 ){
+						_this.isLoading = 1;
+						_this.getMore();
+					}
+				}
+			}else if( _this.isLoading == 2 ){
 
-					_this.isLoading = 1;
-					_this.getMore();
+				if( $this.scrollTop() == 0 ){
+					_this.noMoreTips();
 				}
 			}
 		});
+	},
+
+	tipsTimeout:null,
+	noMoreTips: function(){
+
+		console.log('noMoreTips');
+		clearTimeout( this.tipsTimeout);
+
+		$('#more-talks .tips').text('没有更多信息了...');
+		$('#more-talks').fadeIn();
+
+		this.tipsTimeout = setTimeout(function(){
+			$('#more-talks').fadeOut();
+		},2000);
+		
 	},
 
 
@@ -51,7 +71,10 @@ WE.pageChat = {
 	*/
 	getMore: function(){
 
-		$('#timeline-talks .more-talks').removeClass('hidden');
+		//$('#more-talks').removeClass('hidden');
+
+		$('#more-talks').fadeIn();
+
 
 		var _this = this;
 		var model = new WE.api.ChatModel();
@@ -69,13 +92,17 @@ WE.pageChat = {
 				}else{
 					_this.isLoading = 2;//没有数据了
 				}
-				$('#timeline-talks .more-talks').addClass('hidden');
+				//$('#more-talks').addClass('hidden');
+
+				$('#more-talks').fadeOut();
 			},500);
 			
 
 		};
 		ctrl.error = function(){
-			$('#timeline-talks .more-talks').addClass('hidden');
+			//$('#more-talks').addClass('hidden');
+
+			$('#more-talks').fadeOut();
 			//$('#timelineLoading').addClass('hidden');
 		};
 		model.addObserver( ctrl );
@@ -191,8 +218,8 @@ WE.pageChat.timeLine = {
 
 		this.appends( datas );
 
-		if(len && datas[len-1].time){
-			WE.pageChat.lastTime = datas[len-1].time;
+		if(len && datas[0].time){
+			WE.pageChat.lastTime = datas[0].time;
 		}else{
 			WE.pageChat.isLoading = 2;
 			WE.pageChat.lastTime = -1;
@@ -239,8 +266,8 @@ WE.pageChat.timeLine = {
 
 		$('#timeline-talks').append( html );
 
-		if(datas[len-1].time){
-			WE.pageChat.lastTime = datas[len-1].time;
+		if(datas[0].time){
+			WE.pageChat.lastTime = datas[0].time;
 		}else{
 
 			console.log( "lastTime 失败" );
@@ -261,10 +288,12 @@ WE.pageChat.timeLine = {
 			html += WE.kit.tmpl( this.tmpl, datas[i] );
 		}
 
-		$('#timeline-talks').prepend( html );
+		//$('#timeline-talks .more-talks').insertAfter( html );
 
-		if(datas[len-1].time){
-			WE.pageChat.lastTime = datas[len-1].time;
+		$( html ).insertAfter( $('#more-talks') )
+
+		if(datas[0].time){
+			WE.pageChat.lastTime = datas[0].time;
 		}else{
 
 			console.log( "lastTime 失败" );
