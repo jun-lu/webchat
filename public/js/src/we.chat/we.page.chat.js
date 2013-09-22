@@ -89,6 +89,8 @@ WE.pageChat = {
 					_this.isLoading = 0;
 					WE.pageChat.timeLine.leave_count =  WE.pageChat.timeLine.leave_count - data.result.length;
 					WE.pageChat.timeLine.prepends( data.result );
+
+					
 				}else{
 					_this.isLoading = 2;//没有数据了
 				}
@@ -291,9 +293,16 @@ WE.pageChat.timeLine = {
 		}
 
 		//$('#timeline-talks .more-talks').insertAfter( html );
+		var  wall = $( html );
+		wall.insertAfter( $('#more-talks') );
 
-		$( html ).insertAfter( $('#more-talks') )
+		var topPx = 0;
+		$.each(wall,function(i,item ){
+			topPx += item.offsetHeight;
+		});
 
+		$('#timeline-bar').scrollTop(topPx-20);
+		
 		if(datas[0].time){
 			WE.pageChat.lastTime = datas[0].time;
 		}else{
