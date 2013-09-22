@@ -103,6 +103,8 @@ WE.pageChat = {
 
 				_this.hideReply();
 			}
+
+			_this.replyTo = null;
 		}
 		model.addObserver( ctrl );
 		model.postChat( roomid, text, aim );
@@ -130,7 +132,7 @@ WE.pageChat = {
 					<div class="arrow"></div>\
 					<span class="icon-close close-btn"></span>\
 					<div>\
-						<a href="/user/<%=from._id%>" class="name"><%=from.name == ""? "(暂无昵称)" : from.name %></a>\
+						<a href="/user/<%=from._id%>" target="_blank" class="name"><%=from.name == ""? "(暂无昵称)" : from.name %></a> : \
 					</div>\
 					<div class="context"><%=text %></div>\
 				</div>'
