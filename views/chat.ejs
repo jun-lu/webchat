@@ -26,43 +26,67 @@
 <body>
 	
 
-	<div class="wall-room">
+	<div class="wall-room login-style">
 		<div class="main">
-				
-			<div class="main-title">
-				<h1>
-					<i class="icon-chat"></i>
-					<%=room.topic%>
-				</h1>
-				<!-- <div class="main-message">
-					<img class="user-photo" src="http://tp3.sinaimg.cn/2764528354/180/22831103583/1">
-					<span class="user-name">AeroJin</span>上线
-				</div>	 -->	
-			</div>
+			
+			<div class="main-wall">
+				<div class="main-title">
+					<h1>
+						<i class="icon-chat"></i>
+						<%=room.topic%>
+					</h1>
+					<!-- <div class="main-message">
+						<img class="user-photo" src="http://tp3.sinaimg.cn/2764528354/180/22831103583/1">
+						<span class="user-name">AeroJin</span>上线
+					</div>	 -->	
+				</div>
 
-
-			<div class="main-content">
-				<div class="content-inner">
-					<div class="clear-overflow" id="timeline-bar">
-						<div class="line"></div>
-						
-						<div class="talks" id="timeline-talks">
-							<div class="more-talks hidden" id="more-talks">
-								<span class="tips">查看更多信息...</span>	
+				<div class="main-content">
+					<div class="content-inner">
+						<div class="clear-overflow" id="timeline-bar">
+							<div class="line"></div>
+							
+							<div class="talks" id="timeline-talks">
+								<div class="more-talks hidden" id="more-talks">
+									<span class="tips">查看更多信息...</span>	
+								</div>
+								<!-- talk -->
 							</div>
-							<!-- talk -->
 						</div>
 					</div>
 				</div>
-			</div>
-			<div class="main-input" id="post-box">
-					<div class="hidden" id="replay-box">
 
+				<div class="main-input" id="post-box">
+						<div class="hidden" id="replay-box">
+
+						</div>
+						<!-- replay box -->
+						<div class="text-box">
+							<input type="text" tabindex="1" placeholder="type your message">
+						</div>
+				</div>
+			</div>
+			<div class="main-wall login-wall">
+				<div class="line">
+					<div class="topic-title">TOPIC :</div>
+					<div class="topic-content"><%=room.topic%></div>
+					<div class="login-input">
+						<div class="nickname-input">
+							<img src="<%=user.avatar %>">
+							<input type="text" autofocus placeholder="Nickname" value="<%=user.name %>">
+						</div>
+
+						<div class="account-input">
+
+						</div>
 					</div>
-					<!-- replay box -->
-					<div class="text-box">
-						<input type="text" tabindex="1" placeholder="type your message">
+					<div class="account-btn">
+						<a class="btn" href="javascript:;">Login use my account</a>
 					</div>
+				</div>
+				
+				
+				
 			</div>
 		</div>
 

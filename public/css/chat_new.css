@@ -32,6 +32,31 @@
 	}
 
 	/* style */
+
+		/* login */
+	.login-wall{background:#d5d9de;top:100%;box-shadow: 1px 1px 5px #868CA8;-webkit-transition:top 0.1s ease-in-out}
+		.login-wall .line{height:0px;width:100%;border-top:#b2b4b6 solid 1px;border-bottom:#fff solid 1px;position: absolute;
+top: 50%;}
+		.login-wall p{text-align:center;}
+		.login-wall .topic-title{color:#fff;font-size:13px;top: -145px;}
+		.login-wall .topic-content{font-size: 26px;color: #555555;bottom: 77px;}
+		.login-wall .topic-title,.login-wall .topic-content{padding-right:20px;position:absolute;text-align: center;width:100%;}
+			.login-wall .login-input{z-index:99;position:relative;text-align:center;bottom: 22px}
+			.login-wall .login-input input{font-size: 15px;padding: 8px;border:#b8bec4 solid 1px;box-shadow: 0px 0px 1px #BEBEBE;color: #666;}
+				.login-input .nickname-input input{padding-left:47px;width:19em;letter-spacing: 1px;}
+				.login-input .nickname-input{display:inline-block;position:relative;}
+				.login-input .nickname-input img{width: 34px;height: 34px;top: 4px;left: 4px;position:absolute;}
+
+				.login-input .nickname-input input::-webkit-input-placeholder {
+				    color:#c1c5ca;
+				    letter-spacing:0px;
+				}
+			.login-wall .account-btn{text-align:center;width: 100%;position: absolute;bottom: -65px}
+			.login-wall .account-btn .btn{background:#c4c7cb;border-radius:3px;border:#fff solid 1px;color:#fff;font-size:12px;padding: 5px}
+			.login-wall .account-btn .btn:hover{background:#A6AAAF}
+			.login-wall .account-btn .btn:active{background:#959799}
+
+		/* content */
 	.main-title{background: #f8f8f8;border-bottom: #e4e4e4 solid 1px;}
 		.main-title h1{font-size: 18px;padding: 13px 0px 13px 20px;color: #484848;font-weight:bold;}
 	.main-input{border-top: #ececec solid 1px;background:#fff;}
@@ -79,6 +104,7 @@ left: 0px}
 		.main-content .talk:last-child{border:0;}
 
 
+	.main-wall{height:100%;width:100%;overflow:hidden;zoom:1;position:absolute;}
 	.l-aside-wall{height:100%;width:100%;overflow:hidden;zoom:1;position:absolute;background:rgb(222,225,229);
 		-webkit-transition: top .4s ease-in-out;
 	}
@@ -134,4 +160,8 @@ left: 0px}
 
 
 	/* for init js*/
+	.login-style .main{margin-left:0px;}
+	.login-style .l-aside{left:-200px;}
+	.login-style .login-wall{top:0px;}
 	.history-wall{top:100%;}
+	
