@@ -3,8 +3,14 @@
 <head>
 	<meta http-equiv="content-type" content="text/html;charset=utf-8">
 	<title><%=room.topic%> - Vchat</title>
+	<meta name="keywords" content="vchat,vchat.co,多人讨论,话题,活动,兴趣,<%=room.topic%>,<%=room.des%>"/>
+	<meta name="description" content="<%=room.topic%>,<%=room.des%>"/>
 	<link rel="stylesheet" type="text/css" href="css/common.css"/>
 	<link rel="stylesheet" type="text/css" href="css/chat_new.css"/>
+
+
+	<link rel="next"  href="/<%=room.name ? room.name : room.id%>?t=<%=nextTime%>">
+	<link rel="prev"  href="/<%=room.name ? room.name : room.id%>?t=<%=prevTime%>">
 
 	<!--[if lte IE 10]>  <script> location.href = "/sys/ie"; </script> <![endif]-->
 
@@ -20,418 +26,187 @@
 <body>
 	
 
-		<div class="wall-room">
-			<div class="main">
-					
-				<div class="main-title">
-					<h1>
-						<i class="icon-chat"></i>
-						<%=room.topic%>
-					</h1>
-					<!-- <div class="main-message">
-						<img class="user-photo" src="http://tp3.sinaimg.cn/2764528354/180/22831103583/1">
-						<span class="user-name">AeroJin</span>上线
-					</div>	 -->	
-				</div>
-
-
-				<div class="main-content">
-					<div class="content-inner">
-						<div class="clear-overflow" id="timeline-bar">
-							<div class="line"></div>
-							
-							<div class="talks" id="timeline-talks">
-								<div class="more-talks hidden">
-									<span class="tips">查看更多信息...</span>	
-								</div>
-								<!-- <div class="talk">
-									<div class="photo">
-										<a href="#">
-											<img src="http://tp3.sinaimg.cn/2764528354/180/22831103583/1">
-										</a>
-									</div>
-									<div class="info">
-										<div class="head">
-											<a href="#" class="name">AeroJin</a>
-											<a href="#" class="time">
-												<i class="icon-clock"></i>
-												2013-09-20 14:20
-											</a>
-										</div>
-										<div class="context">
-											傻货
-											<a href="javascript:;" class="icon-reply chat-reply" title="回复"></a>
-										</div>
-									</div>
-								</div>
-
-
-								<div class="talk">
-									<div class="photo">
-										<a href="#">
-											<img src="http://www.gravatar.com/avatar/e3238e39e72fdb588d6e5bb360fa90b0.jpg?s=36&d=mm&r=g">
-										</a>
-									</div>
-									<div class="info">
-										<div class="head">
-											<a href="#" class="name">Jun_0ooo</a>
-											<a href="#" class="time">
-												<i class="icon-clock"></i>
-												2013-09-20 14:20
-											</a>
-										</div>
-										<div class="context">
-											明天去哪里骑车
-											<a href="javascript:;" class="icon-reply" title="回复"></a>
-										</div>
-									</div>
-								</div>
-
-								<div class="talk me">
-									<div class="photo">
-										<a href="#">
-											<img src="http://www.gravatar.com/avatar/b7fdffcba6db560e7589d706a6bcd305.jpg?s=36&d=blank&r=g">
-										</a>
-									</div>
-									<div class="info">
-										<div class="head">
-											<a href="#" class="name">CK.Ming</a>
-											<a href="#" class="time">
-												<i class="icon-clock"></i>
-												2013-09-20 14:20
-											</a>
-										</div>
-										<div class="context">
-											去哪里骑车这是个哲学问题
-											<a href="javascript:;" class="icon-reply" title="回复"></a>
-										</div>
-									</div>
-								</div>
-
-								<div class="talk">
-									<div class="photo">
-										<a href="#">
-											<img src="http://www.gravatar.com/avatar/3e970fc165d028f12a198881571f5b25.jpg?s=170&d=monsterid&r=g">
-										</a>
-									</div>
-									<div class="info">
-										<div class="head">
-											<a href="#" class="name">jianxn</a>
-											<a href="#" class="time">
-												<i class="icon-clock"></i>
-												2013-09-20 14:20
-											</a>
-										</div>
-										<div class="context">
-											是么，我也去
-											<a href="javascript:;" class="icon-reply" title="回复"></a>
-										</div>
-									</div>
-								</div>
-
-								<div class="talk">
-									<div class="photo">
-										<a href="#">
-											<img src="http://tp3.sinaimg.cn/2764528354/180/22831103583/1">
-										</a>
-									</div>
-									<div class="info">
-										<div class="head">
-											<a href="#" class="name">AeroJin</a>
-											<a href="#" class="time">
-												<i class="icon-clock"></i>
-												2013-09-20 14:20
-											</a>
-										</div>
-										<div class="reply">傻货</div>
-										<div class="context">
-											我擦，我怎么在说我自己
-											<a href="javascript:;" class="icon-reply" title="回复"></a>
-										</div>
-									</div>
-								</div> -->
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="main-input" id="post-box">
-						<div class="hidden" id="replay-box">
-
-						</div>
-						<!-- <div class="replay-box">
-							<div class="arrow"></div>
-							<a href="javascript:;" class="icon-close close-btn"></a>
-							<div>
-								<a href="#" class="name">AeroJin</a>
-							</div>
-							<div class="context">傻货</div>
-						</div> -->
-						<div class="text-box">
-							<!-- <a class="icon-screen" href="javascript:;"></a> -->
-							<input type="text" tabindex="1" placeholder="type your message">
-						</div>
-				</div>
+	<div class="wall-room">
+		<div class="main">
+				
+			<div class="main-title">
+				<h1>
+					<i class="icon-chat"></i>
+					<%=room.topic%>
+				</h1>
+				<!-- <div class="main-message">
+					<img class="user-photo" src="http://tp3.sinaimg.cn/2764528354/180/22831103583/1">
+					<span class="user-name">AeroJin</span>上线
+				</div>	 -->	
 			</div>
 
-			<div class="l-aside">
 
-				<div class="l-aside-wall online-wall" id="online">
-					<div class="l-aside-online">
-						<div class="title">
-							<span>ONLINE</span>
-							<a href="javascript:;" title="Invite your friends" class="invite-btn">
-								<i class="icon-add"></i>
-							</a>
-						</div>
-						<!-- <a href="javascript:;" class="invite-btn">
-							<i class=""></i>
-							
-						</a> -->
-						<div class="users-box">
-							<ul class="users" id="user-list">
-							<!-- 	<li class="me">
-									<img src="http://www.gravatar.com/avatar/b7fdffcba6db560e7589d706a6bcd305.jpg?s=36&d=blank&r=g">
-									<span class="user-name">CK.Ming</span>
-								</li>
-								<li>
-									<img src="http://www.gravatar.com/avatar/e3238e39e72fdb588d6e5bb360fa90b0.jpg?s=36&d=mm&r=g">
-									Jun_0ooo
-									<a href="javascript:;" title="邀请加入私密聊天" class="icon-talk"></a>
-								</li>
-
-								<li>
-									<img src="http://tp3.sinaimg.cn/2764528354/180/22831103583/1">
-									AeroJin
-									<a href="javascript:;" title="邀请加入私密聊天" class="icon-talk"></a>
-								</li>
-
-								<li>
-									<img src="http://www.gravatar.com/avatar/3e970fc165d028f12a198881571f5b25.jpg?s=170&d=monsterid&r=g">
-									jianxn
-									<a href="javascript:;" title="邀请加入私密聊天" class="icon-talk"></a>
-								</li>						 -->				
-							</ul>
-						</div>
-
-						<div class="operation">
-							<a href="javascript:;" title="history users" class="history-btn" id="history-btn"></a>
-						</div>
-
-					</div>
-				</div>
-
-				<div class="l-aside-wall history-wall" id="history">
-					<div class="l-aside-historyuser">
-						<div class="title">
-							<span>HISTORY USERS</span>
-							<a href="javascript:;" title="back" class="back-btn" id="history-hide">
-								<i class="icon-down"></i>
-							</a>
-						</div>
-
-						<div class="users-box ">
-							<ul class="users clear-fix" id="history-list">
-								<!-- <li>
-									<a href="#">
-										<img src="http://tp3.sinaimg.cn/2764528354/180/22831103583/1">
-									</a>
-								</li> -->
-							</ul>
+			<div class="main-content">
+				<div class="content-inner">
+					<div class="clear-overflow" id="timeline-bar">
+						<div class="line"></div>
+						
+						<div class="talks" id="timeline-talks">
+							<div class="more-talks hidden" id="more-talks">
+								<span class="tips">查看更多信息...</span>	
+							</div>
+							<!-- talk -->
 						</div>
 					</div>
 				</div>
 			</div>
+			<div class="main-input" id="post-box">
+					<div class="hidden" id="replay-box">
 
-			<div class="r-aside">
-				<div class="r-aside-atlas">
-					<span class="title">PICTURES</span>
-					<div class="guide">
-						<!-- <a href="javascript:;" class="icon-back"></a> -->
-						<a href="javascript:;" class="album-name">活动照片</a>
 					</div>
-					<div class="container">
-						<ul class="albums clear-fix hidden">
-						<!-- 	<li>
-								<img src="http://vchat.co/p/v/15894/51da1322b0ccae1427000014_s.JPG">
-								<a class="album-name" href="javascript:;">活动照片</a></p>
-							</li>
-							<li>
-								<img src="http://vchat.co/p/v/15890/51d5224fc141490658000026_s.jpg">
-								<a class="album-name" href="javascript:;">活动照片</a></p>
-							</li>
-							<li>
-								<img src="http://vchat.co/p/v/15894/51da1322b0ccae1427000014_s.JPG">
-								<a class="album-name" href="javascript:;">活动照片</a></p>
-							</li>
-							<li>
-								<img src="http://vchat.co/p/v/15890/51d5224fc141490658000026_s.jpg">
-								<a class="album-name" href="javascript:;">活动照片</a></p>
-							</li> -->
-						</ul>
+					<!-- replay box -->
+					<div class="text-box">
+						<input type="text" tabindex="1" placeholder="type your message">
+					</div>
+			</div>
+		</div>
 
-						<ul class="pics clear-fix">
-						<!-- 	<li>
-								<img src="http://vchat.co/p/v/15894/51da408057cb602d7f00002d_s.JPG">
-							</li>
-							<li>
-								<img src="http://vchat.co/p/v/15890/51d5225bc141490658000027_s.jpg">
-							</li>
-							<li>
-								<img src="http://vchat.co/p/v/15894/51da402257cb602d7f000026_s.JPG">
-							</li> -->
+		<div class="l-aside">
+
+			<div class="l-aside-wall online-wall" id="online">
+				<div class="l-aside-online">
+					<div class="title">
+						<span>ONLINE</span>
+						<a href="javascript:;" title="Invite your friends" class="invite-btn">
+							<i class="icon-add"></i>
+						</a>
+					</div>
+					<div class="users-box">
+						<ul class="users" id="user-list">
+							<!-- online users -->				
 						</ul>
-						<!-- <ul class="list-style clear-fix">
-							<li>
-								<img src="http://m1.img.libdd.com/farm4/2013/0911/19/B31EF1546544B8BF7B2B3776E86D67EE223A19BF37CCA_500_341.jpg">
-							</li>
-							<li>
-								<img src="http://m1.img.libdd.com/farm4/2013/0912/19/DE0FA53833EE35BEAA25265F205044908EAB0E9563A1E_600_482.PNG">
-							</li>
-						</ul> -->
+					</div>
+
+					<div class="operation">
+						<a href="javascript:;" title="history users" class="history-btn" id="history-btn"></a>
+					</div>
+
+				</div>
+			</div>
+
+			<div class="l-aside-wall history-wall" id="history">
+				<div class="l-aside-historyuser">
+					<div class="title">
+						<span>HISTORY USERS</span>
+						<a href="javascript:;" title="back" class="back-btn" id="history-hide">
+							<i class="icon-down"></i>
+						</a>
+					</div>
+
+					<div class="users-box ">
+						<ul class="users clear-fix" id="history-list">
+							<!-- history users -->
+						</ul>
 					</div>
 				</div>
 			</div>
 		</div>
+
+		
+	</div>
 	
 
 
-		<!--<script type="text/javascript" src="/js/we.chat.min.js"></script>-->
-		<script type="text/javascript" src="/js/src/we.chat/we.page.chat.js"></script>
+	<!--<script type="text/javascript" src="/js/we.chat.min.js"></script>-->
+	<script type="text/javascript" src="/js/src/we.chat/we.page.chat.js"></script>
 
+	<script type="text/javascript">
 
-		<script type="text/javascript">
+		//与服务器建立socket连接
+		var connectionSocketServer = {
+			socket:null,
+			weightTime:0,
+			init:function(){
 
-			var Event = {};
+				// add "/s" ie 10 bug?
+				var socket = this.socket = new WebSocket("wss://"+window.location.host+"/s");
+				var socketMessage = {
+					"connection":function(){
+						//登录到房间
+						socket.send( JSON.stringify({ type:"login", data:{roomid:ROOM.id} }) );
 
-			$(function(){
+					},
+					"on-line":function( data ){
 
-			
-
-				// function showPics(){
-				// 	$('.wall-room').addClass('display-raside');
-				// }
-
-				// function hidePics(){
-				// 	$('.wall-room').removeClass('display-raside');
-				// }
-				// Event.hide = hide;
-				// Event.show = show;
-
-				// Event.showPics = showPics;
-				// Event.hidePics = hidePics;
-				
-
-
-			// 	Event.testIn = function(){
-
-
-			// var item = $('<li class="insert-li">\
-			// 				<img src="http://www.gravatar.com/avatar/e3238e39e72fdb588d6e5bb360fa90b0.jpg?s=36&d=mm&r=g">Jun_0ooo\
-			// 				<a href="javascript:;" title="邀请加入私密聊天" class="icon-talk"></a>\
-			// 			</li>');
-			// 		setTimeout(function(){
-			// 			item.removeClass('insert-li');
-			// 		},300);
-			// 		$('.l-aside-online .users').prepend( item );
-
-					
-					
-
-			// 	};
-
-			});
-		</script>
-
-		<script type="text/javascript">
-	
-			//与服务器建立socket连接
-			var connectionSocketServer = {
-				socket:null,
-				weightTime:0,
-				init:function(){
-
-					// add "/s" ie 10 bug?
-					var socket = this.socket = new WebSocket("wss://"+window.location.host+"/s");
-					var socketMessage = {
-						"connection":function(){
-							//登录到房间
-							socket.send( JSON.stringify({ type:"login", data:{roomid:ROOM.id} }) );
-
-						},
-						"on-line":function( data ){
-
-							console.log('data',data);
-							WE.pageChat.userlist.append( data );
-						},
-						"off-line":function( data ){
-							WE.pageChat.userlist.remove( data );
-						},
-						"user-list":function( data ){
-							//console.log("daga", data);
-							// $('#socketConnectioning').hide();
-							// $('#offlineTip').hide();
-							// $('#userlist').show();
-							WE.pageChat.userlist.init( data );
-						},
-						"new-chat":function( data ){
-							console.log('data',data);
-							WE.pageChat.timeLine.append( data );
-							//WE.pageChat.notice.onUpdate();
-							if( data.to && data.from._id == USER._id ){
-								new WE.api.NoticeModel().noticeStatus( data._id );
-							}
-						}
-					};
-
-					socket.onopen = function( e ){
-
-						window.console && console.log("onopen");
-					};
-					
-					socket.onmessage = function( e ){
-						var data = JSON.parse(e.data);
-						//console.log("onmessage", data);
-						if( socketMessage[data.type] ){
-							socketMessage[data.type]( data.data );
-						}else{
-							window.console && console.log("onmessage miss", data);
-						}
-					}
-
-					socket.onclose = function(){
+						// console.log('data',data);
+						WE.pageChat.userlist.append( data );
+					},
+					"off-line":function( data ){
+						WE.pageChat.userlist.remove( data );
+					},
+					"user-list":function( data ){
+						//console.log("daga", data);
 						// $('#socketConnectioning').hide();
-					 //  	$('#offlineTip').show();
-						// $('#userlist').hide();
-						connectionSocketServer.startDisconnectionWeightTraining();
+						// $('#offlineTip').hide();
+						// $('#userlist').show();
+
+						console.log('user-list',data);
+						WE.pageChat.userlist.init( data );
+					},
+					"new-chat":function( data ){
+						console.log('data',data);
+						WE.pageChat.timeLine.append( data );
+						//WE.pageChat.notice.onUpdate();
+						if( data.to && data.from._id == USER._id ){
+							new WE.api.NoticeModel().noticeStatus( data._id );
+						}
 					}
+				};
 
-					$('#socketConnectioning').show();
-				},
-				//开启断线重连
-				startDisconnectionWeightTraining:function(){
+				socket.onopen = function( e ){
 
-					var _this = this;
-					setTimeout(function(){
-
-						console.log("重新连接"+ _this.weightTime/2000 +"次");
-						_this.socket && _this.socket.close();
-						_this.init();
-
-					}, this.weightTime+= 2000 );
-
+					window.console && console.log("onopen");
+				};
+				
+				socket.onmessage = function( e ){
+					var data = JSON.parse(e.data);
+					//console.log("onmessage", data);
+					if( socketMessage[data.type] ){
+						socketMessage[data.type]( data.data );
+					}else{
+						window.console && console.log("onmessage miss", data);
+					}
 				}
-			};	
 
-			connectionSocketServer.init();
-				
-				
-		</script>
+				socket.onclose = function(){
+					// $('#socketConnectioning').hide();
+				 //  	$('#offlineTip').show();
+					// $('#userlist').hide();
+					connectionSocketServer.startDisconnectionWeightTraining();
+				}
 
-		<script type="text/javascript">
-			WE.pageChat.init();
-			WE.pageChat.historylist.init();
-			WE.pageChat.timeLine.init( <%- JSON.stringify( indexChats ) %>,<%- chats_count %> );
-			//WE.pageChat.notice.init();
-		</script>
+				$('#socketConnectioning').show();
+			},
+			//开启断线重连
+			startDisconnectionWeightTraining:function(){
+
+				var _this = this;
+				setTimeout(function(){
+
+					console.log("重新连接"+ _this.weightTime/2000 +"次");
+					_this.socket && _this.socket.close();
+					_this.init();
+
+				}, this.weightTime+= 2000 );
+
+			}
+		};	
+
+		connectionSocketServer.init();
+			
+			
+	</script>
+
+	<script type="text/javascript">
+		WE.pageChat.init();
+		WE.pageChat.historylist.init();
+		WE.pageChat.timeLine.init( <%- JSON.stringify( indexChats ) %>,<%- chats_count %> );
+		//WE.pageChat.notice.init();
+	</script>
 </body>
 </html>
