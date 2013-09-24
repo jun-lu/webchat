@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html;charset=utf-8">
+	<title>设置昵称 - Vchat</title>
+	<link rel="stylesheet" type="text/css" href="css/common.css"/>
+	<link rel="stylesheet" type="text/css" href="css/chat_new.css"/>
+</head>
+<body>
+
+	<div class="wall-room">
+
+		<div class="main login-wall">
+
+			<div class="line">
+				<div class="topic-title">TOPIC :</div>
+				<div class="topic-content"><%=room.topic%></div>
+				<div class="login-input">
+					<div class="nickname-input">
+						<img title="" src="<%=user.avatar %>">
+						<input type="text" autofocus placeholder="Your Nickname" id="login-nickname-input" value="<%=user.name %>">
+					</div>
+
+					<div class="account-input">
+
+					</div>
+				</div>
+				<div class="account-btn">
+					<a class="btn" href="javascript:;">Login use my account</a>
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+
+</body>
+</html>
