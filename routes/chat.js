@@ -62,7 +62,7 @@ module.exports = {
 
 
 
-			promise.add(function(){
+			promise.then(function(){
 				//手机访问
 				if(ua.indexOf("Android") != -1 || ua.indexOf("iPhone") != -1 || ua.indexOf("Mobile") != -1){
 					res.redirect("/m/"+key);
@@ -75,14 +75,14 @@ module.exports = {
 
 
 			//查找对话，确定权限
-			promise.add(function(){
+			promise.then(function(){
 
 				//查找对话房间信息
 				RoomModel.idOrNameFind(key, key, function( status ){
 
 					//console.log("idOrNameFind", status);
 					if(status.code == "0"){
-						output.output = status.result.getInfo();
+						output.room = status.result.getInfo();
 						promise.ok( );
 
 					}else{
@@ -96,7 +96,7 @@ module.exports = {
 
 			});
 			//如果用户不存在创建匿名用户
-			promise.then(function(){
+			promise.add(function(){
 
 				//如果是搜索引擎也不创建匿名用户
 				if( user == null){
