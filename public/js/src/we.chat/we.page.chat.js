@@ -173,10 +173,13 @@ WE.pageChat = {
 */
 WE.pageChat.login = {
 
+	isLogin:false,
+
 	init: function( ){
 
 		this.ui = {
-			nickNameInput:$('#login-nickname-input')
+			nickNameInput: $('#login-nickname-input'),
+			nickNameBtn: $('#login-nickname-btn')
 		}
 		
 		this.regEvent();
@@ -188,11 +191,30 @@ WE.pageChat.login = {
 
 		this.ui.nickNameInput.keyup(function(e){
 
+			var value = $.trim( _this.ui.nickNameInput.val() );
+
+			if( value != "" ){
+				_this.ui.nickNameBtn.find('.icon-go').addClass('icon-go-click');
+			}else{
+				_this.ui.nickNameBtn.find('.icon-go').removeClass('icon-go-click');
+			}
+
 			if( e.keyCode == 13 ){
-				var nickName = $.trim( _this.ui.nickNameInput.val() );
-				if( nickName != "" ){
+				var nickName = value;
+				if( nickName != "" && !_this.isLogin ){
+					_this.ui.nickNameBtn.find('.icon-go').removeClass('icon-go-click');
 					_this.nickNameLogin( nickName );
 				}	
+			}
+		});
+
+		this.ui.nickNameBtn.click(function(){
+
+			var nickName = $.trim( _this.ui.nickNameInput.val() );
+
+			if( nickName != "" ){
+				_this.ui.nickNameBtn.find('.icon-go').removeClass('icon-go-click');
+				_this.nickNameLogin( nickName );
 			}
 		});
 
@@ -200,6 +222,9 @@ WE.pageChat.login = {
 
 	nickNameLogin: function( nickName ){
 		var _this = this;
+			_this.isLogin = true;
+			_this.ui.nickNameBtn.find('.icon-go').addClass('hidden');
+			_this.ui.nickNameBtn.find('.icon-loading').removeClass('hidden');
 		var model = new WE.api.ChatModel();
 		var ctrl = new WE.Controller();
 		ctrl.update = function( e ){
@@ -207,16 +232,21 @@ WE.pageChat.login = {
 			var data = e.data;
 
 			if( data.code == 0 ){
-
 				console.log( _this.connectSocket);
 				$('#wall-room').removeClass('login-style');
 
-				location.reload();
-
+				
+				location.reload();	
 			}else{
 
 			}
 
+			setTimeout(function(){
+				_this.isLogin = false;
+				_this.ui.nickNameBtn.find('.icon-go').removeClass('hidden');
+				_this.ui.nickNameBtn.find('.icon-loading').addClass('hidden');
+			},1000)
+			
 		};
 		model.addObserver( ctrl );
 		model.updateUserName( nickName );

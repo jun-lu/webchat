@@ -31,9 +31,9 @@
 			
 			<div class="main-wall">
 				<div class="main-title">
-					<h1>
+					<h1 title="<%=room.topic %>">
 						<i class="icon-chat"></i>
-						<%=room.topic%>
+						<%=tool.cutOff(room.topic, 100)%>
 					</h1>
 					<!-- <div class="main-message">
 						<img class="user-photo" src="http://tp3.sinaimg.cn/2764528354/180/22831103583/1">
@@ -62,31 +62,9 @@
 						</div>
 						<!-- replay box -->
 						<div class="text-box">
-							<input type="text" tabindex="1" placeholder="type your message">
+							<input type="text" tabindex="1" autofocus placeholder="type your message">
 						</div>
 				</div>
-			</div>
-			<div class="main-wall login-wall <% if( user.name != ""){%>hidden<% } %>">
-				<div class="line">
-					<div class="topic-title">TOPIC :</div>
-					<div class="topic-content"><%=room.topic%></div>
-					<div class="login-input">
-						<div class="nickname-input">
-							<img title="" src="<%=user.avatar %>">
-							<input type="text" autofocus placeholder="Your Nickname" id="login-nickname-input" value="<%=user.name %>">
-						</div>
-
-						<div class="account-input">
-
-						</div>
-					</div>
-					<div class="account-btn">
-						<a class="btn" href="javascript:;">Login use my account</a>
-					</div>
-				</div>
-				
-				
-				
 			</div>
 		</div>
 
@@ -225,16 +203,11 @@
 
 	<script type="text/javascript">
 
-		if( USER.name == "" ){
-			WE.pageChat.login.init();
-		}
-
 		connectionSocketServer.init();
 
 		WE.pageChat.init();
 		WE.pageChat.historylist.init();
 		WE.pageChat.timeLine.init( <%- JSON.stringify( indexChats ) %>,<%- chats_count %> );
-		
 		
 		//WE.pageChat.notice.init();
 
