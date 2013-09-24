@@ -211,7 +211,7 @@ module.exports = {
 					//console.log("create", status );
 					if(status.code == "0"){
 						var chat = status.result[0];
-						console.log( "chat", chat );
+						//console.log( "chat", chat );
 						socketServerRoutes.distribute( chat.roomid, chat );
 
 						//添加提醒
