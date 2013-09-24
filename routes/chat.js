@@ -14,7 +14,6 @@ var LogModel = require('../lib/LogModel');
 var WebStatus = require('../lib/WebStatus');
 var NoticeModel = require('../lib/NoticeModel');
 var socketServerRoutes = require('./socketServerRoutes');
-//var maxIndex = {};
 var roomLimit = require("./sys/room_limit");
 var Promise = require("../lib/Promise");
 var spiderAU = ["Baiduspider","Googlebot","MSNBot","YoudaoBot","JikeSpider","Sosospider","360Spider"];
@@ -52,6 +51,7 @@ module.exports = {
 			var time = parseInt(req.query.t) || parseInt(Date.now()/1000) + 1000;
 
 			var output = {
+				room:null,
 				user : user ? user.getInfo() : null,
 				nextTime:"",
 				prevTime:parseInt(req.query.t) || "",
@@ -60,7 +60,9 @@ module.exports = {
 
 			var promise = new Promise();
 
-			promise.add(function(){
+
+
+			promise.then(function(){
 				//手机访问
 				if(ua.indexOf("Android") != -1 || ua.indexOf("iPhone") != -1 || ua.indexOf("Mobile") != -1){
 					res.redirect("/m/"+key);
@@ -71,9 +73,30 @@ module.exports = {
 
 			});
 
-			//["Baiduspider","Googlebot","MSNBot","YoudaoBot","JikeSpider","Sosospider","360Spider"]
 
+			//查找对话，确定权限
 			promise.then(function(){
+
+				//查找对话房间信息
+				RoomModel.idOrNameFind(key, key, function( status ){
+
+					//console.log("idOrNameFind", status);
+					if(status.code == "0"){
+						output.room = status.result.getInfo();
+						promise.ok( );
+
+					}else{
+						status.setMsg("没有找到对话，请确认输入");
+						res.status(404).render("404", status.toJSON() );
+						//res.end();
+					}
+
+
+				});
+
+			});
+			//如果用户不存在创建匿名用户
+			promise.add(function(){
 
 				//如果是搜索引擎也不创建匿名用户
 				if( user == null){
@@ -84,10 +107,7 @@ module.exports = {
 							user = status.result;//User.factory( userjson );
 							res.setHeader("Set-Cookie", ["sid="+user.toCookie()+";path=/;domain="+config.domain+";expires="+new Date("2030") ]);
 							output.user = user.getInfo();
-							//设置用户姓名的页面
-							res.render("set_nickname", output);
-							//promise.ok();
-							//intoPage();
+							promise.ok();
 						}else{
 							status.code("500");
 							status.setMsg("创建匿名用户错误");
@@ -102,35 +122,17 @@ module.exports = {
 
 
 			});
-			
 
-			//查找对话，确定权限
-			promise.then(function(){
-
-				//查找对话房间信息
-
-				RoomModel.idOrNameFind(key, key, function( status ){
-
-					//console.log("idOrNameFind", status);
-					if(status.code == "0"){
-
-						promise.ok( status );
-
-					}else{
-						status.setMsg("没有找到对话，请确认输入");
-						res.status(404).render("404", status.toJSON() );
-						//res.end();
-					}
-
-
-				});
-
-			});
 
 			promise.then(function( status ){
 
-				var room = status.result;
+				var room = output.room;
 				var roomid = room.id;
+
+				if( user.name == "" ){
+					res.render("set_nickname", output);
+					return ;
+				}
 
 				//房间设置了密码，用户没有权限访问
 				if( room.password  && !user.isRoomPasswrod(room.id, room.password) ){
@@ -139,7 +141,7 @@ module.exports = {
 						
 				}
 
-				output.room = room.getInfo();
+				//output.room = room.getInfo();
 
 				//查找首页数据 
 				ChatModel.findChats( roomid , time, 30, function( status ){
@@ -159,6 +161,8 @@ module.exports = {
 				}
 
 			});
+
+			
 			promise.then(function( roomid ){
 
 				ChatModel.count({roomid:roomid, to:"*"}, function( status ){
