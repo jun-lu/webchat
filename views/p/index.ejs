@@ -3,8 +3,8 @@
 <head>
 	<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
 	<title><%=room.topic%> 图册 - vchat</title>
-	<link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap.min.css"/>
-	<link rel="stylesheet" type="text/css" href="/css/all.css"/>
+	<link rel="stylesheet" type="text/css" href="/public/bootstrap/css/bootstrap.min.css"/>
+	<link rel="stylesheet" type="text/css" href="/public/css/all.css"/>
 	<script>
 		var USER = <%- JSON.stringify( user )%>;
 		var albums = <%- JSON.stringify(albums) %>;
@@ -33,7 +33,7 @@
 									<%if( item.facePhoto ){%>
 										<img src="/p/v/<%=item.facePhoto%>">
 									<%}else{%>
-										<img src="/images/photo_album_thumb.png" style="height:170px;background:#fff;"/>
+										<img src="/public/images/photo_album_thumb.png" style="height:170px;background:#fff;"/>
 									<%}%>
 									
 							</a>
@@ -49,9 +49,9 @@
 
 	</div>
 <% include ../common/footer.ejs %>
-<script type="text/javascript" src="/js/jquery-1.6.3.min.js"></script> 
-<script type="text/javascript" src="/js/we.min.js"></script>
-<script type="text/javascript" src="/js/we.top.min.js"></script> 
+<script type="text/javascript" src="/public/js/jquery-1.6.3.min.js"></script> 
+<script type="text/javascript" src="/public/js/we.min.js"></script>
+<script type="text/javascript" src="/public/js/we.top.min.js"></script> 
 
 </body>
 </html>

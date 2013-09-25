@@ -2,7 +2,15 @@
 	1:下载安装node
 	2:克隆 webchat 项目
 	3:安装项目的所有中间件(使用npm install完成)
-	4:创建配置文件 settings.js
+		
+	4:创建配置文件 config.js
+		
+		全局安装fis
+		npm install -g fis
+
+		运行
+		fis.sh  
+		完成以后到  ../online-webchat  下运行 node app.js
 		
 	/** config.js */
 
