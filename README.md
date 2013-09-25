@@ -11,7 +11,7 @@
 		运行
 		fis.sh  
 		完成以后到  ../online-webchat  下运行 node app.js
-		
+		 
 	/** config.js */
 
 ````javascript

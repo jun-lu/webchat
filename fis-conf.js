@@ -11,7 +11,7 @@ fis.config.merge({
 
 fis.config.merge({
 	project:{
-		exclude:/^\/(psd|dataRecovery|autobuild|html)/i
+		exclude:/^\/(node_modules|psd|dataRecovery|autobuild|html)/i
 	}
 });
 
@@ -32,12 +32,6 @@ fis.config.merge({
 			},
 			{
 				reg:"lib/**.js",
-				useCompile:false,
-				useHash:false,
-				useMap:false
-			},
-			{
-				reg:"node_modules/**.**",
 				useCompile:false,
 				useHash:false,
 				useMap:false
