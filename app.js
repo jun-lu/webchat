@@ -50,7 +50,7 @@ d.run(function(){
 
     app.use(express.cookieParser());
 
-    app.use(express.static(path.join(__dirname, 'public'), {maxAge:new Date("2030").getTime()}));
+    app.use(express.static(path.join(__dirname, ''), {maxAge:new Date("2030").getTime()}));
 
     //路由
     httpServerRoutes( app );

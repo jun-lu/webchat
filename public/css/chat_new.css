@@ -40,11 +40,11 @@
 		.main-input .text-box{padding:10px 8px;}
 			.main-input .text-box input{border: #e0e0e0 solid 1px;color: #333;position:relative;font-size:13px;width:100%;box-sizing:border-box;padding:5px;}
 			.main-input .text-box .icon-screen{position: absolute;top: 19px;right: 19px;z-index:10}
-		.main-input .replay-box{position: absolute;background: #edf1f6;z-index: 99;bottom: 50px;left:7px;font-size: 13px;padding: 5px 25px 5px 10px;margin-right: 10px;box-shadow: #DFDFDF 2px 2px 1px;border-radius: 4px;
+		.main-input .replay-box{position: absolute;background: #edf1f6;z-index: 99;bottom: 50px;left:7px;font-size: 13px;padding: 5px 25px 5px 10px;margin-right: 10px;box-shadow: #DFDFDF 2px 2px 1px;border-radius: 4px;max-width: 84%;
 									background:-webkit-gradient(linear, 0 0, 0 100%, from(rgb(255, 255, 190)), to(rgb(253, 250, 162)))
 								}
 			.main-input .replay-box .name{color:#4B4B4B;}
-			.main-input .replay-box .context{color: #9C9C9C}
+			.main-input .replay-box .context{color: #9C9C9C;word-wrap: break-word;}
 			.main-input .replay-box .arrow{position: absolute;border-width: 7px 7px 0;bottom: -7px;border-color: rgb(250, 247, 160) transparent transparent transparent;border-style: solid dashed dashed dashed;width: 0;height: 0;font-size: 0;line-height: 0}
 			.main-input .replay-box .icon-close{position: absolute;right: 5px;cursor: pointer;opacity:0.6}
 	.main-content .line{width: 1px;font-size: 0px;line-height: 0px;position: absolute;height: 100%;background: #F2F2FD;left: 39px;min-height: 400px}
@@ -147,16 +147,16 @@ left: 0px}
 
 	.wall-setname{background:#d5d9de;box-shadow: 1px 1px 5px #868CA8;opacity:1;}
 	.wall-setname .main{margin-left:0px;}
-	.wall-setname .main .main-out{position:absolute;top:40px;right:0px;padding-top: 7px;padding-left: 10px;background: #C7C7C7;
-border: #fff solid 1px;width:40px;border-radius:3px 0px 0px 3px;;border-right:0;z-index: 99}
+	.wall-setname .main .main-out{position:absolute;top:40px;right:0px;background: #C7C7C7;padding:8px;
+border: #fff solid 1px;width:40px;border-radius:3px 0px 0px 3px;;border-right:0;z-index: 99;font-size:0;}
 		.wall-setname .line{height:0px;width:100%;border-top:#b2b4b6 solid 1px;border-bottom:#fff solid 1px;position: absolute;
 top: 50%;}
 		.wall-setname .topic-title{color:#fff;font-size:13px;top: -145px;}
 		.wall-setname .topic-content{font-size: 26px;color: #555555;bottom: 77px;}
 		.wall-setname .topic-title,.wall-setname .topic-content{padding-right:20px;position:absolute;text-align: center;width:100%;padding: 0px 10px;box-sizing: border-box}
 			.wall-setname .login-input{z-index:99;position:relative;text-align:center;bottom: 22px;height: 42px;overflow: hidden}
-			.wall-setname .login-input input{font-size: 15px;padding: 8px;border:#b8bec4 solid 1px;box-shadow: 0px 0px 1px #BEBEBE;color: #666;padding-left: 35px;width: 11.6em}
-				.login-input .nickname-input input{padding-left:47px;width:19em;}
+			.wall-setname .login-input input{font-size: 15px;padding:4px;border:#b8bec4 solid 1px;box-shadow: 0px 0px 1px #BEBEBE;color: #666;padding-left: 35px;width: 11.6em}
+				.login-input .nickname-input input{padding-left:47px;width:19em;height:32px;}
 				.login-input .nickname-input{display:inline-block;position:relative;-webkit-transition:top .3s ease-in-out,opacity .3s ease-in-out;}
 				.login-input .nickname-input img{width: 34px;height: 34px;top: 4px;left: 4px;position:absolute;}
 				.login-input .nickname-input .loading{width: 16px;height: 16px;top: 13px;left: 12px}
@@ -174,7 +174,7 @@ top: 50%;}
 			.wall-setname .account-btn .icon-user{vertical-align: middle;margin-bottom: 3px;margin-right:3px;}
 		.wall-setname .nickname-input .login-btn{width:18px;height:18px;display:inline-block;position:absolute;right: 10px;top: 12px}
 		.wall-setname .account-input{position: relative;opacity:0;-webkit-transition:top .3s ease-in-out,opacity .3s ease-in-out;}
-			.wall-setname .account-input input{margin-right:10px;}
+			.wall-setname .account-input input{margin-right:10px;height:32px;}
 
 			.wall-setname .account-input .login-btn{background: #868C91;padding: 11px 10px;border-radius: 3px;color: #fff;border:0;cursor:pointer;}
 				.wall-setname .account-input .login-btn:hover{background:#565657}
