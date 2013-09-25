@@ -226,10 +226,12 @@ WE.pageChat.login = {
 
 		this.ui.accountWallBtn.click(function(){
 			_this.displayAccountLogin();
+			return false;
 		});
 
 		this.ui.nicknameWallBtn.click(function(){
-			_this.displayNickNameLogin()
+			_this.displayNickNameLogin();
+			return false;
 		})
 
 	},
@@ -237,8 +239,11 @@ WE.pageChat.login = {
 
 	displayAccountLogin: function(){
 
-		this.ui.nickNameWall.css({'top':'-42px','opacity':'0'});
-		this.ui.accountWall.css({'top':'-42px','opacity':'1'});
+
+		this.ui.nickNameWall.css({'top':'-47px','opacity':'0'});
+		this.ui.accountWall.css({'top':'-47px','opacity':'1'});
+		//window.location.href = window.location.href + "#login-account-wall"
+		//window.history.replaceState(window.location.href + "#login-account-wall");
 
 		this.ui.accountWallBtn.hide();
 		this.ui.nicknameWallBtn.show();
@@ -251,6 +256,8 @@ WE.pageChat.login = {
 
 		this.ui.nickNameWall.css({'top':'0px','opacity':'1'});
 		this.ui.accountWall.css({'top':'0px','opacity':'0'});
+
+		//window.history.replaceState(window.location.href + "#login-nickname-wall");
 
 		this.ui.nickNameInput.focus();
 
