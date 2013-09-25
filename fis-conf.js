@@ -11,7 +11,7 @@ fis.config.merge({
 
 fis.config.merge({
 	project:{
-		exclude:/^\/(psd|dataRecovery|autobuild|html)/i
+		exclude:/^\/(node_modules|psd|dataRecovery|autobuild|html)/i
 	}
 });
 
@@ -32,12 +32,6 @@ fis.config.merge({
 			},
 			{
 				reg:"lib/**.js",
-				useCompile:false,
-				useHash:false,
-				useMap:false
-			},
-			{
-				reg:"node_modules/**.**",
 				useCompile:false,
 				useHash:false,
 				useMap:false
@@ -81,22 +75,22 @@ fis.config.merge({
 			{
 				reg:/public\/css\/(.*\.css)/i,
 				release:"$&",
-				url:"css/$1"
+				url:"/css/$1"
 			},
 			{
 				reg:/public\/bootstrap\/(.*\.css)/i,
 				release:"$&",
-				url:"bootstrap/$1"
+				url:"/bootstrap/$1"
 			},
 			{
 				reg:/public\/js\/(.*\.js)/i,
 				release:"$&",
-				url:"js/$1"
+				url:"/js/$1"
 			},
 			{
 				reg:/public\/images\/(.*\..*)/i,
 				release:"$&",
-				url:"../images/$1"
+				url:"/images/$1"
 			}
 		]
 	}
