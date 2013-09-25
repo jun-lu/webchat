@@ -19,6 +19,11 @@ fis.config.merge({
 fis.config.merge({
 
 	roadmap:{
+		domain:{
+
+			"**.css":"https://www.vchat.co"
+
+		},
 		path:[
 			{
 				reg:"**.ejs",
@@ -27,36 +32,43 @@ fis.config.merge({
 			},
 			{
 				reg:"lib/**.js",
+				useCompile:false,
 				useHash:false
 			},
 			{
 				reg:"ssl/**.**",
+				useCompile:false,
 				useHash:false
 			},
 			{
 				reg:"app.js",
+				useCompile:false,
 				useHash:false
 			},
 			{
 				reg:"config.js",
+				useCompile:false,
 				useHash:false
 			},
 			{
 				reg:"package.json",
+				useCompile:false,
 				useHash:false
 			},
 			{
 				reg:"upgrade.js",
+				useCompile:false,
 				useHash:false
 			},
 			{
-				reg:"css/**.css",
+				reg:/public\/css\/(.*\.css)/i,
 				release:"$&",
-				url:"/css/$&"
+				url:"css/$1"
 			},
 			{
-				reg:"js/**.js",
-				release:"$&"
+				reg:/public\/js\/(.*\.js)/i,
+				release:"$&",
+				url:"js/$1"
 			}
 		]
 	}
