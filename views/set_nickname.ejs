@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta http-equiv="content-type" content="text/html;charset=utf-8">
-	<title>设置昵称 - Vchat</title>
+	<title><%=room.topic%> - Vchat</title>
 	<link rel="stylesheet" type="text/css" href="css/common.css"/>
 	<link rel="stylesheet" type="text/css" href="css/chat_new.css"/>
 </head>
@@ -12,14 +12,14 @@
 
 		<div class="main ">
 
-			<a href="https://www.vchat.co/" class="main-out">
+			<a title="返回主页" href="https://www.vchat.co/" class="main-out">
 				<i class="icon-poweroff"></i>
 			</a>
 			<div class="line">
 				<div class="topic-title">TOPIC :</div>
 				<div class="topic-content"><%=room.topic%></div>
 				<div class="login-input">
-					<div class="nickname-input">
+					<div class="nickname-input" id="login-nickname-wall">
 						<img class="loading" src="../images/loadinfo.net.gif">
 						<img src="<%=user.avatar %>">
 						<input type="text" autofocus placeholder="Your Nickname" id="login-nickname-input" value="<%=user.name %>">
@@ -30,14 +30,27 @@
 						</a>
 					</div>
 
-					<div class="account-input">
+					<div class="account-input" id="login-account-wall">
+						<input type="text" placeholder="Email" name="email">
+						<input type="password" placeholder="Password" name="pwd">
 
+						<!-- <a class="login-btn" href="javascript:;">
+							<i class="icon-go"></i>
+							<i class="icon-loading hidden"></i>
+						</a> -->
+
+						<button type="submit" class="login-btn">Login</button>
+						<!-- <a class="login-btn" href="javascript:;">Login</a> -->
 					</div>
 				</div>
 				<div class="account-btn">
-					<a class="btn" href="javascript:;">
+					<a class="btn" href="javascript:;" id="account-login-btn">
 						<i class="icon-user"></i>
 						Login use my account
+					</a>
+
+					<a class="btn hidden" href="javascript:;" id="nickname-login-btn">
+						Login without my account
 					</a>
 				</div>
 			</div>
