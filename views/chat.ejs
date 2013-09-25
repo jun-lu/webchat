@@ -5,8 +5,8 @@
 	<title><%=room.topic%> - Vchat</title>
 	<meta name="keywords" content="vchat,vchat.co,多人讨论,话题,活动,兴趣,<%=room.topic%>,<%=room.des%>"/>
 	<meta name="description" content="<%=room.topic%>,<%=room.des%>"/>
-	<link rel="stylesheet" type="text/css" href="css/common.css"/>
-	<link rel="stylesheet" type="text/css" href="css/chat_new.css"/>
+	<link rel="stylesheet" type="text/css" href="/public/css/common.css"/>
+	<link rel="stylesheet" type="text/css" href="/public/css/chat_new.css"/>
 
 
 	<link rel="next"  href="/<%=room.name ? room.name : room.id%>?t=<%=nextTime%>">
@@ -14,8 +14,8 @@
 
 	<!--[if lte IE 10]>  <script> location.href = "/sys/ie"; </script> <![endif]-->
 
-	<script type="text/javascript" src="/js/jquery-1.6.3.min.js"></script>
-	<script type="text/javascript" src="/js/we.min.js"></script>
+	<script type="text/javascript" src="/public/js/jquery-1.6.3.min.js"></script>
+	<script type="text/javascript" src="/public/js/we.min.js"></script>
 	<script type="text/javascript">
 
 		var USER = <%- JSON.stringify(user)%>;
@@ -114,8 +114,8 @@
 	
 
 
-	<!--<script type="text/javascript" src="/js/we.chat.min.js"></script>-->
-	<script type="text/javascript" src="/js/src/we.chat/we.page.chat.js"></script>
+	<!--<script type="text/javascript" src="/public/js/we.chat.min.js"></script>-->
+	<script type="text/javascript" src="/public/js/src/we.chat/we.page.chat.js"></script>
 
 	<script type="text/javascript">
 

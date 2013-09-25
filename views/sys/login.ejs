@@ -3,9 +3,9 @@
 <head>
 	<meta charset="UTF-8">
 	<title>登录 - Vchat</title>
-	<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css" />
-	<link rel="stylesheet" href="/css/all.css" />
-	<link rel="stylesheet" href="/css/Stip.css" />
+	<link rel="stylesheet" href="/public/bootstrap/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="/public/css/all.css" />
+	<link rel="stylesheet" href="/public/css/Stip.css" />
 	<style type="text/css">
 		.oauth-btn:link{width:129px;display:inline-block;height:29px;
 			background-image:url(/images/oauth_login.png);
@@ -20,10 +20,10 @@
 		.oauth-qq:hover{background-position:0 -29px;}
 
 	</style>
-	<script type="text/javascript" src="/js/jquery-1.6.js"></script>
-	<script type="text/javascript" src="/js/we.min.js"></script>
-	<script type="text/javascript" src="/js/Stip.js"></script>
-	<script type="text/javascript" src="/js/Checkform.js"></script>
+	<script type="text/javascript" src="/public/js/jquery-1.6.js"></script>
+	<script type="text/javascript" src="/public/js/we.min.js"></script>
+	<script type="text/javascript" src="/public/js/Stip.js"></script>
+	<script type="text/javascript" src="/public/js/Checkform.js"></script>
 	<script type="text/javascript">
 		var USER = <%- JSON.stringify(user)%>;
 	</script>
@@ -82,7 +82,7 @@
 		
 	</div>
 	<% include ../common/footer.ejs %>
-	<script type="text/javascript" src="/js/we.top.min.js"></script>
+	<script type="text/javascript" src="/public/js/we.top.min.js"></script>
 	<script type="text/javascript">
 		var json = [
 			{

@@ -3,11 +3,11 @@
 <head>
 	<meta charset="UTF-8">
 	<title>需要验证访问权限 - Vchat</title>
-	<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css" />
-	<link rel="stylesheet" href="/css/all.css" />
-	<link rel="stylesheet" href="/css/Stip.css" />
-	<script type="text/javascript" src="/js/jquery-1.6.js"></script>
-	<script type="text/javascript" src="/js/we.min.js"></script>
+	<link rel="stylesheet" href="/public/bootstrap/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="/public/css/all.css" />
+	<link rel="stylesheet" href="/public/css/Stip.css" />
+	<script type="text/javascript" src="/public/js/jquery-1.6.js"></script>
+	<script type="text/javascript" src="/public/js/we.min.js"></script>
 	<script type="text/javascript">
 		var USER = <%- JSON.stringify(user)%>;
 		var status = <%- JSON.stringify(status)%>;
@@ -58,6 +58,6 @@
 		</div>
 	</div>
 	<% include ../common/footer.ejs %>
-<script type="text/javascript" src="/js/we.top.min.js"></script>
+<script type="text/javascript" src="/public/js/we.top.min.js"></script>
 </body>
 </html>

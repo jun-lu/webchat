@@ -9,8 +9,8 @@
 	<meta name="apple-mobile-web-app-capable" content="yes"/>
 	<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
 
-	<link rel="stylesheet" type="text/css" href="/css/m/common.css"/>
-	<link rel="stylesheet" type="text/css" href="/css/m/page.chat.css"/>
+	<link rel="stylesheet" type="text/css" href="/public/css/m/common.css"/>
+	<link rel="stylesheet" type="text/css" href="/public/css/m/page.chat.css"/>
 
 	<script type="text/javascript">
 
@@ -55,16 +55,16 @@
 		</div>
 
 		<div id="timeline-loading" class="cover-frame hidden">
-			<img class="loading-pic" src="/images/loading_m.gif"/>
+			<img class="loading-pic" src="/public/images/loading_m.gif"/>
 		</div>
 	</div>
 
 	<script type="text/javascript">
 		var FIRST_DATA = <%- JSON.stringify( indexChats ) %>;
 	</script>
-	<script type="text/javascript" src="/js/zepto.min.js"></script>
-	<script type="text/javascript" src="/js/we.min.js"></script>
-	<script type="text/javascript" src="/js/m.chat.min.js"></script>
+	<script type="text/javascript" src="/public/js/zepto.min.js"></script>
+	<script type="text/javascript" src="/public/js/we.min.js"></script>
+	<script type="text/javascript" src="/public/js/m.chat.min.js"></script>
 	
 
 	<script type="text/javascript">
@@ -74,7 +74,7 @@
 		WE.pageChat.append( FIRST_DATA );
 	});
 	</script>
-	<script src="/js/socket.io.min.js"></script>
+	<script src="/public/js/socket.io.min.js"></script>
 	<script type="text/javascript">
 		//匿名用户
 
