@@ -30,7 +30,7 @@ ul,li,body,h1,h2,h3,input{padding:0px;margin:0px;}
 a{text-decoration:none;}
 .clear-fix{zoom:1;clear: both;}
 .clear-fix:after{content:"\20";display:block;clear:both;}
-.hidden{display:none;}
+
 
 ::-webkit-scrollbar {width: 8px;height: 8px;}
 ::-webkit-scrollbar-thumb {border-width: 1px;border-style: solid;border-color: #fff;border-radius: 6px;background: #d7d7d7;}
@@ -43,6 +43,7 @@ a{text-decoration:none;}
 body{font-family: "Ebrima",tahoma,arial,\5b8b\4f53;}
 header{height: 35px;background: red;position: relative;z-index: 30;}
 
+.icon-loading{width:16px;height:16px;background:url(../images/loadinfo.net.gif);display:inline-block;}
 .icon-chat{width:13px;height:13px;display:inline-block;vertical-align:middle;background:url(../images/all.png);background-position:-5px -41px;margin-right:5px;}
 .icon-screen{display: inline-block;width: 13px;height: 13px;float: right;background: url(../images/all.png);background-position: -5px -59px;}
 .icon-close{width: 8px;height: 8px;background: url(../images/all.png);background-position: -6px -116px;display: inline-block;}
@@ -53,4 +54,11 @@ header{height: 35px;background: red;position: relative;z-index: 30;}
 .icon-back{width:9px;height:11px;background:url(../images/all.png);background-position:-5px -128px;display:inline-block;}
 .icon-down{width:17px;height:19px;background:url(../images/all.png);background-position:-3px -130px;display:inline-block;}
 .icon-larrow-black{width: 17px;height: 27px;;background:url(../images/all.png);background-position:-40px -49px;display:inline-block;}
-.icon-larrow-black:hover{background-position:-40px -78px;};
+.icon-larrow-black:hover{background-position:-40px -78px;}
+.icon-go{width:18px;height:18px;display:inline-block;background:url(../images/all.png);background-position:-40px -115px;}
+.icon-go:hover,.icon-go-click{background-position:-40px -137px;}
+.icon-go:active{background-position:-40px -158px}
+.icon-user{width:14px;height:12px;display:inline-block;background:url(../images/all.png);background-position:-42px -182px;}
+.icon-poweroff{width:21px;height:22px;display:inline-block;background:url(../images/all.png);background-position:-75px -8px;;}
+
+.hidden{display:none;}
