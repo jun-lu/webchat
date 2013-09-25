@@ -179,7 +179,12 @@ WE.pageChat.login = {
 
 		this.ui = {
 			nickNameInput: $('#login-nickname-input'),
-			nickNameBtn: $('#login-nickname-btn')
+			nickNameBtn: $('#login-nickname-btn'),
+			accountWallBtn: $('#account-login-btn'),
+			nicknameWallBtn: $('#nickname-login-btn'),
+
+			nickNameWall: $('#login-nickname-wall'),
+			accountWall: $('#login-account-wall')
 		}
 		
 		this.regEvent();
@@ -218,6 +223,35 @@ WE.pageChat.login = {
 			}
 		});
 
+
+		this.ui.accountWallBtn.click(function(){
+			_this.displayAccountLogin();
+		});
+
+		this.ui.nicknameWallBtn.click(function(){
+			_this.displayNickNameLogin()
+		})
+
+	},
+
+
+	displayAccountLogin: function(){
+
+		this.ui.nickNameWall.css({'top':'-42px','opacity':'0'});
+		this.ui.accountWall.css({'top':'-42px','opacity':'1'});
+
+		this.ui.accountWallBtn.hide();
+		this.ui.nicknameWallBtn.show();
+		// this.ui.accountWallBtn.text('login use nickname')
+	},
+
+	displayNickNameLogin: function(){
+
+		this.ui.nickNameWall.css({'top':'0px','opacity':'1'});
+		this.ui.accountWall.css({'top':'0px','opacity':'0'});
+
+		this.ui.accountWallBtn.show();
+		this.ui.nicknameWallBtn.hide();
 	},
 
 	nickNameLogin: function( nickName ){
