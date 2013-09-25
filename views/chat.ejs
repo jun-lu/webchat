@@ -26,7 +26,7 @@
 <body>
 	
 
-	<div class="wall-room <% if( user.name == "" && /^\d+$/.test(user.mail) ){ %>login-style<% } %>" id="wall-room">
+	<div class="wall-room <% if( user.name == "" ){ %>login-style<% } %>" id="wall-room">
 		<div class="main">
 			
 			<div class="main-wall">
@@ -168,8 +168,6 @@
 						// $('#socketConnectioning').hide();
 						// $('#offlineTip').hide();
 						// $('#userlist').show();
-
-						console.log('user-list',data);
 						WE.pageChat.userlist.init( data );
 					},
 					"new-chat":function( data ){
@@ -221,22 +219,24 @@
 			}
 		};	
 
-		connectionSocketServer.init();
 			
 			
 	</script>
 
 	<script type="text/javascript">
+
+		if( USER.name == "" ){
+			WE.pageChat.login.init();
+		}
+
+		connectionSocketServer.init();
+
 		WE.pageChat.init();
 		WE.pageChat.historylist.init();
 		WE.pageChat.timeLine.init( <%- JSON.stringify( indexChats ) %>,<%- chats_count %> );
-		WE.pageChat.login.init();
+		
+		
 		//WE.pageChat.notice.init();
-
-
-		if(USER.name == "" && /^\d+$/.test(USER.mail)){
-			WE.pageChat.loginStyle();
-		}
 
 	</script>
 </body>

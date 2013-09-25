@@ -173,11 +173,12 @@ WE.pageChat = {
 */
 WE.pageChat.login = {
 
-	init: function(){
+	init: function( ){
 
 		this.ui = {
 			nickNameInput:$('#login-nickname-input')
 		}
+		
 		this.regEvent();
 	},
 
@@ -198,6 +199,7 @@ WE.pageChat.login = {
 	},
 
 	nickNameLogin: function( nickName ){
+		var _this = this;
 		var model = new WE.api.ChatModel();
 		var ctrl = new WE.Controller();
 		ctrl.update = function( e ){
@@ -206,7 +208,10 @@ WE.pageChat.login = {
 
 			if( data.code == 0 ){
 
+				console.log( _this.connectSocket);
 				$('#wall-room').removeClass('login-style');
+
+				location.reload();
 
 			}else{
 
