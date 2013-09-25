@@ -59,6 +59,8 @@ header{height: 35px;background: red;position: relative;z-index: 30;}
 .icon-go:hover,.icon-go-click{background-position:-40px -137px;}
 .icon-go:active{background-position:-40px -158px}
 .icon-user{width:14px;height:12px;display:inline-block;background:url(../images/all.png);background-position:-42px -182px;}
-.icon-poweroff{width:21px;height:22px;display:inline-block;background:url(../images/all.png);background-position:-75px -8px;;}
+.icon-poweroff{width:21px;height:22px;display:inline-block;background:url(../images/all.png);background-position:-75px -8px;}
+.icon-email{width:18px;height:13px;display:inline-block;background: url(../images/all.png);background-position: -76px -65px;}
+.icon-lock{width:14px;height:16px;display:inline-block;background: url(../images/all.png);background-position: -76px -87px;}
 
 .hidden{display:none;}
