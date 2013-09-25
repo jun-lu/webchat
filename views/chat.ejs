@@ -26,7 +26,7 @@
 <body>
 	
 
-	<div class="wall-room login-style">
+	<div class="wall-room <% if( user.name == "" && /^\d+$/.test(user.mail) ){ %>login-style<% } %>" id="wall-room">
 		<div class="main">
 			
 			<div class="main-wall">
@@ -66,14 +66,14 @@
 						</div>
 				</div>
 			</div>
-			<div class="main-wall login-wall">
+			<div class="main-wall login-wall <% if( user.name != ""){%>hidden<% } %>">
 				<div class="line">
 					<div class="topic-title">TOPIC :</div>
 					<div class="topic-content"><%=room.topic%></div>
 					<div class="login-input">
 						<div class="nickname-input">
-							<img src="<%=user.avatar %>">
-							<input type="text" autofocus placeholder="Nickname" value="<%=user.name %>">
+							<img title="" src="<%=user.avatar %>">
+							<input type="text" autofocus placeholder="Your Nickname" id="login-nickname-input" value="<%=user.name %>">
 						</div>
 
 						<div class="account-input">
@@ -230,7 +230,14 @@
 		WE.pageChat.init();
 		WE.pageChat.historylist.init();
 		WE.pageChat.timeLine.init( <%- JSON.stringify( indexChats ) %>,<%- chats_count %> );
+		WE.pageChat.login.init();
 		//WE.pageChat.notice.init();
+
+
+		if(USER.name == "" && /^\d+$/.test(USER.mail)){
+			WE.pageChat.loginStyle();
+		}
+
 	</script>
 </body>
 </html>

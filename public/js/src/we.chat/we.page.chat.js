@@ -168,6 +168,61 @@ WE.pageChat = {
 };
 
 
+/**
+	登录
+*/
+WE.pageChat.login = {
+
+	init: function(){
+
+		this.ui = {
+			nickNameInput:$('#login-nickname-input')
+		}
+		this.regEvent();
+	},
+
+	regEvent: function(){
+
+		var _this = this;
+
+		this.ui.nickNameInput.keyup(function(e){
+
+			if( e.keyCode == 13 ){
+				var nickName = $.trim( _this.ui.nickNameInput.val() );
+				if( nickName != "" ){
+					_this.nickNameLogin( nickName );
+				}	
+			}
+		});
+
+	},
+
+	nickNameLogin: function( nickName ){
+		var model = new WE.api.ChatModel();
+		var ctrl = new WE.Controller();
+		ctrl.update = function( e ){
+
+			var data = e.data;
+
+			if( data.code == 0 ){
+
+				$('#wall-room').removeClass('login-style');
+
+			}else{
+
+			}
+
+		};
+		model.addObserver( ctrl );
+		model.updateUserName( nickName );
+	},
+
+	accountLogin: function(){
+
+	}
+}
+
+
 
 /**
 	时间轴操作
