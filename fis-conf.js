@@ -11,7 +11,7 @@ fis.config.merge({
 
 fis.config.merge({
 	project:{
-		exclude:/^\/(node_modules|psd|lib|dataRecovery|autobuild|html|app.js)/i
+		exclude:/^\/(node_modules|psd|dataRecovery|autobuild|html)/i
 	}
 });
 
@@ -26,8 +26,33 @@ fis.config.merge({
 				release:'$&'
 			},
 			{
+				reg:"lib/**.js",
+				useHash:false
+			},
+			{
+				reg:"ssl/**.**",
+				useHash:false
+			},
+			{
+				reg:"app.js",
+				useHash:false
+			},
+			{
+				reg:"config.js",
+				useHash:false
+			},
+			{
+				reg:"package.json",
+				useHash:false
+			},
+			{
+				reg:"upgrade.js",
+				useHash:false
+			},
+			{
 				reg:"css/**.css",
-				release:"$&"
+				release:"$&",
+				url:"/css/$&"
 			},
 			{
 				reg:"js/**.js",
