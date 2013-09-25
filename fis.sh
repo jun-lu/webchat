@@ -1,0 +1,1 @@
+ fis release  --md5 -d ../test-fis -w
