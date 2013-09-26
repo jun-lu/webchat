@@ -74,10 +74,14 @@ header{height: 35px;background: red;position: relative;z-index: 30;}
 
 
 /* header */
-header{background:#878787;height:33px;border-bottom:#686868 solid 1px;box-shadow: 0px 0px 3px #ACACAC;z-index: 99}
-	.header-menu .account-box img{width:20px;height:20px;border: #fff 2px solid;border-radius:3px;}
-	.header-menu .account-box .nick-name{font-size: 13px;color:#fff;white-space: nowrap;word-wrap: normal;word-break: normal;text-overflow: ellipsis;overflow: hidden}
-	.header-menu .notice-box,.header-menu .account-box{display:inline-block;margin-right: 30px}
+header{background:#545652;height:33px;border-bottom:#303030 solid 1px;box-shadow: 0px 0px 3px #030303;z-index: 99}
+	.header-menu .account-box img{width:20px;height:20px;border-radius:3px;position: absolute;left: 18px;top: 7px}
+	
+	.header-menu .notice-box,.header-menu .account-box{display:inline-block;float: left}
 	.header-menu{position:relative;float:right;height:33px;}
-	.header-menu .notice-box a,.header-menu .account-box .nick-name{display: block;height:33px;line-height:33px;}
-		.header-menu .notice-box i{vertical-align: middle}
+	.header-menu .notice-box a,.header-menu .account-box .nick-name{padding: 0px 20px;display: block;height:33px;line-height: 36px}
+	.header-menu .account-box .nick-name{font-size: 13px;color:#fff;white-space: nowrap;word-wrap: normal;word-break: normal;text-overflow: ellipsis;overflow: hidden;position:relative;padding-left:50px;}
+		.header-menu .notice-box i{vertical-align: middle;margin-bottom: 3px}
+		.header-menu .account-box .nick-name{border-left: #222 solid 1px;}
+		.header-menu .notice-box{border-right: #6B6B6B solid 1px}
+		.header-menu .account-box .nick-name:hover{background:#222};
