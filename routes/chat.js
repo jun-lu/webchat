@@ -124,7 +124,7 @@ module.exports = {
 			});
 
 
-			promise.then(function( status ){
+			promise.then(function(){
 
 				var room = output.room;
 				var roomid = room.id;
@@ -153,11 +153,11 @@ module.exports = {
 					//res.render('chat', output);
 
 				});
-
+				//console.log( "room", room )	
 				//创建用户日志  如果是搜索引擎user信息为空
 				if(!isSpiderBot(ua) && user.name){
 					//console.log("加入", ua);
-					LogModel.create( user._id, "into_room",  room.getInfo(), function(){} );
+					LogModel.create( user._id, "into_room",  room, function(){} );
 				}
 
 			});

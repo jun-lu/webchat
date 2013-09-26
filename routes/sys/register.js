@@ -29,7 +29,7 @@ module.exports = {
 		var email = req.body.email;
 		var name = req.body.name;
 		var pwd = req.body.pwd;
-		var pwd2 = req.body.pwd2;
+		var pwd2 = pwd;//req.body.pwd2;
 		var output = {
 			user:user,
 		};
@@ -64,7 +64,7 @@ module.exports = {
 
 					if(status.code == "0"){
 						var user = status.result;
-						var cookie = new Cookie("sid", newUser.toCookie());
+						var cookie = new Cookie("sid", user.toCookie());
 						cookie.setExpires(new Date("2030"));
 						res.setHeader("Set-Cookie", [cookie.toString()]);
 						res.render("sys/wellcome", user);
