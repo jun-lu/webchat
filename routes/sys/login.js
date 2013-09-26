@@ -30,7 +30,7 @@ module.exports = {
 			//var expEmail = /./;
 			var email = req.body.email;
 			var pwd = req.body.pwd;
-			var referer = req.body.referer;
+			var referer = req.body.referer || "/";
 			var output = {
 				referer:referer,
 				user:user,
@@ -58,8 +58,8 @@ module.exports = {
 				//status.user = user;
                	//console.log( "status", status );
 				if( status.code == "0" ){
-					var newUser = status.result;
-					var cookie = new Cookie("sid", newUser.toCookie());
+					var user = status.result;
+					var cookie = new Cookie("sid", user.toCookie());
 					cookie.setExpires(new Date("2030"));
 					res.setHeader("Set-Cookie", [cookie.toString()]);
 					res.redirect( referer );

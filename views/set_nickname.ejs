@@ -20,9 +20,9 @@
 				<div class="topic-content"><%=room.topic%></div>
 				<div class="login-input">
 					<div class="nickname-input" id="login-nickname-wall">
-						<img class="loading" src="../images/loadinfo.net.gif">
+						<img class="loading" src="/public/images/loadinfo.net.gif">
 						<img src="<%=user.avatar %>">
-						<input type="text" autofocus placeholder="Your Nickname" id="login-nickname-input" value="<%=user.name %>">
+						<input type="text" autofocus placeholder="Your Nickname"  maxlength="50" id="login-nickname-input" value="<%=user.name %>">
 
 						<a class="login-btn" id="login-nickname-btn" href="javascript:;">
 							<i class="icon-go"></i>
@@ -30,34 +30,29 @@
 						</a>
 					</div>
 
-					<div class="account-input" id="login-account-wall">
-						<div class="input-box">
-							<i class="icon-email"></i>
-							<input type="text" placeholder="Email" name="email">
-						</div>
-						
-						<div class="input-box">
-							<i class="icon-lock"></i>
-							<input type="password" placeholder="Password" name="pwd">
-						</div>
-						
-
-						<!-- <a class="login-btn" href="javascript:;">
-							<i class="icon-go"></i>
-							<i class="icon-loading hidden"></i>
-						</a> -->
-
-						<button type="submit" class="login-btn">Login</button>
-						<!-- <a class="login-btn" href="javascript:;">Login</a> -->
+					<div class="account-input" id="login-account-wall" id="login">
+					<form action="/sys/login" method="post">
+						<input type="hidden" name="referer" value="/<%=room.name || room.id%>">
+							<div class="input-box">
+								<i class="icon-email"></i>
+								<input type="email" placeholder="Email" required maxlength="100" name="email">
+							</div>
+							
+							<div class="input-box">
+								<i class="icon-lock"></i>
+								<input type="password" placeholder="Password" required maxlength="50"  name="pwd">
+							</div>
+							<button type="submit" class="login-btn">Login</button>
+						</form>
 					</div>
 				</div>
 				<div class="account-btn">
-					<a class="btn" href="javascript:;" id="account-login-btn">
+					<a class="btn" href="#login-account-wall" id="account-login-btn">
 						<i class="icon-user"></i>
 						Login use my account
 					</a>
 
-					<a class="btn hidden" href="javascript:;" id="nickname-login-btn">
+					<a class="btn hidden" href="#login-nickname-wall" id="nickname-login-btn">
 						Login without my account
 					</a>
 				</div>
@@ -74,14 +69,6 @@
 	<script type="text/javascript">
 
 		WE.pageChat.login.init();
-
-		window.onbeforeunload = function(){
-
-			if (changes == "true" || files == "true")
-			  {
-			      return "Here you can append a custom message to the default dialog.";
-			  }
-		}
 
 	</script>
 
