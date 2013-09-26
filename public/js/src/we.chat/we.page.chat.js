@@ -242,6 +242,8 @@ WE.pageChat.login = {
 
 		this.ui.accountWallBtn.hide();
 		this.ui.nicknameWallBtn.show();
+
+		this.ui.nickNameWall.find('input[name=email]').focus();
 		// this.ui.accountWallBtn.text('login use nickname')
 	},
 
@@ -249,6 +251,8 @@ WE.pageChat.login = {
 
 		this.ui.nickNameWall.css({'top':'0px','opacity':'1'});
 		this.ui.accountWall.css({'top':'0px','opacity':'0'});
+
+		this.ui.nickNameInput.focus();
 
 		this.ui.accountWallBtn.show();
 		this.ui.nicknameWallBtn.hide();
