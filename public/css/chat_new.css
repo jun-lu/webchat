@@ -153,9 +153,9 @@ border: #fff solid 1px;width:40px;border-radius:3px 0px 0px 3px;;border-right:0;
 top: 50%;}
 		.wall-setname .topic-title{color:#fff;font-size:13px;top: -145px;}
 		.wall-setname .topic-content{font-size: 26px;color: #555555;bottom: 77px;}
-		.wall-setname .topic-title,.wall-setname .topic-content{padding-right:20px;position:absolute;text-align: center;width:100%;}
+		.wall-setname .topic-title,.wall-setname .topic-content{padding-right:20px;position:absolute;text-align: center;width:100%;padding: 0px 10px;box-sizing: border-box}
 			.wall-setname .login-input{z-index:99;position:relative;text-align:center;bottom: 22px;height: 42px;overflow: hidden}
-			.wall-setname .login-input input{font-size: 15px;padding: 8px;border:#b8bec4 solid 1px;box-shadow: 0px 0px 1px #BEBEBE;color: #666;}
+			.wall-setname .login-input input{font-size: 15px;padding: 8px;border:#b8bec4 solid 1px;box-shadow: 0px 0px 1px #BEBEBE;color: #666;padding-left: 35px;width: 11.6em}
 				.login-input .nickname-input input{padding-left:47px;width:19em;}
 				.login-input .nickname-input{display:inline-block;position:relative;-webkit-transition:top .3s ease-in-out,opacity .3s ease-in-out;}
 				.login-input .nickname-input img{width: 34px;height: 34px;top: 4px;left: 4px;position:absolute;}
@@ -164,6 +164,9 @@ top: 50%;}
 				    color:#c1c5ca;
 				    letter-spacing:0px;
 				}
+		.wall-setname .input-box{position:relative;display:inline-block;}
+			.wall-setname .input-box .icon-email,.wall-setname .input-box .icon-lock{position: absolute;top: 14px;left: 10px}
+			.wall-setname .input-box .icon-lock{left: 12px;top:12px;}
 			.wall-setname .account-btn{text-align:center;width: 100%;position: absolute;bottom: -65px;z-index: 99}
 			.wall-setname .account-btn .btn{border-radius:3px;color:#fff;font-size:12px;padding: 5px 8px;margin-left: 191px}
 			.wall-setname .account-btn .btn:hover{background:#A6AAAF}
@@ -173,14 +176,18 @@ top: 50%;}
 		.wall-setname .account-input{position: relative;opacity:0;-webkit-transition:top .3s ease-in-out,opacity .3s ease-in-out;}
 			.wall-setname .account-input input{margin-right:10px;}
 
-			.wall-setname .account-input .login-btn{background: #868C91;padding: 6px 10px;border-radius: 3px;color: #fff;border:0;cursor:pointer;}
-			 
+			.wall-setname .account-input .login-btn{background: #868C91;padding: 11px 10px;border-radius: 3px;color: #fff;border:0;cursor:pointer;}
+				.wall-setname .account-input .login-btn:hover{background:#565657}
+				.wall-setname .account-input .login-btn:active{background: #383838}
 
 	
 	@media (max-width:700px){
 		.wall-setname .login-input{height: auto;overflow: visible;width:219px;margin:0px auto;}
-			.wall-setname .account-input input{margin-bottom: 10px;margin-right:0px;}
+			.wall-setname .account-input input{margin-right:0px;}
+			.wall-setname .account-input .input-box{margin-bottom:10px;}
 		.wall-setname .account-input{top: -39px}
 		.wall-setname .account-input .login-btn{width:219px;}
 		.login-input .nickname-input input{width:12em;}
+		.wall-setname .account-btn .btn{margin-left: 101px}
+		#nickname-login-btn{bottom: -88px;position: relative;margin-left: 64px;}
 	}
