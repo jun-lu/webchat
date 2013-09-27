@@ -27,8 +27,22 @@
 </head>
 <body>
 	
-
-	<div class="wall-room <% if( user.name == "" ){ %>login-style<% } %>" id="wall-room">
+	<header>
+		<div class="pull-right header-menu">
+			<div class="notice-box">
+				<a href="/user/notices">
+					<i class="icon-noticedefault"></i>
+				</a>
+			</div>
+			<div class="account-box">
+				<a class="nick-name" href="">
+					<img src="<%=user.avatar%>">
+					<%=user.name %>
+				</a>
+			</div>
+		</div>
+	</header>
+	<div class="wall-room" id="wall-room">
 		<div class="main">
 			
 			<div class="main-wall">
@@ -109,9 +123,7 @@
 					</div>
 				</div>
 			</div>
-		</div>
-
-		
+		</div>	
 	</div>
 	
 
