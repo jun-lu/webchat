@@ -90,7 +90,7 @@ input::-webkit-input-placeholder {
 		.form-btn:hover{background:#737577}.form-btn:active{background:#5F6163}
 		.strip-btn{width:307px;}
 	.vert-form .tips{margin-top:8px;font-size: 13px}
-	.vert-form .tips-grep{color:rgb(162, 162, 162)}
+	.vert-form .bottom-tips{border-top:#B4B4B4 dotted 1px;color:rgb(141, 141, 141);text-shadow: 1px 1px 0px #F5F5F5;padding:10px 0px}
 	
 
 
