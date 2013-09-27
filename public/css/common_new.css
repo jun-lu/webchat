@@ -1,0 +1,84 @@
+/*
+		page layout
+		.global : for all website;
+		.header
+		.main : 
+		.l-l-aside
+		.r-l-aside
+		.footer
+	 */
+	/* reset */
+
+/* yahoo reset */
+html{color:#000;background:#FFF}
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td{margin:0;padding:0;}
+h1,h2,h3,h4,h5,h6{line-height:1.2}
+table{border-collapse:collapse;border-spacing:0}
+fieldset,images{border:0}
+address,caption,cite,code,dfn,em,strong,th,var{font-style:normal;font-weight:normal}
+ol,ul{list-style:none}
+caption,th{text-align:left}
+h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal}
+q:before,q:after{content:''}
+abbr,acronym{border:0;font-variant:normal}
+sup{vertical-align:text-top}
+sub{vertical-align:text-bottom}
+input,textarea,select{font-family:inherit;font-size:inherit;font-weight:inherit}
+input,textarea,select{*font-size:100%}
+legend{color:#000}
+ul,li,body,h1,h2,h3,input{padding:0px;margin:0px;}
+a{text-decoration:none;}
+.clear-fix{zoom:1;clear: both;}
+.clear-fix:after{content:"\20";display:block;clear:both;}
+
+
+/* connom */
+.pull-right{float: right;}
+.pull-left{float: left;}
+.hidden{display: none;}
+
+/**
+::-webkit-scrollbar {width: 8px;height: 8px;}
+::-webkit-scrollbar-thumb {border-width: 1px;border-style: solid;border-color: #fff;border-radius: 6px;background: #d7d7d7;}
+::-webkit-scrollbar-track-piece {width: 11px;height: 11px;}
+
+*/
+/** top page */
+
+.top{padding:0 20px;background:#545652;height:28px;min-width:960px;font-size:12px;}
+		.top-nav{margin:0;padding:0;}
+		.top-nav li{float:left;list-style: none}
+		.top-nav a{line-height:28px;color:#d5d5d5;height:28px;display:inline-block;padding:0 10px;}
+		.top-nav a:visited{background:none;}
+		.top-nav a:hover{line-height:28px;color:#fff;background:none;}
+		.top-nav a:active{background:none;}
+		.account{position:relative;}
+		.account:hover .arrow{border-top-color:#fff;}
+		.account .arrow{position:absolute;top:13px;right:2px;border-width: 3px 3px 0;border-color: #d5d5d5 transparent transparent transparent;border-style: solid dashed dashed dashed;
+width: 0;height: 0;font-size: 0;line-height: 0;}
+			.drop-down{position:relative;display:inline-block;}
+			.drop-down:hover .drop-down-items{display:block;}
+			.drop-down-items{border:1px solid #e6e6e6;background:#fff;padding:10px 0;position:absolute;top:28px;right:0;z-index:10;display:none;}
+			.drop-down-items ul{margin:0;}
+			.drop-down-items li{float:none;}
+			.drop-down-items li a{display:block;color:#3d3d3d;white-space:nowrap;}
+			.drop-down-items li a:hover{display:block;color:#3d3d3d;background:#f6f6f6;}
+		/* notice */
+		.notice-title{position:relative;}
+		.circle{width:7px;height:7px;border-radius:4px;background-color:red;position: absolute;top: 12px;right: -1px;}
+		.notice-box,.notice-title{position:relative;}
+		.notice-box{display:inline-block;white-space: normal;word-wrap: break-word;margin-right:8px;}
+		.notice-content{width:320px;position:absolute;right:-110px;background:#fff;border:1px solid #e6e6e6;z-index:10;top:28px;}
+		.notice-content li{padding:8px 20px;border-bottom:1px solid #e6e6e6;}
+		.notice-content a:hover{text-decoration:underline;}
+		.notice-content p{padding:12px 0px 2px 18px}
+		.notice-list a{height: auto;}
+		.notice-content .notice-news{display:inline-block;width:223px;}
+		.notice-content .notice-list{padding-top:15px;}
+		.notic-all:visited{background-color:#fafafa;}
+		.notic-all:hover{background-color:#f5f5f5;color:#37a;}
+		.notic-all{padding:10px 0px;display:block;text-align:center;background-color:#fafafa;}
+		.account-box{display:inline-block;}
+
+/* footer */
+.footer{margin-top:50px;padding-bottom: 30px;}
