@@ -31,6 +31,9 @@ a{text-decoration:none;}
 .clear-fix{zoom:1;clear: both;}
 .clear-fix:after{content:"\20";display:block;clear:both;}
 
+.pull-left{float:left;}
+.pull-right{float:right;}
+
 
 ::-webkit-scrollbar {width: 8px;height: 8px;}
 ::-webkit-scrollbar-thumb {border-width: 1px;border-style: solid;border-color: #fff;border-radius: 6px;background: #d7d7d7;}
@@ -62,5 +65,23 @@ header{height: 35px;background: red;position: relative;z-index: 30;}
 .icon-poweroff{width:21px;height:22px;display:inline-block;background:url(../images/all.png);background-position:-75px -8px;}
 .icon-email{width:18px;height:13px;display:inline-block;background: url(../images/all.png);background-position: -76px -65px;}
 .icon-lock{width:14px;height:16px;display:inline-block;background: url(../images/all.png);background-position: -76px -87px;}
+.icon-noticedefault{width:13px;height:16px;display:inline-block;background:url(../images/all.png);background-position: -78px -139px;}
+.icon-noticeaction{width:16px;height:16px;display:inline-block;background:url(../images/all.png);background-position: -77px -115px;}
 
 .hidden{display:none;}
+
+
+
+
+/* header */
+header{background:#545652;height:33px;border-bottom:#303030 solid 1px;box-shadow: 0px 0px 3px #030303;z-index: 99}
+	.header-menu .account-box img{width:20px;height:20px;border-radius:3px;position: absolute;left: 18px;top: 7px}
+	
+	.header-menu .notice-box,.header-menu .account-box{display:inline-block;float: left}
+	.header-menu{position:relative;float:right;height:33px;}
+	.header-menu .notice-box a,.header-menu .account-box .nick-name{padding: 0px 20px;display: block;height:33px;line-height: 36px}
+	.header-menu .account-box .nick-name{font-size: 13px;color:#fff;white-space: nowrap;word-wrap: normal;word-break: normal;text-overflow: ellipsis;overflow: hidden;position:relative;padding-left:50px;}
+		.header-menu .notice-box i{vertical-align: middle;margin-bottom: 3px}
+		.header-menu .account-box .nick-name{border-left: #222 solid 1px;}
+		.header-menu .notice-box{border-right: #6B6B6B solid 1px}
+		.header-menu .account-box .nick-name:hover{background:#222};

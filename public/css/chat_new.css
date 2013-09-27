@@ -1,9 +1,9 @@
 /* chat page */
 
 	/* layout */
-
+	header{position:absolute;width:100%;}
 	html,body{height:100%;width:100%;overflow:hidden;background:rgb(222,225,229);}
-	.wall-room{width:100%;height:100%;}
+	.wall-room{width:100%;height:100%;box-sizing: border-box;padding-top: 34px}
 	.main .main-content{height:100%;background: #fff}
 		  .content-inner{padding:48px 0px 52px 0px;box-sizing:border-box;height:100%;}
 		  		.content-inner .clear-overflow{overflow-y:auto;height:100%}
@@ -14,7 +14,7 @@
 		-webkit-transition:margin .3s ease;
 		box-shadow: 1px 1px 5px #868CA8;z-index: 57;
 	 }
-	.l-aside{position:absolute;height:100%;width:200px;top:0px;left:0px;border-right:#e4e4e4 solid 1px;opacity:1.0;overflow: hidden;
+	.l-aside{position: relative;height:100%;width:200px;top:-100%;left:0px;border-right:#e4e4e4 solid 1px;opacity:1.0;overflow: hidden;
 			-webkit-transition:left .3s ease;
 	  }
 

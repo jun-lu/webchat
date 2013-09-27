@@ -240,6 +240,4 @@ module.exports = {
 			}
 
 		}
-
-
 };
