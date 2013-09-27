@@ -10,7 +10,6 @@
 	/* reset */
 
 /* yahoo reset */
-html{color:#000;background:#FFF}
 body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td{margin:0;padding:0;}
 h1,h2,h3,h4,h5,h6{line-height:1.2}
 table{border-collapse:collapse;border-spacing:0}
@@ -33,6 +32,7 @@ a{text-decoration:none;}
 
 .pull-left{float:left;}
 .pull-right{float:right;}
+.set-middle{margin:0px auto;}
 
 
 ::-webkit-scrollbar {width: 8px;height: 8px;}
@@ -61,7 +61,7 @@ header{height: 35px;background: red;position: relative;z-index: 30;}
 .icon-go{width:18px;height:18px;display:inline-block;background:url(../images/all.png);background-position:-40px -115px;}
 .icon-go:hover,.icon-go-click{background-position:-40px -137px;}
 .icon-go:active{background-position:-40px -158px}
-.icon-user{width:14px;height:12px;display:inline-block;background:url(../images/all.png);background-position:-42px -182px;}
+.icon-user{width:15px;height:13px;display:inline-block;background:url(../images/all.png);background-position:-42px -183px;}
 .icon-poweroff{width:21px;height:22px;display:inline-block;background:url(../images/all.png);background-position:-75px -8px;}
 .icon-email{width:18px;height:13px;display:inline-block;background: url(../images/all.png);background-position: -76px -65px;}
 .icon-lock{width:14px;height:16px;display:inline-block;background: url(../images/all.png);background-position: -76px -87px;}
@@ -71,6 +71,27 @@ header{height: 35px;background: red;position: relative;z-index: 30;}
 .hidden{display:none;}
 
 
+/* common package */
+	/* form , input */
+input::-webkit-input-placeholder {
+    color:#cecece;
+    letter-spacing:0px;
+}
+.input-box{border:#b8bec4 solid 1px;display: inline-block;background:#fff;position:relative;}
+	.input-box input{border:0;outline: none;padding:7px; padding-left: 42px;color: #666;width: 16em}
+	.input-box i{position:absolute;top: 28%;left: 4%}
+	.input-box .icon-lock{left:13px;}.input-box .icon-user{left: 14px;top: 13px}
+.vert-form .input-box{box-shadow:0px 0px 4px #bdc0c5;margin-bottom: 10px;}
+	.form-middle{width:307px;}
+	.form-link{font-size:14px;color:#777b7e;}.form-link:hover{text-decoration:underline;}
+	/* button */
+	.btn,button{border-radius: 1px;display: inline-block;padding: 6px 12px;margin-bottom: 0;font-size: 14px;font-weight: normal;line-height: 1.428571429;text-align: center;white-space: nowrap;vertical-align: middle;cursor: pointer;background-image: none;border: 1px solid transparent;-webkit-user-select: none;-moz-user-select: none;-ms-user-select: none;-o-user-select: none;}
+		.form-btn{background:#868c91;color:#fff;border:#6a6d6f solid 1px;margin-top: 15px;padding: 8px 12px}
+		.form-btn:hover{background:#737577}.form-btn:active{background:#5F6163}
+		.strip-btn{width:307px;}
+	.vert-form .tips{margin-top:8px;font-size: 13px}
+	.vert-form .tips-grep{color:rgb(162, 162, 162)}
+	
 
 
 /* header */
