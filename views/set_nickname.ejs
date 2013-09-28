@@ -8,13 +8,12 @@
 </head>
 <body>
 
+	<!-- top {user:{user}} -->
+	<% include common/top.ejs %>
+
 	<div class="wall-room wall-setname">
 
 		<div class="main ">
-
-			<a title="返回主页" href="https://www.vchat.co/" class="main-out">
-				<i class="icon-poweroff"></i>
-			</a>
 			<div class="line">
 				<div class="topic-title">TOPIC :</div>
 				<div class="topic-content"><%=room.topic%></div>
@@ -29,31 +28,11 @@
 							<i class="icon-loading hidden"></i>
 						</a>
 					</div>
-
-					<div class="account-input" id="login-account-wall" id="login">
-					<form action="/sys/login" method="post">
-						<input type="hidden" name="referer" value="/<%=room.name || room.id%>">
-							<div class="input-box">
-								<i class="icon-email"></i>
-								<input type="email" placeholder="Email" required maxlength="100" name="email">
-							</div>
-							
-							<div class="input-box">
-								<i class="icon-lock"></i>
-								<input type="password" placeholder="Password" required maxlength="50"  name="pwd">
-							</div>
-							<button type="submit" class="login-btn">Login</button>
-						</form>
-					</div>
 				</div>
 				<div class="account-btn">
-					<a class="btn" href="#login-account-wall" id="account-login-btn">
+					<a class="btn" href="/sys/login" id="account-login-btn">
 						<i class="icon-user"></i>
 						Login use my account
-					</a>
-
-					<a class="btn hidden" href="#login-nickname-wall" id="nickname-login-btn">
-						Login without my account
 					</a>
 				</div>
 			</div>

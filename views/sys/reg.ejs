@@ -3,64 +3,81 @@
 <head>
 	<meta charset="UTF-8">
 	<title>注册 - Vchat</title>
-	<link rel="stylesheet" href="/public/bootstrap/css/bootstrap.min.css" />
-	<link rel="stylesheet" href="/public/css/all.css" />
 	<link rel="stylesheet" href="/public/css/Stip.css" />
+	<style type="text/css">
+		/*.oauth-btn:link{width:129px;display:inline-block;height:29px;
+			background-image:url(/public/images/oauth_login.png);
+		}
+		.oauth-btn:hover,.oauth-btn{background-color:transparent;}
+		.oauth-btn span{margin-left:45px;line-height:26px;color:#fff;}
+
+		.oauth-sina{background-position:-129px 0;}
+		.oauth-sina:hover{background-position:-129px -29px;}
+
+		.oauth-qq{background-position:0 0;}
+		.oauth-qq:hover{background-position:0 -29px;}*/
+		html,body{background:#d5d8dd;}
+			.main-reg h1{text-align:center;font-size:48px;}
+			.main-reg h1 a{display:inline-block;color:#4d4d4e}
+			.main-reg .introduce{text-align:center;color: #a3a4a5}
+		.reg-header{padding: 40px 0px;border-bottom:#b2b6b9 solid 1px;}
+		.reg-content{padding-top:35px;border-top:#fbffff solid 1px;}
+		.reg-content .status-tips{width:297px;text-align:center;background:rgb(246, 246, 126);
+				font-size: 13px;padding:10px 5px;color: rgb(131, 22, 22);margin-bottom:20px;}
+
+	</style>
+
+	<link rel="stylesheet" type="text/css" href="/public/css/common.css"/>
+
 	<script type="text/javascript" src="/public/js/jquery-1.6.js"></script>
 	<script type="text/javascript">
 		var USER = <%- JSON.stringify(user)%>;
 	</script>
+</head>
 <body>
 	<!-- top {user:{user}} -->
 	<% include ../common/top.ejs %>
 
-	<div class="container">
-		<div class="head">
-			<h1>Vchat</h1>
-			<p class="subtitle" >--- 基于主题的多人对话</p>
-		</div>
-		<div class="row">
-			<div class="span6">
-				<div class="create">
-					<h3>注册</h3>
-					<form action="/sys/reg" method="post" id="regForm" >
-						<% if(code  != 0 ){ %>
-							<div class="alert"><%= msg %></div>
-						<% } %>
-						<ul class="reset">
-							<li>
-								<label for="email">Email</label>
-								<input type="text" id="email" name="email" maxlength="100" placeholder="Email">
-							</li>
-							<li>
-								<label for="name">昵称</label>
-								<input type="text" id="name" name="name" maxlength="50"  placeholder="name">
-							</li>
-							<li>
-								<label for="des">密码</label>
-								<input type="password" id="pwd" name="pwd" maxlength="50" placeholder="password">
-							</li>
-							<li><input type="submit" class="btn" value="注册" /></li>
-							<li>
-								<br/>
-								<p class="muted" >
-									注册成功你会接收到一份包含密码的Email。
-								</p>
-							</li>
-						</ul>
-					</form>
-				</div>
+
+	<div class="main">
+
+
+		<div class="main-reg">
+
+			<div class="reg-header">
+				<h1>
+					<a href="/">vchat.co</a>	
+				</h1>
+				<p class="introduce">chat eachother base on topic</p>
 			</div>
-			<div class="span5">
-				<div class="into">
-					<h3>已经有一个账户了?</h3>
-					<div> <a href="/sys/login">登录</a> </div>
-				</div>
+
+			<div class="reg-content">
+				<% if(code  != 0 ){ %>
+					<div class="status-tips set-middle"><%= status.msg %></div>
+				<% } %>
+				<form class="vert-form form-middle set-middle" action="/sys/reg" method="post" id="regForm">
+					<div class="input-box">
+						<i class="icon-email"></i>
+						<input autofocus placeholder="Email" type="text" maxlength="100" id="email" name="email">
+					</div>
+					<div class="input-box">
+						<i class="icon-lock"></i>
+						<input placeholder="Password" type="password" id="pwd" name="pwd" maxlength="50">
+					</div>
+					<div class="input-box">
+						<i class="icon-user"></i>
+						<input placeholder="Nickname" type="text" id="name" name="name" maxlength="50">
+					</div>
+					<button type="submit" class="btn form-btn strip-btn">Create my account</button>
+					<p class="tips">I have an account &nbsp;&nbsp;<a class="form-link" href="/sys/login">login in</a></p>
+					<p class="tips bottom-tips">Notice : successful registration you will receive a report containing a password Email</p>
+				</form>
 			</div>
-		</div>
 		
+		</div>
 	</div>
-	<% include ../common/footer.ejs %>
+	
+	<!--<% include ../common/footer.ejs %>-->
 
 	<script type="text/javascript" src="/public/js/we.min.js"></script>
 	<script type="text/javascript" src="/public/js/Stip.js"></script>
@@ -92,5 +109,6 @@
 			return  regForm.okay();
 		});
 	</script>
+	
 </body>
 </html>
