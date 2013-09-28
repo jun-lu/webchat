@@ -79,9 +79,11 @@ header{background:#545652;height:33px;border-bottom:#303030 solid 1px;box-shadow
 	
 	.header-menu .notice-box,.header-menu .account-box{display:inline-block;float: left}
 	.header-menu{position:relative;float:right;height:33px;}
-	.header-menu .notice-box a,.header-menu .account-box .nick-name{padding: 0px 20px;display: block;height:33px;line-height: 36px}
+	.header-menu .notice-box a,.header-menu .account-box .nick-name{padding: 0px 20px;display: block;height:33px;line-height: 36px;color:#D8D8D8}
 	.header-menu .account-box .nick-name{font-size: 13px;color:#fff;white-space: nowrap;word-wrap: normal;word-break: normal;text-overflow: ellipsis;overflow: hidden;position:relative;padding-left:50px;}
 		.header-menu .notice-box i{vertical-align: middle;margin-bottom: 3px}
 		.header-menu .account-box .nick-name{border-left: #222 solid 1px;}
 		.header-menu .notice-box{border-right: #6B6B6B solid 1px}
-		.header-menu .account-box .nick-name:hover{background:#222};
+		.header-menu .account-box .nick-name:hover{background:#222}
+	.header-unlogin a{height: 34px;line-height: 34px;font-size: 13px;color: #E6E6E6;display: inline-block;padding: 0px 20px;border-right: #424242 solid 1px}
+		

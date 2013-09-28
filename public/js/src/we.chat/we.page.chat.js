@@ -180,11 +180,8 @@ WE.pageChat.login = {
 		this.ui = {
 			nickNameInput: $('#login-nickname-input'),
 			nickNameBtn: $('#login-nickname-btn'),
-			accountWallBtn: $('#account-login-btn'),
-			nicknameWallBtn: $('#nickname-login-btn'),
 
-			nickNameWall: $('#login-nickname-wall'),
-			accountWall: $('#login-account-wall')
+			nickNameWall: $('#login-nickname-wall')
 		}
 		
 		this.regEvent();
@@ -223,46 +220,6 @@ WE.pageChat.login = {
 			}
 		});
 
-
-		this.ui.accountWallBtn.click(function(){
-			_this.displayAccountLogin();
-			return false;
-		});
-
-		this.ui.nicknameWallBtn.click(function(){
-			_this.displayNickNameLogin();
-			return false;
-		})
-
-	},
-
-
-	displayAccountLogin: function(){
-
-
-		this.ui.nickNameWall.css({'top':'-47px','opacity':'0'});
-		this.ui.accountWall.css({'top':'-47px','opacity':'1'});
-		//window.location.href = window.location.href + "#login-account-wall"
-		//window.history.replaceState(window.location.href + "#login-account-wall");
-
-		this.ui.accountWallBtn.hide();
-		this.ui.nicknameWallBtn.show();
-
-		this.ui.nickNameWall.find('input[name=email]').focus();
-		// this.ui.accountWallBtn.text('login use nickname')
-	},
-
-	displayNickNameLogin: function(){
-
-		this.ui.nickNameWall.css({'top':'0px','opacity':'1'});
-		this.ui.accountWall.css({'top':'0px','opacity':'0'});
-
-		//window.history.replaceState(window.location.href + "#login-nickname-wall");
-
-		this.ui.nickNameInput.focus();
-
-		this.ui.accountWallBtn.show();
-		this.ui.nicknameWallBtn.hide();
 	},
 
 	nickNameLogin: function( nickName ){
@@ -295,10 +252,6 @@ WE.pageChat.login = {
 		};
 		model.addObserver( ctrl );
 		model.updateUserName( nickName );
-	},
-
-	accountLogin: function(){
-
 	}
 }
 

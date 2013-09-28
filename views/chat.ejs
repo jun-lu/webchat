@@ -27,21 +27,9 @@
 </head>
 <body>
 	
-	<header>
-		<div class="pull-right header-menu">
-			<div class="notice-box">
-				<a href="/user/notices">
-					<i class="icon-noticedefault"></i>
-				</a>
-			</div>
-			<div class="account-box">
-				<a class="nick-name" href="">
-					<img src="<%=user.avatar%>">
-					<%=user.name %>
-				</a>
-			</div>
-		</div>
-	</header>
+	<!-- top {user:{user}} -->
+	<% include common/top.ejs %>
+	
 	<div class="wall-room" id="wall-room">
 		<div class="main">
 			
