@@ -1,0 +1,112 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>登录 - Vchat</title>
+<!-- 	<link rel="stylesheet" href="/public/bootstrap/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="/public/css/all.css" /> -->
+	<link rel="stylesheet" href="/public/css/Stip.css" />
+	<style type="text/css">
+		.oauth-btn:link{width:129px;display:inline-block;height:29px;
+			background-image:url(/public/images/oauth_login.png);
+		}
+		.oauth-btn:hover,.oauth-btn{background-color:transparent;}
+		.oauth-btn span{margin-left:45px;line-height:26px;color:#fff;}
+
+		.oauth-sina{background-position:-129px 0;}
+		.oauth-sina:hover{background-position:-129px -29px;}
+
+		.oauth-qq{background-position:0 0;}
+		.oauth-qq:hover{background-position:0 -29px;}
+
+	</style>
+
+	<link rel="stylesheet" type="text/css" href="/public/css/common.css"/>
+
+	<script type="text/javascript" src="/public/js/jquery-1.6.js"></script>
+	<script type="text/javascript" src="/public/js/we.min.js"></script>
+	<script type="text/javascript" src="/public/js/Stip.js"></script>
+	<script type="text/javascript" src="/public/js/Checkform.js"></script>
+	<script type="text/javascript">
+		var USER = <%- JSON.stringify(user)%>;
+	</script>
+</head>
+<body>
+	<!-- top {user:{user}} -->
+	<% include ../common/top.ejs %>
+
+	<div class="container">
+		<div class="head">
+			<h1>Vchat</h1>
+			<p class="subtitle" > --- 基于主题的多人对话</p>
+		</div>
+		<div class="row">
+			<div class="span6">
+				<div class="create">
+					<h3>登录</h3>
+					<form action="/sys/login" method="post" id="login" >
+						<% if( status.code  != 0 ){ %>
+							<div class="alert"><%= status.msg %></div>
+						<% } %>
+						<input type="hidden" name="referer" value="<%=referer%>" >
+						<ul class="reset">
+							<li>
+								<label for="email">Email</label>
+								<input type="text" id="email" name="email" maxlength="100" placeholder="Email">
+							</li>
+							<li>
+								<label for="pwd">密码</label>
+								<input type="password" id="pwd" name="pwd" maxlength="50" placeholder="password">
+							</li>
+							
+							<li><input type="submit" class="btn" value="登录" /></li>
+						</ul>
+					</form>
+					<hr/>
+					<div>
+						<a href="https://api.weibo.com/oauth2/authorize?client_id=2330339834&redirect_uri=http://vchat.co/sys/weibo_login&response_type=code&state=http://vchat.co&t=<%=Math.random()%>" class="oauth-btn oauth-sina" >
+							<span>微博登录</span>
+						</a>
+
+						<a href="https://graph.qq.com/oauth2.0/authorize?client_id=100415858&redirect_uri=http://vchat.co/sys/qq_login&response_type=code&state=http://vchat.co&t=<%=Math.random()%>" class="oauth-btn oauth-qq"  style="display:none;" >
+							<span>QQ登录</span>
+						</a>
+
+					</div>
+				</div>
+			</div>
+			<div class="span5">
+				<div class="into">
+					<h3>还没有账户?</h3>
+					<div> <a href="/sys/reg">注册账户</a> </div>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+	<% include ../common/footer.ejs %>
+	<script type="text/javascript" src="/public/js/we.top.min.js"></script>
+	<script type="text/javascript">
+		var json = [
+			{
+				id:"email",
+				email:{rule:true,msg:"请添加正确的邮箱格式"}
+
+			},
+			{
+				id:"pwd",
+				minLength:{rule:6,msg:"密码长度不够"}
+			}
+		];
+
+		var regForm = new  CheckForm(json);
+
+		$('#login').submit(function(){
+			 return regForm.okay();
+		});
+
+	</script>
+
+
+</body>
+</html>

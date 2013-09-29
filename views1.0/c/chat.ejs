@@ -1,0 +1,90 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="UTF-8"> 
+		<title>Chat.js -即时对话组件</title>
+		<meta name="keywords" content="Chat.js, Chat, vchat.co"/> 
+		<meta name="description" content="网站在线用户即时对话组件,即时对话"/>
+		<link rel="stylesheet" href="/public/bootstrap/css/bootstrap.min.css">	
+		<link rel="stylesheet" href="/public/css/all.css">	
+		
+		<script type="text/javascript">
+			var USER = <%- JSON.stringify(user)%>;
+		</script>
+
+	</head>
+	<body>
+	<!-- top {user:{user}} -->
+	<% include ../common/top.ejs %>
+
+	<div class="container">
+		
+		<h1>Chat.js <small>v1.0</small></h1>
+		<p>网站在线用户即时对话组件</p>
+		
+		<h2>使用</h2>
+<div>
+<pre>
+var __vchat_config = {  
+	domain:document.domain,  
+	uid:"5125d4b5cf3ffd489500000xx1",  
+	uname:"爱因斯坦",  
+	uavatar:"http://tp4.sinaimg.cn/1685239567/180/5608887021/1", 
+	topic:"", 
+	des: "" 
+};  
+  
+;;(function(){
+	var c = document.createElement('script'); c.type = 'text/javascript'; c.async = true;
+    c.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'vchat.co/js/chat.min.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(c, s);
+})();				
+</pre>
+</div>
+	<h2>配置</h2>
+	<div>
+		
+		<ul class="config-chat">
+			<li>
+				<strong>domain:</strong> String 默认document.domain 例如 domain : "vchat.co"; 可选
+			</li>	 	
+			<li>
+				<strong>uid:</strong> String 当前登录用户的唯一标识 例如: uid : MD5(email + pwd) 可选
+			</li>	 
+			<li><strong>uname:</strong> String 用户昵称 可选</li>	  
+			<li><strong>uavatar</strong> String url 用户头像 可选</li>
+			<li><strong>topic</strong> String 如果domain所执行的对话空间不存在，创建对话空间的时候会以 topic 作为主题 可选</li>
+			<li><strong>des</strong> String 创建对话空间的描述信息 可选</li>	 
+		</ul>
+
+
+	</div>
+
+	<h2>End</h2>
+	<p>__vchat.js 在不断改进，如果你在使用中遇到任何问题。都可以到 <a href="http://vchat.co/chat.js">http://vchat.co/chat.js</a> 求助</p>
+	<br/>
+	<br/>		
+	<div>Page author <a href="http://weibo.com/alllifetoyou2" target="_blank" rel="weibo">Nosier</a></div>
+	<br/>					
+</div>
+<script>
+
+	var __vchat_config = {
+		uid:"",//使用vchat的登录用户
+		topic:"chat.js对话讨论",//主题
+		des:"欢迎使用"//描述
+	};
+
+	;;(function(){
+		var c = document.createElement('script'); c.type = 'text/javascript'; c.async = true;
+		c.src = 'https://www.vchat.co/js/chat.min.js';
+		c.onload = function(){//加载成功自动打开 chat
+			__vchat.openAndClose();
+		};
+		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(c, s);
+	})();
+
+</script>
+		
+	</body>
+</html>
