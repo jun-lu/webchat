@@ -27,7 +27,8 @@ module.exports = {
 			var output = {
 				user:user ? user.getInfo() : user,
 				contacts:[], //联系人名单
-				joinTopics:[]
+				joinTopics:[],
+				tool:tools
 			}
 
 

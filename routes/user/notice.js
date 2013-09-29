@@ -22,7 +22,8 @@ module.exports = {
 				user:user ? user.getInfo() : null,
 				status:noticeStatus,
 				notices:[],
-				time:time
+				time:time,
+				tool:tools
 			};
 
 			var status = new WebStatus();
