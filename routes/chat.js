@@ -219,13 +219,14 @@ module.exports = {
 						var chat = status.result[0];
 						//console.log( "chat", chat );
 						socketServerRoutes.distribute( chat.roomid, chat );
-
+						//console.log("aim", aim);
 						//添加提醒
-						if(to){
-							ChatModel.findOne(to, function( status ){
+						if(aim){
+							ChatModel.findOne({_id:ChatModel.objectId(aim)}, function( status ){
+								console.log( "status", status );
 								//自己回复自己不加入提醒
-								if(status.code == "0" && user._id != status.result.uid){
-									NoticeModel.create(1, user._id, status.result.uid, roomid, to, chat[0]._id.toString());
+								if(status.code == "0" && user._id != status.result.from){
+									NoticeModel.create(1, user._id, status.result.from, roomid, to, chat._id.toString());
 								}
 							});
 						}

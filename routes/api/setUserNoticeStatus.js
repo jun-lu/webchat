@@ -17,6 +17,7 @@
 */
 
 var NoticeModel = require("../../lib/NoticeModel");
+var WebStatus = require("../../lib/WebStatus");
 
 module.exports = function( req, res ){
 
@@ -24,7 +25,7 @@ module.exports = function( req, res ){
 	var status = Number(req.body.status);
 	var _id = req.body._id;
 
-	status = status ? status : 2;
+	status = isNaN(status) ? 2 : status;
 
 
 	if( !user ){
