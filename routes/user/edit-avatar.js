@@ -29,7 +29,7 @@ module.exports = {
 			}
 
 
-			res.render("user/set-info", output);
+			res.render("user/edit-avatar", output);
 		},
 
 		

@@ -61,19 +61,19 @@ output = {
 
 }
 
-vchat.co/user/bind-mail   views/user/set-bind.ejs
+vchat.co/user/bind-mail   views/user/bind-mail.ejs
 output = {
 
 	user:User
 }
 
-vchat.co/user/set-avatar views/user/set-avastar.ejs
+vchat.co/user/edit-avatar views/user/edit-avastar.ejs
 output = {
 
 	user:User
 }
 
-vchat.co/user/set-info   views/user/set-info.ejs
+vchat.co/user/edit-info   views/user/edit-info.ejs
 output = {
 
 	user:User
