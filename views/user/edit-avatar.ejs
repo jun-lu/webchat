@@ -18,22 +18,7 @@
 <body>
 
 	<!-- top {user:{user}} -->
-	<!--<% include ../common/top.ejs %>-->
-	<header> 
-		<div class="pull-right header-menu"> 
-			<div class="notice-box"> 
-				<a href="/user/notices"> 
-					<i class="icon-noticedefault"></i>
-				</a> 
-			</div> 
-			<div class="account-box"> 
-				<a target="_blank" class="nick-name" href="/user/52462de027f7760417000001"> 
-					<img src="https://www.gravatar.com/avatar/d77d53f36d1b24353237b0272586fc3e.jpg?s=48&amp;d=monsterid&amp;r=g"> 
-					32132131 
-				</a> 
-			</div> 
-		</div> 
-	</header>
+	<% include ../common/top.ejs %>
 	
 	<div class="wrap">
 		<div class="main">
@@ -66,34 +51,7 @@
 			</div>
 		</div>
 
-		<div class="l-aside">
-			<div class="create-btn">
-				<button class="btn btn-middle">Create Topic</button>
-			</div>
-			<span class="line"></span>
-			<div class="menu">
-				<ul>
-					<li>
-						<a href="/">Home</a>
-					</li>
-					<li>
-						<a href="/">Notice</a>
-					</li>
-					<li>
-						<a href="/">Topics</a>
-					</li>
-					<li>
-						<a class="select" href="/">Edit Avatar</a>
-					</li>
-					<li>
-						<a href="/">Edit Account</a>
-					</li>
-					<!-- <li>
-						<a href="/">Bind Email</a>
-					</li> -->
-				</ul>
-			</div>
-		</div>
+		<% include public-left.ejs %>
 	</div>
 
 </body>
