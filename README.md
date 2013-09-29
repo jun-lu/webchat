@@ -275,7 +275,8 @@ module.exports = {
    在vchat您不仅可以进行话题讨论，私密聊天，还可以认识更多志同道合的朋友，关注他们与他们进行话题互动，您会发现更多精彩。
 
 
-
+#加入 来往纪录 contact
+	如果你针对某个人回复，则他会在你的来往纪录中出现，在你邀请、@ 的时候这个纪录将作为你的潜在联系对象。
 
 
 #定义数据体
@@ -381,6 +382,17 @@ module.exports = {
 	time : parseInt( Date.now() / 1000 );//上传时间
 	subdirectory : parseInt( Date.now()/3600000/24 ),// 物理路劲
 	features : {} //图片的其他信息
+}
+````
+
+####联系 Contact
+````
+{
+	_id:"",
+	sid:"", //记录人 id  send user id
+	aid:"", //对方 id  accept user id
+	thermograph:Number, //温度计
+	time: parseInt( Date.now() / 1000 )
 }
 ````
 
