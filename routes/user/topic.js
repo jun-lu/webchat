@@ -74,7 +74,7 @@ module.exports = {
 			promise.then(function() {
 				//res.write(JSON.stringify( output,"", "  "));
 				//res.end();
-				res.render("user/personal", output);
+				res.render("user/topic", output);
 			});
 
 
