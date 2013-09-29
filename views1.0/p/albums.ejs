@@ -1,0 +1,68 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title> <%=albums.name%> -vchat</title>
+	<link rel="stylesheet" type="text/css" href="/public/bootstrap/css/bootstrap.min.css"/>
+	<link rel="stylesheet" type="text/css" href="/public/css/all.css"/>
+	<style>
+		.albums-list .masthead{text-align: center;display:block;float:none;width:auto;}
+		.masthead .btn{color:#fff;padding:.3em 3em;}
+	</style>
+	<script>
+		var USER = <%- JSON.stringify( user ) %>;
+		var photos = <%- JSON.stringify( photos ) %>;
+		var albums = <%- JSON.stringify( albums ) %>;
+	</script>
+</head>
+<body>
+<% include ../common/top.ejs %>
+
+	<div class="container">
+		<div class="bd">
+
+			<ul class="breadcrumb">
+				<li> <a href="/p/<%=albums.roomId%>">全部图册</a> /</li>
+				<li class="active"><%=albums.name%>(<%=albums.photoCount%>)</li>
+				<li class="pull-right"><a href="/p/create-photo/<%=albums._id%>">上传图片</a></li>
+			</ul>
+
+			<ul class="albums-list" id="albums-list">
+				<%
+					var item = null;
+					var albumId = albums._id;
+					for(var i=0; i<photos.length; i++){
+						item = photos[i];
+				%>
+					<li>
+						<a href="/p/r/<%=albumId%>/<%=item._id%>" rel="detail" >
+							<span class="photo-cover">
+								<img src="/p/v/<%=item.path_s%>" alt="<%=item.des || item.fileName%>" width="<%=item.s_w%>" height="<%=item.s_h%>	" >
+							</span>
+						</a>
+						<p><%=item.des%></p>
+					</li>
+				<%}%>
+
+				<% if(photos.length == 0) {%>
+					<li  class="masthead">
+						
+						<a href="/p/create-photo/<%=albums._id%>" > 去上传图片 </a>
+
+					</li>
+				<% } %>
+			</ul>
+
+			<div class="pagination">
+				<%- pagination %>
+			</div>
+		</div>
+
+	</div>
+<% include ../common/footer.ejs %>
+<script type="text/javascript" src="/public/js/jquery-1.6.3.min.js"></script> 
+<script type="text/javascript" src="/public/js/we.min.js"></script>
+<script type="text/javascript" src="/public/js/we.top.min.js"></script> 
+
+</body>
+</html>

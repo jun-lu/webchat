@@ -1,0 +1,23 @@
+<form action="/sys/update_room" method="post" id="updateRoomForm" >
+	<ul class="reset">
+		<li>
+			<strong>访问地址</strong>
+			<div>
+				<a href="<%=document.location.host%>/<%= name ? name : id %>" >
+					<%=document.location.host%>/<%= name ? name : id %>
+				</a>
+			</div>
+		</li>
+		<li>
+			<h3>
+				<%=topic%>
+			</h3>
+		</li>
+		<li>
+			<h5><%=new Markdown.Converter().makeHtml(des)%></h5>
+		</li>
+		<li>
+			<input type="button" value="确定" class="btn out">
+		</li>
+	</ul>
+</form>

@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html;charset=utf-8"/>
+	<title>VChat手机版</title>
+	<meta name="apple-touch-fullscreen" content="yes">
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
+	<meta name="format-detection" content="telephone=no"/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+	<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+
+	<link rel="stylesheet" type="text/css" href="/public/css/m/common.css"/>
+	<link rel="stylesheet" type="text/css" href="/public/css/m/page.chat.css"/>
+
+	<script type="text/javascript">
+
+		var USER = <%- JSON.stringify(user)%>;
+		var ROOM = <%- JSON.stringify(room)%>;
+		
+	</script>
+
+</head>
+<body>
+	<div class="page">
+		<div class="screen-wrap fullscreen" id="wrapper">
+	
+			<header id="chat-title">
+				<a class="back" href="http://vchat.co">< 返回</a>
+				<h1><%=room.topic%></h1>
+				<a class="setting" href="javascript:void(0)">设</a>
+			</header>
+			
+			<div class="content">
+
+				<div class="chat-container" id="chat-container">
+
+				</div>
+				
+			</div>
+			<div class="input-area">
+				<div style="padding:5px;">
+					<div class="review" id="review-box">
+						
+					</div>
+					<div style="position:relative;">
+					<form action="#" type="post" id="sendForm">
+						<div style="margin-right:97px;margin-top:2px;"><textarea id="talk-input"></textarea></div>
+						<div class="btn-group send-btn">
+							<button id="send-btn" class="btn" type="submit">发送</button>
+						</div>
+					</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="timeline-loading" class="cover-frame hidden">
+			<img class="loading-pic" src="/public/images/loading_m.gif"/>
+		</div>
+	</div>
+
+	<script type="text/javascript">
+		var FIRST_DATA = <%- JSON.stringify( indexChats ) %>;
+	</script>
+	<script type="text/javascript" src="/public/js/zepto.min.js"></script>
+	<script type="text/javascript" src="/public/js/we.min.js"></script>
+	<script type="text/javascript" src="/public/js/m.chat.min.js"></script>
+	
+
+	<script type="text/javascript">
+	$(function(){
+
+		WE.pageChat.init();
+		WE.pageChat.append( FIRST_DATA );
+	});
+	</script>
+	<script src="/public/js/socket.io.min.js"></script>
+	<script type="text/javascript">
+		//匿名用户
+
+		//WE.pageChat.setUserName( USER );
+
+		if(USER.name == "" && /^\d+$/.test(USER.mail)){
+			//WE.pageTop.setUserName( USER );
+			//匿名用户不连接 socket
+			var name = window.prompt('请输入昵称', USER.name);
+
+			if( !name ) {
+				name = "匿名";
+			}
+
+			var model = new WE.api.ChatModel();
+			var ctrl = new WE.Controller();
+			ctrl.update = function( e ){
+
+				var data = e.data;
+
+				// $('#setUserNameForm input[type=submit]').removeAttr('disabled').val('提交');
+				if( data.code == 0 ){
+
+					setTimeout(function(){
+						document.location.reload();
+					}, 500);
+				}else{
+
+					alert(data.msg);
+				}
+
+			};
+			model.addObserver( ctrl );
+			model.updateUserName( name );	
+		}
+
+			
+		// var socket = io.connect( document.location.host );
+
+		// socket.on('connect', function(){
+
+		// 	socket.emit("setting", {roomid:ROOM.id});
+		// 	// $('#offlineTip').hide();
+		// 	// $('#userlist').show();
+		// 	//console.log('connect');
+		// });
+
+		// socket.on('userlist', function( data ){
+		// 	//console.log( data );
+		// 	//WE.pageChat.userlist.init( data );
+		// });
+
+		// socket.on("online", function(data){
+
+		// 	//console.log('online');
+		// 	//WE.pageChat.userlist.append( data );
+
+		// });
+
+		// socket.on("offline", function( data ){
+
+		// 	//WE.pageChat.userlist.remove( data );
+		// });
+
+		// socket.on('newChat', function(data) {
+		// 	//console.log('newChat:',data);
+		// 	WE.pageChat.prepend( [data] );
+		// 	//WE.pageChat.timeLine.prepend( data );
+		// });
+
+		// socket.on('disconnect', function(err){
+		// 	//$('#offlineTip').show();
+		// 	//$('#userlist').hide();
+		// });		
+	</script>
+
+
+	<script type="text/javascript">
+	var connectionSocketServer = {
+		socket:null,
+		weightTime:0,
+		init:function(){
+
+			var socket = this.socket = new WebSocket("ws://"+window.location.host);
+			var socketMessage = {
+				"connection":function(){
+					//登录到房间
+					socket.send( JSON.stringify({ type:"login", data:{roomid:ROOM.id} }) );
+
+				},
+				"on-line":function( data ){
+					// WE.pageChat.userlist.append( data );
+				},
+				"off-line":function( data ){
+					// WE.pageChat.userlist.remove( data );
+				},
+				"user-list":function( data ){
+					// console.log("daga", data);
+					// $('#socketConnectioning').hide();
+					// $('#offlineTip').hide();
+					// $('#userlist').show();
+					// WE.pageChat.userlist.init( data );
+				},
+				"new-chat":function( data ){
+					WE.pageChat.prepend( [data] );
+				}
+			};
+
+			socket.onopen = function( e ){
+
+				window.console && console.log("onopen");
+
+			};
+			
+			socket.onmessage = function( e ){
+				var data = JSON.parse(e.data);
+				//console.log("onmessage", data);
+				if( socketMessage[data.type] ){
+					socketMessage[data.type]( data.data );
+				}else{
+					window.console && console.log("onmessage miss", data);
+				}
+			}
+
+			socket.onclose = function(){
+				// $('#socketConnectioning').hide();
+			 //  	$('#offlineTip').show();
+				// $('#userlist').hide();
+				connectionSocketServer.startDisconnectionWeightTraining();
+			}
+
+			$('#socketConnectioning').show();
+		},
+		//开启断线重连
+		startDisconnectionWeightTraining:function(){
+
+			var _this = this;
+			setTimeout(function(){
+
+				// console.log("重新连接"+ _this.weightTime/2000 +"次");
+				_this.socket && _this.socket.close();
+				_this.init();
+
+			}, this.weightTime+= 2000 );
+
+		}
+	};	
+
+	connectionSocketServer.init();
+
+
+	</script>
+</body>
+</html>
