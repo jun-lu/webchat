@@ -52,8 +52,24 @@
 						</div>
 
 						<div class="content">
+							
 							<ul>
-								<li><a href="/">How we go to shenzhen bay,chat it together</a></li>
+								<%
+									var item = null;
+									for(var i=0; i<joinTopics.length; i++){
+										item = joinTopics[i];
+
+								%>
+								<li>
+									<a href="/<%=item.name ? item.name : item.id %>" title="<%=item.topic%>"><%= tool.cutOff(item.topic, 30)%></a>
+								</li>
+								<% } %>
+
+								<% if( joinTopics.length == 0 ){ %>
+								<li>
+									<span>No topics...</span>
+								</li>
+								<% } %>
 							</ul>
 						</div>
 

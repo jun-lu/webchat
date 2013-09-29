@@ -22,7 +22,7 @@ header{width:100%;position:fixed;top:0px;}
 	.recent-topic{width:65%;float:left;margin-bottom: -10000px;padding-bottom: 10000px}
 	.recent-user{width:32%;border-left:#dee1e6 solid 1px;float:left;padding-left: 2%;margin-bottom: -10000px;padding-bottom: 10000px}
 .main-content .title{color:#969696;font-size: 19px} .main-content .title i{margin-right:3px;}
-	.main-content li a{padding: 0px 5px;color:#505050;display: inline-block} .main-content li a:hover{background:#eee;}
+	.main-content li a{padding: 0px 5px;color:#505050;display: inline-block;font-size: 14px} .main-content li a:hover{background:#eee;}
 
 
 

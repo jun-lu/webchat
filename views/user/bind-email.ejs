@@ -7,26 +7,20 @@
 	<link rel="stylesheet" type="text/css" href="/public/css/common.css"/>
 	<link rel="stylesheet" type="text/css" href="/public/css/personal.css"/>
 
-	<% var pageName = "topic"; %>
-
-	<script type="text/javascript">
-
-		var creates = <%- JSON.stringify(creates) %>
-		var joins = <%- JSON.stringify(joins) %>
-
-	</script>
+	<% var pageName = "bindEmail"; %>
 
 </head>
 <body>
 
 	<!-- top {user:{user}} -->
 	<% include ../common/top.ejs %>
+
 	
 	<div class="wrap">
 		<div class="main">
 			<div class="main-inner">
 				<div class="main-header">
-					<h1>Topics</h1>
+					<h1>Bind Email</h1>
 				</div>	
 
 				<div class="main-content">
@@ -54,8 +48,6 @@
 		</div>
 
 		<% include public-left.ejs %>
-
-		
 	</div>
 
 </body>
