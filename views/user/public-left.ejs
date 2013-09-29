@@ -1,3 +1,4 @@
+<% pageName = pageName || "home"; %>
 <div class="l-aside">
 	<div class="create-btn">
 		<button class="btn btn-middle">Create Topic</button>
@@ -6,19 +7,19 @@
 	<div class="menu">
 		<ul>
 			<li>
-				<a href="/user/home">Home</a>
+				<a <% if( pageName=="home"){ %> class="select" <% } %> href="/user/home">Home</a>
 			</li>
 			<li>
-				<a href="/user/notice">Notice</a>
+				<a <% if( pageName=="notice"){ %> class="select" <% } %> href="/user/notice">Notice</a>
 			</li>
 			<li>
-				<a href="/user/topic">Topics</a>
+				<a <% if( pageName=="topic"){ %> class="select" <% } %> href="/user/topic">Topics</a>
 			</li>
 			<li>
-				<a href="/user/edit-avatar">Edit Avatar</a>
+				<a <% if( pageName=="editAvatar"){ %> class="select" <% } %> href="/user/edit-avatar">Edit Avatar</a>
 			</li>
 			<li>
-				<a href="/user/edit-info">Edit Account</a>
+				<a <% if( pageName=="editInfo"){ %> class="select" <% } %> href="/user/edit-info">Edit Account</a>
 			</li>
 		</ul>
 	</div>
