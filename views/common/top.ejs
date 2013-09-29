@@ -3,12 +3,12 @@
 	<% if(user){ %>
 	<div class="pull-right header-menu">
 		<div class="notice-box">
-			<a href="/user/notices">
+			<a href="/user/notice">
 				<i class="icon-noticedefault"></i>
 			</a>
 		</div>
 		<div class="account-box">
-			<a target="_blank" class="nick-name" href="/user/<%=user._id %>">
+			<a class="nick-name" href="/user/home">
 				<img src="<%=user.avatar%>">
 				<%=user.name =="" ? "(暂无昵称)": user.name %>
 			</a>
