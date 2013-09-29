@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+	<!-- 首页链接，你爱跳不跳 vchat.co -->
+	<meta http-equiv="content-type" content="text/html;charset=utf-8">
+	<title><%=room.topic%> - Vchat</title>
+	<meta name="keywords" content="vchat,vchat.co,多人讨论,话题,活动,兴趣,<%=room.topic%>,<%=room.des%>"/>
+	<meta name="description" content="<%=room.topic%>,<%=room.des%>"/>
+	<link rel="stylesheet" type="text/css" href="/public/css/common.css"/>
+	<link rel="stylesheet" type="text/css" href="/public/css/chat_new.css"/>
+
+
+	<link rel="next"  href="/<%=room.name ? room.name : room.id%>?t=<%=nextTime%>">
+	<link rel="prev"  href="/<%=room.name ? room.name : room.id%>?t=<%=prevTime%>">
+
+	<!--[if lte IE 10]>  <script> location.href = "/sys/ie"; </script> <![endif]-->
+
+	<script type="text/javascript" src="/public/js/jquery-1.6.3.min.js"></script>
+	<script type="text/javascript" src="/public/js/we.min.js"></script>
+	<script type="text/javascript">
+
+		var USER = <%- JSON.stringify(user)%>;
+		var ROOM = <%- JSON.stringify(room)%>;
+		
+	</script>
+</head>
+<body>
+	
+	<!-- top {user:{user}} -->
+	<% include common/top.ejs %>
+	
+	<div class="wall-room" id="wall-room">
+		<div class="main">
+			
+			<div class="main-wall">
+				<div class="main-title">
+					<h1 title="<%=room.topic %>">
+						<i class="icon-chat"></i>
+						<%=tool.cutOff(room.topic, 100)%>
+					</h1>
+					<!-- <div class="main-message">
+						<img class="user-photo" src="http://tp3.sinaimg.cn/2764528354/180/22831103583/1">
+						<span class="user-name">AeroJin</span>上线
+					</div>	 -->	
+				</div>
+
+				<div class="main-content">
+					<div class="content-inner">
+						<div class="clear-overflow" id="timeline-bar">
+							<div class="line"></div>
+							
+							<div class="talks" id="timeline-talks">
+								<div class="more-talks hidden" id="more-talks">
+									<span class="tips">查看更多信息...</span>	
+								</div>
+								<!-- talk -->
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="main-input" id="post-box">
+						<div class="hidden" id="replay-box">
+
+						</div>
+						<!-- replay box -->
+						<div class="text-box">
+							<input type="text" tabindex="1" autofocus placeholder="type your message">
+						</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="l-aside">
+
+			<div class="l-aside-wall online-wall" id="online">
+				<div class="l-aside-online">
+					<div class="title">
+						<span>ONLINE</span>
+						<a href="javascript:;" title="Invite your friends" class="invite-btn">
+							<i class="icon-add"></i>
+						</a>
+					</div>
+					<div class="users-box">
+						<ul class="users" id="user-list">
+							<!-- online users -->				
+						</ul>
+					</div>
+
+					<div class="operation">
+						<a href="javascript:;" title="history users" class="history-btn" id="history-btn"></a>
+					</div>
+
+				</div>
+			</div>
+
+			<div class="l-aside-wall history-wall" id="history">
+				<div class="l-aside-historyuser">
+					<div class="title">
+						<span>HISTORY USERS</span>
+						<a href="javascript:;" title="back" class="back-btn" id="history-hide">
+							<i class="icon-down"></i>
+						</a>
+					</div>
+
+					<div class="users-box ">
+						<ul class="users clear-fix" id="history-list">
+							<!-- history users -->
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>	
+	</div>
+	
+
+
+	<!--<script type="text/javascript" src="/public/js/we.chat.min.js"></script>-->
+	<script type="text/javascript" src="/public/js/src/we.chat/we.page.chat.js"></script>
+
+	<script type="text/javascript">
+
+		//与服务器建立socket连接
+		var connectionSocketServer = {
+			socket:null,
+			weightTime:0,
+			init:function(){
+
+				// add "/s" ie 10 bug?
+				var socket = this.socket = new WebSocket("wss://"+window.location.host+"/s");
+				var socketMessage = {
+					"connection":function(){
+						//登录到房间
+						socket.send( JSON.stringify({ type:"login", data:{roomid:ROOM.id} }) );
+
+					},
+					"on-line":function( data ){
+
+						// console.log('data',data);
+						WE.pageChat.userlist.append( data );
+					},
+					"off-line":function( data ){
+						WE.pageChat.userlist.remove( data );
+					},
+					"user-list":function( data ){
+						//console.log("daga", data);
+						// $('#socketConnectioning').hide();
+						// $('#offlineTip').hide();
+						// $('#userlist').show();
+						WE.pageChat.userlist.init( data );
+					},
+					"new-chat":function( data ){
+						console.log('data',data);
+						WE.pageChat.timeLine.append( data );
+						//WE.pageChat.notice.onUpdate();
+						if( data.to && data.from._id == USER._id ){
+							new WE.api.NoticeModel().noticeStatus( data._id );
+						}
+					}
+				};
+
+				socket.onopen = function( e ){
+
+					window.console && console.log("onopen");
+				};
+				
+				socket.onmessage = function( e ){
+					var data = JSON.parse(e.data);
+					//console.log("onmessage", data);
+					if( socketMessage[data.type] ){
+						socketMessage[data.type]( data.data );
+					}else{
+						window.console && console.log("onmessage miss", data);
+					}
+				}
+
+				socket.onclose = function(){
+					// $('#socketConnectioning').hide();
+				 //  	$('#offlineTip').show();
+					// $('#userlist').hide();
+					connectionSocketServer.startDisconnectionWeightTraining();
+				}
+
+				$('#socketConnectioning').show();
+			},
+			//开启断线重连
+			startDisconnectionWeightTraining:function(){
+
+				var _this = this;
+				setTimeout(function(){
+
+					console.log("重新连接"+ _this.weightTime/2000 +"次");
+					_this.socket && _this.socket.close();
+					_this.init();
+
+				}, this.weightTime+= 2000 );
+
+			}
+		};	
+
+			
+			
+	</script>
+
+	<script type="text/javascript">
+
+		connectionSocketServer.init();
+
+		WE.pageChat.init();
+		WE.pageChat.historylist.init();
+		WE.pageChat.timeLine.init( <%- JSON.stringify( indexChats ) %>,<%- chats_count %> );
+		
+		//WE.pageChat.notice.init();
+
+	</script>
+</body>
+</html>

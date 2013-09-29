@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html;charset=utf-8">
+	<title>Message 单页</title>
+
+	<link rel="stylesheet" type="text/css" href="../public/bootstrap/css/bootstrap.min.css"/>
+	<link rel="stylesheet" type="text/css" href="../public/css/all.css"/>
+	<link rel="stylesheet" type="text/css" href="../public/css/chat.css"/>
+
+	<style type="text/css">
+	.reset-width{width:920px;}
+		.message{font-size:13px;padding:8px;background:#f2fbf2;}
+		.message p{text-indent:2em;line-height:1.9em;margin:0px;}
+		.title{color:#999;margin-bottom:8px;}
+		.title .time{margin-left:20px;}
+		.room{margin-bottom:30px;}
+		.review-box{padding:3px;border:1px solid #c6c6c6;width:30em;margin:10px 0px;}
+		.orig{margin-bottom:15px;border-bottom:#ccc dotted 1px;}
+			.orig .head{background:#F4FBDC;}
+		
+	</style>
+</head>
+<body>	
+
+	<!--top-->
+	<div class="top"> 
+		 
+		<ul class="top-nav f-r"> 
+			<li class="drop-down"> 
+				<a href="#" class="account"> 
+					<span>CK.Ming的帐号</span> 
+					<span class="arrow"></span> 
+				</a> 
+				<div class="drop-down-items"> 
+					<ul> 
+						 
+						<li><a href="/user/512ad3246fb183bd0f00009f" id="chatme_bak" target="_blank">我的vchat</a></li> 
+						<li><a href="javascript:;" id="username">修改昵称</a></li> 
+					 
+						 
+	 
+						<li><a href="/sys/login">切换用户</a></li> 
+					</ul> 
+				</div> 
+			</li> 
+		</ul> 
+		 
+		<ul class="top-nav"> 
+			<li><a href="/">Vchat</a></li> 
+		</ul> 
+	</div>
+
+
+	<!---->
+	<div class="container">
+		<div class="bd reset-width">
+			<div class="room">
+				<blockquote>
+					<h1 class="topic">
+						<span><a href="http://vchat.co/1361939644498">这周五去军哥煮饺子</a></span>
+					</h1>
+					<p class="des"><small class="des">3月1号晚上下班去军哥煮饺子，我们前端</small></p>
+				</blockquote>
+			</div>
+			
+
+			<!-- <div class="message">
+				<div class="title">
+					<span>来自 : <a href="http://vchat.co/user/512ad3246fb183bd0f00009f">CK.Ming</a></span>
+					<span class="time">
+						<small>2013-04-17 09:30:50</small>
+					</span>
+				</div>
+				<p>本报湘潭讯8岁的小文在湘潭市某小学上一年级。2012年11月13日下午，小文在教室玩耍时被他人惊吓摔倒，导致一颗门牙脱落，经鉴定为“十级伤残”。4月17日，湘潭市岳塘区法院公开审理了这起案件。经鉴定人到庭作证后，校方自愿赔偿小文医药费、护理费、伤残补助金及精神抚慰金等共计23000元。</p>
+			</div> -->
+
+			<div class="chat-container">
+				<!-- <div class="chat ">
+					<div class="photo">
+						<a href="/user/5125b7ac93a2f5dd48000005" target="_blank" data-uid="5125b7ac93a2f5dd48000005">
+							<img src="http://www.gravatar.com/avatar/e3238e39e72fdb588d6e5bb360fa90b0.jpg?s=48&amp;d=mm&amp;r=g" alt="lujun" class="avatar">
+						</a>
+					</div>
+					<div class="info">
+						<div class="head">
+							<a href="/user/5125b7ac93a2f5dd48000005" target="_blank" class="name">lujun</a>
+							<span class="time">04-18 00:35:17</span>   
+						</div>
+						<div class="context">
+							<div class="reply-quote">咦，出BUG了，我关了浏览器进来，怎么换了个昵称啊 <a href="#">泥煤</a></div>
+							<div class="reply-mine">你换了浏览器吧!</div>
+						</div>
+					</div>
+				</div> -->
+
+				<div class="chat orig">
+					<div class="photo">
+						<a href="/user/5159550b50310c4d63000057" target="_blank" data-uid="5159550b50310c4d63000057">
+						    <img src="http://www.gravatar.com/avatar/51f20d6596416cb74e2e14a447ca8a37.jpg?s=48&amp;d=mm&amp;r=g" alt="泥煤" class="avatar">
+						</a>  
+					</div>
+					<div class="info">
+						<div class="head">
+							<a href="/user/5159550b50310c4d63000057" target="_blank" class="name">泥煤</a>
+							<span class="time">2013-04-17 17:13:46</span>
+						</div>
+						<div class="context">
+							<div class="reply-mine">咦，出BUG了，我关了浏览器进来，怎么换了个昵称啊</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="chat ">
+					<div class="photo">
+						<a href="/user/5125b7ac93a2f5dd48000005" target="_blank" data-uid="5125b7ac93a2f5dd48000005">
+							<img src="http://www.gravatar.com/avatar/e3238e39e72fdb588d6e5bb360fa90b0.jpg?s=48&amp;d=mm&amp;r=g" alt="lujun" class="avatar">
+						</a>
+					</div>
+					<div class="info">
+						<div class="head">
+							<a href="/user/5125b7ac93a2f5dd48000005" target="_blank" class="name">lujun</a>
+							<span class="time">2013-04-18 00:35:17</span>   
+						</div>
+						<div class="context">
+							<div class="reply-quote">咦，出BUG了，我关了浏览器进来，怎么换了个昵称啊这里是在回复的 <a href="#">泥煤</a></div>
+							<div class="reply-mine">你换了浏览器吧!</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+
+			
+		</div>
+	</div>
+
+</body>
+</html>

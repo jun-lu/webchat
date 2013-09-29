@@ -1,0 +1,80 @@
+personal page:
+	
+	1. the topics which i build
+
+	2. the topics which i join in
+
+	3. edit nickname
+
+	4. edit my introduce
+
+	5. notice system
+
+
+
+
+	branch:
+
+		1 . Home
+
+				* 创建话题
+				* 一句话描述,昵称修改,修改头像可选
+				* Recently Topics
+
+		2 . Notice
+
+				* 所有
+				* 未读
+				* 已读
+
+		3. Topics
+
+				* build Topics
+				* 去过的话题
+
+
+
+vchat.co/user/home       views/user/home.ejs
+output = {
+	
+	user:User,
+	contacts:[Contact,Contact,...]//30
+	joinTopics:[Room,Room,...]//30
+}
+
+
+vchat.co/user/notice[?status=[unread/read]] //default unread     views/user/notice.ejs
+output = {
+	
+	user:User,
+	status:"String",
+	notices:[Notice,Notice,...]
+
+}
+
+vchat.co/user/topic      views/user/topic.ejs
+output = {
+	
+	user:User,
+	createNotices:[Room,Room,...],
+	joinTopics:[Room,Room,...]
+
+}
+
+vchat.co/user/set-mail   views/user/set-mail.ejs
+output = {
+
+	user:User
+}
+
+vchat.co/user/set-avatar views/user/set-avastar.ejs
+output = {
+
+	user:User
+}
+
+vchat.co/user/set-info   views/user/set-info.ejs
+output = {
+
+	user:User
+}

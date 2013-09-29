@@ -67,6 +67,7 @@ header{height: 35px;background: red;position: relative;z-index: 30;}
 .icon-lock{width:14px;height:16px;display:inline-block;background: url(../images/all.png);background-position: -76px -87px;}
 .icon-noticedefault{width:13px;height:16px;display:inline-block;background:url(../images/all.png);background-position: -78px -139px;}
 .icon-noticeaction{width:16px;height:16px;display:inline-block;background:url(../images/all.png);background-position: -77px -115px;}
+.icon-users{width:22px;height:17px;display:inline-block;background:url(../images/all.png);background-position: -74px -162px;vertical-align: middle}
 
 .hidden{display:none;}
 
@@ -85,13 +86,21 @@ input::-webkit-input-placeholder {
 	.form-middle{width:307px;}
 	.form-link{font-size:14px;color:#777b7e;}.form-link:hover{text-decoration:underline;}
 	/* button */
-	.btn,button{border-radius: 1px;display: inline-block;padding: 6px 12px;margin-bottom: 0;font-size: 14px;font-weight: normal;line-height: 1.428571429;text-align: center;white-space: nowrap;vertical-align: middle;cursor: pointer;background-image: none;border: 1px solid transparent;-webkit-user-select: none;-moz-user-select: none;-ms-user-select: none;-o-user-select: none;}
-		.form-btn{background:#868c91;color:#fff;border:#6a6d6f solid 1px;margin-top: 15px;padding: 8px 12px}
-		.form-btn:hover{background:#737577}.form-btn:active{background:#5F6163}
-		.strip-btn{width:307px;}
-	.vert-form .tips{margin-top:8px;font-size: 13px}
-	.vert-form .bottom-tips{border-top:#B4B4B4 dotted 1px;color:rgb(141, 141, 141);text-shadow: 1px 1px 0px #F5F5F5;padding:10px 0px}
-	
+	.btn,button{outline: 0;margin: 0;border-radius: 1px;display: inline-block;padding: 6px 12px;margin-bottom: 0;font-size: 14px;font-weight: normal;line-height: 1.428571429;text-align: center;white-space: nowrap;vertical-align: middle;cursor: pointer;background-image: none;border: 1px solid transparent;-webkit-user-select: none;-moz-user-select: none;-ms-user-select: none;-o-user-select: none;}
+		
+		/* color */
+		.btn{background:#868c91;color:#fff;border:#6a6d6f solid 1px;}
+		.btn:hover{background:#737577} .btn:active{background:#5F6163}
+		
+
+		/* size */
+		.btn-middle{padding:8px 15px;font-size:17px;}
+
+		/* form button */
+		.vert-form .strip-btn{width:307px;}
+		.vert-form .tips{margin-top:8px;font-size: 13px}
+		.vert-form .bottom-tips{border-top:#B4B4B4 dotted 1px;color:rgb(141, 141, 141);text-shadow: 1px 1px 0px #F5F5F5;padding:10px 0px}
+		.vert-form .form-btn{margin-top: 15px;padding: 8px 12px}
 
 
 /* header */
