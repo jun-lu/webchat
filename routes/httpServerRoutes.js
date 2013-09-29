@@ -150,9 +150,9 @@ module.exports = function ( app ) {
 		//绑定email
 		app.get('/user/bind-mail',require("./user/bind-mail").get);
 		//设置头像
-		app.get('/user/set-avatar',require("./user/set-avatar").get);
+		app.get('/user/edit-avatar',require("./user/edit-avatar").get);
 		//设置信息
-		app.get('/user/set-info',require("./user/set-info").get);
+		app.get('/user/edit-info',require("./user/edit-info").get);
 
 		//用户个人页面
 		app.get('/user/:key', personal.get);
