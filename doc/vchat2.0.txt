@@ -56,8 +56,8 @@ vchat.co/user/topic      views/user/topic.ejs
 output = {
 	
 	user:User,
-	createNotices:[Room,Room,...],
-	joinTopics:[Room,Room,...]
+	creates:[Room,Room,...],
+	joins:[Room,Room,...]
 
 }
 
