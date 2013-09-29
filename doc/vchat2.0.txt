@@ -61,7 +61,7 @@ output = {
 
 }
 
-vchat.co/user/set-mail   views/user/set-mail.ejs
+vchat.co/user/bind-mail   views/user/set-bind.ejs
 output = {
 
 	user:User

@@ -148,7 +148,7 @@ module.exports = function ( app ) {
 		//访问记录
 		app.get('/user/topic',require("./user/topic").get);
 		//绑定email
-		app.get('/user/set-mail',require("./user/set-mail").get);
+		app.get('/user/bind-mail',require("./user/bind-mail").get);
 		//设置头像
 		app.get('/user/set-avatar',require("./user/set-avatar").get);
 		//设置信息

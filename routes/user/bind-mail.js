@@ -29,7 +29,7 @@ module.exports = {
 			}
 
 
-			res.render("user/set-mail", output);
+			res.render("user/bind-mail", output);
 		},
 
 		
