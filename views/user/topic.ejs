@@ -36,7 +36,22 @@
 							<div class="title">Create Topics</div>
 							<div class="content">
 								<ul>
-									<li><a target="_blank" href="/">How we go to shenzhen bay,chat it together</a></li>
+									<%
+										var item = null;
+										for(var i=0; i<creates.length; i++){
+											item = creates[i];
+
+									%>
+									<li>
+										<a target="_blank" title="<%=item.topic%>" href="/<%=item.name ? item.name : item.id %>"><%= tool.cutOff(item.topic, 70)%></a>
+									</li>
+									<% } %>
+
+									<% if( creates.length == 0 ){ %>
+									<li>
+										<span>No topics...</span>
+									</li>
+									<% } %>
 								</ul>
 							</div>
 						</div>
@@ -44,7 +59,22 @@
 							<div class="title">Involved Topics</div>
 							<div class="content">
 								<ul>
-									<li><a target="_blank" href="/">How we go to shenzhen bay,chat it together</a></li>
+									<%
+										var item = null;
+										for(var i=0; i<joins.length; i++){
+											item = joins[i];
+
+									%>
+									<li>
+										<a target="_blank" title="<%=item.topic%>" href="/<%=item.name ? item.name : item.id %>"><%= tool.cutOff(item.topic, 70)%></a>
+									</li>
+									<% } %>
+
+									<% if( joins.length == 0 ){ %>
+									<li>
+										<span>No topics...</span>
+									</li>
+									<% } %>
 								</ul>
 							</div>
 						</div>

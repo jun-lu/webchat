@@ -8,7 +8,15 @@
 	<link rel="stylesheet" type="text/css" href="/public/css/common.css"/>
 	<link rel="stylesheet" type="text/css" href="/public/css/personal.css"/>
 
-	<% var pageName = "notice"; %>
+	<% 
+		var pageName = "notice";
+			status = status || "unread";
+
+	 %>
+
+	 <script type="text/javascript">
+	 var notices = <%- JSON.stringify(notices) %>
+	 </script>
 
 </head>
 <body>
@@ -28,25 +36,37 @@
 					
 					<div class="notice">
 						<div class="header">
+							<% if( status =="unread" ){ %>
 							<div class="btn-group">
-								<button class="btn btn-white clicked">Unread</button>
-								<button class="btn btn-white">Read</button>
+								<span class="btn btn-white clicked">Unread</span>
+								<a href="/user/notice?status=read" class="btn btn-white">Read</a>
 							</div>
+							<% }else{ %>
+							<div class="btn-group">
+								<a href="/user/notice?status=unread" class="btn btn-white">Unread</a>
+								<span class="btn btn-white clicked">Read</span>
+							</div>
+							<% } %>
 						</div>
 						<div class="content">
 							<ul>
+								<%
+									var item = null;
+									for(var i=0; i<notices.length; i++){
+										item = notices[i];
+
+								%>
 								<li>
-									<a target="_blank" class="name" href="/">Jun_SB</a> reply to you in 
-									<a target="_blank" href="/">How we go to shenzhen bay,chat it together?</a>
+									<a target="_blank" class="name" href="/user/<%=item.form._id %>"><%=item.form.name %></a> reply to you in 
+									<a target="_blank" href="/<%=item.where.name || item.where._id  %>"><%=item.where.topic %></a>
 								</li>
+								<% } %>
+
+								<% if( notices.length == 0 ){ %>
 								<li>
-									<a target="_blank" class="name" href="/">Jun_SB</a> reply to you in 
-									<a target="_blank" href="/">How we go to shenzhen bay,chat it together?</a>
+									<span>No notice...</span>
 								</li>
-								<li>
-									<a target="_blank" class="name" href="/">Jun_SB</a> reply to you in 
-									<a target="_blank" href="/">How we go to shenzhen bay,chat it together?</a>
-								</li>
+								<% } %>
 							</ul>
 						</div>
 					</div>
