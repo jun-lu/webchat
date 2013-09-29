@@ -21,7 +21,9 @@ module.exports = {
 
 			var user = req.session.user || null;
 			var status = new WebStatus();
-			var output = {};
+			var output = {
+				user:user ? user.getInfo() : null
+			};
 
 			if( user == null ){
 				res.redirect('/sys/login');
