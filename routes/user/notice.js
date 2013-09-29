@@ -39,7 +39,7 @@ module.exports = {
 					output.notices = status.result;
 					//res.write(JSON.stringify( output,"", "  "));
 					//res.end();
-					res.render("user/notices", output);
+					res.render("user/notice", output);
 				}else{
 					res.render("error", status);
 				}
