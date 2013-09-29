@@ -22,9 +22,35 @@ header{width:100%;position:fixed;top:0px;}
 	.recent-topic{width:65%;float:left;margin-bottom: -10000px;padding-bottom: 10000px}
 	.recent-user{width:32%;border-left:#dee1e6 solid 1px;float:left;padding-left: 2%;margin-bottom: -10000px;padding-bottom: 10000px}
 .main-content .title{color:#969696;font-size: 19px} .main-content .title i{margin-right:3px;}
-	.main-content li a{padding: 0px 21px;color:#505050;display: inline-block} .main-content li a:hover{background:#eee;}
+	.main-content li a{padding: 0px 5px;color:#505050;display: inline-block} .main-content li a:hover{background:#eee;}
 
+
+
+.main-header h1{font-size: 27px;line-height: 45px;height: 45px}
+
+
+/* home */
+.recent-topic .content ul,.recent-user .content ul{padding-left: 16px;}
+
+
+/* notice */
+.notice .header{overflow:hidden;}
+.notice .header .btn{width:72px;} .notice .content{margin-top: 15px}
+.notice .content li{color:#9E9E9E;}
+
+
+/* topic */
+.topics .block{width:47%;float:left;margin-bottom: -10000px;padding-bottom: 10000px}
+.topics .block:first-child{border-right:#dee1e6 solid 1px;}
+.topics .block:nth-child(2){padding-left:2%;}
+
+
+
+/* common */
 @media (max-width:800px){
 	.recent-user{border:0;padding-left:0px;margin-top: 30px;}
 	.recent-topic,.recent-user{width:100%;}
+	.topics .block:nth-child(2){padding-left:0px;margin-top:30px;}
+	.topics .block:first-child{border-right:0;}
+	.topics .block{width:100%;}
 }
