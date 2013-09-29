@@ -31,3 +31,50 @@ personal page:
 
 				* build Topics
 				* 去过的话题
+
+
+
+vchat.co/user/home       views/user/home.ejs
+output = {
+	
+	user:User,
+	contacts:[Contact,Contact,...]//30
+	joinTopics:[Room,Room,...]//30
+}
+
+
+vchat.co/user/notice[?status=[unread/read]] //default unread     views/user/notice.ejs
+output = {
+	
+	user:User,
+	status:"String",
+	notices:[Notice,Notice,...]
+
+}
+
+vchat.co/user/topic      views/user/topic.ejs
+output = {
+	
+	user:User,
+	createNotices:[Room,Room,...],
+	joinTopics:[Room,Room,...]
+
+}
+
+vchat.co/user/set-mail   views/user/set-mail.ejs
+output = {
+
+	user:User
+}
+
+vchat.co/user/set-avatar views/user/set-avastar.ejs
+output = {
+
+	user:User
+}
+
+vchat.co/user/set-info   views/user/set-info.ejs
+output = {
+
+	user:User
+}
