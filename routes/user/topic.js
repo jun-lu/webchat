@@ -54,18 +54,18 @@ module.exports = {
 			promise.add(function( ) {
 				LogModel.getLog( user._id, 1000, function( status ) {
 					//进入过
-					var joins = output.joins;
-					if(status.code == "0"){
 
-						var logs = status.result;
-						for(var i=0; i< logs.length; i++){
-							logs[i].info.time = logs[i].time;
-							if(logs[i].location == "into_room"){
-								joins.push( logs[i].info );
-							}
+					if( status.code == 0 ){
+
+						var list = tools.unique( status.result, function( a ) {	
+							return a.id;
+						});
+
+						for(var i=0; i< list.length; i++){
+							output.joins.push( list[i].info );
 						}
 
-					};
+					}
 
 					promise.ok();	
 				});
