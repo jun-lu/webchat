@@ -20,8 +20,7 @@ module.exports = {
 			var time = req.query.time || parseInt(Date.now()/1000) + 100;//时间推向未来10秒
 			var output = {
 				user:user ? user.getInfo() : null,
-				status:noticeStatus,
-				notices:[],
+				noticeStatus:noticeStatus,
 				time:time
 			};
 
@@ -34,14 +33,23 @@ module.exports = {
 
 
 			NoticeModel.findNotice(user._id, time, noticeStatus == "read" ? [2]:[0,1] , 10, function( status ){
+
+				//res.write( status.toString() );
+				//res.end();
 				if( status.code =="0" ){
-					output.notices = status.result;
-					//res.write(JSON.stringify( output,"", "  "));
-					//res.end();
+					output.list = status.result;
 					res.render("user/notices", output);
 				}else{
 					res.render("error", status);
 				}
-			});		
+				
+
+			});
+
+
+
+			
 		}
+
+
 };

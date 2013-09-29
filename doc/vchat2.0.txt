@@ -56,24 +56,24 @@ vchat.co/user/topic      views/user/topic.ejs
 output = {
 	
 	user:User,
-	createNotices:[Room,Room,...],
-	joinTopics:[Room,Room,...]
+	creates:[Room,Room,...],
+	joins:[Room,Room,...]
 
 }
 
-vchat.co/user/set-mail   views/user/set-mail.ejs
+vchat.co/user/bind-mail   views/user/bind-mail.ejs
 output = {
 
 	user:User
 }
 
-vchat.co/user/set-avatar views/user/set-avastar.ejs
+vchat.co/user/edit-avatar views/user/edit-avastar.ejs
 output = {
 
 	user:User
 }
 
-vchat.co/user/set-info   views/user/set-info.ejs
+vchat.co/user/edit-info   views/user/edit-info.ejs
 output = {
 
 	user:User

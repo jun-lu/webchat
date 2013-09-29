@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>设置 昵称</title>
+	<link rel="stylesheet" type="text/css" href="../public/css/common.css">
+	<style type="text/css">
+
+		root,html,body{background:rgb(222,225,229);font-size: 12px}
+
+		.topic{text-align:center;margin: 50px 0;}
+		.topic h1{font-size: 16px;font-weight: 700;}
+		.hr{border-top: #b2b4b6 solid 1px;border-bottom: #fff solid 1px;position: absolute;z-index: 1;top:50%;margin-top:-2px;width:100%;}
+		.module{text-align: center;position: relative;margin-bottom: 20px;font-size: 16px;}
+		.module-inline{display: inline-block;min-width:330px;position: relative;}
+		.other-login{text-align: left;}
+			.avatar{position: absolute;;left:-2.5em;top:2px;height:2.2em;z-index: 3;}
+		.input-nickname{padding:5px 3em;font-size: 14px;text-align: left;position: relative;z-index: 2;width:100%;border: #b8bec4 solid 1px;box-shadow: 0px 0px 1px #BEBEBE;height:27px;margin-left: -3em;
+		}
+		.icon-go{border: none;position: absolute;z-index: 3; right:-3em; top:10px;}
+
+	</style>
+</head>
+<body>
+
+	<div class="wrapper">
+
+		<header>
+			<nav></nav>
+		</header>
+
+		<section class="main">
+
+			<div class="topic" >
+				<span>TOPIC</span>
+				<h1>Hello world</h1>
+			</div>
+			
+			<div class="module" >
+				<div class="module-inline">
+					<img src="https://www.gravatar.com/avatar/8c8e672202c81f1ebfa04ab922e5cc4e.jpg?s=48&d=monsterid&r=g" class="avatar">
+					<input type="text" class="input-nickname" placeholder="your nick name" >
+					<button type="submit" class="icon-go icon-go-click"></button>
+				</div>
+				<hr class="hr">
+			</div>
+			<div class="module">
+				<div class="module-inline other-login">
+					<a href="/sys/login">登录已有帐户？</a>
+				<div>
+			</div>
+
+		</section>
+
+		<footer></footer>
+	</div>
+
+
+</body>
+</html>

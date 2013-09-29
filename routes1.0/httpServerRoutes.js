@@ -141,18 +141,8 @@ module.exports = function ( app ) {
 		//输入房间密码
 		app.post('/sys/room_limit', roomLimit.post);
 
-		//主页
-		app.get('/user/home',require("./user/home").get);
 		//用户提醒
-		app.get('/user/notice',require("./user/notice").get);
-		//访问记录
-		app.get('/user/topic',require("./user/topic").get);
-		//绑定email
-		app.get('/user/bind-mail',require("./user/bind-mail").get);
-		//设置头像
-		app.get('/user/set-avatar',require("./user/set-avatar").get);
-		//设置信息
-		app.get('/user/set-info',require("./user/set-info").get);
+		app.get('/user/notices',notice.get);
 
 		//用户个人页面
 		app.get('/user/:key', personal.get);

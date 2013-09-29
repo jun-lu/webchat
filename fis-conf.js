@@ -11,7 +11,8 @@ fis.config.merge({
 
 fis.config.merge({
 	project:{
-		exclude:/^\/(node_modules|psd|dataRecovery|autobuild|html)/i
+		exclude:/^\/(node_modules|routes1.0|view1.0|doc|psd|dataRecovery|autobuild|html)/i,
+		md5Connector:"."
 	}
 });
 
