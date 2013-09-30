@@ -17,7 +17,7 @@ module.exports = {
 			var user = req.session.user;
 			var referer = req.query.referer || "/";
 			var output = {
-				user:user,
+				user:user ? user.getInfo() : null,
 				referer:referer,
 				status:new WebStatus().toJSON()
 			}
