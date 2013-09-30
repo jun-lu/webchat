@@ -14,6 +14,7 @@ module.exports = function( app ){
 	
 	//5
 	app.get('/sys/getmore', require("./getChatMore"));
+	app.get('/sys/create-topic', require("./createTopic"));
 	
 	//2
 	app.post('/sys/set_user_name', require("./setUserName"));
@@ -51,7 +52,7 @@ module.exports = function( app ){
 	app.post('/sys/notice_status', require("./setUserNoticeStatus"));
 
 	app.get('/sys/contact-list', require("./contactList"));
-	
+
 	app.options('/sys/vchat-create', CORS_OPTIONS);
 	app.options('/sys/vchat-login', CORS_OPTIONS);
 	app.options('/sys/vchat-history', CORS_OPTIONS);

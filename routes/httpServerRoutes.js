@@ -126,6 +126,8 @@ module.exports = function ( app ) {
 
 		// post 创建对话 /
 		app.post('/sys/create', sysCreate.post);
+		// post 创建对话 /
+		app.get('/sys/create-topic', require("./sys/create-topic").get);
 
 		// get login
 		app.post('/sys/login', sysLogin.post);

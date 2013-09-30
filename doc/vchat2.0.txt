@@ -78,3 +78,9 @@ output = {
 
 	user:User
 }
+
+
+vchat.co/sys/create-topic   views/sys/create-topic.ejs
+output = {
+	user:User
+}
