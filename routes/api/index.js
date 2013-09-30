@@ -50,6 +50,8 @@ module.exports = function( app ){
 	//14号接口
 	app.post('/sys/notice_status', require("./setUserNoticeStatus"));
 
+	app.get('/sys/contact-list', require("./contactList"));
+	
 	app.options('/sys/vchat-create', CORS_OPTIONS);
 	app.options('/sys/vchat-login', CORS_OPTIONS);
 	app.options('/sys/vchat-history', CORS_OPTIONS);

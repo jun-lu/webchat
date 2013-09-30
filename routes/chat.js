@@ -11,6 +11,7 @@ var UserModel = require("../lib/UserModel");
 var RoomModel = require('../lib/RoomModel');
 var ChatModel = require('../lib/ChatModel');
 var LogModel = require('../lib/LogModel');
+var ContactModel = require('../lib/ContactModel');
 var WebStatus = require('../lib/WebStatus');
 var NoticeModel = require('../lib/NoticeModel');
 var socketServerRoutes = require('./socketServerRoutes');
@@ -184,12 +185,19 @@ module.exports = {
 
 
 			var user = req.session.user.getInfo();
-			var text = req.body.text;
+			var text = String(req.body.text);
 			var roomid = req.body.roomid;
 			var to = req.body.to || "*";
 			var aim = req.body.aim || null;//针对某条信息的回复 源信息id
 			var status = new WebStatus();
-			
+			var promise;
+
+			if( !user ){
+
+				res.end( new WebStatus("304").setMsg("not login").toString() );
+				return ;
+			}
+
 			if( text.length == 0  || text.length > 5000 ){
 
 				status.setCode("-1");
@@ -200,45 +208,47 @@ module.exports = {
 
 			};
 
-			if( !user ){
+			promise = new Promise();
 
-				res.end( new WebStatus("304").setMsg("not login").toString() );
-				return ;
-			}
-
-
-			if(text && roomid && (aim == null || aim.length == 24)){
+			promise.then(function(){
 
 				ChatModel.create(roomid, text, to, user._id, aim , function( status ){
 
 					res.write( status.toString(), "utf-8" );
 					res.end();
 
-					//console.log("create", status );
 					if(status.code == "0"){
 						var chat = status.result[0];
-						//console.log( "chat", chat );
+						//socket分发
 						socketServerRoutes.distribute( chat.roomid, chat );
-						//console.log("aim", aim);
-						//添加提醒
-						if(aim){
-							ChatModel.findOne({_id:ChatModel.objectId(aim)}, function( status ){
-								console.log( "status", status );
-								//自己回复自己不加入提醒
-								if(status.code == "0" && user._id != status.result.from){
-									NoticeModel.create(1, user._id, status.result.from, roomid, to, chat._id.toString());
-								}
-							});
+
+						if( aim ){
+							//提醒与建立用户关系
+							promise.ok( chat );
 						}
 					}
 
 				});
-				
-			}else{
-				status.setCode("-1");
-				res.write( status.toString() );
-				res.end();
-			}
+
+			});
+
+
+			promise.then(function( chat ){
+
+				ChatModel.findOne({_id:ChatModel.objectId(aim)}, function( status ){
+					//自己回复自己不加入提醒
+					if(status.code == "0" && user._id != status.result.from){
+						console.log("ad thermongraph");
+						//加入提醒
+						NoticeModel.create(1, user._id, status.result.from, roomid, to, chat._id.toString());
+						//加入关系
+						ContactModel.addThermograph(user._id, status.result.from, 1);
+					}
+				});
+
+			});
+			
+			promise.start();
 
 		}
 };
