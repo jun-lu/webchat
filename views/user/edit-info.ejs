@@ -9,6 +9,10 @@
 
 	<% var pageName = "editInfo"; %>
 
+	<script type="text/javascript">
+	var USER = <%- JSON.stringify(user) %>
+	</script>
+
 </head>
 <body>
 
@@ -25,24 +29,17 @@
 
 				<div class="main-content">
 					
-					<div class="topics">
-						<div class="create block">
-							<div class="title">Create Topics</div>
-							<div class="content">
-								<ul>
-									<li><a target="_blank" href="/">How we go to shenzhen bay,chat it together</a></li>
-								</ul>
-							</div>
+					<form class="vert-form form-middle set-middle" action="/sys/login" method="post" id="login">
+						<div class="input-box">
+							<i class="icon-user"></i>
+							<input value="<%=user.name %>" autofocus placeholder="Nickname" type="text" name="name" id="name" maxlength="100">
 						</div>
-						<div class="involved block">
-							<div class="title">Involved Topics</div>
-							<div class="content">
-								<ul>
-									<li><a target="_blank" href="/">How we go to shenzhen bay,chat it together</a></li>
-								</ul>
-							</div>
-						</div>
-					</div>
+
+						<textarea placeholder="Introduce Yourself"><%=user.summary %></textarea>
+						
+						<button type="submit" class="btn form-btn strip-btn">Submit</Acti>
+					</form>
+
 				</div>
 			</div>
 		</div>

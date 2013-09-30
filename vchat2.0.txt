@@ -1,3 +1,11 @@
+口号: 一杯咖啡,一个话题,相约周末时光 ——vchat.co
+	  周末的时光让我们相约远方的父母,告诉他们我们过得很好 ——vchat.co
+关注:
+	1. 年迈的父母和远方的儿女之间的聊天
+	  	 * QQ要安装再加好友才能聊天，太麻烦
+	  	 * ipad facetime的操作相当麻烦
+
+
 personal page:
 	
 	1. the topics which i build
@@ -56,72 +64,25 @@ vchat.co/user/topic      views/user/topic.ejs
 output = {
 	
 	user:User,
-	creates:[Room,Room,...],
-	joins:[Room,Room,...]
+	createNotices:[Room,Room,...],
+	joinTopics:[Room,Room,...]
 
 }
 
-vchat.co/user/bind-mail   views/user/bind-mail.ejs
+vchat.co/user/set-mail   views/user/set-mail.ejs
 output = {
 
 	user:User
 }
 
-vchat.co/user/edit-avatar views/user/edit-avastar.ejs
+vchat.co/user/set-avatar views/user/set-avastar.ejs
 output = {
 
 	user:User
 }
 
-vchat.co/user/edit-info   views/user/edit-info.ejs
+vchat.co/user/set-info   views/user/set-info.ejs
 output = {
 
 	user:User
 }
-
-
-
-
-pages:
-	
-	1. url:user/user._id 用户页面
-
-	2. 话题创建
-
-	3. 信息单页
-
-	update
-
-	1. chat页面修改话题信息,房间加密,邀请好友
-
-	2. 首页
-
-	3. 在线列表头像始终在最上面
-
-
-
-后台:
-	
-	1. 注册发email,绑定email发email
-
-	2. 联系人
-
-	3. logo
-
-	4. 去咖啡厅拍照		
-
-
-
-*******创建话题*********
-
-	topic 话题的标题
-
-		  可选 [话题的描述]
-
-	加密
-
-	邀请最近联系人
-
-
-
-

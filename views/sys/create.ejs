@@ -1,0 +1,202 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Create Topic - Vchat</title>
+	<link rel="stylesheet" href="https://www.vchat.co/public/css/common.css" />
+	<style type="text/css">
+		
+		html,body{background:#d5d8dd;}
+
+		.main-create .header-inner,.main-create .content-inner{width:550px;}
+			.main-create h1{font-size:36px;text-shadow:2px 1px 1px #fff;}
+			.main-create h1 a{display:inline-block;color:#4d4d4e}
+			.main-create .introduce{color: #a3a4a5}
+
+
+		.create-header{padding: 40px 0px;border-bottom:#b2b6b9 solid 1px;}
+		.create-content{padding-top:35px;border-top:#fbffff solid 1px;}
+
+			.create-content .info-box{position:relative;width:100%;top:0px;margin-left: 1px;opacity:1;
+			}
+				.info-box .arrow{position:absolute;top: -17px;left: 15px;border: 10px dashed transparent;width: 0px;height: 0px;border-bottom: 10px solid #fdfaa2}
+
+			.info-box .block .header{width:100%;height:30px;background:#fdfaa2;border-bottom: #F0E02F solid 1px}
+			.info-box .block .clear-border{border-bottom:none;}
+					  .block .header span{height:30px;line-height:30px;font-size:13px;color:#af8c13;padding: 0px 22px;display: inline-block;width:465px;float:left;border-right:#fff solid 1px;}
+					  .block input,.block textarea{border:0;box-shadow:none;width: 100%;box-sizing: border-box;padding:6px;}
+					  .block .header button{width:40px;height:30px;padding:0px 15px;margin:0px;border-left: #F0E02F solid 1px;background: #FAF8B3;float:left;}
+					  .block .header button:active{background:#F8F595;background-color:#F8F595}
+					  .block .header button i{margin-top: 5px;margin-left: -3px}
+					  .block .input-content{line-height:0}
+			.create-content .vert-form .input-box{z-index:30;}
+			.vert-form .form-btn{margin-top:25px;}
+
+			.create-content .status-tips{width:540px;text-align:center;background:rgb(246, 246, 126);
+				font-size: 13px;padding:10px 5px;color: rgb(131, 22, 22);margin-bottom:20px;}
+
+	</style>
+
+	
+</head>
+<body>
+	<!-- top {user:{user}} -->
+	<!--<% include ../common/top.ejs %>-->
+	<header> 
+		<div class="pull-left header-links"> 
+			<a href="/">vchat.co</a> 
+		</div> 
+		 
+		<div class="pull-right header-menu"> 
+			<div class="notice-box"> 
+				<a href="/user/notice"> 
+					<i class="icon-noticedefault"></i> 
+				</a> 
+			</div> 
+			<div class="account-box"> 
+				<a class="nick-name" href="/user/home"> 
+					<img src="https://www.gravatar.com/avatar/29c50031b654fb345b65da331c8b6201.jpg?s=48&amp;d=monsterid&amp;r=g"> 
+					WWW 
+				</a> 
+			</div> 
+		</div> 
+		 
+	</header>
+
+
+	<div class="main">
+
+
+		<div class="main-create">
+
+			
+
+			<div class="create-header">
+				<div class="header-inner set-middle">
+					<h1>
+						<a href="/">Create Topic</a>	
+					</h1>
+					<p class="introduce">create a topic to chat with anyone</p>
+				</div>
+				
+			</div>
+
+			<div class="create-content">
+				<div class="status-tips set-middle hidden"><%= status.msg %></div>
+				<form class="vert-form content-inner set-middle" id="create">
+
+					<div class="input-box">
+						<i class="icon-chat"></i>
+						<input autofocus placeholder="Topic name" type="text" name="topic" id="topic" maxlength="140">
+					</div>
+
+					<div class="info-box" id="info-box">
+						<div class="block">
+							<ul>
+								<li id="des-box">
+									<div class="arrow"></div>
+									<div class="header">
+										<span class="title">I want to describe my topic</span>
+										<button title="edit topic's describe" class="pull-right des-btn">
+											<i class="icon-pen test"></i>
+										</button>
+									</div>
+									<div class="input-content hidden">
+										<textarea maxlength="300" name="des" id="des" placeholder="Describe my topic"></textarea>
+									</div>
+								</li>
+								<li id="pwd-box">
+									<div class="arrow"></div>
+									<div class="header clear-border">
+										<span>I want to set room password</span>
+										<button title="edit room's password" class="pull-right pwd-btn">
+											<i class="icon-pen"></i>
+										</button>
+									</div>
+									<div class="input-content hidden">
+										<input name="pwd" id="des" placeholder="Password" type="text" id="password" maxlength="16">
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+
+					<button tabindex="2" type="submit" class="btn form-btn ">Submit</button>
+
+					<p class="tips bottom-tips">Notice : successful registration you will receive a report containing a password Email</p>
+				</form>
+				
+			</div>
+		
+		</div>
+	</div>
+	
+	<!--<% include ../common/footer.ejs %>-->
+
+	<script type="text/javascript" src="http://static.moxian.com/resource/common_info/js/lib/jquery-1.6.2.min.js"></script>
+	<script type="text/javascript" src="https://www.vchat.co/public/js/we.min.js"></script>
+
+	<script type="text/javascript">
+	WE.pageCreate = {
+		init: function(){
+
+			var form = $('#create');
+			this.ui = {
+				form: form,
+				topic: $('#topic'),
+				desBox: $('#des-box'),
+				pwdBox: $('#pwd-box'),
+				infoBox: $('#info-box')
+			};
+
+			this.regEvent();
+		},
+
+		regEvent: function(){
+
+			var _this = this,
+				isSettimeout = null;
+
+			this.ui.desBox.find('.des-btn').click(function(){
+
+				if( _this.ui.desBox.find('.input-content').is(':hidden') ){
+					_this.ui.desBox.find('.input-content').removeClass('hidden');
+					$(this).find('.icon-pen').removeClass('icon-pen').addClass('icon-close');
+
+				}else{
+					_this.ui.desBox.find('.input-content').addClass('hidden');
+					$(this).find('.icon-close').addClass('icon-pen').removeClass('icon-close');
+
+
+				}
+				return false;
+				
+			});
+
+			this.ui.pwdBox.find('.pwd-btn').click(function(){
+
+				if( _this.ui.pwdBox.find('.input-content').is(':hidden') ){
+
+					_this.ui.pwdBox.find('.input-content').removeClass('hidden');
+					_this.ui.pwdBox.find('.header').css({'border-bottom':'#F0E02F solid 1px'});
+					$(this).find('.icon-pen').removeClass('icon-pen').addClass('icon-close');
+
+				}else{
+
+					_this.ui.pwdBox.find('.input-content').addClass('hidden');
+					_this.ui.pwdBox.find('.header').css({'border-bottom':'0'});
+					$(this).find('.icon-close').addClass('icon-pen').removeClass('icon-close');
+
+				}
+				
+				return false;
+			});
+		}
+	}
+
+	WE.pageCreate.init();
+
+	</script>
+	
+</body>
+</html>

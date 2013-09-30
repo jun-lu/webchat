@@ -15,7 +15,7 @@ header{width:100%;position:fixed;top:0px;}
 .main-inner{padding:0px 20px;}
 .main-header{border-bottom:#dee1e6 solid 1px;height: 82px;height: 45px;padding: 19px 0px}
 	.user-info .avatar{line-height:0;margin-right:15px;}
-	.user-info .avatar img{width:45px;height:45px;border-radius:3px;}
+	.user-info .avatar img{width:45px;height:45px;border-radius:3px;cursor: pointer}
 	.user-info .base span{display:block;height:22.5px}
 	.user-info .des{color:#a5a5a5;}
 .main-content{padding:20px 0px;overflow:hidden;position: relative;}
