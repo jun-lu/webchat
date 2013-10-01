@@ -554,3 +554,22 @@ return {
 	
 	return string
 ````
+
+
+
+####创建对话 20
+````javascript
+	
+	url:/api/create-topic
+	method:post
+	param:
+		[topic]:string < 140,
+		[des]:string < 300,
+		[pwd]: string < 16
+	
+	return {
+		code:0,
+		msg:"",
+		result:Room
+	} 
+````
