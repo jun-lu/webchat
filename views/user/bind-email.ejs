@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html;charset=utf-8">
+	<title><%=user.name%> - Vchat</title>
+
+	<link rel="stylesheet" type="text/css" href="/public/css/common.css"/>
+	<link rel="stylesheet" type="text/css" href="/public/css/personal.css"/>
+
+	<% var pageName = "bindEmail"; %>
+
+</head>
+<body>
+
+	<!-- top {user:{user}} -->
+	<% include ../common/top.ejs %>
+
+	
+	<div class="wrap">
+		<div class="main">
+			<div class="main-inner">
+				<div class="main-header">
+					<h1>Bind Email</h1>
+				</div>	
+
+				<div class="main-content">
+					
+					<div class="topics">
+						<div class="create block">
+							<div class="title">Create Topics</div>
+							<div class="content">
+								<ul>
+									<li><a target="_blank" href="/">How we go to shenzhen bay,chat it together</a></li>
+								</ul>
+							</div>
+						</div>
+						<div class="involved block">
+							<div class="title">Involved Topics</div>
+							<div class="content">
+								<ul>
+									<li><a target="_blank" href="/">How we go to shenzhen bay,chat it together</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<% include public-left.ejs %>
+	</div>
+
+</body>
+</html>

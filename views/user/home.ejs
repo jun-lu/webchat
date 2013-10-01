@@ -1,0 +1,93 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html;charset=utf-8">
+	<title><%=user.name%> - Vchat</title>
+
+	<link rel="stylesheet" type="text/css" href="/public/css/common.css"/>
+	<link rel="stylesheet" type="text/css" href="/public/css/personal.css"/>
+
+	<script type="text/javascript">
+
+		var USER = <%- JSON.stringify(user) %>;
+		var contacts = <%- JSON.stringify(contacts)%>;
+		var joinTopics = <%- JSON.stringify(joinTopics)%>;
+
+	</script>
+
+	<% var pageName = "home"; %>
+
+</head>
+<body>
+
+	<!-- top {user:{user}} -->
+	<% include ../common/top.ejs %>
+	
+	<div class="wrap">
+		<div class="main">
+			<div class="main-inner">
+				<div class="main-header">
+
+					<div class="user-info">
+						<div class="avatar pull-left">
+							<img alt="<%=user.name %>" title="edit my avatar" src="<%=user.avatar %>">
+						</div>
+						<div class="base pull-left">
+							<span class="name"><%= user.name%></span>
+							<span class="des">
+								<%-tool.revertHtmlTag(user.summary)%>
+								<%if(!user.summary){%>
+									Introduce yourself
+								<%}%>
+							</span>
+						</div>
+					</div>
+				</div>	
+
+				<div class="main-content">
+					<div class="recent-topic">
+						<div class="title">
+							<i class="icon-chat"></i>
+							Recently Topics
+						</div>
+
+						<div class="content">
+							
+							<ul>
+								<%
+									var item = null;
+									for(var i=0; i<joinTopics.length; i++){
+										item = joinTopics[i];
+
+								%>
+								<li>
+									<a href="/<%=item.name ? item.name : item.id %>" title="<%=item.topic%>"><%= tool.cutOff(item.topic, 70)%></a>
+								</li>
+								<% } %>
+
+								<% if( joinTopics.length == 0 ){ %>
+								<li>
+									<span>No topics...</span>
+								</li>
+								<% } %>
+							</ul>
+						</div>
+
+
+					</div>
+					<div class="recent-user">
+						<div class="title">
+							<i class="icon-users"></i>
+							Recently Chat With
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<% include public-left.ejs %>
+
+	</div>
+
+</body>
+</html>

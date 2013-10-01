@@ -68,30 +68,48 @@ header{height: 35px;background: red;position: relative;z-index: 30;}
 .icon-noticedefault{width:13px;height:16px;display:inline-block;background:url(../images/all.png);background-position: -78px -139px;}
 .icon-noticeaction{width:16px;height:16px;display:inline-block;background:url(../images/all.png);background-position: -77px -115px;}
 .icon-users{width:22px;height:17px;display:inline-block;background:url(../images/all.png);background-position: -74px -162px;vertical-align: middle}
+.icon-pen{width:11px;height:13px;display:inline-block;background:url(../images/all.png);background-position: -13px -692px;}
 
 .hidden{display:none;}
 
 
 /* common package */
+
+	/* tag : input,textarea */
+	textarea{padding:6px;}
+	textarea,input{color: #666;}
+
 	/* form , input */
-input::-webkit-input-placeholder {
+input::-webkit-input-placeholder,textarea::-webkit-input-placeholder {
     color:#cecece;
     letter-spacing:0px;
 }
+.vert-form textarea{border:#b8bec4 solid 1px;box-shadow:0px 0px 4px #bdc0c5;width:293px;}
 .input-box{border:#b8bec4 solid 1px;display: inline-block;background:#fff;position:relative;}
-	.input-box input{border:0;outline: none;padding:7px; padding-left: 42px;color: #666;width: 16em}
+	.input-box input{border:0;outline: none;padding:7px; padding-left: 42px;width:100%;box-sizing: border-box;}
 	.input-box i{position:absolute;top: 28%;left: 4%}
 	.input-box .icon-lock{left:13px;}.input-box .icon-user{left: 14px;top: 13px}
-.vert-form .input-box{box-shadow:0px 0px 4px #bdc0c5;margin-bottom: 10px;}
+	.input-box .icon-chat{top: 15px;left: 16px;}
+
+.vert-form .input-box{box-shadow:0px 0px 4px #bdc0c5;margin-bottom: 10px;width:100%;}
 	.form-middle{width:307px;}
 	.form-link{font-size:14px;color:#777b7e;}.form-link:hover{text-decoration:underline;}
 	/* button */
 	.btn,button{outline: 0;margin: 0;border-radius: 1px;display: inline-block;padding: 6px 12px;margin-bottom: 0;font-size: 14px;font-weight: normal;line-height: 1.428571429;text-align: center;white-space: nowrap;vertical-align: middle;cursor: pointer;background-image: none;border: 1px solid transparent;-webkit-user-select: none;-moz-user-select: none;-ms-user-select: none;-o-user-select: none;}
 		
 		/* color */
-		.btn{background:#868c91;color:#fff;border:#6a6d6f solid 1px;}
-		.btn:hover{background:#737577} .btn:active{background:#5F6163}
+		.btn{background:#868c91;background-color:#868c91;color:#fff;border:#6a6d6f solid 1px;}
+		.btn:hover{background:#737577;background-color:#737577} .btn:active{background:#5F6163;background-color:#5F6163}
+
+			.btn-white{background:#f6f6f6;border:#e4e2e2 solid 1px;color:#676767}
+			.btn-white:hover{background:#e9e9e9;} .btn-white:active{background:#e3e3e3;}
 		
+		/* group-btn */
+		.btn-group .btn{float:left;}
+		.btn-group .btn + .btn{margin-left:-1px;}
+			.btn-group .btn:hover{background:#f6f6f6;}
+			.btn-group .btn:active{background:#e3e3e3;}
+			.btn-group .clicked,.btn-group .clicked:hover{background:#e9e9e9;cursor:default;color:#A0A0A0} 
 
 		/* size */
 		.btn-middle{padding:8px 15px;font-size:17px;}
@@ -117,3 +135,5 @@ header{background:#545652;height:33px;border-bottom:#303030 solid 1px;box-shadow
 		.header-menu .account-box .nick-name:hover{background:#222}
 	.header-unlogin a{height: 34px;line-height: 34px;font-size: 13px;color: #E6E6E6;display: inline-block;padding: 0px 20px;border-right: #424242 solid 1px}
 		
+	.header-links{line-height: 34px;height:34px;}
+	.header-links a{color:#e2e2e2;padding:0px 15px;} .header-links a:hover{color:#fff;}

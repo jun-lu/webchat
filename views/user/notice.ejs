@@ -1,0 +1,84 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html;charset=utf-8">
+	<title><%=user.name%> - Vchat</title>
+
+
+	<link rel="stylesheet" type="text/css" href="/public/css/common.css"/>
+	<link rel="stylesheet" type="text/css" href="/public/css/personal.css"/>
+
+	<% 
+		var pageName = "notice";
+			status = status || "unread";
+
+	 %>
+
+	 <script type="text/javascript">
+	 var notices = <%- JSON.stringify(notices) %>
+	 </script>
+
+</head>
+<body>
+
+	<!-- top {user:{user}} -->
+	<% include ../common/top.ejs %>
+
+	
+	<div class="wrap">
+		<div class="main">
+			<div class="main-inner">
+				<div class="main-header">
+					<h1>Notice</h1>
+				</div>	
+
+				<div class="main-content">
+					
+					<div class="notice">
+						<div class="header">
+							<% if( status =="unread" ){ %>
+							<div class="btn-group">
+								<span class="btn btn-white clicked">Unread</span>
+								<a href="/user/notice?status=read" class="btn btn-white">Read</a>
+							</div>
+							<% }else{ %>
+							<div class="btn-group">
+								<a href="/user/notice?status=unread" class="btn btn-white">Unread</a>
+								<span class="btn btn-white clicked">Read</span>
+							</div>
+							<% } %>
+						</div>
+						<div class="content">
+							<ul>
+
+								<%
+									var item = null;
+									for(var i=0; i<notices.length; i++){
+										item = notices[i];
+
+								%>
+								<li>
+									<a target="_blank" class="name" href="/user/<%=item.from._id %>"><%=item.from.name %></a> reply to you in 
+									<a target="_blank" href="/<%=item.where.name || item.where.id  %>"><%=item.where.topic %></a>
+								</li>
+								<% } %>
+
+								<% if( notices.length == 0 ){ %>
+								<li>
+									<span>No notice...</span>
+								</li>
+								<% } %>
+							</ul>
+							
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<% include public-left.ejs %>
+
+	</div>
+
+</body>
+</html>
