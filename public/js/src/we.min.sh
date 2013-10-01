@@ -11,6 +11,7 @@ inputlist=$inputlist\ \-\-js\ we.api/we.api.chat.js
 inputlist=$inputlist\ \-\-js\ we.api/we.api.setting.js
 inputlist=$inputlist\ \-\-js\ we.api/we.api.top.js
 inputlist=$inputlist\ \-\-js\ we.api/we.api.notice.js
+inputlist=$inputlist\ \-\-js\ we.api/we.api.topic.js
 
 echo we.js
 echo we.kit.js

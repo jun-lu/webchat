@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Create Topic - Vchat</title>
-	<link rel="stylesheet" href="https://www.vchat.co/public/css/common.css" />
+	<link rel="stylesheet" href="/public/css/common.css" />
 	<style type="text/css">
 		
 		html,body{background:#d5d8dd;}
@@ -133,8 +133,8 @@
 	
 	<!--<% include ../common/footer.ejs %>-->
 
-	<script type="text/javascript" src="http://static.moxian.com/resource/common_info/js/lib/jquery-1.6.2.min.js"></script>
-	<script type="text/javascript" src="https://www.vchat.co/public/js/we.min.js"></script>
+	<script type="text/javascript" src="/public/js/jquery-1.6.3.min.js"></script>
+	<script type="text/javascript" src="/public/js/we.min.js"></script>
 
 	<script type="text/javascript">
 	WE.pageCreate = {
@@ -191,6 +191,33 @@
 				
 				return false;
 			});
+
+			this.ui.form.submit(function(){
+
+				console.log('action');
+				_this.createTopic();
+				
+				return false;
+			});
+		},
+
+		createTopic: function(){
+
+			var topic = $.trim( this.ui.topic.val() );
+			var des = $.trim( this.ui.desBox.find('textarea').val() );
+			var pwd = $.trim( this.ui.pwdBox.find('input').val() );
+
+
+			console.log('topic',topic,'des',des,'pwd',pwd);
+			var model = new WE.api.TopicModel();
+			var ctrl = new WE.Controller();
+			ctrl.update = function(e){
+				var data = e.data;
+
+				console.log('data',data);
+			}
+			model.addObserver( ctrl );
+			model.create(topic, des, pwd);	
 		}
 	}
 
