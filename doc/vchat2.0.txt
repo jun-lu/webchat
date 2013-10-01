@@ -79,14 +79,10 @@ output = {
 	user:User
 }
 
-
-<<<<<<< HEAD
 vchat.co/sys/create-topic   views/sys/create-topic.ejs
 output = {
 	user:User
 }
-=======
-
 
 pages:
 	
@@ -127,8 +123,3 @@ pages:
 	加密
 
 	邀请最近联系人
-
-
-
-
->>>>>>> pr/90
