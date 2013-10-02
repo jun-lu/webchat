@@ -7,34 +7,45 @@
 var ChatModel = require("../../lib/ChatModel");
 var LogModel = require("../../lib/LogModel");
 var RoomModel = require("../../lib/RoomModel");
-var tool = require("../../lib/tools");
+var Promise = require("../../lib/Promise");
+var tools = require("../../lib/tools");
 
 module.exports = function(req, res){
 
-	var user = req.session.user;//测试时候使用管理员
+	var user = req.session.user;
 	var topic = String(req.body.topic);
 	var des = String(req.body.des);
 	var pwd = String(req.body.pwd);
-	
+	var promise;
+	var output = {
+		user:user ? user.getInfo() : null
+	};
+	//console.log("topic", topic, des, pwd);
 
 	if(user == null){
 		res.write( new WebStatus("301").toString() );
 		res.end();
-		return ;
+		return false;
 	}
 
+	if(!topic || topic.length == 0 || topic.length > 140 || des.length > 300 || pwd.length > 16){
 
-	var output = {
-		user:user ? user.getInfo() : null
-	};
+		res.write( new WebStatus("-1").toString() );
+		res.end();
+		return false;
+	}
+
+	
 
 
-	var promise = new Promise();
+	promise = new Promise();
 
 	promise.then(function(){
 
 		topic = tools.removeHtmlTag( topic );
 		des = tools.removeHtmlTag( des );
+		//console.log("topic", topic, des, pwd);
+
 		RoomModel.create( topic, des, String(output.user._id) , output.user.name, function( status ){
 			
 			res.write( status.toString() );

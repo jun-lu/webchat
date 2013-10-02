@@ -14,7 +14,8 @@ module.exports = function( app ){
 	
 	//5
 	app.get('/sys/getmore', require("./getChatMore"));
-	app.get('/sys/create-topic', require("./createTopic"));
+	//20
+	app.post('/api/create-topic', require("./createTopic"));
 	
 	//2
 	app.post('/sys/set_user_name', require("./setUserName"));
