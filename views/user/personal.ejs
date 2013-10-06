@@ -1,0 +1,262 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+	<title>个人页 - vchat.co </title>
+
+	<link rel="stylesheet" type="text/css" href="https://www.vchat.co/public/css/common.css">
+
+	<style type="text/css">
+
+		
+
+		html,body{background: #d5d8dd;}
+
+		.main{width:65%;background:#fff;height:100%;}
+		
+
+			.personal-info{background:#f4f4f5;border-bottom:#fff solid 1px;text-align:center;padding:40px 0px;}
+				.personal-info img{width:110px;height:110px;border-radius:4px;border: #fff solid 2px}
+				.personal-info .name{font-size:23px;}
+				.personal-info .des{color:#a5a5a5;}
+			.persoanl-timeline{border-top:#d4d4d5 solid 1px;}
+
+			.persoanl-timeline{position:relative;min-height:400px;}
+				.persoanl-timeline .line{position:absolute;background:#e6e6e7;width:2px;font-size:0px;line-height:0px;height: 100%;left: 60px}
+				.persoanl-timeline .timeline{position:relative;padding: 25px 0px;border-bottom:#f4f4f5 solid 1px;margin-left:62px;}
+						.timeline .icon{position:absolute;width:30px;height:30px;border:#d1d1d5 solid 2px;border-radius:30px;background:#fff;left: -17px}
+						.timeline .icon .icon-chat{margin-left:9px;}
+						.timeline .icon .icon-talk{margin:5px 5px 0px 0px;}
+						.timeline .message{padding-top: 4px;padding-left: 36px}
+						.timeline .message .type{color:#939393;}
+						.timeline .message .topic{color: #505050;padding:0px 5px;} 
+						.timeline .message .topic:hover{background: #eee;}
+						.timeline .time{color:#9c9c9c;font-size:12px;line-height: 36px;padding-right:20px;}
+
+			 @media (max-width:800px){
+				.main{width:100%;}
+				.personal-info-fixed{width:100%;}
+
+				}
+
+			
+	</style>
+
+
+	<SCRIPT TYPE="text/javascript">
+
+		var USER = <%- JSON.stringify(user) %>
+		var accessUser = <%- JSON.stringify(accessUser)%>;
+
+	</SCRIPT>
+</head>
+<body>
+
+	<!-- top {user:{user}} -->
+	<% include ../common/top.ejs %>
+	
+
+	<div class="main set-middle">
+
+		<div class="main-persoanl" id="main-personal">
+
+			<div class="personal-info">
+				<img src="<%=accessUser.avatar %>">
+				<h1 class="name"><%=accessUser.name %></h1>
+				<div class="des">be killer,it's a long time</div>
+			</div>
+
+			<div class="persoanl-timeline">
+
+				<div class="line"></div>
+				<div class="content">
+					<div class="timeline clearfix">
+						<div class="icon">
+							<i class="icon-chat"></i>
+						</div>
+
+						<div class="message pull-left">
+							<span class="type">create topic</span>
+							<a class="topic" href="/">How we can go to shenzhen bay,chat it together2222</a>
+						</div>
+
+						<span class="pull-right time">2013-10-20</span>
+					</div>
+
+					<div class="timeline clearfix">
+						<div class="icon">
+							<i class="icon-talk"></i>
+						</div>
+
+						<div class="message pull-left">
+							<span class="type">join topic</span>
+							<a class="topic" href="/">How we can go to shenzhen bay,chat it together</a>
+						</div>
+
+						<span class="pull-right time">2013-10-20</span>
+					</div>
+
+					<div class="timeline clearfix">
+						<div class="icon">
+							<i class="icon-chat"></i>
+						</div>
+
+						<div class="message pull-left">
+							<span class="type">create topic</span>
+							<a class="topic" href="/">How we can go to shenzhen bay,chat it together</a>
+						</div>
+
+						<span class="pull-right time">2013-10-20</span>
+					</div>
+
+					<div class="timeline clearfix">
+						<div class="icon">
+							<i class="icon-talk"></i>
+						</div>
+
+						<div class="message pull-left">
+							<span class="type">join topic</span>
+							<a class="topic" href="/">How we can go to shenzhen bay,chat it together</a>
+						</div>
+
+						<span class="pull-right time">2013-10-20</span>
+					</div>
+
+					<div class="timeline clearfix">
+						<div class="icon">
+							<i class="icon-chat"></i>
+						</div>
+
+						<div class="message pull-left">
+							<span class="type">create topic</span>
+							<a class="topic" href="/">How we can go to shenzhen bay,chat it together</a>
+						</div>
+
+						<span class="pull-right time">2013-10-20</span>
+					</div>
+
+					<div class="timeline clearfix">
+						<div class="icon">
+							<i class="icon-talk"></i>
+						</div>
+
+						<div class="message pull-left">
+							<span class="type">join topic</span>
+							<a class="topic" href="/">How we can go to shenzhen bay,chat it together</a>
+						</div>
+
+						<span class="pull-right time">2013-10-20</span>
+					</div>
+
+					<div class="timeline clearfix">
+						<div class="icon">
+							<i class="icon-chat"></i>
+						</div>
+
+						<div class="message pull-left">
+							<span class="type">create topic</span>
+							<a class="topic" href="/">How we can go to shenzhen bay,chat it together</a>
+						</div>
+
+						<span class="pull-right time">2013-10-20</span>
+					</div>
+
+					<div class="timeline clearfix">
+						<div class="icon">
+							<i class="icon-talk"></i>
+						</div>
+
+						<div class="message pull-left">
+							<span class="type">join topic</span>
+							<a class="topic" href="/">How we can go to shenzhen bay,chat it together</a>
+						</div>
+
+						<span class="pull-right time">2013-10-20</span>
+					</div>
+
+					<div class="timeline clearfix">
+						<div class="icon">
+							<i class="icon-chat"></i>
+						</div>
+
+						<div class="message pull-left">
+							<span class="type">create topic</span>
+							<a class="topic" href="/">How we can go to shenzhen bay,chat it together</a>
+						</div>
+
+						<span class="pull-right time">2013-10-20</span>
+					</div>
+
+					<div class="timeline clearfix">
+						<div class="icon">
+							<i class="icon-talk"></i>
+						</div>
+
+						<div class="message pull-left">
+							<span class="type">join topic</span>
+							<a class="topic" href="/">How we can go to shenzhen bay,chat it together</a>
+						</div>
+
+						<span class="pull-right time">2013-10-20</span>
+					</div>
+
+					<div class="timeline clearfix">
+						<div class="icon">
+							<i class="icon-chat"></i>
+						</div>
+
+						<div class="message pull-left">
+							<span class="type">create topic</span>
+							<a class="topic" href="/">How we can go to shenzhen bay,chat it together</a>
+						</div>
+
+						<span class="pull-right time">2013-10-20</span>
+					</div>
+
+					<div class="timeline clearfix">
+						<div class="icon">
+							<i class="icon-talk"></i>
+						</div>
+
+						<div class="message pull-left">
+							<span class="type">join topic</span>
+							<a class="topic" href="/">How we can go to shenzhen bay,chat it together</a>
+						</div>
+
+						<span class="pull-right time">2013-10-20</span>
+					</div>
+
+					<div class="timeline clearfix">
+						<div class="icon">
+							<i class="icon-chat"></i>
+						</div>
+
+						<div class="message pull-left">
+							<span class="type">create topic</span>
+							<a class="topic" href="/">How we can go to shenzhen bay,chat it together</a>
+						</div>
+
+						<span class="pull-right time">2013-10-20</span>
+					</div>
+
+					<div class="timeline clearfix">
+						<div class="icon">
+							<i class="icon-talk"></i>
+						</div>
+
+						<div class="message pull-left">
+							<span class="type">join topic</span>
+							<a class="topic" href="/">How we can go to shenzhen bay,chat it together</a>
+						</div>
+
+						<span class="pull-right time">2013-10-20</span>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	
+</body>
+</html>

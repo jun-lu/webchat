@@ -5,7 +5,7 @@ WE.api = WE.api || {};
 
 WE.api.TopicModel = function(){
 
-	this.createTopicUrl = '/api/create-topic';
+	this.createTopicUrl = '/sys/create';
 }
 
 WE.api.TopicModel.prototype = WE.BaseModel.prototype;

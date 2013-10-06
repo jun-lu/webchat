@@ -30,10 +30,10 @@
 
 					<div class="user-info">
 						<div class="avatar pull-left">
-							<img alt="<%=user.name %>" title="edit my avatar" src="<%=user.avatar %>">
+							<a href="/user/edit-avatar"><img alt="<%=user.name %>" title="edit my avatar" src="<%=user.avatar %>"></a>
 						</div>
 						<div class="base pull-left">
-							<span class="name"><%= user.name%></span>
+							<a href="/user/<%=user._id%>" title="<%=user.name%>'s personal page" class="name"><%= user.name%></a>
 							<span class="des">
 								<%-tool.revertHtmlTag(user.summary)%>
 								<%if(!user.summary){%>
@@ -41,6 +41,10 @@
 								<%}%>
 							</span>
 						</div>
+
+						<!-- <div class="pull-right">
+							<a class="btn btn-white" href="/">personal page</a>
+						</div> -->
 					</div>
 				</div>	
 
