@@ -80,12 +80,11 @@ output = {
 }
 
 
-<<<<<<< HEAD
 vchat.co/sys/create-topic   views/sys/create-topic.ejs
 output = {
 	user:User
 }
-=======
+
 
 
 pages:
@@ -130,5 +129,3 @@ pages:
 
 
 
-
->>>>>>> pr/90
