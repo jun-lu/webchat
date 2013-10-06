@@ -16,6 +16,7 @@ module.exports = function( app ){
 	app.get('/sys/getmore', require("./getChatMore"));
 	//20
 	app.post('/api/create-topic', require("./createTopic"));
+	app.get('/api/contact-list', require("./contactList"));
 	
 	//2
 	app.post('/sys/set_user_name', require("./setUserName"));
@@ -52,7 +53,7 @@ module.exports = function( app ){
 	//14号接口
 	app.post('/sys/notice_status', require("./setUserNoticeStatus"));
 
-	app.get('/sys/contact-list', require("./contactList"));
+	//app.get('/sys/contact-list', require("./contactList"));
 
 	app.options('/sys/vchat-create', CORS_OPTIONS);
 	app.options('/sys/vchat-login', CORS_OPTIONS);

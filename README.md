@@ -573,3 +573,17 @@ return {
 		result:Room
 	} 
 ````
+####获取我的往来纪录 21（默认按照热度倒叙排列）
+````javascript
+	
+	url:/api/contact-list
+	method:get
+	param:
+		[limit]:number || 20
+
+	return {
+		code:0,
+		msg:"",
+		result:{User,User}
+	} 
+````
