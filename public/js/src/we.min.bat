@@ -11,6 +11,7 @@ set inputlist=%inputlist% --js we.api\we.api.chat.js
 set inputlist=%inputlist% --js we.api\we.api.setting.js
 set inputlist=%inputlist% --js we.api\we.api.top.js
 set inputlist=%inputlist% --js we.api\we.api.notice.js
+set inputlist=%inputlist% --js we.api\we.api.topic.js
 
 
 

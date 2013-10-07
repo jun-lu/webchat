@@ -33,6 +33,7 @@ a{text-decoration:none;}
 .pull-left{float:left;}
 .pull-right{float:right;}
 .set-middle{margin:0px auto;}
+.clearfix{*zoom:1}.clearfix:before,.clearfix:after{display:table;line-height:0;content:""}.clearfix:after{clear:both}
 
 
 ::-webkit-scrollbar {width: 8px;height: 8px;}
