@@ -63,200 +63,45 @@
 			<div class="personal-info">
 				<img src="<%=accessUser.avatar %>">
 				<h1 class="name"><%=accessUser.name %></h1>
-				<div class="des">be killer,it's a long time</div>
+				<div class="des"><%=accessUser.summary%></div>
 			</div>
 
 			<div class="persoanl-timeline">
 
 				<div class="line"></div>
 				<div class="content">
-					<div class="timeline clearfix">
-						<div class="icon">
-							<i class="icon-chat"></i>
+					<%
+						var item = null;
+						var type = null;
+						var string = "create topic";
+						for (var i=0; i<recently.length; i++){
+							item = recently[i];
+							type = "icon-chat";
+							string = "create topic";
+							if( item.location == "into_room" ){
+								type = "icon-talk";
+								string = "join topic";
+							}
+					%>
+						<div class="timeline clearfix">
+							<div class="icon">
+								<i class="<%= type %>"></i>
+							</div>
+
+							<div class="message pull-left">
+								<span class="type"><%=string%></span>
+								<a class="topic" href="/<%=item.info.name || item.info.id%>"><%=item.info.topic%></a>
+							</div>
+
+							<span class="pull-right time"><%=tool.format(item.time, "yyyy-MM-dd hh:mm")%></span>
 						</div>
+					<%}%>
 
-						<div class="message pull-left">
-							<span class="type">create topic</span>
-							<a class="topic" href="/">How we can go to shenzhen bay,chat it together2222</a>
-						</div>
-
-						<span class="pull-right time">2013-10-20</span>
-					</div>
-
-					<div class="timeline clearfix">
-						<div class="icon">
-							<i class="icon-talk"></i>
-						</div>
-
-						<div class="message pull-left">
-							<span class="type">join topic</span>
-							<a class="topic" href="/">How we can go to shenzhen bay,chat it together</a>
-						</div>
-
-						<span class="pull-right time">2013-10-20</span>
-					</div>
-
-					<div class="timeline clearfix">
-						<div class="icon">
-							<i class="icon-chat"></i>
-						</div>
-
-						<div class="message pull-left">
-							<span class="type">create topic</span>
-							<a class="topic" href="/">How we can go to shenzhen bay,chat it together</a>
-						</div>
-
-						<span class="pull-right time">2013-10-20</span>
-					</div>
-
-					<div class="timeline clearfix">
-						<div class="icon">
-							<i class="icon-talk"></i>
-						</div>
-
-						<div class="message pull-left">
-							<span class="type">join topic</span>
-							<a class="topic" href="/">How we can go to shenzhen bay,chat it together</a>
-						</div>
-
-						<span class="pull-right time">2013-10-20</span>
-					</div>
-
-					<div class="timeline clearfix">
-						<div class="icon">
-							<i class="icon-chat"></i>
-						</div>
-
-						<div class="message pull-left">
-							<span class="type">create topic</span>
-							<a class="topic" href="/">How we can go to shenzhen bay,chat it together</a>
-						</div>
-
-						<span class="pull-right time">2013-10-20</span>
-					</div>
-
-					<div class="timeline clearfix">
-						<div class="icon">
-							<i class="icon-talk"></i>
-						</div>
-
-						<div class="message pull-left">
-							<span class="type">join topic</span>
-							<a class="topic" href="/">How we can go to shenzhen bay,chat it together</a>
-						</div>
-
-						<span class="pull-right time">2013-10-20</span>
-					</div>
-
-					<div class="timeline clearfix">
-						<div class="icon">
-							<i class="icon-chat"></i>
-						</div>
-
-						<div class="message pull-left">
-							<span class="type">create topic</span>
-							<a class="topic" href="/">How we can go to shenzhen bay,chat it together</a>
-						</div>
-
-						<span class="pull-right time">2013-10-20</span>
-					</div>
-
-					<div class="timeline clearfix">
-						<div class="icon">
-							<i class="icon-talk"></i>
-						</div>
-
-						<div class="message pull-left">
-							<span class="type">join topic</span>
-							<a class="topic" href="/">How we can go to shenzhen bay,chat it together</a>
-						</div>
-
-						<span class="pull-right time">2013-10-20</span>
-					</div>
-
-					<div class="timeline clearfix">
-						<div class="icon">
-							<i class="icon-chat"></i>
-						</div>
-
-						<div class="message pull-left">
-							<span class="type">create topic</span>
-							<a class="topic" href="/">How we can go to shenzhen bay,chat it together</a>
-						</div>
-
-						<span class="pull-right time">2013-10-20</span>
-					</div>
-
-					<div class="timeline clearfix">
-						<div class="icon">
-							<i class="icon-talk"></i>
-						</div>
-
-						<div class="message pull-left">
-							<span class="type">join topic</span>
-							<a class="topic" href="/">How we can go to shenzhen bay,chat it together</a>
-						</div>
-
-						<span class="pull-right time">2013-10-20</span>
-					</div>
-
-					<div class="timeline clearfix">
-						<div class="icon">
-							<i class="icon-chat"></i>
-						</div>
-
-						<div class="message pull-left">
-							<span class="type">create topic</span>
-							<a class="topic" href="/">How we can go to shenzhen bay,chat it together</a>
-						</div>
-
-						<span class="pull-right time">2013-10-20</span>
-					</div>
-
-					<div class="timeline clearfix">
-						<div class="icon">
-							<i class="icon-talk"></i>
-						</div>
-
-						<div class="message pull-left">
-							<span class="type">join topic</span>
-							<a class="topic" href="/">How we can go to shenzhen bay,chat it together</a>
-						</div>
-
-						<span class="pull-right time">2013-10-20</span>
-					</div>
-
-					<div class="timeline clearfix">
-						<div class="icon">
-							<i class="icon-chat"></i>
-						</div>
-
-						<div class="message pull-left">
-							<span class="type">create topic</span>
-							<a class="topic" href="/">How we can go to shenzhen bay,chat it together</a>
-						</div>
-
-						<span class="pull-right time">2013-10-20</span>
-					</div>
-
-					<div class="timeline clearfix">
-						<div class="icon">
-							<i class="icon-talk"></i>
-						</div>
-
-						<div class="message pull-left">
-							<span class="type">join topic</span>
-							<a class="topic" href="/">How we can go to shenzhen bay,chat it together</a>
-						</div>
-
-						<span class="pull-right time">2013-10-20</span>
-					</div>
 				</div>
 			</div>
 		</div>
 
 	</div>
 
-	
 </body>
 </html>

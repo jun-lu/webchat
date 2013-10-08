@@ -12,8 +12,7 @@ var ChatModel = require('../../lib/ChatModel');
 var Promise = require('../../lib/Promise');
 var LogModel = require('../../lib/LogModel');
 var WebStatus = require('../../lib/WebStatus');
-
-
+var Room_PUBLIC_KYES = require('../../lib/Room').PUBLIC_KEYS;
 
 module.exports = {
 
@@ -25,8 +24,7 @@ module.exports = {
 
 			var output = {
 				user:user ? user.getInfo() : user,
-				intos:[], //进入过的话题
-				creates:[],//我创建过的话题
+				recently:[], //最近动态 
 				accessUser:null, //被访问者信息
 				tool:tools
 			}
@@ -47,7 +45,7 @@ module.exports = {
 				UserModel.find_id(id, function( status ){
 
 					if(status.code == "0"){
-						output.accessUser = status.result;
+						output.accessUser = status.result.getPublicInfo( 110 );
 						promise.ok( status.result );	
 					}else{
 						status.addMsg("没有找到用户");
@@ -57,38 +55,29 @@ module.exports = {
 				});
 			});
 
-			promise.then(function( user ) {
-				RoomModel.querys({masterId:String(user._id)}, function( status ) {
+			promise.then(function () {
+				LogModel.inquire({"$or":[{id:user._id, location:"into_room"},{id:user._id, location:"create_room"}]}, 200, function( status ) {
+					console.log("status", status);
 					if( status.code == 0 ){
 
-						output.creates = status.result;
+						//console.log()
+						var list = tools.unique( status.result, function( a ) {	
+							return a.info.id;
+						});
 
-					}
-					promise.ok();
-				});
-			});
-
-			promise.add(function ( user ) {
-				LogModel.getLog( user._id, 1000, function( status ) {
-					//进入过
-					var intos = output.intos;
-					if(status.code == "0"){
-
-						var logs = status.result;
-						for(var i=0; i< logs.length; i++){
-							logs[i].info.time = logs[i].time;
-							if(logs[i].location == "into_room"){
-								intos.push( logs[i].info );
-							}
+						for(var i=0; i< list.length; i++){
+							list[i].info = tools.cloneObject(list[i].info, Room_PUBLIC_KYES);
+							output.recently.push( list[i] );
 						}
 
-					};
-
+					}
 					promise.ok();	
 				});
 			});
 
 			promise.then(function() {
+				//res.write( JSON.stringify( output, "" , "   ") );
+				//res.end();
 				res.render("user/personal", output);
 			});
 

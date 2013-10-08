@@ -238,7 +238,7 @@ module.exports = {
 				ChatModel.findOne({_id:ChatModel.objectId(aim)}, function( status ){
 					//自己回复自己不加入提醒
 					if(status.code == "0" && user._id != status.result.from){
-						console.log("ad thermongraph");
+						//console.log("ad thermongraph");
 						//加入提醒
 						NoticeModel.create(1, user._id, status.result.from, roomid, to, chat._id.toString());
 						//加入关系
