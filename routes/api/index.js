@@ -15,8 +15,8 @@ module.exports = function( app ){
 	//5
 	app.get('/api/room-chat-get', require("./getChatMore"));
 	//20
-	app.post('/api/create-topic', require("./createTopic"));
-	app.get('/api/contact-list', require("./contactList"));
+	app.post('/api/room-create', require("./createTopic"));
+	app.get('/api/user-contact-get', require("./contactList"));
 	
 	//2
 	app.post('/api/user-name-update', require("./setUserName"));

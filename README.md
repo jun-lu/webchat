@@ -563,7 +563,7 @@ return {
 ####获取我的往来纪录 21（默认按照热度倒叙排列）
 ````javascript
 	
-	url:"/api/contact-list"
+	url:"/api/user-contact-get"
 	method:get
 	param:
 		[limit]:number || 20
