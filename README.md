@@ -560,10 +560,10 @@ return {
 ####创建对话 20
 ````javascript
 	
-	url:/api/create-topic
+	url:"/api/create-topic"
 	method:post
 	param:
-		[topic]:string < 140,
+		topic:string < 140,
 		[des]:string < 300,
 		[pwd]: string < 16
 	
@@ -576,7 +576,7 @@ return {
 ####获取我的往来纪录 21（默认按照热度倒叙排列）
 ````javascript
 	
-	url:/api/contact-list
+	url:"/api/contact-list"
 	method:get
 	param:
 		[limit]:number || 20
