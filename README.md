@@ -273,7 +273,7 @@ return:{
 ````
 ####修改昵称（2）
 ````javascript
-url: "/sys/set_user_name"
+url: "/sys/user-name-update"
 method: post
 param:
 	name: string < 50
@@ -286,7 +286,7 @@ return :{
 
 ####匿名用户绑定email（3）
 ````javascript
-url: "/sys/bindmail"
+url: "/api/user-mail-set"
 method: post
 param:
 	mail: string //合法的email地址
@@ -300,7 +300,7 @@ return :{
 
 ##修改房间信息，仅房间创建者可修改（4）
 ````javascript
-url: "/sys/room_update"
+url: "/api/room-update"
 method:post
 param:
 	name: string < 50
@@ -316,7 +316,7 @@ return:{
 
 ####根据时间获取房间对话（5）
 ````javascript
-url: "/sys/getmore"
+url: "/api/room-chat-get"
 method:get
 param:
 	roomid:"1361182575505" //房间id
@@ -333,7 +333,7 @@ return:{
 }
 ````
 
-####获取我参与过的对话（6）
+####获取我参与过的对话（6）(过期)
 ````javascript
 url: "/sys/ichats"
 method : get
@@ -350,7 +350,7 @@ return:{
 
 ####检查mail是否被注册（7）
 ````javascript
-url:"/sys/checkmail",
+url:"/api/user-mail-verify",
 method:get
 param:
 	mail: //一个正确的email
@@ -363,7 +363,7 @@ return:{
 
 ####修改用户头像（8）
 ````javascript
-url: "/sys/set_avatar",
+url: "/sys/user-avatar-update",
 method:post,
 param:
 	gravatarDefault : ("mm", "identicon", "monsterid", "wavatar", "retro", "blank") // 必须是这其中之一
@@ -376,7 +376,7 @@ return:{
 
 ####检查房间快捷访问key是否被注册（9）
 ````javascript
-url: "/sys/check_room_key",
+url: "/api/room-key-verify",
 method:get,
 param:
 	key : string < 100 // 可以是任意字符
@@ -389,7 +389,7 @@ return:{
 
 ####读取房间历史参与的人的列表（10）
 ````javascript
-url: "/sys/history",
+url: "/api/room-visitors-get",
 method:get,
 param:
 	roomid:123456789 //正确的房间id
@@ -406,7 +406,7 @@ return:{
 
 ####修改用户的个人介绍（11）
 ````javascript
-url: "/sys/user_summary",
+url: "/api/user-summary-update",
 method:post,
 param:
 	summary: string < 300
@@ -419,7 +419,7 @@ return:{
 
 ####获取当前登录用户未读信息条数(12)
 ````javascript
-url:"/sys/notice_count"
+url:"/api/notice-count"
 method:"get"
 param:null,
 return :{
@@ -431,7 +431,7 @@ return :{
 
 ####获取前 number 条用户非已读信息(13)
 ````javascript
-url:"/sys/notice_list"
+url:"/api/notice-list"
 method:"get",
 param:{
 	[time]:new Date().getTime()+1 //未来时间戳获取最新的 number -- 默认未来时间戳
@@ -446,7 +446,7 @@ return :{
 
 ####改变提醒的状态（理论上只允许标记为 2 已读）（14）
 ````javascript
-url:"/sys/notice_status"
+url:"/api/notice-status"
 method:"post",
 param:{
 	_id: ,//信息_id
@@ -540,27 +540,12 @@ return {
 
 ````
 
-####获取前端js所需要的模版 19
-````javascript
-
-	action: 获取前端js所需要的模版
-	logic：从 /views/tmpl/ 下获取 path 文件并返回内容
-	
-	
-	url:/sys/tmpl
-	method:get
-	param:
-		path: string
-	
-	return string
-````
-
 
 
 ####创建对话 20
 ````javascript
 	
-	url:"/api/create-topic"
+	url:"/api/room-create"
 	method:post
 	param:
 		topic:string < 140,
@@ -571,8 +556,10 @@ return {
 		code:0,
 		msg:"",
 		result:Room
-	} 
+	}
+	 
 ````
+
 ####获取我的往来纪录 21（默认按照热度倒叙排列）
 ````javascript
 	

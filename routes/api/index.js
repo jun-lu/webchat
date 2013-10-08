@@ -10,48 +10,48 @@ var CORS_OPTIONS = require("./cors-options");
 module.exports = function( app ){
 	
 	//19
-	app.get('/sys/tmpl', require("./getTmpl"));
+	app.get('/api/tmpl', require("./getTmpl"));
 	
 	//5
-	app.get('/sys/getmore', require("./getChatMore"));
+	app.get('/api/room-chat-get', require("./getChatMore"));
 	//20
 	app.post('/api/create-topic', require("./createTopic"));
 	app.get('/api/contact-list', require("./contactList"));
 	
 	//2
-	app.post('/sys/set_user_name', require("./setUserName"));
+	app.post('/api/user-name-update', require("./setUserName"));
 	
 	//4
-	app.post('/sys/room_update', require("./roomUpdateInfo"));
+	app.post('/api/room-update', require("./roomUpdateInfo"));
 	
 	//3
-	app.post('/sys/bindmail', require("./userBindMail"));
+	app.post('/api/user-mail-set', require("./userBindMail"));
 	
 	//6
-	app.get('/sys/ichats', require("./userHistory"));
+	//app.get('/sys/ichats', require("./userHistory"));
 	
 	//7
-	app.get('/sys/checkmail', require("./checkMailRepeat"));
+	app.get('/api/user-mail-verify', require("./checkMailRepeat"));
 	
 	//8
-	app.post('/sys/set_avatar', require("./setUserAvatar"));
+	app.post('/api/user-avatar-update', require("./setUserAvatar"));
 	
 	//9
-	app.get('/sys/check_room_key', require("./checkRoomKeyRepeat"));
+	app.get('/api/room-key-verify', require("./checkRoomKeyRepeat"));
 	
 	//10
-	app.get('/sys/history', require("./getRoomHistoryUser"));
+	app.get('/api/room-visitors-get', require("./getRoomHistoryUser"));
 	
 	//11
-	app.post('/sys/user_summary', require("./updateUserSummary"));
+	app.post('/api/user-summary-update', require("./updateUserSummary"));
 	
 	//12号接口
-	app.get('/sys/notice_count', require("./getUserNoticeCount"));
+	app.get('/api/notice-count', require("./getUserNoticeCount"));
 	
 	//13号接口
-	app.get('/sys/notice_list', require("./getUserNoticeList"));
+	app.get('/api/notice-list', require("./getUserNoticeList"));
 	//14号接口
-	app.post('/sys/notice_status', require("./setUserNoticeStatus"));
+	app.post('/api/notice-status', require("./setUserNoticeStatus"));
 
 	//app.get('/sys/contact-list', require("./contactList"));
 
