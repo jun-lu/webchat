@@ -4,69 +4,70 @@
 	
 	首页
 */
+var ChatModel = require("../../lib/ChatModel");
 var LogModel = require("../../lib/LogModel");
 var RoomModel = require("../../lib/RoomModel");
-var tool = require("../../lib/tools");
+var Promise = require("../../lib/Promise");
+var tools = require("../../lib/tools");
 
 module.exports = function(req, res){
 
 	var user = req.session.user;
-	var querySuccess = 0;
-	var log = {};
-	var newRoom = [];
-	var recommendRooms = [];
-	var recommendOne = null;
-	var roomids = recommendRoom;
-    user = user ? user.getInfo() : user;
-    //最新的对话
-    RoomModel.findNewRoom(5, function( status ){
-    	if(status.code == 0){
-    		newRoom = status.result;
-    	}
-    	success();
-    });
-    //推荐的对话
-    RoomModel.querys({"id":{"$in":roomids}}, function( status ){
-    	if(status.code == 0){
-    		recommendOne = status.result[ parseInt(Math.random() * (status.result.length-1)) ];
-    		status.result.sort(function(){ return Math.random() - 0.5; })
-    		recommendRooms = status.result.slice(0, 5);
-    	}
-    	success();
-    });
+	var topic = String(req.body.topic);
+	var des = String(req.body.des);
+	var pwd = String(req.body.pwd);
+	var promise;
+	var output = {
+		user:user ? user.getInfo() : null
+	};
+	//console.log("topic", topic, des, pwd);
 
-    //我刚刚去过的地方
-	if( user ){
-		//我最近去过的地方
-		LogModel.getLog( String(user._id), 100, function( status  ){
-
-			if(status.code == "0"){
-				var logs = status.result;
-				for(var i=0; i< logs.length; i++){
-
-					if(log[logs[i].info.id] == undefined){
-						log[logs[i].info.id] = logs[i].info;
-					}
-				}
-			}
-
-			//res.render('index', {user:user, log:log});
-			success();
-		} );
-		return ;
+	if(user == null){
+		res.write( new WebStatus("301").toString() );
+		res.end();
+		return false;
 	}
 
-	success();
+	if(!topic || topic.length == 0 || topic.length > 140 || des.length > 300 || pwd.length > 16){
 
-	function success(){
-		querySuccess++
-		if(querySuccess >= 3){
-			//console.log( newRoom );
-			res.render('index', {user:user, log:log, newRoom:newRoom,recommendRooms:recommendRooms, recommendOne:recommendOne, tool:tool});
-		}
-
+		res.write( new WebStatus("-1").toString() );
+		res.end();
+		return false;
 	}
-	//console.log("index user", user );
+
 	
 
+
+	promise = new Promise();
+
+	promise.then(function(){
+
+		topic = tools.removeHtmlTag( topic );
+		des = tools.removeHtmlTag( des );
+		//console.log("topic", topic, des, pwd);
+
+		RoomModel.create( topic, des, String(output.user._id) , output.user.name, function( status ){
+			
+			res.write( status.toString() );
+			res.end();
+
+			promise.ok( status );
+			
+			
+		});
+
+	});
+
+	promise.then(function( status ){
+
+		if( status.code == "0" ){
+
+			var room = status.result;
+			ChatModel.create( room.id, "Your first message!", "*", output.user._id, null);
+			LogModel.create( String(output.user._id), "create_room", room.getInfo(), function(){} );
+		}
+
+	});
+
+	promise.start();
 }

@@ -79,14 +79,19 @@ output = {
 	user:User
 }
 
-
 vchat.co/sys/create-topic   views/sys/create-topic.ejs
 output = {
 	user:User
 }
 
-
-
+vchat.co/user/kyes(MD5_KEY) vchat.co/user/md5_key
+output = {
+	
+	user:User,
+	recently:[Log, Log,....],
+	accessUser:Room,
+	tool: //工具
+}
 pages:
 	
 	1. url:user/user._id 用户页面
@@ -126,6 +131,3 @@ pages:
 	加密
 
 	邀请最近联系人
-
-
-
