@@ -1,6 +1,6 @@
 <header>
 	<div class="pull-left header-links">
-		<a href="/">vchat.co</a>
+		<a href="/home">vchat.co</a>
 	</div>
 	<% if(user){ %>
 	<div class="pull-right header-menu">
@@ -14,6 +14,41 @@
 				<img src="<%=user.avatar%>">
 				<%=user.name =="" ? "(暂无昵称)": user.name %>
 			</a>
+			<div class="drop-list">
+				<ul>
+					<li>
+						<a href="/user/home">
+							Home Page
+						</a>
+					</li>
+					<!-- <li>
+						<a href="/user/<%=user._id%>">
+							
+							Personal page
+						</a>
+					</li> -->
+					<li>
+						<a href="/user/edit-avatar">
+							Edit Avatar
+						</a>
+					</li>
+
+					<% if( !/^[\w._\-]+@[\w_\-]+\.\w+$/.test(user.mail) ){ %>
+					<li>
+						<a href="/user/bind-mail">
+							
+							Bind Email
+						</a>
+					</li>
+					<% } %>
+
+					<li>
+						<a class="login-out" href="/sys/out">				
+							Login out
+						</a>
+					</li>
+				</ul>
+			</div>
 		</div>
 	</div>
 	<% }else{ %>
