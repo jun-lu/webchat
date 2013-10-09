@@ -10,7 +10,7 @@
 		html,body{padding:0px;margin:0px;}
 
 		body{font-family: "Ebrima",tahoma,arial,\5b8b\4f53;}
-		header{background:#868c91;width:100%;color:#e9e6e6;box-shadow:none;border:0;position:relative;height:100%;text-align:center;padding: 6% 0px;position:absolute;height:100%;width:100%;top:0px;
+		header{background:#545652;width:100%;color:#e9e6e6;box-shadow:none;border:0;position:relative;height:100%;text-align:center;padding: 6% 0px;position:absolute;height:100%;width:100%;top:0px;
 			box-sizing: border-box;
 			-webkit-box-sizing:border-box;
 			-moz-box-sizing:border-box;
@@ -35,15 +35,20 @@
 			-ms-box-sizing:border-box;}
 		.create-btn{width: 18px;height: 18px;display: inline-block;position: absolute;right: 10px;top: 12px}
 
-		.menu{background:#d5d8dd}
+		.menu{background:#737577}
 			.menu ul li{float:left;}
-			.menu ul li a{padding:10px 15px;line-height:30px;display:inline-block;color:#686b6d;width: 118px;text-align: center}
-			.menu ul li a:hover{background:#eee;}
+			.menu ul li a{padding:10px 15px;line-height:30px;display:inline-block;color:#FFFFFF;width: 118px;text-align: center}
+			.menu ul li a:hover{background:#999;}
 
 		.social-follow{position: absolute;right: 25px;bottom: 75px}
 		.social-follow a{color:#fff;text-decoration:underline;}
 
 		.main{position:absolute;top:100%;width:100%;height:500px;}
+			.main .article{width:450px;margin:0px auto;margin-bottom: 60px;font-size: 15px}
+			.main .article:first-child{margin-top:60px;}
+				.article h2{font-weight:bold;margin-bottom: 20px}
+		.create-part{padding-top: 20px;display: inline-block}
+		.top-link{display:block;text-align:center;color:#333;text-decoration:underline;font-weight: bold;color:#267CD8;padding-bottom:20px;}
 	</style>
 </head>
 <body>
@@ -58,6 +63,7 @@
 		<a class="btn btn-white login-btn" href="/sys/login">Sign In</a>
 
 		<div class="create-box">
+			<a name="create-part" class="create-part" id="create-part"></a>
 			<p>Quickly create topic</p>
 			<div>
 				<div class="create-input set-middle" id="create">
@@ -92,8 +98,30 @@
 	</header>
 
 
-	<div class="main">
-		312321321312
+	<div class="main set-m">
+		
+
+		<article class="article">
+			<h2>Feel to register to do tedious experience for dialogue ?</h2>
+			<p>vchat.co do not you register you can quickly create a topic. By quickly create topics channel, if you do not have account, vchat.co will help you create a temporary account for dialogue. (After use, if you like vchat.co, you can choose to bind your email)</p>
+		</article>
+
+		<article class="article">
+			<h2>After that Buddy trouble you can create topics ?</h2>
+			<p>vchat.co does not require you to add each other as friends will be able to invite him (her) to engage in dialogue. Just copy the url of the topic of the room to the other, the other party will be able to quickly enter topics. Vchat.co will help you turn your back on the topic over the user to save up to facilitate your next.</p>
+		</article>
+
+		<article class="article">
+			<h2>Others would like to see what topics recently discussed what ?</h2>
+			<p>You can enter through vchat.co Home Recommended topics or recent topics involved it, you can find that you are interested in, they might become your friends, teachers or co-workers.</p>
+		</article>
+
+		<article class="article">
+			<h2>Worry about their information being leaked private conversation ?</h2>
+			<p>Do not worry, vchat.co SSL + HTTP protocol used by the HTTPS protocol built encrypted transmission to protect the security of information transmission.</p>
+		</article>
+
+		<a class="top-link" href="#create-part">I can't wait to experience</a>
 	</div>
 
 
@@ -143,13 +171,26 @@
 
 		createTopic: function(){
 
+			var self = this;
+
+			this.ui.submit.find('.icon-go').addClass('hidden');
+			this.ui.submit.find('.icon-loading').removeClass('hidden');
+
 			var topic = $.trim( this.ui.topic.val() );
 			var model = new WE.api.RoomModel();
 			var ctrl = new WE.Controller();
 			ctrl.update = function(e){
 				var data = e.data;
 
-				console.log('data',data);
+				if(data.code == 0){
+					location.href = '/'+data.result.id;
+				}else{
+					this.error();
+				}
+			};
+			ctrl.error = function(){
+				self.ui.submit.find('.icon-go').removeClass('hidden');
+				self.ui.submit.find('.icon-loading').addClass('hidden');
 			}
 			model.addObserver( ctrl );
 			model.create(topic);	
