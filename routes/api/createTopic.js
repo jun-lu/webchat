@@ -9,6 +9,7 @@ var LogModel = require("../../lib/LogModel");
 var RoomModel = require("../../lib/RoomModel");
 var Promise = require("../../lib/Promise");
 var tools = require("../../lib/tools");
+var WebStatus = require("../../lib/WebStatus");
 
 module.exports = function(req, res){
 
