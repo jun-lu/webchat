@@ -27,10 +27,9 @@ module.exports = {
 		post:function(req, res ){
 
 			var user = req.session.user;
-			//var expEmail = /./;
 			var email = req.body.email;
 			var pwd = req.body.pwd;
-			var referer = req.body.referer || "/";
+			var referer = req.body.referer || "/user/home";
 			var output = {
 				referer:referer,
 				user:user,
