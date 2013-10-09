@@ -77,7 +77,7 @@ WE.pageChat = {
 
 
 		var _this = this;
-		var model = new WE.api.ChatModel();
+		var model = new WE.api.RoomModel();
 		var ctrl = new WE.Controller();
 		ctrl.update = function( e ){
 			// $('#timelineLoading').addClass('hidden');
@@ -122,7 +122,7 @@ WE.pageChat = {
 
 		aim = to == null ? undefined : to;
 		var _this = this;
-		var model = new WE.api.ChatModel();
+		var model = new WE.api.RoomModel();
 		var ctrl = new WE.Controller();
 		ctrl.update = function( e ){
 
@@ -227,7 +227,7 @@ WE.pageChat.login = {
 			_this.isLogin = true;
 			_this.ui.nickNameBtn.find('.icon-go').addClass('hidden');
 			_this.ui.nickNameBtn.find('.icon-loading').removeClass('hidden');
-		var model = new WE.api.ChatModel();
+		var model = new WE.api.UserModel();
 		var ctrl = new WE.Controller();
 		ctrl.update = function( e ){
 
@@ -524,7 +524,7 @@ WE.pageChat.historylist = {
 
 		if( !this.isLoadData ){
 
-			var model = new WE.api.ChatModel();
+			var model = new WE.api.RoomModel();
 			var ctrl = new WE.Controller();
 			ctrl.update = function( e ){
 				
