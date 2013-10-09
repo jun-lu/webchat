@@ -31,7 +31,7 @@ module.exports = {
 			user:user ? user.getInfo() : null
 		};
 
-		res.render("index", {});
+		res.render("index", output);
 	},
 	post:null
 
