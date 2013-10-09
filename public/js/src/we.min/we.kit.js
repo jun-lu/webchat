@@ -72,7 +72,7 @@ WE.extend(WE.kit, {
 		}
 
 		$.ajax({
-			url:"/sys/tmpl",
+			url:"/api/tmpl",
 			medthod:"get",
 			data:{path: file},
 			success:function( data ){
@@ -84,7 +84,7 @@ WE.extend(WE.kit, {
 
 	},
 
-	/*
+	/**
 	 * 获取radio的值
 	 * @param {string} name : input的name属性
 	 */

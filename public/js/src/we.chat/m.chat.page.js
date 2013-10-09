@@ -133,7 +133,7 @@ WE.pageChat = {
 
 		to = !to ? undefined : to;
 
-		var model = new WE.api.ChatModel();
+		var model = new WE.api.RoomModel();
 		var ctrl = new WE.Controller();
 		ctrl.update = function( e ){
 
@@ -186,7 +186,7 @@ WE.pageChat.lazyloadData = {
 
 		$('#timeline-loading').show();
 
-		var model = new WE.api.ChatModel();
+		var model = new WE.api.RoomModel();
 		var ctrl = new WE.Controller();
 		ctrl.update = function( e ){
 

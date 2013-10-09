@@ -4,9 +4,9 @@
 WE.api = WE.api || {};
 
 WE.api.NoticeModel = function(){
-	this.noticeCountUrl = "/sys/notice_count";
-	this.noticeListUrl = "/sys/notice_list";
-	this.noticeStatusUrl = "/sys/notice_status";
+	this.noticeCountUrl = "/api/notice-count";
+	this.noticeListUrl = "/api/notice-list";
+	this.noticeStatusUrl = "/api/notice-status";
 };
 
 WE.api.NoticeModel.prototype = WE.BaseModel.prototype;

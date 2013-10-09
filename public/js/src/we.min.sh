@@ -7,18 +7,16 @@ inputlist=$inputlist\ \-\-js\ we.min/we.markdown.js
 inputlist=$inputlist\ \-\-js\ we.ui/we.dialog.js
 
 
-inputlist=$inputlist\ \-\-js\ we.api/we.api.chat.js
-inputlist=$inputlist\ \-\-js\ we.api/we.api.setting.js
-inputlist=$inputlist\ \-\-js\ we.api/we.api.top.js
+inputlist=$inputlist\ \-\-js\ we.api/we.api.room.js
 inputlist=$inputlist\ \-\-js\ we.api/we.api.notice.js
-inputlist=$inputlist\ \-\-js\ we.api/we.api.topic.js
+inputlist=$inputlist\ \-\-js\ we.api/we.api.user.js
 
 echo we.js
 echo we.kit.js
 echo we.markdown.js
 echo we.dialog.js
 
-outputfilename=\ ../we.min.js
+outputfilename=\ ../lib/we.min.js
 
 echo to $outputfilename
 echo $inputlist
