@@ -41,7 +41,7 @@
 			.menu ul li a{padding:10px 15px;line-height:30px;display:inline-block;color:#FFFFFF;width: 118px;text-align: center}
 			.menu ul li a:hover{background:#999;}
 
-		.social-follow{position: absolute;right: 25px;bottom: 75px}
+		.social-follow{position: absolute;right: 25px;bottom:12px;z-index: 30}
 		.social-follow a{color:#fff;text-decoration:underline;}
 
 		.main{position:absolute;top:100%;width:100%;height:500px;}
@@ -63,7 +63,7 @@
 		<h1 class="set-middle">
 			<strong>vchat.co,</strong>timely discussion on the topic
 		</h1>
-		
+
 		<% if( user != null ){ %>
 		<div class="user-box">
 			<a href="/user/home">
@@ -72,7 +72,7 @@
 			</a>
 		</div>
 		<% }else{ %>
-		<a class="btn btn-white login-btn" style="display:none" href="/sys/login">Sign In</a>
+		<a class="btn btn-white login-btn" href="/sys/login">Sign In</a>
 		<% } %>
 
 		<div class="create-box">
