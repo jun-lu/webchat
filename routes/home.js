@@ -12,17 +12,25 @@ module.exports = {
 
 	get:function(req, res){
 		var user = req.session.user;
-
+		var output = {
+			user:user ? user.getInfo() : null
+		};
 		if( user ){
 			res.redirect("/user/home");
 			res.end();
 			return ;
 		}
 
-		res.render("index", {});
+		res.render("index", output);
 		
 	},
 	index:function(req, res){
+
+		var user = req.session.user;
+		var output = {
+			user:user ? user.getInfo() : null
+		};
+
 		res.render("index", {});
 	},
 	post:null
