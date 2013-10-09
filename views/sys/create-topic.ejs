@@ -188,9 +188,7 @@
 			var des = $.trim( this.ui.desBox.find('textarea').val() );
 			var pwd = $.trim( this.ui.pwdBox.find('input').val() );
 
-
-			console.log('topic',topic,'des',des,'pwd',pwd);
-			var model = new WE.api.TopicModel();
+			var model = new WE.api.RoomModel();
 			var ctrl = new WE.Controller();
 			ctrl.update = function(e){
 				var data = e.data;

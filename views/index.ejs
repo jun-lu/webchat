@@ -26,7 +26,7 @@
 		header .logo{margin-bottom:10px;}
 
 		.create-box{margin-top:100px;} .create-box p{margin-bottom:20px;}
-		.create-input{position:relative;width: 300px;height: 40px}
+		.create-input{position:relative;width:30%;height: 40px;min-width:300px;}
 		.create-input input{font-size: 15px;padding:8px;border:0;color: #666;width: 100%;
 			box-sizing: border-box;
 			-webkit-box-sizing:border-box;
@@ -40,7 +40,7 @@
 			.menu ul li a{padding:10px 15px;line-height:30px;display:inline-block;color:#686b6d;width: 118px;text-align: center}
 			.menu ul li a:hover{background:#eee;}
 
-		.social-follow{text-align:right;padding-right:25px;margin-top:20px;}
+		.social-follow{position: absolute;right: 25px;bottom: 75px}
 		.social-follow a{color:#fff;text-decoration:underline;}
 
 		.main{position:absolute;top:100%;width:100%;height:500px;}
@@ -60,12 +60,14 @@
 		<div class="create-box">
 			<p>Quickly create topic</p>
 			<div>
-				<div class="create-input set-middle">
-					<input placeholder="Topic name">
+				<div class="create-input set-middle" id="create">
+					
+					<input class="topic-input" name="topic" autofocus placeholder="Topic name">
 					<a href="javascript:;" class="create-btn">
 						<i class="icon-go"></i>
 						<i class="icon-loading hidden"></i>
 					</a>
+					
 				</div>
 			</div>
 		</div>
@@ -94,6 +96,69 @@
 		312321321312
 	</div>
 
+
+
+
+	<script type="text/javascript" src="/public/js/lib/jquery-1.6.3.min.js"></script>
+	<script type="text/javascript" src="/public/js/lib/we.min.js"></script>
+	<script type="text/javascript">
+
+	WE.pageIndex = {
+		init: function(){
+
+			var form = $('#create');
+
+			this.ui = {
+				form:form,
+				submit:form.find('.create-btn'),
+				topic:form.find('.topic-input')
+			};
+
+			this.regEvent();
+			
+		},
+
+		regEvent: function(){
+
+			var _this = this;
+
+			this.ui.topic.keyup(function(e){
+
+				if( e.keyCode == 13 && $.trim( _this.ui.topic.val() ) != "" ){
+					_this.createTopic();
+				}
+
+				return false;
+			});
+
+			this.ui.submit.click(function(){
+
+				if( $.trim( _this.ui.topic.val() ) != "" ){
+					_this.createTopic();
+				}
+
+				return false;
+			});
+		},
+
+		createTopic: function(){
+
+			var topic = $.trim( this.ui.topic.val() );
+			var model = new WE.api.RoomModel();
+			var ctrl = new WE.Controller();
+			ctrl.update = function(e){
+				var data = e.data;
+
+				console.log('data',data);
+			}
+			model.addObserver( ctrl );
+			model.create(topic);	
+
+		}
+	}
+
+	WE.pageIndex.init();
+	</script>
 
 	
 
