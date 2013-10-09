@@ -63,6 +63,7 @@ module.exports = function ( app ) {
 	*/
 		// index /
 		app.get('/', home.get);
+		app.get('/home', home.index);
 
 		app.get('/a/test', function(req, res){
 			res.render("test", {});

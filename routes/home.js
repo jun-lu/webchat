@@ -11,9 +11,19 @@ var recommendRoom = require("../config").recommendRooms;
 module.exports = {
 
 	get:function(req, res){
+		var user = req.session.user;
+
+		if( user ){
+			res.redirect("/user/home");
+			res.end();
+			return ;
+		}
 
 		res.render("index", {});
 		
+	},
+	index:function(req, res){
+		res.render("index", {});
 	},
 	post:null
 
