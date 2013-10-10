@@ -6,8 +6,12 @@
 	<div class="pull-left header-links links-show">
 		<a class="home" href="/">vchat.co</a>
 		<% var pageName = typeof page == "undefined" ? "none" : page; %>
-		<div class="search-box">
-			<input placeholder="Search topics">
+		<div class="search-box" id="search-box">
+			<input placeholder="Search topics" maxlength="20" class="search-input">
+			<div class="result-box hidden">
+				<a href="">what can i do for you</a>
+				<a href="">what can i do for you</a>
+			</div>
 		</div>
 		<div class="menu-links">
 			<a href="/recommend" <% if( pageName == "recommend"){ %> class="select" <% } %>>Recommend</a>
@@ -71,3 +75,10 @@
 	</div>
 	<% } %>
 </header>
+
+<script type="text/javascript" src="/public/js/we.top.min.js"></script>
+<script type="text/javascript">
+	$(function(){
+		WE.top.init();
+	})
+</script>

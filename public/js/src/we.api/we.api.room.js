@@ -17,6 +17,7 @@ WE.api.RoomModel = function(){
 	this.uniqueKeyURL = "/api/room-key-verify";
 	this.getMoreURL = '/api/room-chat-get';
 	this.createRoomURL = '/api/room-create';
+	this.searchRoomURL = '/api/room-search';
 };
 
 WE.api.RoomModel.prototype = WE.BaseModel.prototype;
@@ -58,5 +59,9 @@ WE.api.RoomModel.prototype.historyList = function(roomid){
 
 WE.api.RoomModel.prototype.uniqueKey = function(key){
 	this.get(this.uniqueKeyURL,{key:key});
+}
+
+WE.api.RoomModel.prototype.search = function(key){
+	this.get(this.searchRoomURL,{key:key});
 }
 
