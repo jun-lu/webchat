@@ -1,6 +1,13 @@
 <header>
-	<div class="pull-left header-links">
-		<a href="/">vchat.co</a>
+	<div class="pull-left header-links links-dot hidden">
+		<a href="/home">vchat.co</a>
+		<a>...</a>
+	</div>
+	<div class="pull-left header-links links-show">
+		<a href="/home">vchat.co</a>
+		<% var pageName = typeof page == "undefined" ? "none" : page; %>
+		<a href="/recommend" <% if( pageName == "recommend"){ %> class="select" <% } %>>Recommend</a>
+		<a href="/recently" <% if( pageName == "recently"){ %> class="select" <% } %>>Recently</a>
 	</div>
 	<% if(user){ %>
 	<div class="pull-right header-menu">
@@ -14,12 +21,47 @@
 				<img src="<%=user.avatar%>">
 				<%=user.name =="" ? "(暂无昵称)": user.name %>
 			</a>
+			<div class="drop-list">
+				<ul>
+					<li>
+						<a href="/user/home">
+							Home Page
+						</a>
+					</li>
+					<!-- <li>
+						<a href="/user/<%=user._id%>">
+							
+							Personal page
+						</a>
+					</li> -->
+					<li>
+						<a href="/user/edit-avatar">
+							Edit Avatar
+						</a>
+					</li>
+
+					<% if( !/^[\w._\-]+@[\w_\-]+\.\w+$/.test(user.mail) ){ %>
+					<li>
+						<a href="/user/bind-mail">
+							
+							Bind Email
+						</a>
+					</li>
+					<% } %>
+
+					<li>
+						<a class="login-out" href="/out">				
+							Login out
+						</a>
+					</li>
+				</ul>
+			</div>
 		</div>
 	</div>
 	<% }else{ %>
 	<div class="pull-right header-unlogin">
-		<a href="/sys/reg">Create an account</a>
-		<a href="/sys/login">Sign in</a>
+		<a href="/reg">Create an account</a>
+		<a href="/login">Sign in</a>
 	</div>
 	<% } %>
 </header>

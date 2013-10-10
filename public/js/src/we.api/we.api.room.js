@@ -10,7 +10,7 @@ WE.api = WE.api || {};
 
 WE.api.RoomModel = function(){
 
-	this.postUrl = "/sys/post";//直接提交到当前路径
+	this.postUrl = "/api/post";//直接提交到当前路径
 	
 	this.updateRoomURL = "/api/room-update";
 	this.historyListURL = "/api/room-visitors-get";
