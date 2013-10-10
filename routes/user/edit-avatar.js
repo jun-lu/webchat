@@ -25,7 +25,7 @@ module.exports = {
 				user:user ? user.getInfo() : null
 			};
 			if( user == null ){
-				res.redirect('/sys/login');
+				res.redirect('/login');
 				return false;
 			}
 

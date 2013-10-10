@@ -29,7 +29,7 @@ module.exports = {
 			var status = new WebStatus();
 
 			if(!user){
-				res.redirect('/sys/login');
+				res.redirect('/login');
 				return false;
 			}
 
