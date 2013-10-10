@@ -1,4 +1,10 @@
 /* chat page */
+	
+
+	/* set scrollbar */
+	.clear-overflow::-webkit-scrollbar {width: 8px;height: 8px;}
+	.clear-overflow::-webkit-scrollbar-thumb {border-width: 1px;border-style: solid;border-color: #fff;border-radius: 6px;background: #d7d7d7;}
+	.clear-overflow::-webkit-scrollbar-track-piece {width: 11px;height: 11px;}
 
 	/* layout */
 	header{position:absolute;width:100%;}

@@ -62,7 +62,7 @@
 
 			<div class="personal-info">
 				<img src="<%=accessUser.avatar %>">
-				<h1 class="name"><%=accessUser.name %></h1>
+				<h1 class="name"><%= accessUser.name=="" ? "(未设置昵称)" : accessUser.name %></h1>
 				<div class="des"><%=accessUser.summary%></div>
 			</div>
 
@@ -90,7 +90,7 @@
 
 							<div class="message pull-left">
 								<span class="type"><%=string%></span>
-								<a class="topic" href="/<%=item.info.name || item.info.id%>"><%=item.info.topic%></a>
+								<a class="topic" href="/t/<%=item.info.name || item.info.id%>"><%=item.info.topic%></a>
 							</div>
 
 							<span class="pull-right time"><%=tool.format(item.time, "yyyy-MM-dd hh:mm")%></span>

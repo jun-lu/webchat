@@ -68,7 +68,7 @@
 		<div class="user-box">
 			<a href="/user/home">
 				<img src="<%=user.avatar %>">
-				<%=user.name %>
+				<%= user.name=="" ? "(未设置昵称)" : user.name %>
 			</a>
 		</div>
 		<% }else{ %>
