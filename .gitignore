@@ -69,3 +69,9 @@ config.js
 routes/宿舍公约
 
 log.txt
+
+*.crt
+
+*.key
+
+*.key
