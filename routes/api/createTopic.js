@@ -24,7 +24,7 @@ module.exports = function(req, res){
 	//console.log("topic", topic, des, pwd);
 
 	if(user == null){
-		res.write( new WebStatus("-2").toString() );
+		res.write( new WebStatus("-3").toString() );
 		res.end();
 		return false;
 	}

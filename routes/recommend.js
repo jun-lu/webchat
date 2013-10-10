@@ -15,7 +15,7 @@ module.exports = {
 		var output = {
 			user:user ? user.getInfo() : null
 		};
-		res.render("recomment", output);
+		res.render("recommend", output);
 		
 	},
 	post:null
