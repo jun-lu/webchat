@@ -1,6 +1,13 @@
 <header>
-	<div class="pull-left header-links">
+	<div class="pull-left header-links links-dot hidden">
 		<a href="/home">vchat.co</a>
+		<a>...</a>
+	</div>
+	<div class="pull-left header-links links-show">
+		<a href="/home">vchat.co</a>
+		<% var pageName = typeof page == "undefined" ? "none" : page; %>
+		<a href="/recommend" <% if( pageName == "recommend"){ %> class="select" <% } %>>Recommend</a>
+		<a href="/recently" <% if( pageName == "recently"){ %> class="select" <% } %>>Recently</a>
 	</div>
 	<% if(user){ %>
 	<div class="pull-right header-menu">
