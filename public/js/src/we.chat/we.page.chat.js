@@ -22,7 +22,11 @@ WE.pageChat = {
 			if( e.keyCode == 13 ){
 
 				var text = $.trim( $(this).val() );
-				_this.post( ROOM.id, text, _this.replyTo );
+
+				if( text !="" ){
+					_this.post( ROOM.id, text, _this.replyTo );
+				}
+				
 			}
 
 		});

@@ -33,7 +33,7 @@
 							<a href="/user/edit-avatar"><img alt="<%=user.name %>" title="edit my avatar" src="<%=user.avatar %>"></a>
 						</div>
 						<div class="base pull-left">
-							<a href="/user/<%=user._id%>" title="<%=user.name%>'s personal page" class="name"><%= user.name%></a>
+							<a href="/user/<%=user._id%>" title="<%=user.name == ""? "(未设置昵称)":user.name %>'s personal page" class="name"><%=user.name == ""? "(未设置昵称)":user.name %></a>
 							<span class="des">
 								<%-tool.revertHtmlTag(user.summary)%>
 								<%if(!user.summary){%>
@@ -65,13 +65,13 @@
 
 								%>
 								<li>
-									<a href="/<%=item.name ? item.name : item.id %>" title="<%=item.topic%>"><%= tool.cutOff(item.topic, 70)%></a>
+									<a href="/t/<%=item.name ? item.name : item.id %>" title="<%=item.topic%>"><%= tool.cutOff(item.topic, 70)%></a>
 								</li>
 								<% } %>
 
 								<% if( joinTopics.length == 0 ){ %>
 								<li>
-									<span>No contents...</span>
+									<span>No topics...</span>
 								</li>
 								<% } %>
 							</ul>
