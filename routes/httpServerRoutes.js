@@ -65,7 +65,7 @@ module.exports = function ( app ) {
 		app.get('/', home.get);
 		app.get('/home', home.index);
 
-		app.get('/recomment', require("./recomment").get);
+		app.get('/recommend', require("./recommend").get);
 
 		app.get('/recently', require("./recently").get);
 

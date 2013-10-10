@@ -33,7 +33,7 @@ module.exports = {
 
 
 			if( user == null ){
-				res.redirect('/sys/login');
+				res.redirect('/login');
 				return false;
 			}
 
