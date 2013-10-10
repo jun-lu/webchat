@@ -65,6 +65,10 @@ module.exports = function ( app ) {
 		app.get('/', home.get);
 		app.get('/home', home.index);
 
+		app.get('/recomment', require("./recomment").get);
+
+		app.get('/recently', require("./recently").get);
+
 		app.get('/a/test', function(req, res){
 			res.render("test", {});
 		});
@@ -82,26 +86,26 @@ module.exports = function ( app ) {
 		});
 
 		// chat
-		app.get('/:key', chat.get);
+		app.get('/t/:key', chat.get);
 		
 		// mobile chat page
 		app.get('/m/:key', mobile.get);
 		
 		
 		//登录
-		app.get('/sys/login', sysLogin.get);
+		app.get('/login', sysLogin.get);
 		
 		//登出
-		app.get('/sys/out', sysOut.get);
+		app.get('/out', sysOut.get);
 		
 		//注册
-		app.get('/sys/reg', sysReg.get);
+		app.get('/reg', sysReg.get);
 
 		//单个信息页面
 		app.get('/d/:_id', detail.get);
 		
 		//ie
-		app.get('/sys/ie', function(req, res){
+		app.get('/ie', function(req, res){
 			res.render("ie.ejs");
 			res.end();
 		});
@@ -120,29 +124,26 @@ module.exports = function ( app ) {
 	*/
 	
 		//对话发送信息
-		app.options('/sys/post', CORS_OPTIONS);
+		app.options('/api/post', CORS_OPTIONS);
 
-		app.post('/sys/post', chat.post);
+		app.post('/api/post', chat.post);
 		//app.post('/post', chat.post);
 
 		// post 创建对话 /
-		app.post('/sys/create', sysCreate.post);
+		//app.post('/sys/create', sysCreate.post);
 		// post 创建对话 /
-		app.get('/sys/create-topic', require("./sys/create-topic").get);
+		app.get('/create-topic', require("./sys/create-topic").get);
 
 		// get login
-		app.post('/sys/login', sysLogin.post);
+		app.post('/login', sysLogin.post);
 
 		// get reg
-		app.post('/sys/reg', sysReg.post);
-
-		//进入一个房间
-		app.post('/sys/into', sysInto.post);
+		app.post('/reg', sysReg.post);
 
 		//输入房间密码
-		app.get('/sys/room_limit', roomLimit.get);
+		app.get('/room_limit', roomLimit.get);
 		//输入房间密码
-		app.post('/sys/room_limit', roomLimit.post);
+		app.post('/room_limit', roomLimit.post);
 
 		//主页
 		app.get('/user/home',require("./user/home").get);
