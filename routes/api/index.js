@@ -52,8 +52,8 @@ module.exports = function( app ){
 	app.get('/api/notice-list', require("./getUserNoticeList"));
 	//14号接口
 	app.post('/api/notice-status', require("./setUserNoticeStatus"));
-
-	//app.get('/sys/contact-list', require("./contactList"));
+	//22号
+	app.get('/api/room-search', require("./roomSearch"));
 
 	app.options('/sys/vchat-create', CORS_OPTIONS);
 	app.options('/sys/vchat-login', CORS_OPTIONS);

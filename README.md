@@ -571,6 +571,21 @@ return {
 	return {
 		code:0,
 		msg:"",
-		result:{User,User}
+		result:[User,User]
+	} 
+````
+
+####检索 topic 22
+````javascript
+	
+	url:"/api/room-search"
+	method:get
+	param:
+		key:string < 20
+
+	return {
+		code:0,
+		msg:"",
+		result:[Room,Room]
 	} 
 ````
