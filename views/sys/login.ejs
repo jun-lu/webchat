@@ -51,7 +51,7 @@
 
 			<div class="login-header">
 				<h1>
-					<a href="/">vchat.co</a>	
+					<a href="/home">vchat.co</a>	
 				</h1>
 				<p class="introduce">chat eachother base on topic</p>
 			</div>
@@ -60,7 +60,7 @@
 				<% if( status.code  != 0 ){ %>
 					<div class="status-tips set-middle"><%= status.msg %></div>
 				<% } %>
-				<form class="vert-form form-middle set-middle" action="/sys/login" method="post" id="login">
+				<form class="vert-form form-middle set-middle" action="/login" method="post" id="login">
 					<input type="hidden" name="referer" value="<%=referer%>" >
 					<div class="input-box">
 						<i class="icon-email"></i>
@@ -72,7 +72,7 @@
 					</div>
 					
 					<button type="submit" class="btn form-btn strip-btn">Login In</button>
-					<a class="form-link tips" href="/sys/reg">create my account</a>
+					<a class="form-link tips" href="/reg">create my account</a>
 				</form>
 			</div>
 		

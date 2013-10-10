@@ -23,7 +23,7 @@
 
 			<%if(status.code != 0){%><div class="alert alert-error"><%=status.msg%></div><%}%>
 
-			<form method="post" action="/sys/room_limit" class="bs-docs-example">
+			<form method="post" action="/room_limit" class="bs-docs-example">
 				
 				<input type="hidden" name="roomid" value="<%=room.name || room.id%>" >
 	            <div class="control-group">

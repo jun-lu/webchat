@@ -55,3 +55,7 @@ header{width:100%;position:fixed;top:0px;}
 	.topics .block:first-child{border-right:0;}
 	.topics .block{width:100%;}
 }
+
+@media (max-width:500px){
+	.main{margin-left:0px;}
+}

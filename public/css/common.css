@@ -128,13 +128,37 @@ header{background:#545652;height:33px;border-bottom:#303030 solid 1px;box-shadow
 	
 	.header-menu .notice-box,.header-menu .account-box{display:inline-block;float: left}
 	.header-menu{position:relative;float:right;height:33px;}
+	.header-menu .account-box{margin-right:10px;}
 	.header-menu .notice-box a,.header-menu .account-box .nick-name{padding: 0px 20px;display: block;height:33px;line-height: 36px;color:#D8D8D8}
-	.header-menu .account-box .nick-name{font-size: 13px;color:#fff;white-space: nowrap;word-wrap: normal;word-break: normal;text-overflow: ellipsis;overflow: hidden;position:relative;padding-left:50px;}
+	.header-menu .account-box .nick-name{font-size: 13px;color:#fff;white-space: nowrap;word-wrap: normal;word-break: normal;text-overflow: ellipsis;overflow: hidden;position:relative;padding-left:50px;padding-right: 11px;width: 6em}
 		.header-menu .notice-box i{vertical-align: middle;margin-bottom: 3px}
 		.header-menu .account-box .nick-name{border-left: #222 solid 1px;}
 		.header-menu .notice-box{border-right: #6B6B6B solid 1px}
-		.header-menu .account-box .nick-name:hover{background:#222}
 	.header-unlogin a{height: 34px;line-height: 34px;font-size: 13px;color: #E6E6E6;display: inline-block;padding: 0px 20px;border-right: #424242 solid 1px}
-		
+	
 	.header-links{line-height: 34px;height:34px;}
-	.header-links a{color:#e2e2e2;padding:0px 15px;} .header-links a:hover{color:#fff;}
+	.header-links a{color:#e2e2e2;padding:0px 15px;display:inline-block;float:left;font-size: 14px;} .header-links a.select,.header-links a:hover{color:#fff;}
+	.header-links a.select{background:#222;}
+	.header-links a:first-child{border-right: #6B6B6B solid 1px;}
+	.header-links a:nth-child(2){border-left:#222 solid 1px;}
+
+	.header-menu .drop-list{position:absolute;width:140px;background:#222;top:33px;right:10px;border-radius: 0px 0px 4px 4px;font-size:13px;display:none;padding-top:1px;}
+	.header-menu .drop-list a{color:#D5D5D5;display:block;padding: 5px 0px 5px 15px}
+
+	.header-menu .drop-list a:hover{background:#5E5E5E;color:#fff}
+	.header-menu .drop-list .login-out{border-top:#8F8E8E solid 1px;border-radius:0px 0px 4px 4px;}
+
+	.header-menu .account-box:hover .drop-list{display:block;}
+	.header-menu .drop-list:hover .account-box{display:block;background:red}
+	.header-menu .account-box:hover{background:#222}
+
+	@media (max-width:500px){
+		header .links-dot{display:block;}
+		header .links-show{display:none;}
+	}
+
+
+/* page-box */
+	.page-box a,.page-box span{padding:0px 10px;padding: 0px 10px;height: 30px;line-height: 30px;color:#333;}
+	.page-box a:hover{background:#eee;}
+	.page-box strong{font-weight:bold;}
