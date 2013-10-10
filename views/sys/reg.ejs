@@ -41,7 +41,7 @@
 
 			<div class="reg-header">
 				<h1>
-					<a href="/">vchat.co</a>	
+					<a href="/home">vchat.co</a>	
 				</h1>
 				<p class="introduce">chat eachother base on topic</p>
 			</div>
@@ -50,7 +50,7 @@
 				<% if(code  != 0 ){ %>
 					<div class="status-tips set-middle"><%=msg %></div>
 				<% } %>
-				<form class="vert-form form-middle set-middle" action="/sys/reg" method="post" id="regForm">
+				<form class="vert-form form-middle set-middle" action="/reg" method="post" id="regForm">
 					<div class="input-box">
 						<i class="icon-email"></i>
 						<input autofocus placeholder="Email" type="text" maxlength="100" id="email" name="email">
@@ -64,7 +64,7 @@
 						<input placeholder="Nickname" type="text" id="name" name="name" maxlength="50">
 					</div>
 					<button type="submit" class="btn form-btn strip-btn">Create my account</button>
-					<p class="tips">I have an account &nbsp;&nbsp;<a class="form-link" href="/sys/login">login in</a></p>
+					<p class="tips">I have an account &nbsp;&nbsp;<a class="form-link" href="/login">login in</a></p>
 					<p class="tips bottom-tips">Notice : successful registration you will receive a report containing a password Email</p>
 				</form>
 			</div>
