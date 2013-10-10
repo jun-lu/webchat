@@ -56,6 +56,6 @@ header{width:100%;position:fixed;top:0px;}
 	.topics .block{width:100%;}
 }
 
-@media (max-width:500px){
+@media (max-width:600px){
 	.main{margin-left:0px;}
 }

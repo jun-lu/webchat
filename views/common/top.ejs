@@ -1,13 +1,18 @@
 <header>
 	<div class="pull-left header-links links-dot hidden">
-		<a href="/home">vchat.co</a>
-		<a>...</a>
+		<a class="home" href="/">vchat.co</a>
+		<a class="dotted">...</a>
 	</div>
 	<div class="pull-left header-links links-show">
-		<a href="/home">vchat.co</a>
+		<a class="home" href="/">vchat.co</a>
 		<% var pageName = typeof page == "undefined" ? "none" : page; %>
-		<a href="/recommend" <% if( pageName == "recommend"){ %> class="select" <% } %>>Recommend</a>
-		<a href="/recently" <% if( pageName == "recently"){ %> class="select" <% } %>>Recently</a>
+		<div class="search-box">
+			<input placeholder="Search topics">
+		</div>
+		<div class="menu-links">
+			<a href="/recommend" <% if( pageName == "recommend"){ %> class="select" <% } %>>Recommend</a>
+			<a href="/recently" <% if( pageName == "recently"){ %> class="select" <% } %>>Recently</a>
+		</div>
 	</div>
 	<% if(user){ %>
 	<div class="pull-right header-menu">
@@ -17,9 +22,10 @@
 			</a>
 		</div>
 		<div class="account-box">
+
 			<a class="nick-name" href="/user/home">
 				<img src="<%=user.avatar%>">
-				<%=user.name =="" ? "(暂无昵称)": user.name %>
+				<%=user.name =="" ? "(未设置昵称)": user.name %>
 			</a>
 			<div class="drop-list">
 				<ul>
