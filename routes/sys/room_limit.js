@@ -15,7 +15,7 @@ module.exports = {
 
 		var roomid = req.query.roomid;
 		var user = req.session.user;
-		var roomid = req.query.roomid;
+		//var roomid = req.query.roomid;
 		var status = new WebStatus();
 
 		var output = {
