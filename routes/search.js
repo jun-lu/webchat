@@ -20,6 +20,7 @@ module.exports = {
 		var output = {
 			user:user ? user.getInfo() : null,
 			key:key,
+			tool:tools,
 			result:[]// 搜索结果
 		};
 
