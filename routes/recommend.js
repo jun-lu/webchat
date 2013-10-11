@@ -19,10 +19,10 @@ module.exports = {
 		RoomModel.getMultiple(recommendRoom, function( status ){
 
 			output.rooms = status.result;
-			/**
-			res.write( JSON.stringify( status, "", "    " ));
+			/***
+			res.write( JSON.stringify( output, "", "    " ));
 			res.end();
-			*/
+			**/
 			res.render("recommend", output);
 		})
 		//res.render("recommend", output);
