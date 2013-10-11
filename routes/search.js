@@ -39,7 +39,7 @@ module.exports = {
 
 				//res.write( JSON.stringify( output ), "", "  " );
 				//res.end();
-				//res.render("search", output);
+				res.render("search", output);
 
 
 			});
