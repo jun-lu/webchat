@@ -52,8 +52,8 @@
 	.main-title{background: #f8f8f8;border-bottom: #e4e4e4 solid 1px;}
 		.main-title h1{font-size: 18px;padding: 13px 0px 13px 20px;color: #484848;font-weight:bold;}
 	.main-input{border-top: #ececec solid 1px;background:#fff;}
-		.main-input .text-box{padding:10px 8px;}
-			.main-input .text-box input{float:none;box-shadow:none;color: #333;position:relative;font-size:13px;width:100%;box-sizing:border-box;-moz-box-sizing:border-box;padding:5px;}
+		.main-input .text-box{padding: 20px 10px;}
+			.main-input .text-box input{height: 40px;float:none;box-shadow:none;color: #333;position:relative;font-size:13px;width:100%;box-sizing:border-box;-moz-box-sizing:border-box;padding:5px;}
 			.main-input .text-box .icon-screen{position: absolute;top: 19px;right: 19px;z-index:10}
 		.main-input .replay-box{position: absolute;background: #edf1f6;z-index: 99;bottom: 50px;left:7px;font-size: 13px;padding: 5px 25px 5px 10px;margin-right: 10px;box-shadow: #DFDFDF 2px 2px 1px;border-radius: 4px;max-width: 84%;
 									background:-webkit-gradient(linear, 0 0, 0 100%, from(rgb(255, 255, 190)), to(rgb(253, 250, 162)));
