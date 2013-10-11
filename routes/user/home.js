@@ -42,11 +42,32 @@ module.exports = {
 
 
 			promise.then(function () {
-				LogModel.inquire({"$or":[{id:user._id, location:"into_room"},{id:user._id, location:"create_room"}]}, 200, function( status ) {
-					console.log("status", status);
+
+				LogModel.getLog( String(user._id), 100, function( status  ){
+					var log = {};
+					var joins = [];
+					if(status.code == "0"){
+						var logs = status.result;
+						for(var i=0; i< logs.length; i++){
+
+							if(log[logs[i].info.id] == undefined){
+								log[logs[i].info.id] = 1;//logs[i].info;
+								joins.push( logs[i].info );
+							}
+						}
+						output.joinTopics = joins;
+					}
+
+					promise.ok();
+				} );
+
+				/**
+				LogModel.inquire({"$or":[{id:user._id, location:"into_room"},{id:user._id, location:"create_room"}]}, 1000, function( status ) {
+					//console.log("status", status);
 					if( status.code == 0 ){
 
 						var list = tools.unique( status.result, function( a ) {	
+							console.log( "id:",a.id )
 							return a.id;
 						});
 
@@ -57,6 +78,7 @@ module.exports = {
 					}
 					promise.ok();	
 				});
+				*/
 			});
 
 			promise.then(function() {

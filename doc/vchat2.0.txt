@@ -84,6 +84,21 @@ output = {
 	user:User
 }
 
+vchat.co/recommend
+output = {
+	
+	user:User,
+	rooms:[Room, Room]
+}
+
+vchat.co/recently
+output = {
+	
+	user:User,
+	rooms:[Room, Room]
+}
+
+
 vchat.co/user/kyes(MD5_KEY) vchat.co/user/md5_key
 output = {
 	
@@ -92,6 +107,9 @@ output = {
 	accessUser:Room,
 	tool: //工具
 }
+
+
+
 pages:
 	
 	1. url:user/user._id 用户页面

@@ -13,9 +13,19 @@ module.exports = {
 	get:function(req, res){
 		var user = req.session.user;
 		var output = {
-			user:user ? user.getInfo() : null
+			user:user ? user.getInfo() : null,
+			rooms:[]
 		};
-		res.render("recommend", output);
+		RoomModel.getMultiple(recommendRoom, function( status ){
+
+			output.rooms = status.result;
+			/**
+			res.write( JSON.stringify( status, "", "    " ));
+			res.end();
+			*/
+			res.render("recommend", output);
+		})
+		//res.render("recommend", output);
 		
 	},
 	post:null

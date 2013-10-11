@@ -68,6 +68,7 @@ module.exports = function ( app ) {
 		app.get('/recommend', require("./recommend").get);
 
 		app.get('/recently', require("./recently").get);
+		app.get('/search', require("./search").get);
 
 		app.get('/a/test', function(req, res){
 			res.render("test", {});

@@ -52,19 +52,19 @@ module.exports = {
 			});
 
 			promise.add(function( ) {
-				LogModel.getLog( user._id, 1000, function( status ) {
-					//进入过
+				LogModel.getLog( user._id, 100, function( status ) {
+					var log = {};
+					var joins = [];
+					if(status.code == "0"){
+						var logs = status.result;
+						for(var i=0; i< logs.length; i++){
 
-					if( status.code == 0 ){
-
-						var list = tools.unique( status.result, function( a ) {	
-							return a.id;
-						});
-
-						for(var i=0; i< list.length; i++){
-							output.joins.push( list[i].info );
+							if(log[logs[i].info.id] == undefined){
+								log[logs[i].info.id] = 1;//logs[i].info;
+								joins.push( logs[i].info );
+							}
 						}
-
+						output.joins = joins;
 					}
 
 					promise.ok();	
@@ -72,8 +72,6 @@ module.exports = {
 			});
 
 			promise.then(function() {
-				//res.write(JSON.stringify( output,"", "  "));
-				//res.end();
 				res.render("user/topic", output);
 			});
 
