@@ -6,7 +6,7 @@
 */
 var LogModel = require("../lib/LogModel");
 var RoomModel = require("../lib/RoomModel");
-var tool = require("../lib/tools");
+var tools = require("../lib/tools");
 var recommendRoom = require("../config").recommendRooms;
 module.exports = {
 
@@ -14,15 +14,16 @@ module.exports = {
 		var user = req.session.user;
 		var output = {
 			user:user ? user.getInfo() : null,
-			rooms:[]
+			rooms:[],
+			tool:tools
 		};
 		RoomModel.getMultiple(recommendRoom, function( status ){
 
 			output.rooms = status.result;
-			/**
-			res.write( JSON.stringify( status, "", "    " ));
+			/***
+			res.write( JSON.stringify( output, "", "    " ));
 			res.end();
-			*/
+			**/
 			res.render("recommend", output);
 		})
 		//res.render("recommend", output);
