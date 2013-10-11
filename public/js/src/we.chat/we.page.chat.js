@@ -300,7 +300,7 @@ WE.pageChat.timeLine = {
 					<div class="head">\
 						<a href="/user/<%=from._id%>" target="_blank" class="name <% if(from.name==""){ %> no-name <% } %>"><%= from.name == ""? "(暂无昵称)" : from.name %></a>\
 						<a target="_blank" href="/d/<%=_id%>" class="time">\
-							<%=WE.kit.format( new Date( time*1000 ),"MM-dd hh:mm:ss" )%>\
+							<%=WE.kit.weFormat( time*1000 ) %>\
 						</a>\
 					</div>\
 					<% if(obj.aim){ %>\

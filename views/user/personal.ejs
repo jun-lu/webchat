@@ -95,7 +95,7 @@
 								<a class="topic" href="/t/<%=item.info.name || item.info.id%>"><%=item.info.topic%></a>
 							</div>
 
-							<span class="pull-right time"><%=tool.format(item.time, "yyyy-MM-dd hh:mm")%></span>
+							<span class="pull-right time"><%=tool.weFormat(item.time * 1000)%></span>
 						</div>
 					<%}%>
 

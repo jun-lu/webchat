@@ -24,6 +24,8 @@
 			.feed .tack .talks,.feed .tack .joins{display: inline-block;line-height: 25px}
 			.feed .tack .joins{margin:0px 15px 0px 10px;}
 	</style>
+
+
 </head>
 <body>
 
@@ -62,14 +64,17 @@
 							<%=item.master.name == "" ? "(未设置昵称)" : item.master.name %>
 						</a>
 					</div>
-					<!-- <div class="pull-right">
-						<span class="talks">
+					<div class="pull-right">
+						<span class="time">
+							<%=tool.weFormat(item.time * 1000)%>
+						</span>
+						<!-- <span class="talks">
 							2091 talks
 						</span>
 						<span class="joins">
 							2091 joins
-						</span>
-					</div> -->
+						</span> -->
+					</div>
 				</div>
 			</div>
 
