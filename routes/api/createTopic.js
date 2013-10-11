@@ -4,9 +4,11 @@
 	
 	首页
 */
+var Cookie = require("../../lib/Cookie");
 var ChatModel = require("../../lib/ChatModel");
 var LogModel = require("../../lib/LogModel");
 var RoomModel = require("../../lib/RoomModel");
+var UserModel = require("../../lib/UserModel");
 var Promise = require("../../lib/Promise");
 var tools = require("../../lib/tools");
 var WebStatus = require("../../lib/WebStatus");
@@ -22,7 +24,7 @@ module.exports = function(req, res){
 		user:user ? user.getInfo() : null
 	};
 	//console.log("topic", topic, des, pwd);
-
+	/**
 	if(user == null){
 		res.write( new WebStatus("-3").toString() );
 		res.end();
@@ -35,11 +37,40 @@ module.exports = function(req, res){
 		res.end();
 		return false;
 	}
-
+	*/
 	
 
 
 	promise = new Promise();
+
+	promise.then(function(){
+
+		if(user == null){
+
+			UserModel.create(String(parseInt(Date.now() + "" +Math.random()*1000)), String(Date.now()), "未设置昵称的小伙伴", function( status ){
+
+				if( status.code == 0 ){
+					//console.log("toCookie", status );
+					var user = status.result;
+					var cookie = new Cookie("sid", user.toCookie());
+					cookie.setExpires(new Date("2030"));
+					res.setHeader("Set-Cookie", [cookie.toString()]);
+					output.user = user.getInfo();
+
+					promise.ok();
+				}else{
+
+					res.write( status.toString() );
+					res.end();
+				}
+
+			});
+		}else{
+
+			promise.ok();
+		}
+
+	});
 
 	promise.then(function(){
 
