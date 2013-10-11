@@ -5,6 +5,7 @@
 	首页
 */
 var RoomModel = require("../lib/RoomModel");
+var WebStatus = require("../lib/WebStatus");
 var tools = require("../lib/tools");
 var Room_PUBLIC_KEYS = require("../lib/Room").PUBLIC_KEYS;
 
@@ -25,7 +26,7 @@ module.exports = {
 		var reg = new RegExp( key, "i");
 
 		RoomModel.opendb(function( collection, db ){
-			collection.find( {status:1, "$or":[{topic:reg},{des:reg}]}, Room_PUBLIC_KEYS).limit(10).toArray(function(err, result){
+			collection.find( {status:1, "$or":[{topic:reg},{des:reg}]}).limit(10).toArray(function(err, result){
 
 				
 				var webstatus = null;
@@ -33,13 +34,19 @@ module.exports = {
 				if( err ){
 					webstatus =new WebStatus("601");
 				}else{
-					//webstatus = new WebStatus().setResult(result || []);
-					output.result = result;
+					webstatus =new WebStatus("0").setResult( result || [] );
 				}
+				//console.log( JSON.stringify(webstatus, "", "   ") );
+				RoomModel.serialization( webstatus, function( status ){
 
-				//res.write( JSON.stringify( output ), "", "  " );
-				//res.end();
-				res.render("search", output);
+					output.result = status.result;
+					//res.write( status.toString() );
+					//res.end();
+
+					res.render("search", output);
+				});
+
+				
 
 
 			});
