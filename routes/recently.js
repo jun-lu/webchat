@@ -11,12 +11,24 @@ var recommendRoom = require("../config").recommendRooms;
 module.exports = {
 
 	get:function(req, res){
+
 		var user = req.session.user;
 		var output = {
-			user:user ? user.getInfo() : null
+			user:user ? user.getInfo() : null,
+			rooms:[]
 		};
 
-		res.render("recently", output);
+		RoomModel.findNewRoom(10, function( status ){
+
+			output.rooms = status.result;
+			/***/
+			//res.write( JSON.stringify( status, "", "    " ));
+			//res.end();
+			
+			res.render("recently", output);
+		})
+
+		//res.render("recently", output);
 		
 	},
 	post:null

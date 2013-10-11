@@ -36,13 +36,10 @@ module.exports = {
 				}else{
 					webstatus =new WebStatus("0").setResult( result || [] );
 				}
-				//console.log( JSON.stringify(webstatus, "", "   ") );
+				
 				RoomModel.serialization( webstatus, function( status ){
 
 					output.result = status.result;
-					//res.write( status.toString() );
-					//res.end();
-
 					res.render("search", output);
 				});
 
