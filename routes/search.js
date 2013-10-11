@@ -19,6 +19,7 @@ module.exports = {
 
 		var output = {
 			user:user ? user.getInfo() : null,
+			key:key,
 			result:[]// 搜索结果
 		};
 
