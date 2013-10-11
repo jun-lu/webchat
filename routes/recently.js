@@ -6,7 +6,7 @@
 */
 var LogModel = require("../lib/LogModel");
 var RoomModel = require("../lib/RoomModel");
-var tool = require("../lib/tools");
+var tools = require("../lib/tools");
 var recommendRoom = require("../config").recommendRooms;
 module.exports = {
 
@@ -15,7 +15,8 @@ module.exports = {
 		var user = req.session.user;
 		var output = {
 			user:user ? user.getInfo() : null,
-			rooms:[]
+			rooms:[],
+			tool:tools
 		};
 
 		RoomModel.findNewRoom(10, function( status ){
