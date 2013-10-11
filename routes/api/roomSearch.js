@@ -30,8 +30,8 @@ module.exports = function( req, res ){
 		return false;
 	}
 
-	reg = new RegExp( key, "i");
-
+	reg = new RegExp( key, "gi");
+	console.log( reg );
 	RoomModel.opendb(function( collection, db ){
 		collection.find( {status:1, "$or":[{topic:reg},{des:reg}]}, Room_PUBLIC_KEYS).limit(10).toArray(function(err, result){
 

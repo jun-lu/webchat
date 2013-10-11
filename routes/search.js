@@ -14,7 +14,7 @@ module.exports = {
 
 	get:function(req, res){
 
-		var key = String(req.query.key);
+		var key = tools.trim(req.query.key);
 		var user = req.session.user;
 
 		var output = {
@@ -27,7 +27,7 @@ module.exports = {
 		var reg = new RegExp( key, "i");
 
 		RoomModel.opendb(function( collection, db ){
-			collection.find( {status:1, "$or":[{topic:reg},{des:reg}]}).limit(10).toArray(function(err, result){
+			collection.find( {status:1, "$or":[{topic:reg},{des:reg}]} ).limit(10).toArray(function(err, result){
 
 				
 				var webstatus = null;
