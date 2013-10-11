@@ -25,6 +25,22 @@ WE.pageChat = {
 
 				if( text !="" ){
 					_this.post( ROOM.id, text, _this.replyTo );
+
+					// WE.pageChat.timeLine.append( {
+					// 	_id: "",
+					// 	aim: null,
+					// 	del: 0,
+					// 	from:{
+					// 		_id: USER._id,
+					// 		avatar: USER.avatar,
+					// 		name: USER.name,
+					// 		summary: USER.summary
+					// 	},
+					// 	roomid: ROOM.id,
+					// 	text: text,
+					// 	time: null,
+					// 	to: "*"
+					// } )
 				}
 				
 			}
