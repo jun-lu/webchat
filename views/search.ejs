@@ -15,12 +15,12 @@
 		.result-tips{border-top: #fbffff solid 1px;padding:10px 0px;font-weight: bold}
 		.no-result{text-align:center;border: #b2b6b9 solid 1px;background: #eee;border-top: 0;padding: 30px}
 			.feed{background:#fff;border:#bababa solid 1px; box-shadow:0px 0px 1px #A8A8A8;margin-bottom: 15px}
-			.feed h3{padding:15px 0px;}
-			.feed .topic{color:#505050;padding:0px 5px;font-size:20px;display:inline-block;margin-left:10px;} 
+			.feed h3{padding:20px 0px;}
+			.feed .topic{color:#505050;padding:0px 5px;font-size:16px;display:inline-block;margin-left:10px;} 
 			.feed .topic:hover{background:#eee;}
 			.feed .tack{border-top:#e4e4e4 solid 1px;background:#f8f8f8;color:#808080;padding:5px 5px 5px 15px;font-size:13px;}
 			.feed .create-user img{width: 25px;height: 25px;border-radius: 4px;vertical-align: middle;margin-right: 5px}
-			.feed .create-user a{font-size:13px;color:#808080} .feed .create-user a:hover{color:#666;}
+			.feed .create-user a{font-size:13px;color:#B4B4B4;} .feed .create-user a:hover{color:#666;}
 			.feed .tack .talks,.feed .tack .joins{display: inline-block;line-height: 25px}
 			.feed .tack .joins{margin:0px 15px 0px 10px;}
 
@@ -55,7 +55,7 @@
 			<h1>Search</h1>
 			<div class="search-bar clearfix">
 				<form method="get" action="/search">
-					<input placeholder="Search topics" autofocus name="key" value="<%=key %>">
+					<input id="search-input" autofocus placeholder="Search topics" name="key" value="<%=key %>">
 					<button type="submit" class="btn">Search</button>
 				</form>
 			</div>
