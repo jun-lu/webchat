@@ -54,6 +54,50 @@ WE.extend(WE.kit, {
 		return (pattern || "yyyy-MM-dd hh:mm:ss").replace(/yyyy|yy|MM|M|dd|d|hh|h|mm|m|ss|s/g, function(v){ return date[v];});
 			
 	},
+	weFormat : function( time ){
+
+		var output = '';
+		var date = new Date( time );
+		var now = new Date();
+
+		var nYear = now.getFullYear(),
+			nMonth = now.getMonth() + 1,
+			nDate = now.getDate();
+
+		var gYear = date.getFullYear(),
+			gMonth = date.getMonth() + 1,
+			gDate = date.getDate();
+
+		var dateArr = [gYear, gMonth, gDate];
+		var timeArr = [date.getHours(), date.getMinutes(), date.getSeconds()];
+
+		if( gYear == nYear  ){
+
+			if( gMonth == nMonth ){
+
+				if( gDate == nDate ){
+
+					output = 'Today' + ' ' + timeArr.join(':');
+				}else if( (gDate - nDate) == 1 ){
+
+					output = 'Yesterday' + ' ' + timeArr.join(':');
+				}else{
+
+					output = dateArr.splice(1,3).join('-') + ' ' + timeArr.join(':');
+				}
+
+			}else if( gMonth != nMonth ){
+
+				output = dateArr.splice(1,3).join('-') + ' ' + timeArr.join(':');
+			}
+			
+		}else{
+
+			output = dateArr.join('-') + ' ' + timeArr.join(':');
+		}
+
+		return output;
+	},
 	sortFormat:function(source){
 		return this.format(source, "yyyy-MM-dd");
 	},

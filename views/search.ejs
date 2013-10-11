@@ -89,10 +89,15 @@
 				</h3>
 				<div class="tack clearfix">
 					<div class="create-user pull-left">
-						<a href="/">
+						<a href="/user/<%item.master._id %>">
 							<img src="<%=item.master.avatar %>">
 							<%=item.master.name == "" ? "(未设置昵称)" : item.master.name %>
 						</a>
+					</div>
+					<div class="pull-right">
+						<span class="time">
+							<%=tool.weFormat(item.time * 1000)%>
+						</span>
 					</div>
 				</div>
 			</div>
