@@ -7,11 +7,18 @@
 		<a class="home" href="/">vchat.co</a>
 		<% var pageName = typeof page == "undefined" ? "none" : page; %>
 		<div class="search-box" id="search-box">
-			<input placeholder="Search topics" maxlength="20" class="search-input">
+			<form method="get" action="/search" id="search-form">
+				<input autocomplete="off" disableautocomplete placeholder="Search topics" name="key" maxlength="20" class="search-input">
+			</form>
 			<div class="result-box hidden">
-				<a href="">what can i do for you</a>
-				<a href="">what can i do for you</a>
+				<a class="loading hidden" style="text-algin:center">
+					<img src="/public/images/loadinfo.net.gif">...
+				</a>
+				<div class="results">
+
+				</div>
 			</div>
+
 		</div>
 		<div class="menu-links">
 			<a href="/recommend" <% if( pageName == "recommend"){ %> class="select" <% } %>>Recommend</a>
@@ -75,10 +82,3 @@
 	</div>
 	<% } %>
 </header>
-
-<script type="text/javascript" src="/public/js/we.top.min.js"></script>
-<script type="text/javascript">
-	$(function(){
-		WE.top.init();
-	})
-</script>

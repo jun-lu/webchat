@@ -58,6 +58,7 @@ header{width:100%;position:fixed;top:0px;}
 
 	/* for small bar */
 		.l-aside{position:fixed;width:100%;top:34px;height:auto;padding:8px;
+			background:rgb(222,225,229);z-index:90;border-bottom: #CFCFCF solid 1px;
 			box-sizing: border-box;
 			-webkit-box-sizing: border-box;
 			-moz-box-sizing: border-box;

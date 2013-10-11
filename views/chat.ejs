@@ -114,8 +114,9 @@
 		</div>	
 	</div>
 	
-
-
+	<script type="text/javascript" src="/public/js/lib/jquery-1.6.3.min.js"></script>
+	<script type="text/javascript" src="/public/js/lib/we.min.js"></script>
+	<script type="text/javascript" src="/public/js/we.top.min.js"></script>
 	<script type="text/javascript" src="/public/js/we.chat.min.js"></script>
 	<!--<script type="text/javascript" src="/public/js/src/we.chat/we.page.chat.js"></script>-->
 
@@ -151,8 +152,10 @@
 						WE.pageChat.userlist.init( data );
 					},
 					"new-chat":function( data ){
-						console.log('data',data);
+						
+					
 						WE.pageChat.timeLine.append( data );
+						
 						//WE.pageChat.notice.onUpdate();
 						if( data.to && data.from._id == USER._id ){
 							new WE.api.NoticeModel().noticeStatus( data._id );
@@ -197,14 +200,12 @@
 				}, this.weightTime+= 2000 );
 
 			}
-		};	
-
-			
-			
+		};			
 	</script>
 
 	<script type="text/javascript">
-
+		WE.top.init();
+		
 		connectionSocketServer.init();
 
 		WE.pageChat.init();
