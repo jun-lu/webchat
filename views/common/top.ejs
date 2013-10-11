@@ -6,8 +6,19 @@
 	<div class="pull-left header-links links-show">
 		<a class="home" href="/">vchat.co</a>
 		<% var pageName = typeof page == "undefined" ? "none" : page; %>
-		<div class="search-box">
-			<input placeholder="Search topics">
+		<div class="search-box" id="search-box">
+			<form method="get" action="/search" id="search-form">
+				<input autocomplete="off" disableautocomplete placeholder="Search topics" name="key" maxlength="20" class="search-input">
+			</form>
+			<div class="result-box hidden">
+				<a class="loading hidden" style="text-algin:center">
+					<img src="/public/images/loadinfo.net.gif">...
+				</a>
+				<div class="results">
+
+				</div>
+			</div>
+
 		</div>
 		<div class="menu-links">
 			<a href="/recommend" <% if( pageName == "recommend"){ %> class="select" <% } %>>Recommend</a>
