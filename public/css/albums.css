@@ -1,0 +1,26 @@
+.container{width:960px;}
+.bd{width:960px;margin:20px auto;position:relative;min-height:500px;}
+
+	/* albums , photo 相册,图片 */
+.albums-cover{text-align:center;vertical-align:middle;}
+.albums-list,.photo-list{margin:0px;padding:0px;zoom:1;overflow:hidden;}
+	.albums-list li,.photo-list li{list-style:none;float:left;width:170px;height:206px;font-size:13px;margin:0px 22px 10px 0px;}
+	.albums-info,.photo-info{margin-top:5px;}
+	.albums-info .icon-edit,.photo-info .icon-edit{cursor:pointer;}
+	.pagination{text-align:center;}
+		.photo-cover{position:relative;display:table-cell;overflow:hidden;width:170px;height:170px;text-align:center;vertical-align: middle;}
+	
+
+/* photo-view */
+.photo-wall{position:relative;text-align:center;width:100%;height:auto;background:#fdfdfd;}
+		.btn-page{margin-left:15px;font-size:13px;color:#ccc}
+		.photo-page{position:absolute;overflow:hidden;zoom:1;z-index:10;right:13px;top:8px}
+		.btn-page .disabled{color:#999;cursor:default;}
+		.btn-page .disabled:hover{color:#999;background:none;}
+
+.albums-list .masthead{text-align: center;display:block;float:none;width:auto;}
+.masthead .btn{color:#fff;padding:.3em 3em;}
+
+
+/* footer */
+.footer{margin-top:50px;padding-bottom: 30px;}

@@ -33,17 +33,22 @@ WE.top = {
 				return false;
 			}
 
-			if( e.keyCode == 13 && _this.datas != null
-				&& _this.index != -1 ){
-
-				window.location.href = '/t/' + ( _this.datas[_this.index].name || _this.datas[_this.index].id );
-				return false;
-			}
-
 			if( e.keyCode == 13 ){
 
-				_this.ui.searchForm.submit();
+				if( _this.datas != null && _this.index != -1 &&
+						_this.index != ( _this.maxIndex -1 )
+					){
+					window.location.href = '/t/' + ( _this.datas[_this.index].name || _this.datas[_this.index].id );
+					
+				}else{
+
+					window.location.href = '/search?key=' + _this.value;
+				}
+
+				e.preventDefault();
+				e.stopPropagation();
 				return false;
+				
 			}
 
 			var value = $.trim( _this.ui.input.val() );
@@ -77,6 +82,11 @@ WE.top = {
 
 			var keyCode = e.keyCode;
 
+			if( keyCode == 13 ){
+
+				e.preventDefault();
+			}
+
 			if( keyCode == 38 || keyCode == 40 ){
 				e.preventDefault();
 
@@ -85,12 +95,29 @@ WE.top = {
 		});
 
 		_this.ui.input.blur(function( e ){
-
-			setTimeout(function(){
-				_this.ui.resultBox.addClass('hidden');
-			},250);
-			
+	
+			_this.ui.resultBox.addClass('hidden');
 		});
+
+
+		_this.ui.resultBox.mousedown(function( e ){
+
+			_this.ui.resultBox.removeClass('hidden');
+
+			e.stopPropagation();
+
+			return false;
+		});
+
+		_this.ui.results.keydown(function(e){
+
+			_this.ui.resultBox.removeClass('hidden');
+
+			e.stopPropagation();
+
+			return false;
+
+		})
 	},
 
 	search: function( key ){
@@ -118,11 +145,13 @@ WE.top = {
 	},
 
 	resultTmpl:'<a href="/t/<%=name || id %>"><i class="icon-chat"></i><%=topic %></a>',
-	searchTmpl:'<a class="key" href="/search?key=<%=key %>">Search Topics for "<%=key %>"</a>',
+	searchTmpl:'<a class="key" href="/search?key=<%=encodeURIComponent(key) %>">Search Topics for "<%=encodeURIComponent(key) %>"</a>',
 	setResult: function( key, datas ){
 
 		var tmpl = '';
 		var len = datas.length;
+
+
 
 		if( datas.length > 0 ){
 
@@ -136,12 +165,18 @@ WE.top = {
 		
 		this.ui.loading.hide();
 
-		this.ui.results.empty();
+		this.ui.results.empty().addClass('hidden');
 		this.ui.results.html( tmpl );
-		
+
+
 		this.index = -1;
 		this.maxIndex = len+1;
 		this.datas = datas;
+
+
+		this.ui.results.removeClass('hidden');
+		
+		
 	},
 
 	index:-1,

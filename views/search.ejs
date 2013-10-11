@@ -29,6 +29,7 @@
 		.search-bar{position:relative;}
 		.search h1{font-size:22px;line-height:35px;margin-bottom: 5px;}
 		.search input{font-size: 13px;width: 100%;padding: 7px;padding-right:80px;
+			height: 36px;
 			box-sizing: border-box;
 			-webkit-box-sizing:border-box;
 			-moz-box-sizing:border-box;
@@ -37,6 +38,11 @@
 		.search button{position:absolute;right: 0px;bottom: 1px}
 
 	</style>
+
+	<script type="text/javascript">
+
+		var result = <%-JSON.stringify(result) %>;
+	</script>
 </head>
 <body>
 
@@ -48,121 +54,51 @@
 		<div class="search">
 			<h1>Search</h1>
 			<div class="search-bar clearfix">
-				<input placeholder="Search topics" autofocus >
-				<button class="btn">Search</button>
+				<form method="get" action="/search">
+					<input placeholder="Search topics" autofocus name="key" value="<%=key %>">
+					<button type="submit" class="btn">Search</button>
+				</form>
 			</div>
 		</div>
 
-		<div class="result-tips">
-			We've found 2938 results
+		<% var len = result.length; %>
+
+		<div class="result-tips <% if( len == 0 ){ %> no-result <% } %>">
+			<% if( len == 0 ){ %>
+				No result...
+			<% }else{ %>
+				We've found results
+			<% } %>		
 		</div>
+
+		<% if(result.length > 0 ){ %>
 		<div class="feeds">
-			<div class="feed">
-				<h3>
-					<a class="topic" href="/">
-						<i class="icon-chat"></i>
-						What can i do for you
-					</a>
-				</h3>
-				<div class="tack clearfix">
-					<div class="create-user pull-left">
-						<a href="/">
-							<img src="http://tp2.sinaimg.cn/1584241417/180/40033396504/1">
-							CK.Ming
-						</a>
-					</div>
-					<div class="pull-right">
-						<span class="talks">
-							2091 talks
-						</span>
-						<span class="joins">
-							2091 joins
-						</span>
-					</div>
-				</div>
-			</div>
+			<% 
+				var item = null;
+				for( var i=0; i<result.length;i++){
 
-			<div class="feed">
-				<h3>
-					<a class="topic" href="/">
-						<i class="icon-chat"></i>
-						What can i do for you
-					</a>
-				</h3>
-				<div class="tack clearfix">
-					<div class="create-user pull-left">
-						<a href="/">
-							<img src="http://tp2.sinaimg.cn/1584241417/180/40033396504/1">
-							CK.Ming
-						</a>
-					</div>
-					<div class="pull-right">
-						<span class="talks">
-							2091 talks
-						</span>
-						<span class="joins">
-							2091 joins
-						</span>
-					</div>
-				</div>
-			</div>
+					item = result[i];
 
+			%>
 			<div class="feed">
 				<h3>
-					<a class="topic" href="/">
+					<a class="topic" href="/t/<%=item.name || item.id %>">
 						<i class="icon-chat"></i>
-						What can i do for you
+						<%=item.topic %>
 					</a>
 				</h3>
 				<div class="tack clearfix">
 					<div class="create-user pull-left">
 						<a href="/">
-							<img src="http://tp2.sinaimg.cn/1584241417/180/40033396504/1">
-							CK.Ming
+							<img src="<%=item.master.avatar %>">
+							<%=item.master.name == "" ? "(未设置昵称)" : item.master.name %>
 						</a>
-					</div>
-					<div class="pull-right">
-						<span class="talks">
-							2091 talks
-						</span>
-						<span class="joins">
-							2091 joins
-						</span>
 					</div>
 				</div>
 			</div>
-
-			<div class="feed">
-				<h3>
-					<a class="topic" href="/">
-						<i class="icon-chat"></i>
-						What can i do for you
-					</a>
-				</h3>
-				<div class="tack clearfix">
-					<div class="create-user pull-left">
-						<a href="/">
-							<img src="http://tp2.sinaimg.cn/1584241417/180/40033396504/1">
-							CK.Ming
-						</a>
-					</div>
-					<div class="pull-right">
-						<span class="talks">
-							2091 talks
-						</span>
-						<span class="joins">
-							2091 joins
-						</span>
-					</div>
-				</div>
-			</div>
+			<% } %>
 		</div>
-
-		<div class="page-box pull-right">
-			<a href="/"><</a>
-			<span><strong>20</strong> / 129</span>
-			<a href="">></a>
-		</div>
+		<% } %>
 
 	</div>
 
