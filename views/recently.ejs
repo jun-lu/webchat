@@ -15,12 +15,12 @@
 
 		.feeds{padding-top:60px;}
 			.feed{background:#fff;border:#bababa solid 1px; box-shadow:0px 0px 1px #A8A8A8;margin-bottom: 15px}
-			.feed h3{padding:15px 0px;}
-			.feed .topic{color:#505050;padding:0px 5px;font-size:20px;display:inline-block;margin-left:10px;} 
+			.feed h3{padding:20px 0px;}
+			.feed .topic{color:#505050;padding:0px 5px;font-size: 16px;display:inline-block;margin-left:10px;} 
 			.feed .topic:hover{background:#eee;}
 			.feed .tack{border-top:#e4e4e4 solid 1px;background:#f8f8f8;color:#808080;padding:5px 5px 5px 15px;font-size:13px;}
 			.feed .create-user img{width: 25px;height: 25px;border-radius: 4px;vertical-align: middle;margin-right: 5px}
-			.feed .create-user a{font-size:13px;color:#808080} .feed .create-user a:hover{color:#666;}
+			.feed .create-user a{font-size:13px;color:#B4B4B4} .feed .create-user a:hover{color:#666;}
 			.feed .tack .talks,.feed .tack .joins{display: inline-block;line-height: 25px}
 			.feed .tack .joins{margin:0px 15px 0px 10px;}
 	</style>
@@ -35,113 +35,53 @@
 
 	<div class="main set-middle">
 
+		<% var len = rooms.length; %>
+
+		<% if( len > 0 ){ %>
 		<div class="feeds">
+
+			<%
+				var item = null;
+
+				for( var i=0; i<len; i++){
+
+					item = rooms[i];
+
+			%>
 			<div class="feed">
 				<h3>
-					<a class="topic" href="/">
+					<a class="topic" href="/t/<%=item.name || item.id %>">
 						<i class="icon-chat"></i>
-						What can i do for you
+						<%=item.topic %>
 					</a>
 				</h3>
 				<div class="tack clearfix">
 					<div class="create-user pull-left">
-						<a href="/">
-							<img src="http://tp2.sinaimg.cn/1584241417/180/40033396504/1">
-							CK.Ming
+						<a href="/user/<%=item.master._id %>">
+							<img src="<%=item.master.avatar %>">
+							<%=item.master.name == "" ? "(未设置昵称)" : item.master.name %>
 						</a>
 					</div>
-					<div class="pull-right">
+					<!-- <div class="pull-right">
 						<span class="talks">
 							2091 talks
 						</span>
 						<span class="joins">
 							2091 joins
 						</span>
-					</div>
+					</div> -->
 				</div>
 			</div>
 
-			<div class="feed">
-				<h3>
-					<a class="topic" href="/">
-						<i class="icon-chat"></i>
-						What can i do for you
-					</a>
-				</h3>
-				<div class="tack clearfix">
-					<div class="create-user pull-left">
-						<a href="/">
-							<img src="http://tp2.sinaimg.cn/1584241417/180/40033396504/1">
-							CK.Ming
-						</a>
-					</div>
-					<div class="pull-right">
-						<span class="talks">
-							2091 talks
-						</span>
-						<span class="joins">
-							2091 joins
-						</span>
-					</div>
-				</div>
-			</div>
-
-			<div class="feed">
-				<h3>
-					<a class="topic" href="/">
-						<i class="icon-chat"></i>
-						What can i do for you
-					</a>
-				</h3>
-				<div class="tack clearfix">
-					<div class="create-user pull-left">
-						<a href="/">
-							<img src="http://tp2.sinaimg.cn/1584241417/180/40033396504/1">
-							CK.Ming
-						</a>
-					</div>
-					<div class="pull-right">
-						<span class="talks">
-							2091 talks
-						</span>
-						<span class="joins">
-							2091 joins
-						</span>
-					</div>
-				</div>
-			</div>
-
-			<div class="feed">
-				<h3>
-					<a class="topic" href="/">
-						<i class="icon-chat"></i>
-						What can i do for you
-					</a>
-				</h3>
-				<div class="tack clearfix">
-					<div class="create-user pull-left">
-						<a href="/">
-							<img src="http://tp2.sinaimg.cn/1584241417/180/40033396504/1">
-							CK.Ming
-						</a>
-					</div>
-					<div class="pull-right">
-						<span class="talks">
-							2091 talks
-						</span>
-						<span class="joins">
-							2091 joins
-						</span>
-					</div>
-				</div>
-			</div>
+			<% } %>
 		</div>
+		<% } %>
 
-		<div class="page-box pull-right">
+		<!-- <div class="page-box pull-right">
 			<a href="/"><</a>
 			<span><strong>20</strong> / 129</span>
 			<a href="">></a>
-		</div>
+		</div> -->
 
 	</div>
 
