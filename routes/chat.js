@@ -137,7 +137,7 @@ module.exports = {
 
 				//房间设置了密码，用户没有权限访问
 				if( room.password  && !user.isRoomPasswrod(room.id, room.password) ){
-					res.redirect("/sys/room_limit?roomid="+room.id);
+					res.redirect("/room_limit?roomid="+room.id);
 					return ;
 						
 				}

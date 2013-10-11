@@ -19,7 +19,7 @@ module.exports = {
 		get:function(req, res){
 
 			var user = req.session.user || null;
-			var id = req.params.key;
+			var id = String(req.params.key);
 			var status = new WebStatus();
 
 			var output = {
@@ -56,8 +56,8 @@ module.exports = {
 			});
 
 			promise.then(function () {
-				LogModel.inquire({"$or":[{id:user._id, location:"into_room"},{id:user._id, location:"create_room"}]}, 200, function( status ) {
-					console.log("status", status);
+				LogModel.inquire({"$or":[{id:id, location:"into_room"},{id:id, location:"create_room"}]}, 200, function( status ) {
+					//console.log("status", status);
 					if( status.code == 0 ){
 
 						//console.log()
