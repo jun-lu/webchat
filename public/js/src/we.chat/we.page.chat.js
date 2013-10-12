@@ -376,7 +376,7 @@ WE.pageChat.timeLine = {
 
 		$('#timeline-talks').append( html );
 
-		if(datas[0].time){
+		if(datas[0] && datas[0].time){
 			WE.pageChat.lastTime = datas[0].time;
 		}else{
 
@@ -621,6 +621,8 @@ WE.pageChat.invite = {
 
 			if( !_this.isGetData ){
 				_this.getUserList();
+			}else{
+				_this.addUsers(_this.datas);
 			}
 		});
 
@@ -629,6 +631,8 @@ WE.pageChat.invite = {
 			_this.ui.wall.removeClass('invite-style');
 			_this.ui.usersList.empty();
 			_this.ui.emailInput.find('input').val('');
+			_this.selectList.mail = [];
+			_this.selectList.user = [];
 		});
 
 		this.ui.usersList.find('.cell').click(function(){
@@ -701,6 +705,17 @@ WE.pageChat.invite = {
 	},
 
 
+	addUsers: function( datas ){
+
+		var len = datas.length;
+
+		for( var i=0; i<len; i++){
+
+			this.addUser(datas[i].to,false);
+		}
+	},
+
+
 	getUserList: function(){
 
 		var _this = this;
@@ -713,6 +728,7 @@ WE.pageChat.invite = {
 			if( data.code == 0 ){
 				_this.isGetData = true;
 				_this.datas = data.result;
+				_this.addUsers(_this.datas);
 			}
 			
 		}
@@ -738,12 +754,12 @@ WE.pageChat.inviteCell = function( data,select ){
 	this.listIndex = this.list.length;
 
 
-
-
 	var html = WE.kit.tmpl(this.itemTmpl,{
-		user:data,
+		user:this.data,
 		select:select
 	});
+
+	
 
 
 	wall = $(html);
@@ -802,7 +818,7 @@ WE.pageChat.inviteCell.prototype = {
 				_this.ui.invite.find('.select-type').removeClass('hidden');
 				_this.ui.invite.find('.invite-type').hide();
 
-				_this.ui.cell.addClass('.select-cell');
+				_this.ui.cell.addClass('select-cell');
 
 				_this.addUser();
 			}else{
@@ -810,7 +826,7 @@ WE.pageChat.inviteCell.prototype = {
 				_this.ui.invite.find('.select-type').addClass('hidden');
 				_this.ui.invite.find('.invite-type').show();
 
-				_this.ui.cell.removeClass('.select-cell');
+				_this.ui.cell.removeClass('select-cell');
 
 				_this.removeUser();
 			}
@@ -818,12 +834,12 @@ WE.pageChat.inviteCell.prototype = {
 	},
 
 	prepend: function( jDom ){
-		jDom.append( this.ui.wall );
+		jDom.prepend( this.ui.wall );
 	},
 
 	addUser: function(){
 
-		this.list.push(this.data);
+		this.isUserList ? this.list.push(this.data._id) : this.list.push(this.data);
 		
 	},
 
