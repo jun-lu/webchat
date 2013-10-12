@@ -659,7 +659,6 @@ WE.pageChat.invite = {
 						setTimeout(function(){
 							_this.ui.emailTips.hide();
 						},2000);
-					_this.ui.emailInput.find('input').val('');
 					return false;
 				}
 
