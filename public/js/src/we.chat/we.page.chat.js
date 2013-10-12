@@ -585,9 +585,13 @@ WE.pageChat.historylist = {
 */
 WE.pageChat.invite = {
 
-	selectList:[],
+	selectList:{
+		mail:[],
+		user:[]
+	},
 	datas:[],
 	isGetData:false,
+	mailInputList:[],
 
 	init: function(){
 
@@ -598,8 +602,10 @@ WE.pageChat.invite = {
 			wall: $('#wall-room'),
 			inviteWall: inviteWall,
 			boot: $('#invite-btn'),
-			close: inviteWall.find('.close-btn'),
-			usersList: $('#users-list')
+			close: inviteWall.find('.js-close-btn'),
+			usersList: $('#users-list'),
+			emailInput: inviteWall.find('.email-input'),
+			emailTips: inviteWall.find('.email-input .error-tips')
 		};
 
 		this.regEvent();
@@ -621,6 +627,8 @@ WE.pageChat.invite = {
 		this.ui.close.click(function(){
 
 			_this.ui.wall.removeClass('invite-style');
+			_this.ui.usersList.empty();
+			_this.ui.emailInput.find('input').val('');
 		});
 
 		this.ui.usersList.find('.cell').click(function(){
@@ -639,6 +647,58 @@ WE.pageChat.invite = {
 
 		});
 
+		this.ui.emailInput.find('input').keyup(function( e ){
+
+			var value = $.trim( _this.ui.emailInput.find('input').val() );
+
+			if( e.keyCode == 13 && value != "" ){
+
+				if( !/^[^@]+@[^@]+$/.test( value ) ){
+
+					_this.ui.emailTips.text("Please input email").show();
+						setTimeout(function(){
+							_this.ui.emailTips.hide();
+						},2000);
+					_this.ui.emailInput.find('input').val('');
+					return false;
+				}
+
+				var len = _this.selectList.mail.length;
+				var list = _this.selectList.mail;
+				var flag = false;
+
+				for( var i=0;i<len; i++ ){
+
+					if( list[i].mail == value ){
+						flag = true;
+						_this.ui.emailTips.text('Email already exists').show();
+						setTimeout(function(){
+							_this.ui.emailTips.hide();
+						},2000);
+						break;
+					}
+				}
+
+				if( !flag ){
+					_this.addUser( {mail:value},true );
+					
+				}
+
+				_this.ui.emailInput.find('input').val('');	
+			}
+		});
+
+		this.ui.emailInput.find('input').focus(function(){
+			_this.ui.emailTips.hide();
+		})
+	},
+
+
+	addUser: function( data,select ){
+
+		var user = new WE.pageChat.inviteCell( data,select );
+			user.prepend( this.ui.usersList );
+
 	},
 
 
@@ -651,11 +711,142 @@ WE.pageChat.invite = {
 
 			var data = e.data;
 
-			_this.isGetData = true;
-			_this.datas = data;
+			if( data.code == 0 ){
+				_this.isGetData = true;
+				_this.datas = data.result;
+			}
+			
 		}
 		model.addObserver(ctrl);
 		model.getContactList();
+	}
+};
+
+
+WE.pageChat.inviteCell = function( data,select ){
+
+	this.data = data;
+	this.select = select || false;
+
+
+	this.isUserList = typeof data.name != "undefined" ? true : false;
+
+	this.list = this.isUserList ? WE.pageChat.invite.selectList.user :
+							WE.pageChat.invite.selectList.mail ;
+
+	
+
+	this.listIndex = this.list.length;
+
+
+
+
+	var html = WE.kit.tmpl(this.itemTmpl,{
+		user:data,
+		select:select
+	});
+
+
+	wall = $(html);
+
+	this.ui = {
+		wall: wall,
+		invite: wall.find('.invite-js-btn'),
+		cell: wall.find('.cell')
+	}
+
+
+	if( this.select ){
+		this.addUser();
+	}
+
+	this.init();
+};
+
+WE.pageChat.inviteCell.prototype = {
+
+	itemTmpl:'<li>\
+				<div class="cell <% if( select ){ %> select-cell <% } %>">\
+					<% if( typeof user.avatar != "undefined" ){ %>\
+					<img src="<%=user.avatar %>">\
+					<% } %>\
+					<%=user.name || user.mail %>\
+					<% if( select ){ %>\
+						<div class="invite-js-btn">\
+							<span class="select select-type">√</span>\
+							<span class="btn invite-type invite" style="display:none;">Invite</span>\
+						</div>\
+					<% }else{ %>\
+						<div class="invite-js-btn">\
+							<span class="select select-type hidden">√</span>\
+							<span class="btn invite-type invite">Invite</span>\
+						</div>\
+					<% } %>\
+				</div>\
+			</li>',
+
+	init: function(){
+
+		this.regEvent();
+	},
+
+	regEvent: function(){
+
+		var _this = this;
+
+		this.ui.cell.click(function(){
+
+			_this.select = _this.select == true ? false : true;
+
+			if( _this.select ){
+
+				_this.ui.invite.find('.select-type').removeClass('hidden');
+				_this.ui.invite.find('.invite-type').hide();
+
+				_this.ui.cell.addClass('.select-cell');
+
+				_this.addUser();
+			}else{
+
+				_this.ui.invite.find('.select-type').addClass('hidden');
+				_this.ui.invite.find('.invite-type').show();
+
+				_this.ui.cell.removeClass('.select-cell');
+
+				_this.removeUser();
+			}
+		});
+	},
+
+	prepend: function( jDom ){
+		jDom.append( this.ui.wall );
+	},
+
+	addUser: function(){
+
+		this.list.push(this.data);
+		
+	},
+
+	removeUser: function(){
+
+		var len = this.list.length;
+		for(var i=0; i<len; i++){
+
+			if( this.isUserList ){
+				if( this.data._id && this.data._id == this.list[i]._id ){
+
+					this.list.splice(i,1);
+				}
+			}else{
+				if( this.data.mail && this.data.mail == this.list[i].mail ){
+
+					this.list.splice(i,1);
+				}
+			}
+			
+		}
+
 	}
 
 

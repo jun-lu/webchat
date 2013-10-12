@@ -54,6 +54,8 @@
 	.invite-style .invite-wall{visibility: visible;position:relative;}
 		.invite-wall .close-btn{position:absolute;right:10px;top:10px;cursor:pointer;}
 		.invite-wall .users-list{height:100%;padding:35px 0px;
+			padding: 60px 0px 80px 0px;
+			padding-top: 130px;
 			box-sizing: border-box;
 			-webkit-box-sizing: border-box;
 			-moz-box-sizing: border-box;
@@ -69,13 +71,30 @@
 			.invite-wall .users-list .cell .select{position:absolute;width: 10px;
 						height: 10px;right: 13px;top: 13px;background: #737577;border: #737577 solid 3px;border-radius:4px;
 						line-height: 13px;text-align: center;color: #FFFFFF;font-weight:bold;font-size:12px;}
-			.invite-wall .users-list .cell .invite{padding: 0px 3px;float: right;margin-top: 7px;margin-right: 9px;font-size: 12px}
+			.invite-wall .users-list .cell .invite{padding: 0px 3px;font-size: 12px;right: 13px;top: 13px;position: absolute}
 		.invite-wall .users-list img{float:left;width: 30px;height: 30px;margin-right:8px;}
-
+		.invite-wall .title{position: absolute;top: 20px;left: 27px}
+		.invite-wall .btns{position:absolute;left:24px;bottom:30px;width:291px;}
+			.invite-wall .btns .btn{width:140px;padding:4px;}
+			.invite-wall .btns .btn:first-child{background:#fff;}
+			.invite-wall .btns .btn:nth-child(2){margin-left:7px;}
 	/* invite wall */
 	.invite-wall{
 		visibility: hidden;
 	}
+
+	/* email invite styl */
+	.invite-wall .email-input{position:absolute;left:26px;top: 64px;position: absolute;width:290px;}
+		.invite-wall .email-input input{width:100%;
+			box-sizing: border-box;
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			-o-box-sizing: border-box;
+		}
+
+		.invite-wall .email-input .error-tips{float: left;text-align: center;font-size: 13px;
+padding: 2px 0px;background: rgb(248, 226, 108);color: #BD0000;border-radius: 0px 0px 4px 4px;
+			box-shadow: 0px 0px 2px #868686;width: 270px;margin-left: 10px}
 
 	.r-aside{position:absolute;height:100%;width:300px;top:0;right:-300px;
 		-webkit-transition:right .3s ease;
