@@ -64,15 +64,13 @@ module.exports = function ( app ) {
 		// index /
 		app.get('/', home.get);
 		app.get('/home', home.index);
+		
+
 
 		app.get('/recommend', require("./recommend").get);
 
 		app.get('/recently', require("./recently").get);
 		app.get('/search', require("./search").get);
-
-		app.get('/a/test', function(req, res){
-			res.render("test", {});
-		});
 
 		app.get('/c/chat-js', function(req, res){
 
@@ -88,6 +86,10 @@ module.exports = function ( app ) {
 
 		// chat
 		app.get('/t/:key', chat.get);
+
+		// 视频测试页面
+		app.get('/t/:key/test', chat.test);
+
 		
 		// mobile chat page
 		app.get('/m/:key', mobile.get);

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+	<!-- 首页链接，你爱跳不跳 vchat.co -->
+	<meta http-equiv="content-type" content="text/html;charset=utf-8">
+	<title><%=room.topic%> - Vchat</title>
+	<meta name="keywords" content="vchat,vchat.co,多人讨论,话题,活动,兴趣,<%=room.topic%>,<%=room.des%>"/>
+	<meta name="description" content="<%=room.topic%>,<%=room.des%>"/>
+	<link rel="stylesheet" type="text/css" href="/public/css/common.css"/>
+	<link rel="stylesheet" type="text/css" href="/public/css/chat_new.css"/>
+
+
+	<script type="text/javascript" src="/public/js/lib/jquery-1.6.3.min.js"></script>
+	<script type="text/javascript" src="/public/js/lib/we.min.js"></script>
+	<script type="text/javascript">
+
+		var USER = <%- JSON.stringify(user)%>;
+		var ROOM = <%- JSON.stringify(room)%>;
+		
+	</script>
+</head>
+<body>
+	
+	
+	<video id="local" autoplay="autoplay" style="position:absolute;right:0;top:0;width:300px;height:200px;z-index:1000;"></video>
+	<video id="remote" autoplay="autoplay" style="position:absolute;right:300px;top:0;width:300px;height:200px;z-index:1000"></video>
+
+	<script src="/public/js/webrtc.io.js"></script>
+	<script>
+
+	  // note: make sure hostname available to all connecting clients
+	  //192.168.1.3  10.6.0.170
+	  // (ie. probably not `localhost`)
+	  rtc.connect('ws://10.6.0.170:8001', ROOM.id);
+
+	  rtc.createStream({"video": true, "audio":false}, function(stream){
+	    // get local stream for manipulation
+	    rtc.attachStream(stream, 'local');
+	  });
+
+	  rtc.on('add remote stream', function(stream){
+	    // show the remote video
+	    rtc.attachStream(stream, 'remote');
+	  });
+
+	  // more rtc callbacks are available
+	</script>
+
+
+
+</body>
+</html>

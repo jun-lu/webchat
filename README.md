@@ -589,3 +589,22 @@ return {
 		result:[Room,Room]
 	} 
 ````
+
+
+####邀请好友加入对话 topic 23
+````javascript
+	
+	url:"/api/room-inviteh"
+	method:get
+	param:
+		_ids: string // "_id,_id"以逗号分割的用户id
+		mails: string //以 逗号分割的 e-mail
+		roomid: 邀请到的房间
+
+	return {
+		code:0,
+		msg:"",
+		result:true
+	} 
+````
+
