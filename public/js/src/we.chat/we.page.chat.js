@@ -203,7 +203,7 @@ WE.pageChat.login = {
 
 			nickNameWall: $('#login-nickname-wall')
 		}
-		
+
 		this.regEvent();
 	},
 
@@ -257,7 +257,7 @@ WE.pageChat.login = {
 				console.log( _this.connectSocket);
 				$('#wall-room').removeClass('login-style');
 
-				
+
 				location.reload();	
 			}else{
 
@@ -268,14 +268,12 @@ WE.pageChat.login = {
 				_this.ui.nickNameBtn.find('.icon-go').removeClass('hidden');
 				_this.ui.nickNameBtn.find('.icon-loading').addClass('hidden');
 			},1000)
-			
+
 		};
 		model.addObserver( ctrl );
 		model.updateUserName( nickName );
 	}
-}
-
-
+};
 
 /**
 	时间轴操作
@@ -579,5 +577,87 @@ WE.pageChat.historylist = {
 			_this.ui.wall.css('top','100%')
 		},500);
 	}
+};
+
+
+/**
+	邀请
+*/
+WE.pageChat.invite = {
+
+	selectList:[],
+	datas:[],
+	isGetData:false,
+
+	init: function(){
+
+
+		var inviteWall = $('#invite');
+
+		this.ui = {
+			wall: $('#wall-room'),
+			inviteWall: inviteWall,
+			boot: $('#invite-btn'),
+			close: inviteWall.find('.close-btn'),
+			usersList: $('#users-list')
+		};
+
+		this.regEvent();
+	},
+
+	regEvent: function(){
+
+		var _this = this;
+
+		this.ui.boot.click(function(){
+
+			_this.ui.wall.addClass('invite-style');
+
+			if( !_this.isGetData ){
+				_this.getUserList();
+			}
+		});
+
+		this.ui.close.click(function(){
+
+			_this.ui.wall.removeClass('invite-style');
+		});
+
+		this.ui.usersList.find('.cell').click(function(){
+
+			var $this = $(this);
+			var index = $this.index();
+			
+
+			var isSelect = $this.hasClass('select-cell');
+
+			isSelect ? $this.removeClass('select-cell') : $this.addClass('select-cell');
+			isSelect ? $this.find('.select').addClass('hidden') : 
+					   $this.find('.select').removeClass('hidden');
+			isSelect ? $this.find('.invite').show() :
+					   $this.find('.invite').hide();
+
+		});
+
+	},
+
+
+	getUserList: function(){
+
+		var _this = this;
+		var model = new WE.api.UserModel();
+		var ctrl = new WE.Controller();
+		ctrl.update = function( e ){
+
+			var data = e.data;
+
+			_this.isGetData = true;
+			_this.datas = data;
+		}
+		model.addObserver(ctrl);
+		model.getContactList();
+	}
+
+
 }
 

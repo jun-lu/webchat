@@ -13,6 +13,7 @@ WE.api.UserModel = function(){
 	this.setUserNameURL = "/api/user-name-update";
 	this.updateAvatorURL = "/api/user-avatar-update";
 	this.updateSummaryUrl = "/api/user-summary-update";
+	this.contactUsersUrl = '/api/user-contact-get';
 }
 
 WE.api.UserModel.prototype = WE.BaseModel.prototype;
@@ -34,4 +35,9 @@ WE.api.UserModel.prototype.updateAvator = function(gravatarDefault){
 WE.api.UserModel.prototype.updateUserSummery = function( summery ){
 
 	this.post(this.updateSummaryUrl,{summary:summery});
+}
+
+WE.api.UserModel.prototype.getContactList = function(){
+
+	this.get(this.contactUsersUrl);
 }

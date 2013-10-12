@@ -6,12 +6,24 @@
 	.clear-overflow::-webkit-scrollbar-thumb {border-width: 1px;border-style: solid;border-color: #fff;border-radius: 6px;background: #d7d7d7;}
 	.clear-overflow::-webkit-scrollbar-track-piece {width: 11px;height: 11px;}
 
+	.invite-wall .users-list ul::-webkit-scrollbar {width: 8px;height: 8px;}
+	.invite-wall .users-list ul::-webkit-scrollbar-thumb {border-width: 1px;border-style: solid;border-color: #fff;border-radius: 6px;background: #d7d7d7;}
+	.invite-wall .users-list ul::-webkit-scrollbar-track-piece {width: 11px;height: 11px;}
+
+	.l-aside-historyuser .users::-webkit-scrollbar {width: 8px;height: 8px;}
+	.l-aside-historyuser .users::-webkit-scrollbar-thumb {border-width: 1px;border-style: solid;border-color: #fff;border-radius: 6px;background: #d7d7d7;}
+	.l-aside-historyuser .users::-webkit-scrollbar-track-piece {width: 11px;height: 11px;}
+
+	.l-aside-online .users::-webkit-scrollbar {width: 8px;height: 8px;}
+	.l-aside-online .users::-webkit-scrollbar-thumb {border-width: 1px;border-style: solid;border-color: #fff;border-radius: 6px;background: #d7d7d7;}
+	.l-aside-online .users::-webkit-scrollbar-track-piece {width: 11px;height: 11px;}
+
 	/* layout */
 	header{position:absolute;width:100%;}
 	html,body{height:100%;width:100%;overflow:hidden;background:rgb(222,225,229);}
 	.wall-room{width:100%;height:100%;box-sizing: border-box;-moz-box-sizing: border-box;padding-top: 34px}
 	.main .main-content{height:100%;background: #fff}
-		  .content-inner{padding:48px 0px 52px 0px;-moz-box-sizing: border-box;box-sizing: border-box;height:100%;}
+		  .content-inner{padding:48px 0px 81px 0px;-moz-box-sizing: border-box;box-sizing: border-box;height:100%;}
 		  		.content-inner .clear-overflow{overflow-y:auto;height:100%}
 		.main-title,.main-input{position:absolute;width:100%;left:0px;}
 		.main-title{top:0px;}
@@ -24,10 +36,46 @@
 		box-shadow: 1px 1px 5px #868CA8;z-index: 57;
 	 }
 	.l-aside{position: relative;height:100%;width:200px;top:-100%;left:0px;border-right:#e4e4e4 solid 1px;opacity:1.0;overflow: hidden;
-			-webkit-transition:left .3s ease;
-			-moz-transition:left .3s ease;
-			-o-transition:left .3s ease;
+			-webkit-transition:left .3s ease,width .3s ease;
+			-moz-transition:left .3s ease,width .3s ease;
+			-o-transition:left .3s ease,width .3s ease;
 	  }
+	.main-wall{height:100%;width:100%;overflow:hidden;zoom:1;position:absolute;}
+	.l-aside-wall{height:100%;width:100%;overflow:hidden;zoom:1;position:absolute;background:rgb(222,225,229);
+		-webkit-transition: top .4s ease-in-out;
+		-moz-transition:top .4s ease-in-out;
+		-o-transition:top .4s ease-in-out;
+	}
+
+
+	 /* for js invite-style */
+	.invite-style .main{margin-left:350px;}
+	.invite-style .l-aside{width:350px;}
+	.invite-style .invite-wall{visibility: visible;position:relative;}
+		.invite-wall .close-btn{position:absolute;right:10px;top:10px;cursor:pointer;}
+		.invite-wall .users-list{height:100%;padding:35px 0px;
+			box-sizing: border-box;
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+		}
+		.invite-wall .users-list ul{height:100%;overflow:auto;}
+		.invite-wall .users-list li{margin-bottom:8px;padding-left: 25px}
+		.invite-wall .users-list .cell{display: table-cell;padding:5px; width:280px;background:#f9f9f9;
+										font-size:13px;line-height: 30px;cursor:pointer;position:relative;
+									}
+		.invite-wall .users-list .cell:hover{background:#fff;}
+		.invite-wall .users-list .select-cell{box-shadow: 1px 1px 0px #B9B8B8;background:#fff;}
+
+			.invite-wall .users-list .cell .select{position:absolute;width: 10px;
+						height: 10px;right: 13px;top: 13px;background: #737577;border: #737577 solid 3px;border-radius:4px;
+						line-height: 13px;text-align: center;color: #FFFFFF;font-weight:bold;font-size:12px;}
+			.invite-wall .users-list .cell .invite{padding: 0px 3px;float: right;margin-top: 7px;margin-right: 9px;font-size: 12px}
+		.invite-wall .users-list img{float:left;width: 30px;height: 30px;margin-right:8px;}
+
+	/* invite wall */
+	.invite-wall{
+		visibility: hidden;
+	}
 
 	.r-aside{position:absolute;height:100%;width:300px;top:0;right:-300px;
 		-webkit-transition:right .3s ease;
@@ -37,9 +85,10 @@
 	.display-raside .r-aside{right:0px;}
 	.display-raside .l-aside{left:-200px;}
 	.display-raside .main{margin-left:0px;margin-right:300px;}
+
 	 @media (max-width:800px){
-		.l-aside{left:-200px;opacity:0}
-		.main{margin-left:0px;}
+		.wall-room .l-aside{left:-200px;opacity:0}
+		.wall-room .main{margin-left:0px;}
 		.main-content .talk .time{display:none;}
 	}
 	@media (max-width:259px){
@@ -55,7 +104,7 @@
 		.main-input .text-box{padding: 20px 10px;}
 			.main-input .text-box input{height: 40px;float:none;box-shadow:none;color: #333;position:relative;font-size:13px;width:100%;box-sizing:border-box;-moz-box-sizing:border-box;padding:5px;}
 			.main-input .text-box .icon-screen{position: absolute;top: 19px;right: 19px;z-index:10}
-		.main-input .replay-box{position: absolute;background: #edf1f6;z-index: 99;bottom: 50px;left:7px;font-size: 13px;padding: 5px 25px 5px 10px;margin-right: 10px;box-shadow: #DFDFDF 2px 2px 1px;border-radius: 4px;max-width: 84%;
+		.main-input .replay-box{position: absolute;background: #edf1f6;z-index: 99;bottom: 70px;left:7px;font-size: 13px;padding: 5px 25px 5px 10px;margin-right: 10px;box-shadow: #DFDFDF 2px 2px 1px;border-radius: 4px;max-width: 84%;
 									background:-webkit-gradient(linear, 0 0, 0 100%, from(rgb(255, 255, 190)), to(rgb(253, 250, 162)));
 
 								}
@@ -102,12 +151,7 @@ left: 0px}
 		.main-content .talk:last-child{border:0;}
 
 
-	.main-wall{height:100%;width:100%;overflow:hidden;zoom:1;position:absolute;}
-	.l-aside-wall{height:100%;width:100%;overflow:hidden;zoom:1;position:absolute;background:rgb(222,225,229);
-		-webkit-transition: top .4s ease-in-out;
-		-moz-transition:top .4s ease-in-out;
-		-o-transition:top .4s ease-in-out;
-	}
+	
 	.l-aside-historyuser,.l-aside-online{position:relative;height:100%;}
 	.l-aside-historyuser .title, .l-aside-online .title{font-size:12px;display: block;color: #afafaf;position:absolute;top:0px;color: #fff;background: #C9C9C9;border-bottom: #B1B1B1 1px solid;font-weight: bold;width:100%;height: 47px}
 	.l-aside-historyuser .title span,.l-aside-online .title span{position: relative;top: 14px;left: 20px;}
@@ -175,6 +219,9 @@ left: 0px}
 	.login-style .l-aside{left:-200px;}
 	.login-style .login-wall{top:0px;}
 	.history-wall{top:100%;}
+
+	
+
 
 
 /* set nickname page */

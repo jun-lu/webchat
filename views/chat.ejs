@@ -78,7 +78,7 @@
 				<div class="l-aside-online">
 					<div class="title">
 						<span>ONLINE</span>
-						<a href="javascript:;" title="Invite your friends" class="invite-btn">
+						<a href="javascript:;" title="Invite your friends" class="invite-btn" id="invite-btn">
 							<i class="icon-add"></i>
 						</a>
 					</div>
@@ -111,6 +111,42 @@
 					</div>
 				</div>
 			</div>
+
+			<div class="l-aside-wall invite-wall" id="invite">
+				<span class="close-btn">
+					<i class="icon-close"></i>
+				</span>
+
+				<div class="users-list">
+					<ul id="users-list">
+						<li>
+							<div class="cell" href="/">
+								<img src="https://www.gravatar.com/avatar/b7fdffcba6db560e7589d706a6bcd305.jpg?s=36&d=blank&r=g">
+								CK.Ming
+								<span class="select hidden">√</span>
+								<span class="btn invite">Invite</span>
+							</div>
+						</li>
+						<li>
+							<div class="cell" href="/">
+								<img src="https://www.gravatar.com/avatar/b7fdffcba6db560e7589d706a6bcd305.jpg?s=36&d=blank&r=g">
+								CK.Ming
+								<span class="select hidden">√</span>
+								<span class="btn invite">Invite</span>
+							</div>
+						</li>
+						<li>
+							<div class="cell" href="/">
+								<img src="https://www.gravatar.com/avatar/b7fdffcba6db560e7589d706a6bcd305.jpg?s=36&d=blank&r=g">
+								CK.Ming
+								<span class="select hidden">√</span>
+								<span class="btn invite">Invite</span>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+
 		</div>	
 	</div>
 	
@@ -210,6 +246,7 @@
 
 		WE.pageChat.init();
 		WE.pageChat.historylist.init();
+		WE.pageChat.invite.init();
 		WE.pageChat.timeLine.init( <%- JSON.stringify( indexChats ) %>,<%- chats_count %> );
 		
 		//WE.pageChat.notice.init();
