@@ -24,24 +24,56 @@
 
 				<div class="main-content">
 					
-					<div class="topics">
-						<div class="create block">
-							<div class="title">Create Topics</div>
-							<div class="content">
-								<ul>
-									<li><a target="_blank" href="/">How we go to shenzhen bay,chat it together</a></li>
+					<div class="edit-avatar">
+
+						<div class="tips">Avatar provided by the <a href="http://gravatar.com/">gavatar.com</a></div>
+
+						<div class="edit">
+							<p>You can quickly select vchat.co screened from gavatar </p>
+							<div class="list clearfix" id="select-item">
+								<ul class="clearfix">	
+									<li>
+										<label for="avatar1">
+											<img src="https://www.gravatar.com/avatar/<%=user.hexMail%>.jpg?s=100&d=monsterid&r=g">
+											<p><input name="avatar" <% if(user.gravatarDefault == "monsterid" ){ %> checked <% } %> type="radio" id="avatar1" value="monsterid"></p>
+										</label>
+									</li>
+									<li>
+										<label for="avatar2">
+											<img src="https://www.gravatar.com/avatar/<%=user.hexMail%>.jpg?s=100&d=identicon&r=g">
+											<p><input name="avatar" <% if(user.gravatarDefault == "identicon" ){ %> checked <% } %> type="radio" id="avatar2" value="identicon"></p>
+										</label>
+									</li>
+									<li>
+										<label for="avatar3">
+											<img src="https://www.gravatar.com/avatar/<%=user.hexMail%>.jpg?s=100&d=wavatar&r=g">
+											<p><input name="avatar" <% if(user.gravatarDefault == "wavatar" ){ %> checked <% } %> type="radio" id="avatar3" value="wavatar"></p>
+										</label>
+									</li>
+									<li>
+										<label for="avatar4">
+											<img src="https://www.gravatar.com/avatar/<%=user.hexMail%>.jpg?s=100&d=retro&r=g">
+											<p><input name="avatar"  <% if(user.gravatarDefault == "retro" ){ %> checked <% } %> type="radio" id="avatar4" value="retro"></p>
+										</label>
+									</li>
+									<li>
+										<label for="avatar5">
+											<img src="https://www.gravatar.com/avatar/<%=user.hexMail%>.jpg?s=100&d=mm&r=g">
+											<p><input name="avatar"  <% if(user.gravatarDefault == "mm" ){ %> checked <% } %> type="radio" id="avatar5" value="mm"></p>
+										</label>
+									</li>
 								</ul>
+								
 							</div>
-						</div>
-						<div class="involved block">
-							<div class="title">Involved Topics</div>
-							<div class="content">
-								<ul>
-									<li><a target="_blank" href="/">How we go to shenzhen bay,chat it together</a></li>
-								</ul>
+							<div class="btns">
+								<button class="btn" id="avatar-submit">Submit</button>
 							</div>
+							
+							<p class="links">Or you can go to upload in gavatar.com <a href="http://gravatar.com/emails/">Upload my avatar</a></p>
 						</div>
 					</div>
+
+
 				</div>
 			</div>
 		</div>
@@ -52,7 +84,10 @@
 	<script type="text/javascript" src="/public/js/lib/jquery-1.6.3.min.js"></script>
 	<script type="text/javascript" src="/public/js/lib/we.min.js"></script>
 	<script type="text/javascript" src="/public/js/we.top.min.js"></script>
+	<script type="text/javascript" src="/public/js/we.user.min.js"></script>
 	<script type="text/javascript">
+
+		WE.userPage.editAvatar.init();
 		WE.top.init();
 	</script>
 </body>

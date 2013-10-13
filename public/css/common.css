@@ -68,6 +68,12 @@ header{height: 35px;background: red;position: relative;z-index: 30;}
 .icon-noticeaction{width:16px;height:16px;display:inline-block;background:url(../images/all.png);background-position: -77px -115px;}
 .icon-users{width:22px;height:17px;display:inline-block;background:url(../images/all.png);background-position: -74px -162px;vertical-align: middle}
 .icon-pen{width:11px;height:13px;display:inline-block;background:url(../images/all.png);background-position: -13px -692px;}
+.icon-list{width:13px;height:13px;display:inline-block;background:url(../images/all.png);background-position:-10px -732px;}
+
+.color-user-dark{background-position:-42px -200px;}
+.color-user-white{background-position:-42px -216px;}
+.color-list-white{background-position:-10px -715px;}
+
 
 .hidden{display:none;}
 
@@ -84,7 +90,7 @@ input::-webkit-input-placeholder,textarea::-webkit-input-placeholder {
     letter-spacing:0px;
 }
 
-input{border:0;outline:none;border: #b8bec4 solid 1px;box-shadow: 0px 0px 4px #bdc0c5;float:left;padding: 3px 10px;background: #fafafa;
+textarea,input{border:0;outline:none;border: #b8bec4 solid 1px;box-shadow: 0px 0px 4px #bdc0c5;float:left;padding: 3px 10px;background: #fafafa;
 	-webkit-transition: background .2s ease, border .2s ease;
 	-moz-transition: background .2s ease, border .2s ease;
 	-o-transition: background .2s ease, border .2s ease

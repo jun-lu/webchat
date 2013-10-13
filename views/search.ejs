@@ -21,7 +21,7 @@
 			.feed .tack{border-top:#e4e4e4 solid 1px;background:#f8f8f8;color:#808080;padding:5px 5px 5px 15px;font-size:13px;}
 			.feed .create-user img{width: 25px;height: 25px;border-radius: 4px;vertical-align: middle;margin-right: 5px}
 			.feed .create-user a{font-size:13px;color:#B4B4B4;} .feed .create-user a:hover{color:#666;}
-			.feed .tack .talks,.feed .tack .joins{display: inline-block;line-height: 25px}
+			.feed .tack .time,.feed .tack .talks,.feed .tack .joins{display: inline-block;line-height: 25px;padding:0px 5px;}
 			.feed .tack .joins{margin:0px 15px 0px 10px;}
 
 		/* search */
@@ -89,7 +89,7 @@
 				</h3>
 				<div class="tack clearfix">
 					<div class="create-user pull-left">
-						<a href="/user/<%item.master._id %>">
+						<a href="/user/<%=item.master._id %>">
 							<img src="<%=item.master.avatar %>">
 							<%=item.master.name == "" ? "(未设置昵称)" : item.master.name %>
 						</a>

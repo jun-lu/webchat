@@ -78,7 +78,7 @@
 				<div class="l-aside-online">
 					<div class="title">
 						<span>ONLINE</span>
-						<a href="javascript:;" title="Invite your friends" class="invite-btn">
+						<a href="javascript:;" title="Invite your friends" class="invite-btn" id="invite-btn">
 							<i class="icon-add"></i>
 						</a>
 					</div>
@@ -111,6 +111,44 @@
 					</div>
 				</div>
 			</div>
+
+			<div class="l-aside-wall invite-wall" id="invite">
+				<span class="close-btn js-close-btn">
+					<i class="icon-close"></i>
+				</span>
+
+				
+				<div class="title">
+					You may want to invite
+				</div>
+
+				<div class="email-input">
+					<input placeholder="Type invite email">
+					<div class="invite-success"></div>
+					<div class="error-tips hidden">Error</div>
+				</div>
+				<div class="users-list">
+					<ul id="users-list">
+						
+						<!-- <li>
+							<div class="cell" href="/">
+								<img src="https://www.gravatar.com/avatar/b7fdffcba6db560e7589d706a6bcd305.jpg?s=36&d=blank&r=g">
+								CK.Ming
+								<span class="select hidden">√</span>
+								<span class="btn invite">Invite</span>
+							</div>
+						</li> -->
+					</ul>
+				</div>
+
+				<div class="btns">
+
+					<button class="btn btn-white js-close-btn">Cancel</button>
+					<button class="btn">Send Invite</button>
+				</div>
+			
+			</div>
+
 		</div>	
 	</div>
 	
@@ -210,6 +248,7 @@
 
 		WE.pageChat.init();
 		WE.pageChat.historylist.init();
+		WE.pageChat.invite.init();
 		WE.pageChat.timeLine.init( <%- JSON.stringify( indexChats ) %>,<%- chats_count %> );
 		
 		//WE.pageChat.notice.init();

@@ -43,7 +43,10 @@
 
 									%>
 									<li>
-										<a target="_blank" title="<%=item.topic%>" href="/t/<%=item.name ? item.name : item.id %>"><%= tool.cutOff(item.topic, 70)%></a>
+										<a target="_blank" title="<%=item.topic%>" href="/t/<%=item.name ? item.name : item.id %>">
+											<i class="icon-chat"></i>
+											<%= tool.cutOff(item.topic, 70)%>
+										</a>
 									</li>
 									<% } %>
 
@@ -66,7 +69,10 @@
 
 									%>
 									<li>
-										<a target="_blank" title="<%=item.topic%>" href="/t/<%=item.name ? item.name : item.id %>"><%= tool.cutOff(item.topic, 70)%></a>
+										<a target="_blank" title="<%=item.topic%>" href="/t/<%=item.name ? item.name : item.id %>">
+											<i class="icon-chat"></i>
+											<%= tool.cutOff(item.topic, 70)%>
+										</a>
 									</li>
 									<% } %>
 

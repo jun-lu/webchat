@@ -43,6 +43,64 @@ header{width:100%;position:fixed;top:0px;}
 .topics .block:first-child{border-right:#dee1e6 solid 1px;}
 .topics .block:nth-child(2){padding-left:2%;}
 
+/* edit account */
+.edit-info .edit-item{width:400px;margin-top:20px;font-size:14px;width: 45%;float:left;margin-right: 50px}
+	.edit-info .display{background:#f8f8f8;position:relative;cursor:pointer;}
+		.edit-info .display:hover .icon{background:#737577;}
+	.edit-info .display .icon{position:absolute;height:100%;width:40px;background:#e8e8e8;
+		-webkit-transition: background .2s ease,width .2s ease-in-out;
+		-moz-transition: background .2s ease-in-out;
+		-o-transition: background .2s ease-in-out;
+	}
+	.edit-info .display .icon .icon-user{position:absolute;top: 13px;left: 12px;}
+	.edit-info .display .icon .icon-list{position: absolute;top: 13px;left: 13px}
+
+	.edit-info .display .icon,.edit-info .display .info{float:left;display:inline-block;}
+	.edit-info .display .info{padding: 9px 60px;padding-right:20px;min-height: 40px;word-wrap:break-word;width: 100%;
+		box-sizing: border-box;
+		-webkit-box-sizing: border-box;
+		-moz-box-sizing: border-box;
+		-o-box-sizing: border-box;
+	}
+
+	.edit-info .display .no-info{color:#a8a8a8;}
+
+	.edit-info .edit{background:#eaeaea;padding:20px 12px 12px;position:relative;}
+		.edit-info .edit input,.edit-info .edit textarea{width: 100%;box-sizing: border-box}
+		.edit-info .edit .btns{margin-top:10px;text-align:right;}
+		.edit-info .edit button.btn-white:hover{background:#f6f6f6}
+		.edit-info .edit button.btn-white{background:#fff;}
+			.edit-info .edit button{margin-left:5px;padding: 3px 15px;}
+		.edit-info .edit .arrow{position: absolute;top:-2px;left: 13px;border: 7px dashed transparent;
+			width: 0px;height: 0px;border-top: 10px solid #737577}
+
+	.edit-info .edit-item-select .icon{background:#737577;width:100%}
+	.edit-info .edit-item-select .display .info{height:40px;visibility:hidden;}
+
+
+/* edit avatar */
+.edit-avatar .tips{background:#e8e8e8;font-size:14px;color:#5c5c5c;text-shadow: 1px 1px 0px #fff;padding:2px 10px;display:inline-block;}
+.edit-avatar .tips a{color:#1e8cbe}
+.edit-avatar .edit{margin-top: 30px;background:#f8f8f8;border:#e8e8e8 solid 1px;display: table;padding:20px;}
+	.edit-avatar .edit .list{background:#fff;border:#ece9e9 solid 1px;padding: 15px 20px;margin-top: 10px}
+	.edit-avatar .edit .list input[type="radio"]{box-shadow:none;margin-left: 26px;margin-top: 10px}
+	.edit-avatar .edit .list img{width:70px;height:70px;cursor:pointer;}
+	.edit-avatar .edit .btns{margin-top:10px;text-align: right}
+	.edit-avatar .edit .list li{float: left;margin-right:40px;margin-bottom: 10px}
+	.edit-avatar .edit .list li:last-child{margin:0px;}
+.edit-avatar .edit .links{margin-top:20px;}
+	.edit-avatar .links a{color:#1e8cbe;text-decoration: underline;margin-left:10px;}
+
+
+/* bind mail */
+.bind-mail .tips{background:#e8e8e8;font-size:14px;color:#5c5c5c;text-shadow: 1px 1px 0px #fff;padding:2px 10px;display:inline-block;}
+.bind-mail .tips a{color:#1e8cbe}
+	.bind-mail .edit{margin-top:30px;position: relative;padding-bottom: 10px}
+	.bind-mail .edit .input-box{float:left;width:20em;}
+		.bind-mail .edit .btn{padding: 10px 19px}
+		.bind-mail .edit .error-tips{text-align: center;font-size: 13px;padding: 2px 0px;background: rgb(248, 226, 108);
+				color: #BD0000;border-radius: 0px 0px 4px 4px;box-shadow: 0px 0px 2px #868686;width: 270px;
+				margin-left: 10px;position: absolute;top:42px;left:16px;}
 
 
 /* common */
@@ -69,6 +127,10 @@ header{width:100%;position:fixed;top:0px;}
 		.l-aside .menu a{color:#353535;font-size:15px;height:100%;display:inline-block;line-height: 30px;padding: 0px 10px}
 			.l-aside .create-btn .btn{padding:5px;font-size:13px;float: right}
 			.l-aside .menu a.select{background:#fff;border-radius: 10px}
+
+
+	/**/
+	.edit-info .edit-item{width:100%;}
 }		
 
 
