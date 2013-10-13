@@ -174,9 +174,8 @@
 				return false;
 			});
 
-			this.ui.form.submit(function(){
+			this.ui.form.submit(function( e ){
 
-				console.log('action');
 				_this.createTopic();
 				
 				return false;
@@ -194,7 +193,9 @@
 			ctrl.update = function(e){
 				var data = e.data;
 
-				console.log('data',data);
+				if( data.code == 0 ){
+					location.href = "/t/"+data.result.id;
+				}
 			}
 			model.addObserver( ctrl );
 			model.create(topic, des, pwd);	

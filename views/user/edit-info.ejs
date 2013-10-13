@@ -29,17 +29,49 @@
 
 				<div class="main-content">
 					
-					<form class="vert-form form-middle set-middle" action="/login" method="post" id="login">
-						<div class="input-box">
-							<i class="icon-user"></i>
-							<input value="<%=user.name %>" autofocus placeholder="Nickname" type="text" name="name" id="name" maxlength="100">
+					<div class="edit-info" id="edit-info">
+
+						<div class="edit-item" id="nickname-wall">
+							<div class="display clearfix" title="click to edit nickname">
+								<span class="icon">
+									<i class="icon-user color-user-dark"></i>
+								</span>
+
+								<span class="info <% if(user.name ==""){ %>no-info<% } %>"><%=user.name == "" ? "(未设置昵称)" : user.name %></span>
+							</div>
+							<div class="edit hidden">
+								<span class="arrow"></span>
+								<div class="clearfix">
+									<input id="name-input" placeholder="Type your nickname" value="<%=user.name %>">
+								</div>
+								<div class="clearfix btns">
+									<button class="btn btn-white" id="close-name">Cancel</button>
+									<button class="btn" id="submit-name">Submit</button>
+								</div>
+							</div>
 						</div>
 
-						<textarea placeholder="Introduce Yourself"><%=user.summary %></textarea>
-						
-						<button type="submit" class="btn form-btn strip-btn">Submit</Acti>
-					</form>
+						<div class="edit-item" id="des-wall">
+							<div class="display clearfix" title="click to edit your introduction">
+								<span class="icon">
+									<i class="icon-list"></i>
+								</span>
 
+								<div class="info <% if(user.summary ==""){ %>no-info<% } %>"><%=user.summary == "" ? "( Introduce yourself )" : user.summary %></div>
+							</div>
+							<div class="edit hidden">
+								<span class="arrow"></span>
+								<div class="clearfix">
+									<textarea id="des-input" placeholder="Type your introduction"><%=user.summary %></textarea>
+								</div>
+								<div class="clearfix btns">
+									<button class="btn btn-white" id="close-des">Cancel</button>
+									<button class="btn" id="submit-des">Submit</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					
 				</div>
 			</div>
 		</div>
@@ -51,7 +83,11 @@
 	<script type="text/javascript" src="/public/js/lib/jquery-1.6.3.min.js"></script>
 	<script type="text/javascript" src="/public/js/lib/we.min.js"></script>
 	<script type="text/javascript" src="/public/js/we.top.min.js"></script>
+
+	<script type="text/javascript" src="/public/js/src/we.user/we.page.user.js"></script>
 	<script type="text/javascript">
+		WE.userPage.editAccount.init();
+
 		WE.top.init();
 	</script>
 </body>
