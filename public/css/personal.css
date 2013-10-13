@@ -19,7 +19,14 @@ header{width:100%;position:fixed;top:0px;}
 	.user-info .des{color:#a5a5a5;}
 .main-content{padding:20px 0px;overflow:hidden;position: relative;}
 	.recent-topic{width:65%;float:left;margin-bottom: -10000px;padding-bottom: 10000px}
+	
 	.recent-user{width:32%;border-left:#dee1e6 solid 1px;float:left;padding-left: 2%;margin-bottom: -10000px;padding-bottom: 10000px}
+		.recent-user .avatar img{width:40px;height:40px;float: left;}
+		.recent-user .avatar a{padding:0px;float:left;}
+		.recent-user .info a{display:table-cell;}
+		.recent-user .info{margin-left:5px;}
+		.recent-user .info span{float:left;color: #aaa;line-height: 24px;padding-left: 5px;font-size: 13px;}
+
 .main-content .title{color:#969696;font-size: 19px} .main-content .title i{margin-right:3px;}
 	.main-content li a{padding: 0px 5px;color:#505050;display: inline-block;font-size: 14px} .main-content li a:hover{background:#eee;}
 
@@ -29,7 +36,7 @@ header{width:100%;position:fixed;top:0px;}
 
 
 /* home */
-.recent-topic .content ul,.recent-user .content ul{padding-left: 16px;}
+.recent-topic .content ul,.recent-user .content ul{padding-left: 16px;margin-top: 10px;}
 
 
 /* notice */
