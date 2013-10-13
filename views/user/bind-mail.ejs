@@ -25,24 +25,29 @@
 
 				<div class="main-content">
 					
-					<div class="topics">
-						<div class="create block">
-							<div class="title">Create Topics</div>
-							<div class="content">
-								<ul>
-									<li><a target="_blank" href="/">How we go to shenzhen bay,chat it together</a></li>
-								</ul>
+					<div class="bind-mail">
+						<div class="tips">Experience vchat.co time, the system will work for you to quickly create an anonymous user, the binding mailbox allows you to get more permissions</div>
+
+						<% if( /^[\w._\-]+@[\w_\-]+\.\w+$/.test(user.mail) ){ %>
+
+							<p style="padding: 30px 0px">Already bind Email : <%=user.mail %></p>
+						<% }else{ %>
+
+							<div class="edit">
+								<div class="input-box">
+									<i class="icon-email"></i>
+									<input autofocus id="bindMail-input" placeholder="Type your email">
+								</div>
+								<div class="error-tips hidden" id="bindMail-tip">
+									Error
+								</div>
+								
+								<button id="bindMail-submit" class="btn">Submit</button>
 							</div>
-						</div>
-						<div class="involved block">
-							<div class="title">Involved Topics</div>
-							<div class="content">
-								<ul>
-									<li><a target="_blank" href="/">How we go to shenzhen bay,chat it together</a></li>
-								</ul>
-							</div>
-						</div>
+						<% } %>
+						
 					</div>
+
 				</div>
 			</div>
 		</div>
@@ -53,7 +58,9 @@
 	<script type="text/javascript" src="/public/js/lib/jquery-1.6.3.min.js"></script>
 	<script type="text/javascript" src="/public/js/lib/we.min.js"></script>
 	<script type="text/javascript" src="/public/js/we.top.min.js"></script>
+	<script type="text/javascript" src="/public/js/we.user.min.js"></script>
 	<script type="text/javascript">
+		WE.userPage.bindMail.init();
 		WE.top.init();
 	</script>
 </body>
