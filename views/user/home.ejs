@@ -84,6 +84,35 @@
 							<i class="icon-users"></i>
 							Recently Chat With
 						</div>
+						<div class="content">
+							<ul class="clearfix">
+
+								<%
+									var item = null;
+									for(var i=0; i<contacts.length; i++){
+										item = contacts[i];
+
+								%>
+								<li>
+									<div class="avatar pull-left">
+										<a href="/">
+										<img src="<%=item.avatar %>">
+										</a>
+									</div>
+									<div class="info pull-left">
+										<a href="/"><%=item.name == "" ? "(未设置昵称)" : item.name %></a>
+										<span><%=tool.cutOff(item.summary,30)  %></span>
+									</div>
+								</li>
+								<% } %>
+
+								<% if( contacts.length == 0 ){ %>
+								<li>
+									<span>No contects...</span>
+								</li>
+								<% } %>
+							</ul>
+						</div>
 					</div>
 				</div>
 			</div>
