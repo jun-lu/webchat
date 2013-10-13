@@ -436,13 +436,13 @@ WE.pageChat.userlist = {
 	data: null,
 	init: function(data){
 
-		var i = 0;
+		var i = data.length-1;
 		var html = "";
 
 		if(data){
 
 			this.data = data;
-			for(; i<data.length; i++){
+			for(; i>=0; i--){
 				html += WE.kit.tmpl(this.tmpl, data[i]);	
 			}
 
@@ -470,7 +470,7 @@ WE.pageChat.userlist = {
 			setTimeout(function(){
 				$( '#uid_'+data._id ).removeClass('insert-li');
 			},300);
-			$('#user-list').append(  html );
+			$('#user-list li').eq(0).after(  html );
 		}
 	},
 

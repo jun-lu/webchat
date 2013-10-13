@@ -7,6 +7,32 @@
 
 	<link rel="stylesheet" type="text/css" href="/public/css/common.css">
 
+	<style type="text/css">
+
+		html,body{background:#d5d8dd;}
+
+		.main-limit .header-inner,.main-limit .content-inner{width:405px;}
+			.main-limit h1{font-size:22px;text-shadow:2px 1px 1px #fff;display:inline-block;color:#4d4d4e}
+
+			.limit-header{padding: 40px 0px;border-bottom:#b2b6b9 solid 1px;padding-bottom:30px;}
+			.limit-content{padding-top:20px;border-top:#fbffff solid 1px;}
+
+			.main-limit .introduce{color: #a3a4a5}
+
+			.limit-content .bar{position:relative;height: 42px;}
+			.limit-content .bar button{position:absolute;right:0px;margin:0px;top:0px;padding:10px 12px;}
+			.limit-content .title{padding:10px 0px;font-size:#333;}
+
+			.limit-content .vert-form .tips{margin-top:15px;}
+			.limit-content .bar input{padding-left: 7px;}
+			.limit-content form{position:relative;}
+			.limit-content form .tips span{display:table;}
+			.limit-content .error-tips{text-align: center;font-size: 13px;padding: 2px 0px;
+background: rgb(248, 226, 108);color: #BD0000;border-radius: 0px 0px 4px 4px;box-shadow: 0px 0px 2px #868686;
+width: 316px;margin-left: 10px;}
+
+	</style>
+
 	
 
 </head>
@@ -14,47 +40,39 @@
 	<!-- top {user:{user}} -->
 	<% include ../common/top.ejs %>
 
-	<div class="container">
+	<div class="main">
 
-		<div class="bd">
-		<div class="row">
-			<div class="span8">
+		<div class="main-limit">
 
+			<div class="limit-header">
 
-			<h1><%=room.topic%></h1>
+				<div class="header-inner set-middle">
+					<h1><%=room.topic%></h1>
+				</div>
+			</div>
 
-			<%if(status.code != 0){%><div class="alert alert-error"><%=status.msg%></div><%}%>
+			<div class="limit-content">
 
-			<form method="post" action="/room_limit" class="bs-docs-example">
-				
-				<input type="hidden" name="roomid" value="<%=room.name || room.id%>" >
-	            <div class="control-group">
-	              <label class="control-label" for="password">访问密码：</label>
-	              <div class="controls">
-	                <input type="text" id="password" name="password" placeholder="password">
-	              </div>
-	            </div>
-	            
-	            <div class="control-group">
-	              <div class="controls">
-	                <button type="submit" class="btn">继续</button>
-	              </div>
-	            </div>
-	         </form>
-         	</div>
-         	<div class="span4">
-         		<div style="margin-top:60px;background:#f2f7f6;border-radius:4px;padding:18px;">
-	         		<ul>
-	         			<li>私密对话需要输入访问密码</li>
-	         			<li>一次输入即可，下次直接访问</li>
-	         			<li>如果对话密码修改，所有访问者需要重新输入密码</li>
-	         		</ul>
-         		</div>
-         	</div>
-		</div>
+				<p class="content-inner set-middle title">Access Password</p>
+				<form class="vert-form content-inner set-middle" id="limit" action="/room_limit" method="post">
+					<input type="hidden" name="roomid" value="<%=room.name || room.id%>" >
+
+					<div class="bar">
+						<div class="input-box">
+							<input autofocus id="password" name="password" placeholder="password">
+						</div>
+						<button type="submit" class="btn form-btn">Submit</button>
+					</div>
+					<%if(status.code != 0){%>
+					<div class="error-tips"><%=status.msg%></div>
+					<% } %>
+
+					<p class="tips bottom-tips"><span>* Vchat.co will continue to remember the password to access the next</span><span>* If the creator to change the password to re-enter</span></p>
+
+				</form>
+			</div>
 		</div>
 	</div>
-	<% include ../common/footer.ejs %>
 
 	<script type="text/javascript" src="/public/js/lib/jquery-1.6.3.min.js"></script>
 	<script type="text/javascript" src="/public/js/lib/we.min.js"></script>
