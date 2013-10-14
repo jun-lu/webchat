@@ -34,7 +34,7 @@
 		<div class="main-detail main-content">
 			
 			<div class="main-title">
-					<a href="http://vchat.co/<%=room.name ? room.name : room.id%>">
+					<a href="/t/<%=room.name ? room.name : room.id%>">
 						<h1 title="<%=room.topic%>"> 
 							<i class="icon-chat"></i> 
 							<%=tool.cutOff(room.topic, 100)%>

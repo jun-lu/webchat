@@ -1,4 +1,12 @@
-WE.top = {
+WE.top = {};
+
+WE.top.init = function(){
+
+	WE.top.search.init();
+	WE.top.notice.init();
+}
+
+WE.top.search = {
 
 
 	init: function(){
@@ -202,4 +210,129 @@ WE.top = {
 
 		this.index = index;
 	}
-}
+};
+
+
+
+
+WE.top.notice = {
+
+	noticeTmpl:'<li>\
+					<a href="/user/<%=from._id %>"><%=from.name %></a> 在 <a href="/d/<%=response %>"><%=where.topic %></a> 回复了你\
+					<span class="know" data-nid="<%=_id %>">不再提醒</span>\
+				</li>',
+
+	noResultTmpl: '<p class="no-notice">No recent new notice...</p>',
+
+	init: function(){
+
+		var wall = $('#notice-box');
+
+		this.ui = {
+
+			wall: wall,
+			bell: wall.find('.bell'),
+			list: wall.find('.notice-list')
+		}
+
+		this.getStatus();
+		this.regEvent();
+
+	},
+
+	regEvent: function(){
+
+		var _this = this;
+
+		this.ui.bell.click(function( e ){
+
+			_this.setBellStatus(0);
+			_this.getNotices();
+			_this.ui.list.removeClass('hidden');
+
+			e.preventDefault();
+			
+		});
+	},	
+
+	getStatus: function(){
+
+		var _this = this;
+
+		var model = new WE.api.NoticeModel();
+		var ctrl = new WE.Controller();
+		ctrl.update = function( e ){
+
+			var data = e.data;
+
+			if( data.code == 0 && data.result > 0 ){
+
+				_this.setBellStatus(1);
+			}
+		}
+		model.addObserver(ctrl);
+		model.noticeCount();
+	},
+
+	/*
+		type : 1(has) 0(no)
+	 */
+	setBellStatus: function( type ){
+
+		type ? this.ui.bell.find('i')
+					.removeClass('icon-noticedefault')
+					.addClass('icon-noticeaction') :
+			   this.ui.bell.find('i')
+			   		.removeClass('icon-noticeaction')
+			   		.addClass('icon-noticedefault');
+	},
+
+	appends: function( datas ){
+
+		var len = datas.length;
+		var i = 0;
+		var html = '<ul class="notices">';
+
+		for(; i<len; i++){
+
+			html += WE.kit.tmpl(this.noticeTmpl,datas[i]);
+		}
+
+		html += '</ul>';
+
+		this.ui.list.find('.content').empty().append( html );
+	},
+
+
+	setNoResult: function(){
+
+		this.ui.list.find('.content').empty().append( this.noResultTmpl );
+	},
+
+	getNotices: function(){
+
+		var _this = this;
+
+		var model = new WE.api.NoticeModel();
+		var ctrl = new WE.Controller();
+		ctrl.update = function( e ){
+
+			var data = e.data;
+			
+			if( data.code == 0 ){
+
+				if( data.result.count ){
+
+					_this.appends( data.result.list );
+				}else{
+
+					_this.setNoResult();
+				}
+			}
+		}
+		model.addObserver(ctrl);
+		model.noticeList();
+	}
+
+
+};

@@ -148,11 +148,24 @@ header{background:#545652;height:33px;border-bottom:#303030 solid 1px;box-shadow
 	.header-menu .notice-box,.header-menu .account-box{display:inline-block;float: left}
 	.header-menu{position:relative;float:right;height:33px;}
 	.header-menu .account-box{margin-right:10px;}
-	.header-menu .notice-box a,.header-menu .account-box .nick-name{padding: 0px 20px;display: block;height:33px;line-height: 36px;color:#D8D8D8}
+	.header-menu .notice-box .bell,.header-menu .account-box .nick-name{padding: 0px 20px;display: inline-block;;height:33px;line-height: 36px;color:#D8D8D8}
 	.header-menu .account-box .nick-name{font-size: 13px;color:#fff;white-space: nowrap;word-wrap: normal;word-break: normal;text-overflow: ellipsis;overflow: hidden;position:relative;padding-left:50px;padding-right: 11px;width: 6em}
 		.header-menu .notice-box i{vertical-align: middle;margin-bottom: 3px}
 		.header-menu .account-box .nick-name{border-left: #222 solid 1px;}
-		.header-menu .notice-box{border-right: #6B6B6B solid 1px}
+		.header-menu .notice-box{border-right: #6B6B6B solid 1px;position:relative;}
+		.header-menu .notice-box .notice-list{position:absolute;left: -103px;top: 35px;width: 280px;font-size:12px;background:#fff;border:
+			1px solid #e6e6e6;white-space: normal;word-wrap: break-word}
+			.header-menu .notice-list .link{background:#f6f6f6;border-top:#eee solid 1px;text-align: center;
+				padding: 6px 0px;font-size: 13px;}
+				.header-menu .notice-list .content{padding-top: 15px;font-size:13px;color:#999;}
+			.header-menu .notice-list .link a{color:#7C7C7C}
+			.header-menu .notice-list .no-notice{padding:0px 15px 15px 15px;}
+			.header-menu .notice-list .notices{padding:0px 12px 12px 12px;}
+				.header-menu .notice-list .notices li{border-bottom: #eee dotted 1px;padding: 5px 0px}
+					.header-menu .notice-list .notices li:last-child{padding-bottom:0px;border:0;}
+				.header-menu .notice-list .notices .know{float:right;cursor:pointer;}
+					.header-menu .notice-list .notices .know:hover{text-decoration:underline;}
+
 	.header-unlogin a{height: 34px;line-height: 34px;font-size: 13px;color: #E6E6E6;display: inline-block;padding: 0px 20px;border-right: #424242 solid 1px}
 	
 	.header-links{line-height: 34px;height:34px;}
