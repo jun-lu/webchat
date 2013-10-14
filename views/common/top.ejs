@@ -31,10 +31,25 @@
 	</div>
 	<% if(user){ %>
 	<div class="pull-right header-menu">
-		<div class="notice-box">
-			<a href="/user/notice">
+		<div class="notice-box" id="notice-box">
+			<a href="/user/notice" class="bell">
 				<i class="icon-noticedefault"></i>
 			</a>
+			<div class="notice-list hidden">
+				<div class="content">
+					<!-- <p class="no-notice">No recent new notice...</p> -->
+					<ul class="notices">
+						<li>
+							<a href="/">CK.Ming</a> 在 <a href="/">明天</a> 回复了你
+							<span class="know">不再提醒</span>
+						</li>
+						
+					</ul>
+				</div>
+				<div class="link">
+					<a href="/user/notice">See all notifications</a>
+				</div>
+			</div>
 		</div>
 		<div class="account-box">
 
@@ -49,12 +64,6 @@
 							Home Page
 						</a>
 					</li>
-					<!-- <li>
-						<a href="/user/<%=user._id%>">
-							
-							Personal page
-						</a>
-					</li> -->
 					<li>
 						<a href="/user/edit-avatar">
 							Edit Avatar
