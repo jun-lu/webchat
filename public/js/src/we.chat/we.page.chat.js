@@ -442,8 +442,14 @@ WE.pageChat.userlist = {
 		if(data){
 
 			this.data = data;
+
+			html += WE.kit.tmpl(this.tmpl, USER);
 			for(; i>=0; i--){
-				html += WE.kit.tmpl(this.tmpl, data[i]);	
+
+				if( this.data[i]._id != USER._id ){
+					html += WE.kit.tmpl(this.tmpl, data[i]);	
+				}	
+				
 			}
 
 			$('#user-list').empty().html( html );
@@ -605,7 +611,8 @@ WE.pageChat.invite = {
 			close: inviteWall.find('.js-close-btn'),
 			usersList: $('#users-list'),
 			emailInput: inviteWall.find('.email-input'),
-			emailTips: inviteWall.find('.email-input .error-tips')
+			emailTips: inviteWall.find('.email-input .error-tips'),
+			submit: $('#invite-submit')
 		};
 
 		this.regEvent();
@@ -693,7 +700,17 @@ WE.pageChat.invite = {
 
 		this.ui.emailInput.find('input').focus(function(){
 			_this.ui.emailTips.hide();
-		})
+		});
+
+
+		this.ui.submit.click(function(){
+
+			if( _this.selectList.mail.length ||
+				_this.selectList.user.length  ){
+
+				_this.invitePost();
+			}
+		});
 	},
 
 
@@ -734,6 +751,22 @@ WE.pageChat.invite = {
 		}
 		model.addObserver(ctrl);
 		model.getContactList();
+	},
+
+
+	invitePost: function(){
+
+		var _this = this;
+
+		var model = new WE.api.RoomModel();
+		var ctrl = new WE.Controller();
+		ctrl.update = function( e ){
+
+			console.log('data',e.data);
+		}
+		model.addObserver(ctrl);
+		model.inviteChat(_this.selectList.user, _this.selectList.mail, ROOM.id );
+
 	}
 };
 
@@ -839,7 +872,7 @@ WE.pageChat.inviteCell.prototype = {
 
 	addUser: function(){
 
-		this.isUserList ? this.list.push(this.data._id) : this.list.push(this.data);
+		this.isUserList ? this.list.push(this.data._id) : this.list.push(this.data.mail);
 		
 	},
 
@@ -863,7 +896,5 @@ WE.pageChat.inviteCell.prototype = {
 		}
 
 	}
-
-
 }
 

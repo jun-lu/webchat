@@ -29,9 +29,9 @@
 		.main-title{top:0px;}
 		.main-input{bottom:0px;}
 	.main{margin-left:200px;height:100%;position: relative;
-		-webkit-transition:margin .3s ease;
-		-moz-transition:margin .3s ease;
-		-o-transition:margin .3s ease;
+		-webkit-transition:margin-left .3s ease;
+		-moz-transition:margin-left .3s ease;
+		-o-transition:margin-left .3s ease;
 
 		box-shadow: 1px 1px 5px #868CA8;z-index: 57;
 	 }
