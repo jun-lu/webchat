@@ -54,6 +54,8 @@ module.exports = function( app ){
 	app.post('/api/notice-status', require("./setUserNoticeStatus"));
 	//22号
 	app.get('/api/room-search', require("./roomSearch"));
+	//room-inviteh  23号
+	app.get('/api/room-inviteh', require("./roomInviteh"));
 
 	app.options('/sys/vchat-create', CORS_OPTIONS);
 	app.options('/sys/vchat-login', CORS_OPTIONS);
