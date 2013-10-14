@@ -170,7 +170,7 @@ module.exports = {
 ````javascript
 {
 	_id:"51419a0c2128205e66000024", //数据库唯一 _id
-	type:1// 1对话中回复（回复方式） 2对话中提到（@方式）
+	type:1// 1对话中回复（回复方式） 2对话中提到（@方式） 3邀请加入对话
 	form:User, //来自
 	to:User._id, //  接收用户的id
 	where:Room, //根据type会返回不同的对象
