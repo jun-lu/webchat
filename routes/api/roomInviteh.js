@@ -13,6 +13,8 @@
 	}		
 
 */
+var path = require("path");
+var fs = require("fs");
 var ejs = require("ejs");//compile
 var WebStatus = require("../../lib/WebStatus");
 var LogModel = require("../../lib/LogModel");
@@ -21,9 +23,11 @@ var UserModel = require("../../lib/UserModel");
 var Promise = require("../../lib/Promise");
 var tools = require("../../lib/tools");
 var SystemMail = require("../../lib/SystemMail");
+var 
 var Room_PUBLIC_KEYS = require("../../lib/Room").PUBLIC_KEYS;
 var checkMail = require("../../lib/User").checkMail;
-//var ejs_compile_mail = ejs.compile( fs )
+var mail_tmpl_fn = ejs.compile( fs.readFileSync(path.resolve("views/tmpl/mail")+"/invite.html", {encoding:"utf-8"}) );
+
 
 module.exports = function( req, res ){
 
@@ -31,12 +35,23 @@ module.exports = function( req, res ){
 	var mailString = tools.trim(req.query.mails);//.split(",");
 	var roomid = tools.trim(req.query.roomid);
 	var status = new WebStatus();
+	var user = req.session.user;
 	var	promise = new Promise();
-	var room = null;
-
-
-	//console.log( ejs.render("h1<%=a%>", {a:1111}) );
+	var output = {
+		from:user ? user.getInfo() : null,
+		to:null,
+		room:null,
+		time:parseInt(Date.now()/1000)
+	};
 	
+	if( user == null ){
+
+		res.write( status.setCode("-3").toString() );
+		res.end();
+		return ;
+
+	};
+
 	if( roomid.length == 0 ){
 
 		status.setCode("-1").setMsg(" roomid is undefined ");
@@ -60,8 +75,8 @@ module.exports = function( req, res ){
 
 		RoomModel.idFind( roomid, function( status ){
 			if( status.code == 0 ){
-				room = status.result;
-				promise.ok( room );
+				output.room = status.result;
+				promise.ok( output.room );
 			}else{
 				res.write( status.toString() );
 				res.end();
@@ -79,7 +94,7 @@ module.exports = function( req, res ){
 		}
 
 		UserModel.findFilter({ _id : {"$in":objectIds}  }, {mail:1, name:1}, function( status ){
-			var userMails = []; //被邀请的 mail
+			//var userMails = []; //被邀请的 mail
 			var users = [];//被邀请的用户
 			var mail = null;
 
@@ -88,41 +103,43 @@ module.exports = function( req, res ){
 				for(i=0; i< status.result.length; i++){
 					mail = status.result[i].mail
 					if( checkMail( mail ) ){
-						userMails.push( mail );
+						//userMails.push( mail );
 						users.push( status.result[i] );
 					}
 				}
 
 			}
 
-			promise.ok( userMails, users );
+			promise.ok( users );
 		});
 
 	});
 
 	//邀请 mail
-	promise.then(function( userMails, users ){
+	promise.then(function( users ){
 
 		promise.ok();
 		var mails = mailString.split(",");
 		var i = 0 ;
+		var title = output.from.name + "邀请你参与" + output.room.topic;
 		for(i=0; i< mails.length; i++){
 
 			if( checkMail( mails[i] ) ){
 
-				userMails.push( mails[i] );
+				users.push( {name:"", mail:mails[i]} );
 			}
 
 		}
 
-		if( userMails.length > 0 ){
-			for(i=0; i<userMails.length ; i++){
+		if( users.length > 0 ){
+			for(i=0; i<users.length ; i++){
+				output.to = users[i];
 				SystemMail.send(
 					"jelle.lu@gmail.com",
-					userMails[i],
-					"来自 vchat.co 的邀请",
-					"邀请你参加 https://www.vchat.co/t/"+(room.name || room.id),
-					"邀请你参加 https://www.vchat.co/t/"+(room.name || room.id) + " 2",
+					users[i].mail,
+					title,
+					title +", https://www.vchat.co/t/"+(output.room.name || output.room.id),
+					mail_tmpl_fn( output ),
 					function(){}
 				)
 			}
@@ -131,7 +148,7 @@ module.exports = function( req, res ){
 
 	});
 
-	promise.then(function(userMails, users){
+	promise.then(function(){
 
 		res.write( new WebStatus().toString() );
 		res.end();

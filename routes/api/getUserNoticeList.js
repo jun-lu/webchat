@@ -57,7 +57,7 @@ module.exports = function( req, res ){
 					ids.push( status.result[i]._id.toString() );
 				};
 				//console.log("ids", ids );
-				NoticeModel.updateMoreStatus( ids, 1);
+				NoticeModel.updateMoreStatus( ids, 1, function(){});
 			}
 
 		});
