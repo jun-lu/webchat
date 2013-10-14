@@ -85,32 +85,7 @@
 							Recently Chat With
 						</div>
 						<div class="content">
-							<ul class="clearfix">
-
-								<%
-									var item = null;
-									for(var i=0; i<contacts.length; i++){
-										item = contacts[i];
-
-								%>
-								<li>
-									<div class="avatar pull-left">
-										<a href="/">
-										<img src="<%=item.avatar %>">
-										</a>
-									</div>
-									<div class="info pull-left">
-										<a href="/"><%=item.name == "" ? "(未设置昵称)" : item.name %></a>
-										<span><%=tool.cutOff(item.summary,30)  %></span>
-									</div>
-								</li>
-								<% } %>
-
-								<% if( contacts.length == 0 ){ %>
-								<li>
-									<span>No contects...</span>
-								</li>
-								<% } %>
+							<ul class="clearfix" id="contacts">
 							</ul>
 						</div>
 					</div>
@@ -126,7 +101,9 @@
 	<script type="text/javascript" src="/public/js/lib/jquery-1.6.3.min.js"></script>
 	<script type="text/javascript" src="/public/js/lib/we.min.js"></script>
 	<script type="text/javascript" src="/public/js/we.top.min.js"></script>
+	<script type="text/javascript" src="/public/js/we.user.min.js"></script>
 	<script type="text/javascript">
+		WE.userPage.home.init();
 		WE.top.init();
 	</script>
 </body>

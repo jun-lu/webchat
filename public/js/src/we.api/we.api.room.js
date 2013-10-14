@@ -18,6 +18,8 @@ WE.api.RoomModel = function(){
 	this.getMoreURL = '/api/room-chat-get';
 	this.createRoomURL = '/api/room-create';
 	this.searchRoomURL = '/api/room-search';
+
+	this.inviteRoomURL = '/api/room-inviteh';
 };
 
 WE.api.RoomModel.prototype = WE.BaseModel.prototype;
@@ -63,5 +65,10 @@ WE.api.RoomModel.prototype.uniqueKey = function(key){
 
 WE.api.RoomModel.prototype.search = function(key){
 	this.get(this.searchRoomURL,{key:key});
+}
+
+
+WE.api.RoomModel.prototype.inviteChat = function(_ids, mails, roomid){
+	this.get(this.inviteRoomURL,{_ids:_ids, mails:mails, roomid:roomid})
 }
 

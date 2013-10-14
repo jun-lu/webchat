@@ -111,7 +111,7 @@ input:focus{background: #fff;border: #949494 solid 1px;box-shadow: 0px 0px 4px #
 	.input-box .icon-lock{left:13px;}.input-box .icon-user{left: 14px;top: 13px}
 	.input-box .icon-chat{top: 15px;left: 16px;}
 
-.vert-form .input-box{margin-bottom: 10px;width:100%;}
+.vert-form .input-box{margin-bottom: 10px;width:100%;height:42px;}
 	.form-middle{width:307px;}
 	.form-link{font-size:14px;color:#777b7e;}.form-link:hover{text-decoration:underline;}
 	/* button */
@@ -163,7 +163,7 @@ header{background:#545652;height:33px;border-bottom:#303030 solid 1px;box-shadow
 	.header-menu .drop-list a{color:#D5D5D5;display:block;padding: 5px 0px 5px 15px}
 
 	.header-menu .drop-list a:hover{background:#5E5E5E;color:#fff}
-	.header-menu .drop-list .login-out{border-top:#8F8E8E solid 1px;border-radius:0px 0px 4px 4px;}
+	.header-menu .drop-list .login-out{border-top:#8F8E8E solid 1px;border-radius:0px 0px 4px 4px;padding: 10px 0px 10px 15px}
 
 	.header-menu .account-box:hover .drop-list{display:block;}
 	.header-menu .drop-list:hover .account-box{display:block;background:red}
