@@ -177,6 +177,26 @@ module.exports = {
 			promise.start();
 
 		},
+		test:function(req, res){
+
+			var output = {
+
+				user:{
+
+					_id:Date.now(),
+					name:"abcd"
+				},
+				room:{
+					id:req.params.key
+				}
+			}
+
+			
+			res.render('test', output);
+
+			//promise.start();
+
+		},
 		// 发布一条信息
 		post:function( req, res ){
 		

@@ -14,6 +14,7 @@
 */
 
 var UserModel = require("../../lib/UserModel");
+var WebStatus = require("../../lib/WebStatus");
 
 module.exports = function( req, res ){
 

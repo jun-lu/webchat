@@ -5,6 +5,8 @@
 
 var d = require('domain').create();
 var fs = require("fs");
+var webRTC = require('webrtc.io').listen(8001);
+
 
 d.on("error", function( err ){
 	console.log(err.stack);
@@ -86,3 +88,9 @@ var httpServer = http.createServer(function(req, res){
 
 	console.log("server ok  http:"+config.httpPort+" https:"+ config.httpsPort);
 })
+
+
+
+
+
+
