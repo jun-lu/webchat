@@ -13,6 +13,7 @@
 	}		
 
 */
+var ejs = require("ejs");//compile
 var WebStatus = require("../../lib/WebStatus");
 var LogModel = require("../../lib/LogModel");
 var RoomModel = require("../../lib/RoomModel");
@@ -22,6 +23,7 @@ var tools = require("../../lib/tools");
 var SystemMail = require("../../lib/SystemMail");
 var Room_PUBLIC_KEYS = require("../../lib/Room").PUBLIC_KEYS;
 var checkMail = require("../../lib/User").checkMail;
+//var ejs_compile_mail = ejs.compile( fs )
 
 module.exports = function( req, res ){
 
@@ -30,8 +32,10 @@ module.exports = function( req, res ){
 	var roomid = tools.trim(req.query.roomid);
 	var status = new WebStatus();
 	var	promise = new Promise();
-
 	var room = null;
+
+
+	//console.log( ejs.render("h1<%=a%>", {a:1111}) );
 	
 	if( roomid.length == 0 ){
 
@@ -134,6 +138,6 @@ module.exports = function( req, res ){
 
 	});
 
-	promise.end();
+	promise.start();
 
 };
