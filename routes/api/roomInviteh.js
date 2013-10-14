@@ -23,7 +23,6 @@ var UserModel = require("../../lib/UserModel");
 var Promise = require("../../lib/Promise");
 var tools = require("../../lib/tools");
 var SystemMail = require("../../lib/SystemMail");
-var 
 var Room_PUBLIC_KEYS = require("../../lib/Room").PUBLIC_KEYS;
 var checkMail = require("../../lib/User").checkMail;
 var mail_tmpl_fn = ejs.compile( fs.readFileSync(path.resolve("views/tmpl/mail")+"/invite.html", {encoding:"utf-8"}) );
