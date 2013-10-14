@@ -310,3 +310,80 @@ WE.userPage.bindMail = {
 		},2000);
 	}
 }
+
+
+
+/**
+	home
+*/
+WE.userPage.home = {
+
+	tmpl: '<li>\
+				<div class="avatar pull-left">\
+					<a href="/user/<%=_id %>">\
+						<img src="<%=avatar %>">\
+					</a>\
+				</div>\
+				<div class="info pull-left">\
+					<a href="/user/<%=_id %>"><%= name == "" ? "(未设置昵称)" : name %></a>\
+					<span><%=WE.kit.cutOff(summary,30)  %></span>\
+				</div>\
+			</li>',
+
+	noTmpl: '<li>\
+				<span>No contects...</span>\
+			</li>',
+
+	init: function(){
+
+		this.ui = {
+			list: $('#contacts')
+		}
+		this.loadContacts();
+	},	
+
+
+	loadContacts: function(){
+
+		var _this = this;
+
+		var model = new WE.api.UserModel();
+		var ctrl = new WE.Controller();
+		ctrl.update = function( e ){
+
+			var data = e.data;
+
+			if( data.code == 0 ){
+
+				if( data.result.length > 0 ){
+
+					_this.appends( data.result );
+
+				}else{
+
+					$( _this.noTmpl ).appendTo( _this.ui.list );
+				}
+			}
+		}
+		model.addObserver(ctrl);
+		model.getContactList();
+	},
+
+	appends: function( datas ){
+
+		var html = '';
+		var i = 0;
+
+		if( datas.length > 0 ){
+
+			var len = datas.length;
+			for(; i<len; i++){
+
+				html += WE.kit.tmpl(this.tmpl,datas[i].to );
+			}
+
+			$( html ).appendTo( this.ui.list );
+		}
+
+	}
+}
