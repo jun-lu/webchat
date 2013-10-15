@@ -950,6 +950,7 @@ WE.pageChat.roomEdit = {
 		var _this = this;
 
 		this.ui.boot.click(function(){
+			_this.clear();
 
 			_this.ui.titleBox.height('100%');
 			_this.ui.topic.focus();
@@ -965,7 +966,6 @@ WE.pageChat.roomEdit = {
 		this.ui.box.find('.topic-edit-submit').click(function(){
 
 
-			console.log('topic',_this.ui.topic)
 			var topic = $.trim( _this.ui.topic.val() );
 			var password = $.trim( _this.ui.password.val() );
 
@@ -981,12 +981,12 @@ WE.pageChat.roomEdit = {
 
 			if( !value ){
 
-				_this.ui.passowrd.hide();
-				_this.ui.passowrd.val('');
+				_this.ui.password.hide();
+				_this.ui.password.val('');
 				return false;
 			}
 
-			_this.ui.passowrd.show();
+			_this.ui.password.show();
 		});
 	},
 
@@ -1005,6 +1005,18 @@ WE.pageChat.roomEdit = {
 		}
 		model.addObserver(ctrl);
 		model.updateRoomBase( id, topic, password );
+	},
+
+	clear: function(){
+
+		ROOM.password == null ? this.ui.password.hide() 
+							  : this.ui.password.show();
+
+		ROOM.password != null ? this.ui.checkpwd.attr('checked','checked')
+							  : this.ui.checkpwd.removeAttr('checked');
+
+		this.ui.password.val( ROOM.password == null ? "" : ROOM.password );
+		this.ui.topic.val( ROOM.topic )
 	}
 
 
