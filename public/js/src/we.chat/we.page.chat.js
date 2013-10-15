@@ -597,6 +597,7 @@ WE.pageChat.invite = {
 	},
 	datas:[],
 	isGetData:false,
+	isSending:false,
 	mailInputList:[],
 
 	init: function(){
@@ -708,7 +709,10 @@ WE.pageChat.invite = {
 			if( _this.selectList.mail.length ||
 				_this.selectList.user.length  ){
 
-				_this.invitePost();
+				if( !_this.isSending ){
+					_this.invitePost();
+				}
+				
 			}
 		});
 	},
@@ -758,11 +762,33 @@ WE.pageChat.invite = {
 
 		var _this = this;
 
+		this.isSending = true;
+
+		this.ui.submit.text('Sending...');
+
 		var model = new WE.api.RoomModel();
 		var ctrl = new WE.Controller();
 		ctrl.update = function( e ){
 
-			console.log('data',e.data);
+			_this.isSending = false;
+			_this.ui.submit.text('Send Invite');
+			_this.ui.emailInput.find('input').val('');
+			_this.selectList.user = [];
+			_this.selectList.mail = [];
+
+			var data = e.data;
+
+			if( data.code == 0 ){
+				_this.ui.emailInput.find('.invite-tips').text('Success').show();
+			}else{
+				_this.ui.emailInput.find('.invite-tips').text('Fail to send emails').show();
+			}
+
+			_this.ui.usersList.empty();
+			setTimeout(function(){
+
+				_this.ui.emailInput.find('.invite-tips').hide();
+			},3000);
 		}
 		model.addObserver(ctrl);
 		model.inviteChat(_this.selectList.user, _this.selectList.mail, ROOM.id );
