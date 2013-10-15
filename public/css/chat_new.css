@@ -85,6 +85,8 @@
 
 	/* email invite styl */
 	.invite-wall .email-input{position:absolute;left:26px;top: 64px;position: absolute;width:290px;}
+		.invite-wall .email-input .invite-tips{width: 290px;height: 34px;background:#F5F57A;z-index: 90;
+			position: absolute;text-align: center;color:#6F6F6F;line-height:34px;}
 		.invite-wall .email-input input{width:100%;
 			box-sizing: border-box;
 			-webkit-box-sizing: border-box;
