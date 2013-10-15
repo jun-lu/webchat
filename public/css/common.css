@@ -104,8 +104,8 @@ textarea,input{border:0;outline:none;border: #b8bec4 solid 1px;box-shadow: 0px 0
 input:focus{background: #fff;border: #949494 solid 1px;box-shadow: 0px 0px 4px #ADADAD}
 
 .vert-form textarea{border:#b8bec4 solid 1px;box-shadow:0px 0px 4px #bdc0c5;width:293px;}
-.input-box{display: inline-block;background:#fff;position:relative;}
-	.input-box input{border:0;outline: none;padding:7px; padding-left: 42px;width:100%;box-sizing: border-box;background:#fafafa;
+.input-box{display: inline-block;position:relative;}
+	.input-box input{height:100%;border:0;outline: none;padding:7px; padding-left: 42px;width:100%;box-sizing: border-box;background:#fafafa;
 		border:#b8bec4 solid 1px;box-shadow:0px 0px 4px #bdc0c5;
 		-webkit-transition:background .2s ease, border .2s ease;
 		-moz-transition:background .2s ease, border .2s ease;

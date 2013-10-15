@@ -49,6 +49,13 @@ WE.api.RoomModel.prototype.updateRoom = function( id, name, topic, des,password 
 	this.post(this.updateRoomURL, {id:id, name:name, topic:topic, des:des,password:password});
 
 };
+
+// 只修改topic以及password
+WE.api.RoomModel.prototype.updateRoomBase = function( id, topic ,password){
+
+	this.post(this.updateRoomURL, {id:id, topic:topic, password:password});
+};
+
 WE.api.RoomModel.prototype.getMore = function(roomid, time){
 
 	this.get(this.getMoreURL, {roomid:roomid, time:time});
