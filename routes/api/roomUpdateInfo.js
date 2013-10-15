@@ -111,7 +111,7 @@ module.exports = function(req, res){
 		var status = new WebStatus();
 
 		//请把验证写得更详细，比如限制最长字符长度与最短字符长度
-		if(topic.length && des){
+		if(topic.length){
 
 			RoomModel.updateInfo(id, name, topic, des, password, function( status ){
 
