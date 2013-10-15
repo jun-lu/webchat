@@ -1,7 +1,4 @@
 /**
-	number:12
-		获取当前登录用户未读信息条数
-		
 	url:"/sys/notice_count"
 	method:"get"
 	param:null,

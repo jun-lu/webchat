@@ -26,19 +26,9 @@ module.exports = {
 			var user = req.session.user || null;
 			var _id = req.params._id;
 			var noticeid = req.query.noticeid;
-			/**
-				output:{
-					data:Chat,
-					list:[Chat,....],
-					room:Room,
-
-
-				}
-			*/
-
 			var output = {
 				tool:tools,
-				user:user,
+				user:user ? user.getInfo() : null,
 				data:null,
 				room:null
 			};
@@ -139,7 +129,7 @@ module.exports = {
 			//如果本条信息有针对我的提醒，则标记为已读
 			promise.add(function(){
 				if(String(noticeid).length == 24){
-					NoticeModel.updateStatus(noticeid, 2);
+					NoticeModel.updateStatus(noticeid, 2, function(){});
 				};
 			});
 
