@@ -80,6 +80,12 @@ header{height: 35px;background: red;position: relative;z-index: 30;}
 
 /* common package */
 
+	/* label checkbox */
+	label{display:inline-block;margin-bottom:5px;line-height:20px;cursor:pointer;}
+		.checkbox{min-height:20px;padding-left:20px;}
+		input[type="checkbox"]{float:left;margin:4px 0 0;margin-left:-20px;line-height:normal;cursor:pointer;width:auto;
+			}
+
 	/* tag : input,textarea */
 	textarea{padding:6px;}
 	textarea,input{color: #666;}
@@ -216,3 +222,9 @@ header{background:#545652;height:33px;border-bottom:#303030 solid 1px;box-shadow
 	.page-box a,.page-box span{padding:0px 10px;padding: 0px 10px;height: 30px;line-height: 30px;color:#333;}
 	.page-box a:hover{background:#eee;}
 	.page-box strong{font-weight:bold;}
+
+
+	/* footer */
+
+	.footer{position: absolute;width: 100%;}
+		.footer .container{padding: 10px 0px 30px 0px;text-align: center;color: #777;}

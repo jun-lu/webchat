@@ -11,7 +11,7 @@
 		html,body{background:#d5d8dd}
 
 		header{position:fixed;width:100%;}
-		.main{width: 70%;max-width: 900px}
+		.main{width: 70%;max-width: 900px;min-height:500px;}
 
 		.feeds{padding-top:60px;}
 			.feed{background:#fff;border:#bababa solid 1px; box-shadow:0px 0px 1px #A8A8A8;margin-bottom: 15px}
@@ -33,7 +33,7 @@
 	<% include common/top.ejs %>
 
 
-	<div class="main set-middle">
+	<div class="main set-middle clearfix">
 
 
 		<% var len = rooms.length; %>
@@ -86,6 +86,8 @@
 
 	</div>
 
+
+	<% include common/footer.ejs %>
 
 	<script type="text/javascript" src="/public/js/lib/jquery-1.6.3.min.js"></script>
 	<script type="text/javascript" src="/public/js/lib/we.min.js"></script>
