@@ -924,3 +924,88 @@ WE.pageChat.inviteCell.prototype = {
 	}
 }
 
+
+
+/* room edit */
+WE.pageChat.roomEdit = {
+
+	init: function(){
+
+		this.ui = {
+			boot: $('#room-edit-boot'),
+			box: $('#room-edit-box'),
+			titleBox: $('#title-box'),
+			checkpwd: $('#checkpwd'),
+			password: $('#password'),
+			topic: $('#topic-name'),
+			form: $('#room-edit-form')
+		}
+
+		this.regEvent();
+	},
+
+
+	regEvent: function(){
+
+		var _this = this;
+
+		this.ui.boot.click(function(){
+
+			_this.ui.titleBox.height('100%');
+			_this.ui.topic.focus();
+			_this.ui.box.show();
+		});
+
+		this.ui.box.find('.close-btn').click(function(){
+
+			_this.ui.titleBox.height('auto');
+			_this.ui.box.hide();
+		});
+
+		this.ui.box.find('.topic-edit-submit').click(function(){
+
+
+			console.log('topic',_this.ui.topic)
+			var topic = $.trim( _this.ui.topic.val() );
+			var password = $.trim( _this.ui.password.val() );
+
+			if( topic != "" ){
+				_this.post( ROOM.id, topic, password );
+				return false;
+			}
+		});
+
+		this.ui.checkpwd.change(function(){
+
+			var value = _this.ui.checkpwd.is(':checked');
+
+			if( !value ){
+
+				_this.ui.passowrd.hide();
+				_this.ui.passowrd.val('');
+				return false;
+			}
+
+			_this.ui.passowrd.show();
+		});
+	},
+
+	post: function( id, topic, password ){
+
+		var _this = this;
+
+		var model = new WE.api.RoomModel();
+		var ctrl = new WE.Controller();
+		ctrl.update = function( e ){
+
+			var data = e.data;
+			if( data.code == 0 ){
+				location.reload();
+			}
+		}
+		model.addObserver(ctrl);
+		model.updateRoomBase( id, topic, password );
+	}
+
+
+}

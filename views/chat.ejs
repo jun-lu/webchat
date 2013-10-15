@@ -34,15 +34,33 @@
 		<div class="main">
 			
 			<div class="main-wall">
-				<div class="main-title">
+				<div class="main-title " id="title-box">
 					<h1 title="<%=room.topic %>">
 						<i class="icon-chat"></i>
 						<%=tool.cutOff(room.topic,40)%>
+						&nbsp;&nbsp;<% if( room.master._id == user._id ){ %><span id="room-edit-boot" class="edit hidden">edit</span><% } %>
 					</h1>
-					<!-- <div class="main-message">
-						<img class="user-photo" src="http://tp3.sinaimg.cn/2764528354/180/22831103583/1">
-						<span class="user-name">AeroJin</span>上线
-					</div>	 -->	
+					<div class="edit-topic clearfix hidden" id="room-edit-box">
+						<form action="/api/room-update" method="post" id="room-edit-form">
+							<input type="hidden" value="<%=room.id %>">
+							<ul>
+								<li>
+									<input class="topic-name" name="topic" placeholder="Edit topic" value="<%=room.topic %>" id="topic-name">
+								</li>
+								<li>
+									<label class="checkbox"><input <% if( room.password != null ){ %> checked <% } %> type="checkbox" id="checkpwd">Access Password</label>
+								</li>
+								<li>
+									<input name="password" placeholder="Access Password" class="<% if( room.password == null ){ %> hidden <% } %>" id="password">
+								</li>
+								
+							</ul>
+							<p class="btns">
+								<button type="button" class="btn btn-white close-btn">Cancel</button>
+								<button type="button" class="btn topic-edit-submit">Submit</button>
+							</p>
+						</form>
+					</div>
 				</div>
 
 				<div class="main-content">
@@ -152,6 +170,7 @@
 		</div>	
 	</div>
 	
+	
 	<script type="text/javascript" src="/public/js/lib/jquery-1.6.3.min.js"></script>
 	<script type="text/javascript" src="/public/js/lib/we.min.js"></script>
 	<script type="text/javascript" src="/public/js/we.top.min.js"></script>
@@ -249,6 +268,7 @@
 		WE.pageChat.init();
 		WE.pageChat.historylist.init();
 		WE.pageChat.invite.init();
+		WE.pageChat.roomEdit.init();
 		WE.pageChat.timeLine.init( <%- JSON.stringify( indexChats ) %>,<%- chats_count %> );
 		
 		//WE.pageChat.notice.init();

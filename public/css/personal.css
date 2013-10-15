@@ -25,6 +25,7 @@ header{width:100%;position:fixed;top:0px;}
 		.recent-user .avatar a{padding:0px;float:left;}
 		.recent-user .info a{display:table-cell;}
 		.recent-user .info{margin-left:5px;}
+			.recent-user .content ul li{overflow:hidden;margin-bottom:5px;}
 		.recent-user .info span{float:left;color: #aaa;line-height: 24px;padding-left: 5px;font-size: 13px;}
 
 .main-content .title{color:#969696;font-size: 19px} .main-content .title i{margin-right:3px;}

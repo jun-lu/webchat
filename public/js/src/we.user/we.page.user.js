@@ -326,7 +326,7 @@ WE.userPage.home = {
 				</div>\
 				<div class="info pull-left">\
 					<a href="/user/<%=_id %>"><%= name == "" ? "(未设置昵称)" : name %></a>\
-					<span><%=WE.kit.cutOff(summary,30)  %></span>\
+					<span><%=summary == "" ? "(No description)" : WE.kit.cutOff(summary,30)  %></span>\
 				</div>\
 			</li>',
 

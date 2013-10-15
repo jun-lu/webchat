@@ -119,8 +119,11 @@ padding: 2px 0px;background: rgb(248, 226, 108);color: #BD0000;border-radius: 0p
 	/* style */
 
 		/* content */
-	.main-title{background: #f8f8f8;border-bottom: #e4e4e4 solid 1px;}
+	.main-title{background: #f8f8f8;border-bottom: #e4e4e4 solid 1px;z-index:60;}
 		.main-title h1{font-size: 18px;padding: 13px 0px 13px 20px;color: #484848;font-weight:bold;}
+			.main-title:hover .edit{display:inline-block;}
+			.main-title .edit{font-size:14px;font-weight:normal;color:#66A3E6;cursor:pointer;}
+				.main-title .edit:hover{text-decoration:underline;}
 	.main-input{border-top: #ececec solid 1px;background:#fff;}
 		.main-input .text-box{padding: 20px 10px;}
 			.main-input .text-box input{height: 40px;float:none;box-shadow:none;color: #333;position:relative;font-size:13px;width:100%;box-sizing:border-box;-moz-box-sizing:border-box;padding:5px;}
@@ -240,6 +243,15 @@ left: 0px}
 	.login-style .l-aside{left:-200px;}
 	.login-style .login-wall{top:0px;}
 	.history-wall{top:100%;}
+
+
+	/* for js edit topic */
+
+	.main-title .edit-topic{padding:15px 0px}
+		.main-title .edit-topic ul li{overflow:hidden;padding:3px 20px;margin-bottom: 5px;}
+			.main-title .edit-topic .topic-name{width:60%;min-width:14em;}
+			.main-title .edit-topic .btns{padding: 20px;background: #fff;border-top: #D3D3D3 solid 1px;;margin-top: 20px;
+				position: absolute;width: 100%;bottom: 0px;}
 
 	
 
