@@ -37,7 +37,7 @@
 				<div class="main-title">
 					<h1 title="<%=room.topic %>">
 						<i class="icon-chat"></i>
-						<%=tool.cutOff(room.topic, 100)%>
+						<%=tool.cutOff(room.topic,40)%>
 					</h1>
 					<!-- <div class="main-message">
 						<img class="user-photo" src="http://tp3.sinaimg.cn/2764528354/180/22831103583/1">
@@ -124,7 +124,7 @@
 
 				<div class="email-input">
 					<input placeholder="Type invite email">
-					<div class="invite-success"></div>
+					<div class="invite-tips hidden">Mail sent successfully</div>
 					<div class="error-tips hidden">Error</div>
 				</div>
 				<div class="users-list">

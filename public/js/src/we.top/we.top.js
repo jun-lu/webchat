@@ -216,10 +216,10 @@ WE.top.search = {
 
 
 WE.top.notice = {
-
+	hasNotices:false,
 	noticeTmpl:'<li>\
-					<a href="/user/<%=from._id %>"><%=from.name %></a> 在 <a href="/d/<%=response %>"><%=where.topic %></a> 回复了你\
-					<span class="know" data-nid="<%=_id %>">不再提醒</span>\
+					<a href="/user/<%=from._id %>"><%=from.name %></a> 在 <a href="/d/<%=response %>?noticeid=<%=_id %>"><%=where.topic %></a> 回复了你\
+					<span class="know" data-nid="<%=_id %>">Do not reminde</span>\
 				</li>',
 
 	noResultTmpl: '<p class="no-notice">No recent new notice...</p>',
@@ -236,22 +236,90 @@ WE.top.notice = {
 		}
 
 		this.getStatus();
+		this.poll();
 		this.regEvent();
 
+	},
+
+	pollPoint:null,
+	poll: function(){
+
+		var _this = this;
+
+
+		this.pollPoint = setInterval(function(){
+
+			if( _this.hasNotices ){
+
+				clearInterval(_this.pollPoint);
+				return false;
+			}
+	
+			_this.getStatus();
+
+		},60000);
+		
 	},
 
 	regEvent: function(){
 
 		var _this = this;
 
+
+		$('body').click(function(){
+
+			_this.ui.list.hide();
+			_this.poll();
+		});
+
+		this.ui.wall.click(function( e ){
+
+			e.stopPropagation();
+
+			_this.ui.list.show();
+		});
+
 		this.ui.bell.click(function( e ){
 
+			clearInterval(_this.pollPoint);
+
+			_this.hasNotices = false;
 			_this.setBellStatus(0);
 			_this.getNotices();
 			_this.ui.list.removeClass('hidden');
 
+			
+
 			e.preventDefault();
 			
+		});
+
+
+		this.ui.list.delegate('.know','click',function(){
+
+			var $this = $(this);
+			var nid = $this.attr('data-nid');
+
+			var model = new WE.api.NoticeModel();
+			var ctrl = new WE.Controller();
+			ctrl.update = function( e ){
+
+				var data = e.data;
+				if( data.code == 0 ){
+
+					$this.animate({'height':'0px'},800,function(){
+						$this.remove();
+					})
+					
+					_this.getNotices();
+					//_this.poll();
+
+				}
+			}
+			model.addObserver(ctrl);
+			model.noticeStatus( nid );
+
+
 		});
 	},	
 
@@ -267,7 +335,13 @@ WE.top.notice = {
 
 			if( data.code == 0 && data.result > 0 ){
 
+				if( data.result == 0 ){
+					_this.hasNotices = false;
+					return false;
+				}
+				_this.hasNotices = true;
 				_this.setBellStatus(1);
+
 			}
 		}
 		model.addObserver(ctrl);
@@ -323,6 +397,7 @@ WE.top.notice = {
 
 				if( data.result.count ){
 
+					
 					_this.appends( data.result.list );
 				}else{
 
