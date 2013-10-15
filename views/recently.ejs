@@ -83,9 +83,12 @@
 		<% } %>
 
 		<div class="page-box pull-right">
-			<a href="/recently?time=<%=time %>&a=prev"><</a>
-			<!-- <span><strong>20</strong> / 129</span> -->
-			<a href="/recently?time=<%=time %>&a=next">></a>
+			<% if(prevPage != -1){ %>
+			<a href="/recently?page=<%=prevPage %>"><</a>
+			<% } %>
+			<% if(nextPage != -1){ %>
+			<a href="/recently?page=<%=nextPage %>">></a>
+			<% } %>
 		</div>
 
 	</div>
