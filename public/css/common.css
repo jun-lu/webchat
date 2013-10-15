@@ -80,6 +80,12 @@ header{height: 35px;background: red;position: relative;z-index: 30;}
 
 /* common package */
 
+	/* label checkbox */
+	label{display:inline-block;margin-bottom:5px;line-height:20px;cursor:pointer;}
+		.checkbox{min-height:20px;padding-left:20px;}
+		input[type="checkbox"]{float:left;margin:4px 0 0;margin-left:-20px;line-height:normal;cursor:pointer;width:auto;
+			}
+
 	/* tag : input,textarea */
 	textarea{padding:6px;}
 	textarea,input{color: #666;}
