@@ -28,9 +28,9 @@ var UserModel = require("../../lib/UserModel");
 module.exports = function(req, res){
 
 	var user = req.session.user;
-	var name = tools.removeHtmlTag( req.body.name ) || "";
-	var topic = req.body.topic;
-	var des = req.body.des;
+	var name = tools.revertHtmlTag( req.body.name ) || "";
+	var topic = tools.revertHtmlTag(req.body.topic);
+	var des = tools.revertHtmlTag(req.body.des);
 	var id = req.body.id;
 	var password = tools.trim(req.body.password) || null;
 	var room = null;
