@@ -216,3 +216,9 @@ header{background:#545652;height:33px;border-bottom:#303030 solid 1px;box-shadow
 	.page-box a,.page-box span{padding:0px 10px;padding: 0px 10px;height: 30px;line-height: 30px;color:#333;}
 	.page-box a:hover{background:#eee;}
 	.page-box strong{font-weight:bold;}
+
+
+	/* footer */
+
+	.footer{position: absolute;width: 100%;}
+		.footer .container{padding: 10px 0px 30px 0px;text-align: center;color: #777;}
