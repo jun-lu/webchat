@@ -70,7 +70,7 @@ module.exports = {
 			if( topic ){
 				topic = tools.removeHtmlTag( topic );
 				des = tools.removeHtmlTag( des );
-				RoomModel.create( topic, des, String(output.user._id) , output.user.name, function( status ){
+				RoomModel.create( topic, des, String(output.user._id) , null, function( status ){
 					
 					promise.ok( status );
 					

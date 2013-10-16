@@ -67,14 +67,14 @@ module.exports = {
 				var room = status.result;
 				output.room = room;
 				if( room.password == null ){
-					res.redirect("/"+roomid);
+					res.redirect("/t/"+roomid);
 					return ;
 				}
 
 				if( room.password === password ){
 					UserModel.addRoomPassword( user._id, room.id, password, function( status ){
 						if(status.code == "0"){
-							res.redirect("/"+roomid);
+							res.redirect("/t/"+roomid);
 						}
 					} );	
 				}else{

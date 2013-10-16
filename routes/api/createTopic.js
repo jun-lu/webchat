@@ -16,29 +16,13 @@ var WebStatus = require("../../lib/WebStatus");
 module.exports = function(req, res){
 
 	var user = req.session.user;
-	var topic = String(req.body.topic);
-	var des = String(req.body.des);
-	var pwd = String(req.body.pwd);
+	var topic = tools.removeHtmlTag( String(req.body.topic) );
+	var des = tools.removeHtmlTag( String(req.body.des) );
+	var pwd = tools.removeHtmlTag( String(req.body.pwd) ) || null;
 	var promise;
 	var output = {
 		user:user ? user.getInfo() : null
-	};
-	//console.log("topic", topic, des, pwd);
-	/**
-	if(user == null){
-		res.write( new WebStatus("-3").toString() );
-		res.end();
-		return false;
-	}
-
-	if(!topic || topic.length == 0 || topic.length > 140 || des.length > 300 || pwd.length > 16){
-
-		res.write( new WebStatus("-1").toString() );
-		res.end();
-		return false;
-	}
-	*/
-	
+	};	
 
 
 	promise = new Promise();
@@ -74,16 +58,17 @@ module.exports = function(req, res){
 
 	promise.then(function(){
 
-		topic = tools.removeHtmlTag( topic );
-		des = tools.removeHtmlTag( des );
-		//console.log("topic", topic, des, pwd);
+		//topic = tools.removeHtmlTag( topic );
+		//des = tools.removeHtmlTag( des );
 
-		RoomModel.create( topic, des, String(output.user._id) , output.user.name, function( status ){
+		RoomModel.create( topic, des, String(output.user._id) , pwd, function( status ){
+			
+			promise.ok( status );
 			
 			res.write( status.toString() );
 			res.end();
 
-			promise.ok( status );
+			
 			
 			
 		});
@@ -95,6 +80,7 @@ module.exports = function(req, res){
 		if( status.code == "0" ){
 
 			var room = status.result;
+			UserModel.addRoomPassword( String(output.user._id), room.id, pwd, function(){});
 			ChatModel.create( room.id, "Your first message!", "*", output.user._id, null);
 			LogModel.create( String(output.user._id), "create_room", room.getInfo(), function(){} );
 		}
