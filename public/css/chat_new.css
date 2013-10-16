@@ -62,7 +62,7 @@
 		}
 		.invite-wall .users-list ul{height:100%;overflow:auto;}
 		.invite-wall .users-list li{margin-bottom:8px;padding-left: 25px}
-		.invite-wall .users-list .cell{display: table-cell;padding:5px; width:280px;background:#f9f9f9;
+		.invite-wall .users-list .cell{padding:5px; width:280px;background:#f9f9f9;
 										font-size:13px;line-height: 30px;cursor:pointer;position:relative;
 									}
 		.invite-wall .users-list .cell:hover{background:#fff;}
