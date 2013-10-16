@@ -24,7 +24,12 @@
 			.info-box .block .header{width:100%;height:30px;background:#fdfaa2;border-bottom: #F0E02F solid 1px}
 			.info-box .block .clear-border{border-bottom:none;}
 					  .block .header span{height:30px;line-height:30px;font-size:13px;color:#af8c13;padding: 0px 22px;display: inline-block;width:465px;float:left;border-right:#fff solid 1px;}
-					  .block input,.block textarea{border:0;box-shadow:none;width: 100%;box-sizing: border-box;padding:6px;}
+					  .block input,.block textarea{border:0;box-shadow:none;width: 100%;padding:6px;
+					  		box-sizing: border-box;
+							-webkit-box-sizing: border-box;
+							-moz-box-sizing: border-box;
+							-o-box-sizing: border-box;
+					  }
 					  .block .header button{width:40px;height:30px;padding:0px 15px;margin:0px;border-left: #F0E02F solid 1px;background: #FAF8B3;float:left;}
 					  .block .header button:active{background:#F8F595;background-color:#F8F595}
 					  .block .header button i{margin-top: 5px;margin-left: -3px}
@@ -64,7 +69,7 @@
 
 			<div class="create-content">
 			
-				<form class="vert-form content-inner set-middle" id="create">
+				<form class="vert-form content-inner set-middle" id="create" action="/create-topic">
 
 					<div class="input-box">
 						<i class="icon-chat"></i>
@@ -78,11 +83,11 @@
 									<div class="arrow"></div>
 									<div class="header">
 										<span class="title">I want to describe my topic</span>
-										<button title="edit topic's describe" class="pull-right des-btn">
+										<button type="button" title="edit topic's describe" class="pull-right des-btn">
 											<i class="icon-pen test"></i>
 										</button>
 									</div>
-									<div class="input-content hidden">
+									<div class="input-content clearfix hidden">
 										<textarea maxlength="300" name="des" id="des" placeholder="Describe my topic"></textarea>
 									</div>
 								</li>
@@ -90,11 +95,11 @@
 									<div class="arrow"></div>
 									<div class="header clear-border">
 										<span>I want to set room password</span>
-										<button title="edit room's password" class="pull-right pwd-btn">
+										<button type="button" title="edit room's password" class="pull-right pwd-btn">
 											<i class="icon-pen"></i>
 										</button>
 									</div>
-									<div class="input-content hidden">
+									<div class="input-content clearfix hidden">
 										<input name="pwd" id="des" placeholder="Password" type="text" id="password" maxlength="16">
 									</div>
 								</li>
@@ -176,9 +181,16 @@
 
 			this.ui.form.submit(function( e ){
 
+				e.preventDefault();
+				var topic = $.trim( _this.ui.topic.val() );
+
+				if( topic == "" ){
+					return false;
+					
+				}
+				
 				_this.createTopic();
 				
-				return false;
 			});
 		},
 

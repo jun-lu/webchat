@@ -57,13 +57,13 @@ header{width:100%;position:fixed;top:0px;}
 		.edit-info .display:hover .icon{background:#737577;}
 	.edit-info .display .icon{position:absolute;height:100%;width:40px;background:#e8e8e8;
 		-webkit-transition: background .2s ease,width .2s ease-in-out;
-		-moz-transition: background .2s ease-in-out;
-		-o-transition: background .2s ease-in-out;
+		-moz-transition: background .2s ease-in-out,width .2s ease-in-out;
+		-o-transition: background .2s ease-in-out,width .2s ease-in-out;
 	}
 	.edit-info .display .icon .icon-user{position:absolute;top: 13px;left: 12px;}
 	.edit-info .display .icon .icon-list{position: absolute;top: 13px;left: 13px}
 
-	.edit-info .display .icon,.edit-info .display .info{float:left;display:inline-block;}
+	.edit-info .display .icon,.edit-info .display .info{display:inline-block;}
 	.edit-info .display .info{padding: 9px 60px;padding-right:20px;min-height: 40px;word-wrap:break-word;width: 100%;
 		box-sizing: border-box;
 		-webkit-box-sizing: border-box;
@@ -74,7 +74,12 @@ header{width:100%;position:fixed;top:0px;}
 	.edit-info .display .no-info{color:#a8a8a8;}
 
 	.edit-info .edit{background:#eaeaea;padding:20px 12px 12px;position:relative;}
-		.edit-info .edit input,.edit-info .edit textarea{width: 100%;box-sizing: border-box}
+		.edit-info .edit input,.edit-info .edit textarea{width: 100%;
+			box-sizing: border-box;
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			-o-box-sizing: border-box;
+		}
 		.edit-info .edit .btns{margin-top:10px;text-align:right;}
 		.edit-info .edit button.btn-white:hover{background:#f6f6f6}
 		.edit-info .edit button.btn-white{background:#fff;}
@@ -144,7 +149,12 @@ header{width:100%;position:fixed;top:0px;}
 
 @media (min-width:800px){
 	.l-aside{position:fixed;height:100%;top: 34px;width:200px;background:rgb(222,225,229)}
-	.l-aside .create-btn{padding:20px 15px 0px 15px}.l-aside .create-btn .btn{width:100%;box-sizing: border-box}
+	.l-aside .create-btn{padding:20px 15px 0px 15px}.l-aside .create-btn .btn{width:100%;
+			box-sizing: border-box;
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			-o-box-sizing: border-box;
+	}
 	.l-aside .line{width: 100%;height: 0px;border-top: #c0c1c2 solid 1px;border-bottom: #fbffff solid 1px;display: block;margin:20px 0px;}
 		.menu li a{display:block;padding:8px 5px 8px 20px;color:#353535;font-size:17px;}
 		.menu li a:hover,.menu li a.select{background:#fbffff;border-left:#fe7676 2px solid;}
