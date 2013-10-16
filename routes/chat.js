@@ -83,7 +83,7 @@ module.exports = {
 
 					//console.log("idOrNameFind", status);
 					if(status.code == "0"){
-						output.room = status.result.getInfo();
+						output.room = status.result;
 						promise.ok( );
 
 					}else{
