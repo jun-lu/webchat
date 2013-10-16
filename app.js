@@ -68,8 +68,8 @@ app.use(express.errorHandler());
 });
 */
 var options = {
-	key: fs.readFileSync('ssl/ssl.key'),
-	cert: fs.readFileSync('ssl/ssl.crt')
+	key: fs.readFileSync('ssl/3f.key'),
+	cert: fs.readFileSync('ssl/3fa431b814e7e.crt')
 };
 
 var httpsServer = https.createServer(options, app).listen(config.httpsPort);

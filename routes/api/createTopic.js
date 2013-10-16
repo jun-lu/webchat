@@ -22,23 +22,7 @@ module.exports = function(req, res){
 	var promise;
 	var output = {
 		user:user ? user.getInfo() : null
-	};
-	//console.log("topic", topic, des, pwd);
-	/**
-	if(user == null){
-		res.write( new WebStatus("-3").toString() );
-		res.end();
-		return false;
-	}
-
-	if(!topic || topic.length == 0 || topic.length > 140 || des.length > 300 || pwd.length > 16){
-
-		res.write( new WebStatus("-1").toString() );
-		res.end();
-		return false;
-	}
-	*/
-	
+	};	
 
 
 	promise = new Promise();
