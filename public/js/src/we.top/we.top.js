@@ -333,7 +333,7 @@ WE.top.notice = {
 
 			var data = e.data;
 
-			if( data.code == 0 && data.result > 0 ){
+			if( data.code == 0 ){
 
 				if( data.result == 0 ){
 					_this.hasNotices = false;

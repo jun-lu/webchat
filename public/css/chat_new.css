@@ -180,9 +180,11 @@ left: 0px}
 	.l-aside-historyuser .title, .l-aside-online .title{font-size:12px;display: block;color: #afafaf;position:absolute;top:0px;color: #fff;background: #C9C9C9;border-bottom: #B1B1B1 1px solid;font-weight: bold;width:100%;height: 47px}
 	.l-aside-historyuser .title span,.l-aside-online .title span{position: relative;top: 14px;left: 20px;}
 	.l-aside-online .invite-btn{padding:12px;color: #fff;text-decoration: none;font-size:12px;position:absolute;top: 20px;right:0px;top:0px;height:24px;
+			cursor:pointer;
 		}
 		.l-aside-online .invite-btn:hover{background: #B1B1B1;}
 		.l-aside-online .invite-btn .icon-add{margin-top: 4px;}
+		.l-aside-online .users-box .offline-tips{text-align: center;padding: 10px 0px;background: #F8FFA1;color: rgb(199, 147, 15)}
 	.l-aside-historyuser .users-box,.l-aside-online	.users-box{height:100%;box-sizing: border-box;-moz-box-sizing: border-box;padding:50px 0px;padding-top:48px;}
 	.l-aside-historyuser .users,.l-aside-online .users{height:100%;overflow-y:auto;}
 	.l-aside-online .users li{font-size:13px;padding:8px 0px 8px 18px;cursor:pointer;color:#707070;
@@ -207,7 +209,7 @@ left: 0px}
 	.l-aside-online .users li:hover{background: #f6f6f6;border-left: 3px solid #968efb;box-shadow: 1px 1px 2px #CACACA;}
 	.l-aside-online .users .me:hover{border-left-color: #fe7676; box-shadow:none;}
 	.l-aside-online .operation{position:absolute;bottom:0px;left:0px;}
-	.l-aside-online .operation .history-btn{width:37px;height:37px;background:url(../images/all.png);background-position:-3px -155px;display:inline-block;margin-left: 12px;margin-bottom: 3px;}
+	.l-aside-online .operation .history-btn{width:37px;height:37px;background:url(../images/all.png);background-position:-3px -155px;display:inline-block;margin-left: 12px;margin-bottom: 3px;cursor:pointer;}
 	.l-aside-online .operation .history-btn:hover{background-position:-32px -3px;}
 
 	.l-aside-historyuser .users li{float:left;margin-bottom:5px;}
@@ -219,6 +221,7 @@ left: 0px}
 		-moz-transition:top .4s ease-in-out;
 		-o-transition:top .4s ease-in-out;
 		top:-30px;
+		cursor:pointer;
 	}
 
 	.l-aside-wall .back-btn .icon-down{margin-left:5px;margin-top:10px;}

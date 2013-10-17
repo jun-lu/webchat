@@ -7,6 +7,7 @@
 	<link rel="stylesheet" type="text/css" href="/public/css/common.css"/>
 	<link rel="stylesheet" type="text/css" href="/public/css/personal.css"/>
 
+	
 	<script type="text/javascript">
 
 		var USER = <%- JSON.stringify(user) %>;
@@ -28,7 +29,7 @@
 			<div class="main-inner">
 				<div class="main-header">
 
-					<div class="user-info">
+					<div class="user-info clearfix">
 						<div class="avatar pull-left">
 							<a href="/user/edit-avatar"><img alt="<%=user.name %>" title="edit my avatar" src="<%=user.avatar %>"></a>
 						</div>
@@ -42,13 +43,25 @@
 							</span>
 						</div>
 
+
+
 						<!-- <div class="pull-right">
 							<a class="btn btn-white" href="/">personal page</a>
 						</div> -->
 					</div>
+					
+					<% if( !/^[\w._\-]+@[\w_\-]+\.\w+$/.test(user.mail) ){ %>
+					<div class="bind-email-tips">
+						If you want to use this account in another device, please bind your email&nbsp;&nbsp;<a href="bind-mail">Bind my Email</a>
+					</div>
+					<style type="text/css">
+					.main-header{height: auto;}
+					</style>
+					<% } %>
 				</div>	
 
 				<div class="main-content">
+
 					<div class="recent-topic">
 						<div class="title">
 							<i class="icon-chat"></i>
