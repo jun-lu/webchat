@@ -16,6 +16,7 @@
 	}
 
 */
+var Cookie = require("../../lib/Cookie");
 var WebStatus = require("../../lib/WebStatus");
 var User = require("../../lib/User");
 var UserModel = require("../../lib/UserModel");
@@ -26,8 +27,8 @@ module.exports = function( req, res ){
 	var user = req.session.user;
 	var status = new WebStatus();
 
-	var mail = req.body.mail;
-	var pwd = req.body.pwd;
+	var mail = tools.trim(req.body.mail);
+	var pwd = tools.trim(req.body.pwd);
 
 	//登录判断
 	if(!user){
@@ -35,6 +36,14 @@ module.exports = function( req, res ){
 		status.setCode("-3");
 		res.write( status.toString() );
 		res.end();
+		return ;
+	}
+
+	if( pwd.length == 0 ){
+
+		res.write( new WebStatus("-1").setMsg("pwd is undefined").toString() );
+		res.end();
+
 		return ;
 	}
 
@@ -63,7 +72,8 @@ module.exports = function( req, res ){
 						UserModel.find_id( user._id, function( status ){
 							//console.log( status );
 							var user = status.result;
-							res.setHeader("Set-Cookie", ["sid="+user.toCookie()+";path=/;expires="+new Date("2030") ]);
+							var cookie = new Cookie("sid", user.toCookie());
+							res.setHeader("Set-Cookie", [cookie.toString()]);
 							res.write( new WebStatus().toString() );
 							res.end();
 						});
