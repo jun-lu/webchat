@@ -34,15 +34,24 @@
 						<% }else{ %>
 
 							<div class="edit">
-								<div class="input-box">
-									<i class="icon-email"></i>
-									<input autofocus id="bindMail-input" placeholder="Type your email">
-								</div>
-								<div class="error-tips hidden" id="bindMail-tip">
-									Error
-								</div>
-								
-								<button id="bindMail-submit" class="btn">Submit</button>
+
+								<form class="vert-form form-middle">
+									<div class="error-tips hidden" id="bindMail-tip">
+										Error
+									</div>
+									<div class="input-box">
+										<i class="icon-email"></i>
+										<input autofocus id="bindMail-input" placeholder="Type your email">
+									</div>
+
+									<div class="input-box">
+										<i class="icon-lock"></i>
+										<input autofocus id="pwd-input" placeholder="Type your password">
+									</div>
+									
+									
+									<button type="button" id="bindMail-submit" class="btn form-btn strip-btn">Submit</button>
+								</form>
 							</div>
 						<% } %>
 						

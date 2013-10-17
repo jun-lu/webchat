@@ -96,18 +96,19 @@
 				<div class="l-aside-online">
 					<div class="title">
 						<span>ONLINE</span>
-						<a href="javascript:;" title="Invite your friends" class="invite-btn" id="invite-btn">
+						<a title="Invite your friends" class="invite-btn" id="invite-btn">
 							<i class="icon-add"></i>
 						</a>
 					</div>
 					<div class="users-box">
+						<div class="offline-tips hidden" id="offline-tips">Reconnecting...</div>
 						<ul class="users" id="user-list">
 							<!-- online users -->				
 						</ul>
 					</div>
 
 					<div class="operation">
-						<a href="javascript:;" title="history users" class="history-btn" id="history-btn"></a>
+						<a title="history users" class="history-btn" id="history-btn"></a>
 					</div>
 
 				</div>
@@ -117,7 +118,7 @@
 				<div class="l-aside-historyuser">
 					<div class="title">
 						<span>HISTORY USERS</span>
-						<a href="javascript:;" title="back" class="back-btn" id="history-hide">
+						<a title="back" class="back-btn" id="history-hide">
 							<i class="icon-down"></i>
 						</a>
 					</div>
@@ -204,8 +205,8 @@
 					"user-list":function( data ){
 						//console.log("daga", data);
 						// $('#socketConnectioning').hide();
-						// $('#offlineTip').hide();
-						// $('#userlist').show();
+						$('#offline-tips').fadeOut();
+						$('#user-list').show();
 						WE.pageChat.userlist.init( data );
 					},
 					"new-chat":function( data ){
@@ -237,8 +238,8 @@
 
 				socket.onclose = function(){
 					// $('#socketConnectioning').hide();
-				 //  	$('#offlineTip').show();
-					// $('#userlist').hide();
+				 	$('#offline-tips').fadeIn();
+					$('#user-list').hide();
 					connectionSocketServer.startDisconnectionWeightTraining();
 				}
 

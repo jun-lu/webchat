@@ -213,6 +213,7 @@ WE.userPage.bindMail = {
 		this.ui = {
 			submit: $('#bindMail-submit'),
 			input: $('#bindMail-input'),
+			pwd: $('#pwd-input'),
 			tips: $('#bindMail-tip')
 		};
 
@@ -226,12 +227,13 @@ WE.userPage.bindMail = {
 		this.ui.submit.click(function(){
 
 			var value = $.trim( _this.ui.input.val() );
+			var pwd = $.trim( _this.ui.pwd.val() )
 
-			if( value != "" ){
+			if( value != "" && pwd != "" ){
 
 				if( /^[^@]+@[^@]+$/.test(value) ){
 
-					_this.verifMail( value, _this.updateMail, _this.errorTip );
+					_this.verifMail( value,pwd, _this.updateMail, _this.errorTip );
 
 				}else{
 
@@ -241,25 +243,9 @@ WE.userPage.bindMail = {
 			}
 
 		});
-
-
-		this.ui.input.keyup(function( e ){
-
-			if( e.keyCode == 13 ){
-
-				_this.ui.submit.click();
-			}
-		});
-
-		this.ui.input.focus(function( e ){
-
-			_this.ui.tips.addClass('hidden');
-		});
-
-
 	},
 
-	verifMail: function( mail,succCallback,errorCallback ){
+	verifMail: function( mail,pwd,succCallback,errorCallback ){
 
 		var _this = this;
 
@@ -270,7 +256,7 @@ WE.userPage.bindMail = {
 			var data = e.data;
 			if( data.code == 0 ){
 
-				succCallback && succCallback( mail );
+				succCallback && succCallback( mail,pwd );
 			}else{
 
 				errorCallback && errorCallback("Email is exit! please try others");
@@ -280,7 +266,7 @@ WE.userPage.bindMail = {
 		model.verifMail( mail );
 	},
 
-	updateMail: function( mail ){
+	updateMail: function( mail,pwd ){
 
 
 		var _this = this;
@@ -290,7 +276,11 @@ WE.userPage.bindMail = {
 		ctrl.update = function( e ){
 
 			var data = e.data;
-			console.log(data);
+
+			if( data.code == 0 ){
+				loaction.reload();
+			}
+			//console.log(data);
 		}
 		model.addObserver( ctrl );
 		model.updateMail( mail );
@@ -303,11 +293,6 @@ WE.userPage.bindMail = {
 
 		this.ui.tips.text(tip).removeClass('hidden');
 
-		setTimeout(function(){
-
-			_this.ui.tips.addClass('hidden');
-
-		},2000);
 	}
 }
 

@@ -106,14 +106,13 @@ header{width:100%;position:fixed;top:0px;}
 
 
 /* bind mail */
+.bind-email-tips{padding:2px 15px;background: #F8FFA1;display:inline-block;margin-top: 10px;color: rgb(199, 147, 15)}
+	.bind-email-tips a{color: #1e8cbe}
 .bind-mail .tips{background:#e8e8e8;font-size:14px;color:#5c5c5c;text-shadow: 1px 1px 0px #fff;padding:2px 10px;display:inline-block;}
 .bind-mail .tips a{color:#1e8cbe}
 	.bind-mail .edit{margin-top:30px;position: relative;padding-bottom: 10px}
-	.bind-mail .edit .input-box{float:left;width:20em;}
-		.bind-mail .edit .btn{padding: 10px 19px}
-		.bind-mail .edit .error-tips{text-align: center;font-size: 13px;padding: 2px 0px;background: rgb(248, 226, 108);
-				color: #BD0000;border-radius: 0px 0px 4px 4px;box-shadow: 0px 0px 2px #868686;width: 270px;
-				margin-left: 10px;position: absolute;top:42px;left:16px;}
+		.bind-mail .edit .error-tips{text-align: center;font-size: 13px;padding: 5px 0px;background: rgb(248, 226, 108);
+			color: #BD0000;margin-bottom: 20px;}
 
 
 /* common */

@@ -18,7 +18,7 @@
 		<div class="bd">
 
 			<ul class="breadcrumb">
-				<li><a href="/<%=room.name || room.id %>"><%= room.topic %></a></li>
+				<li><a href="/t/<%=room.name || room.id %>"><%= room.topic %></a></li>
 				<li class="pull-right" ><a href="/p/create-albums/<%=room.id%>">创建图册</a></li>
 			</ul>
 
@@ -50,8 +50,8 @@
 
 	</div>
 <% include ../common/footer.ejs %>
-<script type="text/javascript" src="/public/js/jquery-1.6.3.min.js"></script> 
-<script type="text/javascript" src="/public/js/we.min.js"></script>
+<script type="text/javascript" src="/public/js/lib/jquery-1.6.3.min.js"></script> 
+<script type="text/javascript" src="/public/js/lib/we.min.js"></script>
 <script type="text/javascript" src="/public/js/we.top.min.js"></script> 
 
 </body>
