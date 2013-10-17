@@ -134,13 +134,13 @@ module.exports = function( req, res ){
 			for(i=0; i<users.length ; i++){
 				output.to = users[i];
 				SystemMail.send(
-					"jelle.lu@gmail.com",
+					SystemMail.mail,
 					users[i].mail,
 					title,
 					title +", https://www.vchat.co/t/"+(output.room.name || output.room.id),
 					mail_tmpl_fn( output ),
 					function(){}
-				)
+				);
 			}
 		}
 
