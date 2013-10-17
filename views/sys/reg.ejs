@@ -20,8 +20,13 @@
 			.main-reg h1{text-align:center;font-size:48px;}
 			.main-reg h1 a{display:inline-block;color:#4d4d4e}
 			.main-reg .introduce{text-align:center;color: #a3a4a5}
-		.reg-header{padding: 40px 0px;border-bottom:#b2b6b9 solid 1px;}
-		.reg-content{padding-top:35px;border-top:#fbffff solid 1px;}
+		.reg-header{padding: 40px 0px;border-bottom:#b2b6b9 solid 1px;
+			box-shadow: 0 1px 0 rgba(255,255,255,1);
+			-web-box-shadow:  0 1px 0 rgba(255,255,255,1);
+			-moz-box-shadow:  0 1px 0 rgba(255,255,255,1);
+			-o-box-shadow:  0 1px 0 rgba(255,255,255,1);
+		}
+		.reg-content{padding-top:35px;}
 		.reg-content .status-tips{width:297px;text-align:center;background:rgb(246, 246, 126);
 				font-size: 13px;padding:10px 5px;color: rgb(131, 22, 22);margin-bottom:20px;}
 
@@ -87,17 +92,17 @@
 		var json = [
 			{
 				id:"email",
-				email:{rule:true,msg:"请添加正确的邮箱格式"}
+				email:{rule:true,msg:"Enter the correct email"}
 
 			},
 			{
 				id:"name",
-				minLength:{rule:1,msg:"请设置昵称"}
+				minLength:{rule:1,msg:"Input your nickname"}
 
 			},
 			{
 				id:"pwd",
-				minLength:{rule:6,msg:"密码最少6位"}
+				minLength:{rule:6,msg:"Password length at least 6"}
 
 			}
 		];
