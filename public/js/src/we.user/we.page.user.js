@@ -257,16 +257,8 @@ WE.userPage.bindMail = {
 
 			if( data.code == 0 ){
 
-				console.log('loaction',location);
 				location.reload();
 
-			}else if( data.code == -2 ){
-
-				_this.errorTip('Email is exit! please try others');
-			}else if( data.code == -1 ){
-
-				_this.errorTip('Email format error');
-				
 			}else{
 
 				_this.errorTip(data.msg);
