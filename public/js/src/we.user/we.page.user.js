@@ -233,8 +233,7 @@ WE.userPage.bindMail = {
 
 				if( /^[^@]+@[^@]+$/.test(value) ){
 
-					_this.verifMail( value,pwd, _this.updateMail, _this.errorTip );
-
+					_this.updateMail(value, pwd);
 				}else{
 
 					_this.errorTip('Please enter a valid email');
@@ -243,27 +242,6 @@ WE.userPage.bindMail = {
 			}
 
 		});
-	},
-
-	verifMail: function( mail,pwd,succCallback,errorCallback ){
-
-		var _this = this;
-
-		var model = new WE.api.UserModel();
-		var ctrl = new WE.Controller();
-		ctrl.update = function( e ){
-
-			var data = e.data;
-			if( data.code == 0 ){
-
-				succCallback && succCallback( mail,pwd );
-			}else{
-
-				errorCallback && errorCallback("Email is exit! please try others");
-			}
-		}
-		model.addObserver( ctrl );
-		model.verifMail( mail );
 	},
 
 	updateMail: function( mail,pwd ){
@@ -278,12 +256,25 @@ WE.userPage.bindMail = {
 			var data = e.data;
 
 			if( data.code == 0 ){
-				loaction.reload();
+
+				console.log('loaction',location);
+				location.reload();
+
+			}else if( data.code == -2 ){
+
+				_this.errorTip('Email is exit! please try others');
+			}else if( data.code == -1 ){
+
+				_this.errorTip('Email format error');
+				
+			}else{
+
+				_this.errorTip(data.msg);
 			}
 			//console.log(data);
 		}
 		model.addObserver( ctrl );
-		model.updateMail( mail );
+		model.updateMail( mail,pwd );
 
 	},
 
