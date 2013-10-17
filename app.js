@@ -77,7 +77,7 @@ var httpsServer = https.createServer(options, app).listen(config.httpsPort);
 
 var httpServer = http.createServer(function(req, res){
 	res.writeHead(302, {
-		Location:"https://"+config.domain.slice(1)+req.url11
+		Location:"https://"+config.domain.slice(1)+req.url
 	});
 	res.end();
 	});
