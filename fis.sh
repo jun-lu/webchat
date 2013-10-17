@@ -1,1 +1,1 @@
- fis release  --md5 -d ../online-webchat -w
+ fis release  --md5 -d ../online-webchat

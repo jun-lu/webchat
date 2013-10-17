@@ -69,6 +69,7 @@ app.use(express.errorHandler());
 */
 var options = {
 	key: fs.readFileSync('ssl/3f.key'),
+	passphrase:"19890217",
 	cert: fs.readFileSync('ssl/3fa431b814e7e.crt')
 };
 
