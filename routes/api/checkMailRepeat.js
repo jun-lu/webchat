@@ -15,6 +15,7 @@
 	
 */
 
+var User = require("../../lib/User");
 var WebStatus = require('../../lib/WebStatus');
 var UserModel = require('../../lib/UserModel');
 

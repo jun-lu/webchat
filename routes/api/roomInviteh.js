@@ -40,7 +40,7 @@ module.exports = function( req, res ){
 		from:user ? user.getInfo() : null,
 		to:null,
 		room:null,
-		time:parseInt(Date.now()/1000)
+		time:tools.format(Date.now(), "yyyy-MM-dd hh:mm")
 	};
 	
 	if( user == null ){
