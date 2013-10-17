@@ -151,7 +151,7 @@ module.exports = {
 		
 	},
 	distribute:function( roomid, data){
-		console.log("distribute",roomid, data);
+		//console.log("distribute",roomid, data);
 		socketHashList.distribute( roomid, {
 			type:"new-chat",
 			data:data

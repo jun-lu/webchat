@@ -28,7 +28,7 @@ module.exports = {
 
 		RoomModel.findLimitSkipSort({}, 10, (page-1) * pageSize, {time:-1},function( status ){
 			RoomModel.serialization( status, function( status ){
-				console.log( "status", status );
+				//console.log( "status", status );
 				output.rooms = status.result;
 				if( status.result.length < pageSize ){
 					output.nextPage = -1;
