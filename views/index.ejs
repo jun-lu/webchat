@@ -61,7 +61,7 @@
 	<header class="clearfix">
 		<img class="logo" src="/public/images/logo-white.png">
 		<h1 class="set-middle">
-			<strong>vchat.co,</strong>timely discussion on the topic
+			<strong>vchat.co,</strong>More convenient group chat
 		</h1>
 
 		<% if( user != null ){ %>
@@ -79,15 +79,16 @@
 			<a name="create-part" class="create-part" id="create-part"></a>
 			<p>Quickly create topic</p>
 			<div>
-				<div class="create-input set-middle" id="create">
-					
-					<input class="topic-input" name="topic" autofocus placeholder="Topic name">
-					<a href="javascript:;" class="create-btn">
-						<i class="icon-go"></i>
-						<i class="icon-loading hidden"></i>
-					</a>
-					
-				</div>
+				<form method="post" action="/api/room-create" >
+					<div class="create-input set-middle" id="create">
+						<input class="topic-input" name="topic" autofocus placeholder="Topic name">
+						<a href="javascript:;" class="create-btn">
+							<i class="icon-go"></i>
+							<i class="icon-loading hidden"></i>
+						</a>
+						<button type="submit" style="display:none;"></button>
+					</div>
+				</form>
 			</div>
 		</div>
 		<div class="social-follow">
@@ -111,110 +112,9 @@
 	</header>
 
 
-	<div class="main set-m">
-		
-
-		<article class="article">
-			<h2>Feel to register to do tedious experience for dialogue ?</h2>
-			<p>vchat.co do not you register you can quickly create a topic. By quickly create topics channel, if you do not have account, vchat.co will help you create a temporary account for dialogue. (After use, if you like vchat.co, you can choose to bind your email)</p>
-		</article>
-
-		<article class="article">
-			<h2>After that Buddy trouble you can create topics ?</h2>
-			<p>vchat.co does not require you to add each other as friends will be able to invite him (her) to engage in dialogue. Just copy the url of the topic of the room to the other, the other party will be able to quickly enter topics. Vchat.co will help you turn your back on the topic over the user to save up to facilitate your next.</p>
-		</article>
-
-		<article class="article">
-			<h2>Others would like to see what topics recently discussed what ?</h2>
-			<p>You can enter through vchat.co Home Recommended topics or recent topics involved it, you can find that you are interested in, they might become your friends, teachers or co-workers.</p>
-		</article>
-
-		<article class="article">
-			<h2>Worry about their information being leaked private conversation ?</h2>
-			<p>Do not worry, vchat.co SSL + HTTP protocol used by the HTTPS protocol built encrypted transmission to protect the security of information transmission.</p>
-		</article>
-
-		<a class="top-link" href="#create-part">I can't wait to experience</a>
-
-		<% include common/footer.ejs %>
-	</div>
-
-
-
-
 	<script type="text/javascript" src="/public/js/lib/jquery-1.6.3.min.js"></script>
 	<script type="text/javascript" src="/public/js/lib/we.min.js"></script>
-	<script type="text/javascript">
-
-	WE.pageIndex = {
-		init: function(){
-
-			var form = $('#create');
-
-			this.ui = {
-				form:form,
-				submit:form.find('.create-btn'),
-				topic:form.find('.topic-input')
-			};
-
-			this.regEvent();
-			
-		},
-
-		regEvent: function(){
-
-			var _this = this;
-
-			this.ui.topic.keyup(function(e){
-
-				if( e.keyCode == 13 && $.trim( _this.ui.topic.val() ) != "" ){
-					_this.createTopic();
-				}
-
-				return false;
-			});
-
-			this.ui.submit.click(function(){
-
-				if( $.trim( _this.ui.topic.val() ) != "" ){
-					_this.createTopic();
-				}
-
-				return false;
-			});
-		},
-
-		createTopic: function(){
-
-			var self = this;
-
-			this.ui.submit.find('.icon-go').addClass('hidden');
-			this.ui.submit.find('.icon-loading').removeClass('hidden');
-
-			var topic = $.trim( this.ui.topic.val() );
-			var model = new WE.api.RoomModel();
-			var ctrl = new WE.Controller();
-			ctrl.update = function(e){
-				var data = e.data;
-
-				if(data.code == 0){
-					location.href = '/'+data.result.id;
-				}else{
-					this.error();
-				}
-			};
-			ctrl.error = function(){
-				self.ui.submit.find('.icon-go').removeClass('hidden');
-				self.ui.submit.find('.icon-loading').addClass('hidden');
-			}
-			model.addObserver( ctrl );
-			model.create(topic);	
-
-		}
-	}
-
-	WE.pageIndex.init();
-	</script>
+	
 
 	
 
