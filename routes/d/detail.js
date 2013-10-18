@@ -42,7 +42,7 @@ module.exports = {
 					res.status(404).render("404", new WebStatus("404") );
 					return ;
 				};
-				this.resolve();
+				promise.ok();
 
 			});
 
@@ -55,7 +55,7 @@ module.exports = {
 					//console.log( "status", status );
 					if( status.code == "0" ){
 						output.data = status.result;
-						promise.resolve( status.result.roomid );
+						promise.ok( status.result.roomid );
 						//getRoom( status.result.roomid );
 					}else{
 						status.setMsg("没有发现你要找的信息");
@@ -106,11 +106,11 @@ module.exports = {
 							}else{
 								output.list = [];
 							}
-							promise.resolve();
+							promise.ok();
 						});
 					}else{
 						output.list = [];
-						promise.resolve();
+						promise.ok();
 					}
 
 				});
