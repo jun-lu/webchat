@@ -236,7 +236,7 @@ WE.top.notice = {
 		}
 
 		this.getStatus();
-		this.poll();
+		//this.poll();
 		this.regEvent();
 
 	},
@@ -244,21 +244,6 @@ WE.top.notice = {
 	pollPoint:null,
 	poll: function(){
 
-		var _this = this;
-
-
-		this.pollPoint = setInterval(function(){
-
-			if( _this.hasNotices ){
-
-				clearInterval(_this.pollPoint);
-				return false;
-			}
-	
-			_this.getStatus();
-
-		},60000);
-		
 	},
 
 	regEvent: function(){
@@ -269,7 +254,7 @@ WE.top.notice = {
 		$('body').click(function(){
 
 			_this.ui.list.hide();
-			_this.poll();
+			//_this.poll();
 		});
 
 		this.ui.wall.click(function( e ){
