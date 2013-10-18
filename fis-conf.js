@@ -56,6 +56,12 @@ fis.config.merge({
 				useMap:false
 			},
 			{
+				reg:"public/js/chat.min.js",
+				useCompile:false,
+				useHash:false,
+				useMap:false
+			},
+			{
 				reg:"nohup.out",
 				useCompile:false,
 				useHash:false,
