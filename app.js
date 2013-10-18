@@ -9,8 +9,8 @@ var webRTC = require('webrtc.io').listen(8001);
 
 
 d.on("error", function( err ){
-	console.log(err.stack);
-  //fs.appendFile("log.txt", "\r\n"+new Date().toString()+"\r\n"+err.stack+"\r\n", function(){});
+  //console.log(err.stack);
+  fs.appendFile("log.txt", "\r\n"+new Date().toString()+"\r\n"+err.stack+"\r\n", function(){});
 
 });
 
