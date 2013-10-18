@@ -52,7 +52,7 @@ module.exports = {
 				//var _this = this;
 				ChatModel.findChatOne(_id, function( status ){
 
-					console.log( "status", status );
+					//console.log( "status", status );
 					if( status.code == "0" ){
 						output.data = status.result;
 						promise.resolve( status.result.roomid );
