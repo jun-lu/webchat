@@ -4,19 +4,13 @@
 	
 */
 
-var config = require("../../config");
 var tools = require("../../lib/tools");
-var UserModel = require("../../lib/UserModel");
 var RoomModel = require('../../lib/RoomModel');
 var ChatModel = require('../../lib/ChatModel');
-var LogModel = require('../../lib/LogModel');
 var WebStatus = require('../../lib/WebStatus');
-var socketServer = require('../../lib/socketServer');
 var Promise = require("../../lib/Promise");
-var roomLimit = require("../sys/room_limit");
 var NoticeModel = require("../../lib/NoticeModel");
 
-//http://www.renren.com/338096010
 
 module.exports = {
 
