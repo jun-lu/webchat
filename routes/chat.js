@@ -69,7 +69,7 @@ module.exports = {
 				RoomModel.idOrNameFind(key, key, function( status ){
 
 					//console.log("idOrNameFind", status);
-					if(status.code == "0"){
+					if(status.code == "0" && status.result){
 						output.room = status.result;
 						promise.ok( );
 
