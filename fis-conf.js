@@ -68,6 +68,12 @@ fis.config.merge({
 				useMap:false
 			},
 			{
+				reg:"public/images/loading_m.gif",
+				useCompile:false,
+				useHash:false,
+				useMap:false
+			},
+			{
 				reg:"nohup.out",
 				useCompile:false,
 				useHash:false,
