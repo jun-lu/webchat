@@ -16,7 +16,8 @@ var WebStatus = require("../../lib/WebStatus");
 module.exports = function(req, res){
 
 	var user = req.session.user;
-	var isAjax = req.headers["X-Requested-With"];// XMLHttpRequest
+	var isAjax = req.headers["X-Requested-With"] || req.headers["x-requested-with"] ? 1 : 0;// XMLHttpRequest
+	//console.log(req.headers);
 	var topic = tools.removeHtmlTag( String(req.body.topic) );
 	var des = tools.removeHtmlTag( String(req.body.des) );
 	var pwd = tools.removeHtmlTag( String(req.body.pwd) ) || null;
