@@ -80,7 +80,7 @@ module.exports = {
 
 						output.room = status.result;
 
-						promise.resolve();
+						promise.ok();
 
 					}else{
 						status.setMsg("对话已经被删除，此信息无法查看！");
@@ -122,7 +122,7 @@ module.exports = {
 
 				//console.log("output",output);
 				res.render("d/detail", output);
-				promise.resolve();
+				promise.ok();
 
 			});
 
