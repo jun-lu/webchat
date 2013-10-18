@@ -75,3 +75,7 @@ log.txt
 *.key
 
 *.key
+
+Gruntfile.js
+
+dist/application-name.js
