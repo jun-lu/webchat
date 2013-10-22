@@ -22,7 +22,6 @@
 		</div>
 		<div class="menu-links">
 			<a href="/recommend" <% if( pageName == "recommend"){ %> class="select" <% } %>>Recommend</a>
-			<a href="/recently" <% if( pageName == "recently"){ %> class="select" <% } %>>Recently</a>
 		</div>
 	</div>
 	<% if(user){ %>
@@ -59,6 +58,11 @@
 					<li>
 						<a href="/user/edit-avatar">
 							Edit Avatar
+						</a>
+					</li>
+					<li>
+						<a href="/user/edit-info">
+							Edit Account
 						</a>
 					</li>
 
