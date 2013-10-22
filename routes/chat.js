@@ -62,19 +62,6 @@ module.exports = {
 			var promise = new Promise();
 
 
-
-			promise.then(function(){
-				//手机访问
-				if(ua.indexOf("Android") != -1 || ua.indexOf("iPhone") != -1 || ua.indexOf("Mobile") != -1){
-					res.redirect("/m/"+key);
-					return ;
-				}else{
-					promise.ok();
-				}
-
-			});
-
-
 			//查找对话，确定权限
 			promise.then(function(){
 
@@ -82,7 +69,7 @@ module.exports = {
 				RoomModel.idOrNameFind(key, key, function( status ){
 
 					//console.log("idOrNameFind", status);
-					if(status.code == "0"){
+					if(status.code == "0" && status.result){
 						output.room = status.result;
 						promise.ok( );
 

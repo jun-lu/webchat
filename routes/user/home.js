@@ -60,25 +60,6 @@ module.exports = {
 
 					promise.ok();
 				} );
-
-				/**
-				LogModel.inquire({"$or":[{id:user._id, location:"into_room"},{id:user._id, location:"create_room"}]}, 1000, function( status ) {
-					//console.log("status", status);
-					if( status.code == 0 ){
-
-						var list = tools.unique( status.result, function( a ) {	
-							console.log( "id:",a.id )
-							return a.id;
-						});
-
-						for(var i=0; i< list.length; i++){
-							output.joinTopics.push( list[i].info );
-						}
-
-					}
-					promise.ok();	
-				});
-				*/
 			});
 
 			promise.then(function() {

@@ -92,7 +92,7 @@ module.exports = {
 
 		//获取图片创建者信息
 		promise.then(function( photo ){
-			console.log( photo );
+			//console.log( photo );
 			UserModel.find_id( photo.masterId, function( status ){
 
 				if( status.code == "0" ){

@@ -11,7 +11,7 @@ fis.config.merge({
 
 fis.config.merge({
 	project:{
-		exclude:/^\/(node_modules|routes1.0|view1.0|doc|psd|dataRecovery|autobuild|html)/i,
+		exclude:/^\/(node_modules|routes1.0|view1.0|doc|psd|dataRecovery|autobuild|html|ssl)/i,
 		md5Connector:"."
 	}
 });
@@ -22,7 +22,7 @@ fis.config.merge({
 	roadmap:{
 		domain:{
 
-			"**.css":"https://www.vchat.co"
+			"**.css":"https://vchat.co"
 
 		},
 		path:[
@@ -51,6 +51,30 @@ fis.config.merge({
 			},
 			{
 				reg:"app.js",
+				useCompile:false,
+				useHash:false,
+				useMap:false
+			},
+			{
+				reg:"public/js/chat.min.js",
+				useCompile:false,
+				useHash:false,
+				useMap:false
+			},
+			{
+				reg:"public/css/__chat.css",
+				useCompile:false,
+				useHash:false,
+				useMap:false
+			},
+			{
+				reg:"public/images/loading_m.gif",
+				useCompile:false,
+				useHash:false,
+				useMap:false
+			},
+			{
+				reg:"nohup.out",
 				useCompile:false,
 				useHash:false,
 				useMap:false

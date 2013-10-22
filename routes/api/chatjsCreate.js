@@ -89,26 +89,6 @@ module.exports = function( req, res ){
 				UserModel.createVchatUser( uid, domain, uname, uavatar, function( status ){
 					promise.ok( status );
 				});
-				/**			
-				photoModel.getNetworkImage( uavatar, function( status ){
-					if(status.code == 0){
-						//把头像保存到相册中 查看 copyPhoto
-						photoModel.copyPhoto(status.result, null, {s_w:48, s_h:48, m_w:960, m_h:10000}, function( status ){
-							var path = null;
-							if(status.code == 0){
-								path = status.result.getSmallPath("https://www.vchat.co/p/v/");
-							}
-							UserModel.createVchatUser( uid, domain, uname, path, function( status ){
-								promise.ok( status );
-							});
-						})
-					}else{
-						UserModel.createVchatUser( uid, domain, uname, null, function( status ){
-							promise.ok( status );
-						});
-					}
-				});
-				*/
 			}
 		});
 		

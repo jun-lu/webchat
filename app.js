@@ -9,8 +9,8 @@ var webRTC = require('webrtc.io').listen(8001);
 
 
 d.on("error", function( err ){
-	console.log(err.stack);
-  //fs.appendFile("log.txt", "\r\n"+new Date().toString()+"\r\n"+err.stack+"\r\n", function(){});
+  //console.log(err.stack);
+  fs.appendFile("log.txt", "\r\n"+new Date().toString()+"\r\n"+err.stack+"\r\n", function(){});
 
 });
 
@@ -69,6 +69,7 @@ app.use(express.errorHandler());
 */
 var options = {
 	key: fs.readFileSync('ssl/3f.key'),
+	passphrase:"19890217",
 	cert: fs.readFileSync('ssl/3fa431b814e7e.crt')
 };
 

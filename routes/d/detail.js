@@ -4,19 +4,13 @@
 	
 */
 
-var config = require("../../config");
 var tools = require("../../lib/tools");
-var UserModel = require("../../lib/UserModel");
 var RoomModel = require('../../lib/RoomModel');
 var ChatModel = require('../../lib/ChatModel');
-var LogModel = require('../../lib/LogModel');
 var WebStatus = require('../../lib/WebStatus');
-var socketServer = require('../../lib/socketServer');
 var Promise = require("../../lib/Promise");
-var roomLimit = require("../sys/room_limit");
 var NoticeModel = require("../../lib/NoticeModel");
 
-//http://www.renren.com/338096010
 
 module.exports = {
 
@@ -42,7 +36,7 @@ module.exports = {
 					res.status(404).render("404", new WebStatus("404") );
 					return ;
 				};
-				this.resolve();
+				promise.ok();
 
 			});
 
@@ -52,10 +46,10 @@ module.exports = {
 				//var _this = this;
 				ChatModel.findChatOne(_id, function( status ){
 
-					console.log( "status", status );
+					//console.log( "status", status );
 					if( status.code == "0" ){
 						output.data = status.result;
-						promise.resolve( status.result.roomid );
+						promise.ok( status.result.roomid );
 						//getRoom( status.result.roomid );
 					}else{
 						status.setMsg("没有发现你要找的信息");
@@ -80,7 +74,7 @@ module.exports = {
 
 						output.room = status.result;
 
-						promise.resolve();
+						promise.ok();
 
 					}else{
 						status.setMsg("对话已经被删除，此信息无法查看！");
@@ -106,11 +100,11 @@ module.exports = {
 							}else{
 								output.list = [];
 							}
-							promise.resolve();
+							promise.ok();
 						});
 					}else{
 						output.list = [];
-						promise.resolve();
+						promise.ok();
 					}
 
 				});
@@ -122,7 +116,7 @@ module.exports = {
 
 				//console.log("output",output);
 				res.render("d/detail", output);
-				promise.resolve();
+				promise.ok();
 
 			});
 

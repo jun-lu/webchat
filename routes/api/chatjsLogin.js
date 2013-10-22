@@ -33,6 +33,7 @@ var Promise = require('../../lib/Promise');
 var WebStatus = require('../../lib/WebStatus');
 var Room = require('../../lib/Room');
 var RoomModel = require('../../lib/RoomModel');
+var ChatModel = require('../../lib/ChatModel');
 
 module.exports = function( req, res ){
 	res.setHeader('Access-Control-Allow-Credentials', 'true');
