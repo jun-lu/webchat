@@ -20,7 +20,7 @@ module.exports = function(req, res){
 	//console.log(req.headers);
 	var topic = tools.removeHtmlTag( String(req.body.topic) );
 	var des = tools.removeHtmlTag( String(req.body.des) );
-	var pwd = tools.removeHtmlTag( String(req.body.pwd) ) || null;
+	var pwd = req.body.pwd ? tools.removeHtmlTag( String(req.body.pwd) ) : null;
 	var promise;
 	var output = {
 		user:user ? user.getInfo() : null
