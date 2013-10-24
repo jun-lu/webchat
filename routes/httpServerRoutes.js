@@ -34,8 +34,6 @@ var mobile = require("./m/chat");
 // 提供给前台的ajax api 
 var apiRoutes = require("./api/index");
 
-var socketServer = require("../lib/socketServer");
-
 var notice = require("./user/notice");
 
 var photoIndex = require('./p/photoIndex');

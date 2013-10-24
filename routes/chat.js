@@ -93,7 +93,9 @@ module.exports = {
 
 						if(status.code == 0){
 							user = status.result;//User.factory( userjson );
-							res.setHeader("Set-Cookie", ["sid="+user.toCookie()+";path=/;domain="+config.domain+";expires="+new Date("2030") ]);
+							var cookie = new Cookie("sid", user.toCookie());
+							cookie.setExpires(new Date("2030"));
+							res.setHeader("Set-Cookie", [cookie.toString()]);
 							output.user = user.getInfo();
 							promise.ok();
 						}else{

@@ -47,7 +47,7 @@ module.exports = {
 				ChatModel.findChatOne(_id, function( status ){
 
 					//console.log( "status", status );
-					if( status.code == "0" ){
+					if( status.code == "0" && status.result){
 						output.data = status.result;
 						promise.ok( status.result.roomid );
 						//getRoom( status.result.roomid );
