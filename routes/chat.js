@@ -17,6 +17,7 @@ var NoticeModel = require('../lib/NoticeModel');
 var socketServerRoutes = require('./socketServerRoutes');
 var roomLimit = require("./sys/room_limit");
 var Promise = require("../lib/Promise");
+var Cookie = require("../lib/Cookie");
 var spiderAU = ["Baiduspider","Googlebot","MSNBot","YoudaoBot","JikeSpider","Sosospider","360Spider"];
 
 tool.markdown = require('../lib/markdown');
