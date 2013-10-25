@@ -5,13 +5,12 @@
 
 var d = require('domain').create();
 var fs = require("fs");
-var webRTC = require('webrtc.io').listen(8001);
 
 
 d.on("error", function( err ){
   //console.log(err.stack);
-  fs.appendFile("log.txt", "\r\n"+new Date().toString()+"\r\n"+err.stack+"\r\n", function(){});
-
+  //fs.appendFile("log.txt", "\r\n"+new Date().toString()+"\r\n"+err.stack+"\r\n", function(){});
+  console.log(err.stack);
 });
 
 d.run(function(){

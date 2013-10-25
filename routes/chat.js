@@ -92,7 +92,7 @@ module.exports = {
 
 					UserModel.createAnonymousUser( function( status ){
 
-						if(status.code == 0){
+						if(status.code == 0 && status.result){
 							user = status.result;//User.factory( userjson );
 							var cookie = new Cookie("sid", user.toCookie());
 							cookie.setExpires(new Date("2030"));
