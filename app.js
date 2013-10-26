@@ -3,17 +3,17 @@
  * back this app.js
 */
 
-var d = require('domain').create();
+//var d = require('domain').create();
 var fs = require("fs");
 
 
-d.on("error", function( err ){
+//d.on("error", function( err ){
   //console.log(err.stack);
   //fs.appendFile("log.txt", "\r\n"+new Date().toString()+"\r\n"+err.stack+"\r\n", function(){});
-  console.log(err.stack);
-});
+//  console.log(err.stack);
+//});
 
-d.run(function(){
+//d.run(function(){
 
 var config = require("./config");
 
@@ -57,7 +57,7 @@ app.configure(function(){
 	//路由
 	httpServerRoutes( app );
 
-});
+//});
 
 /**
 开发者模式

@@ -29,13 +29,14 @@
 	<script src="/public/js/webrtc.io.js"></script>
 	<script>
 
+	if( false ){
 	var elements = {};
 	  // note: make sure hostname available to all connecting clients
 	  //192.168.1.3  10.6.0.170
 	  // (ie. probably not `localhost`)
 	  rtc.connect('ws://vchat-rtc.co:8002', ROOM.id);
 
-	  rtc.createStream({"video": true, "audio":true}, function(stream){
+	  rtc.createStream({"video": true, "audio":false}, function(stream){
 	    // get local stream for manipulation
 	    rtc.attachStream(stream, 'local');
 	  });
@@ -54,6 +55,29 @@
 	  });
 
 	  // more rtc callbacks are available
+	  }else{
+
+	  	var element = document.getElementById("local");
+	  	navigator.webkitGetUserMedia( 
+	  		{"video": true, "audio":false}, 
+	  		function(stream) {
+
+
+
+	  			if (typeof element.srcObject !== 'undefined') {
+				      element.srcObject = stream;
+			    } else if (typeof element.mozSrcObject !== 'undefined') {
+			      element.mozSrcObject = stream;
+			    } else if (typeof element.src !== 'undefined') {
+			      element.src = URL.createObjectURL(stream);
+			    } else {
+			      console.log('Error attaching stream to element.');
+			    }
+
+
+	  		}
+	  	);
+	  }
 	</script>
 
 
