@@ -85,7 +85,7 @@ module.exports = {
 
 			});
 			//如果用户不存在创建匿名用户
-			promise.add(function(){
+			promise.then(function(){
 
 				//如果是搜索引擎也不创建匿名用户
 				if( user == null){
