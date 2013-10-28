@@ -11,8 +11,6 @@ var RoomModel = require('../../lib/RoomModel');
 var ChatModel = require('../../lib/ChatModel');
 var LogModel = require('../../lib/LogModel');
 var WebStatus = require('../../lib/WebStatus');
-var socketServer = require('../../lib/socketServer');
-//var maxIndex = {};
 var roomLimit = require("../sys/room_limit");
 
 

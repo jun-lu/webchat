@@ -188,6 +188,7 @@ if (navigator.webkitGetUserMedia) {
 
       rtc.on('receive_ice_candidate', function(data) {
         var candidate = new nativeRTCIceCandidate(data);
+        //candidate
         rtc.peerConnections[data.socketId].addIceCandidate(candidate);
         rtc.fire('receive ice candidate', candidate);
       });
@@ -252,7 +253,7 @@ if (navigator.webkitGetUserMedia) {
 
     var config = rtc.pc_constraints;
     if (rtc.dataChannelSupport) config = rtc.dataChannelConfig;
-
+    console.log("create peerConnection");
     var pc = rtc.peerConnections[id] = new PeerConnection(rtc.SERVER(), config);
     pc.onicecandidate = function(event) {
       if (event.candidate) {

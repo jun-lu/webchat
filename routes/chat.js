@@ -17,6 +17,7 @@ var NoticeModel = require('../lib/NoticeModel');
 var socketServerRoutes = require('./socketServerRoutes');
 var roomLimit = require("./sys/room_limit");
 var Promise = require("../lib/Promise");
+var Cookie = require("../lib/Cookie");
 var spiderAU = ["Baiduspider","Googlebot","MSNBot","YoudaoBot","JikeSpider","Sosospider","360Spider"];
 
 tool.markdown = require('../lib/markdown');
@@ -84,16 +85,18 @@ module.exports = {
 
 			});
 			//如果用户不存在创建匿名用户
-			promise.add(function(){
+			promise.then(function(){
 
 				//如果是搜索引擎也不创建匿名用户
 				if( user == null){
 
 					UserModel.createAnonymousUser( function( status ){
 
-						if(status.code == 0){
+						if(status.code == 0 && status.result){
 							user = status.result;//User.factory( userjson );
-							res.setHeader("Set-Cookie", ["sid="+user.toCookie()+";path=/;domain="+config.domain+";expires="+new Date("2030") ]);
+							var cookie = new Cookie("sid", user.toCookie());
+							cookie.setExpires(new Date("2030"));
+							res.setHeader("Set-Cookie", [cookie.toString()]);
 							output.user = user.getInfo();
 							promise.ok();
 						}else{

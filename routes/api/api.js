@@ -15,7 +15,6 @@ var ChatModel = require("../../lib/ChatModel");
 var UserModel = require("../../lib/UserModel");
 var Room = require("../../lib/Room");
 var RoomModel = require("../../lib/RoomModel");
-var socketServer = require("../../lib/socketServer");
 var NoticeModel = require("../../lib/NoticeModel");
 var Promise = require("../../lib/Promise");
 

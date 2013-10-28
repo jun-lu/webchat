@@ -29,6 +29,8 @@
 	<script src="/public/js/webrtc.io.js"></script>
 	<script>
 
+	if( false ){
+	var elements = {};
 	  // note: make sure hostname available to all connecting clients
 	  //192.168.1.3  10.6.0.170
 	  // (ie. probably not `localhost`)
@@ -39,12 +41,43 @@
 	    rtc.attachStream(stream, 'local');
 	  });
 
-	  rtc.on('add remote stream', function(stream){
+	  rtc.on('add remote stream', function(stream, id){
 	    // show the remote video
-	    rtc.attachStream(stream, 'remote');
+	    if( elements[id] === undefined ){
+	    	elements[id] = document.createElement("video");
+	    	elements[id].autoplay = "autoplay";
+	    	document.body.appendChild( elements[id] );
+	    }	
+
+	    rtc.attachStream(stream, elements[id]);
+
+	    
 	  });
 
 	  // more rtc callbacks are available
+	  }else{
+
+	  	var element = document.getElementById("local");
+	  	navigator.webkitGetUserMedia( 
+	  		{"video": true, "audio":false}, 
+	  		function(stream) {
+
+
+
+	  			if (typeof element.srcObject !== 'undefined') {
+				      element.srcObject = stream;
+			    } else if (typeof element.mozSrcObject !== 'undefined') {
+			      element.mozSrcObject = stream;
+			    } else if (typeof element.src !== 'undefined') {
+			      element.src = URL.createObjectURL(stream);
+			    } else {
+			      console.log('Error attaching stream to element.');
+			    }
+
+
+	  		}
+	  	);
+	  }
 	</script>
 
 
