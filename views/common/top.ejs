@@ -21,7 +21,7 @@
 
 		</div>
 		<div class="menu-links">
-			<a href="/recommend" <% if( pageName == "recommend"){ %> class="select" <% } %>>Recommend</a>
+			<a href="/recommend" <% if( pageName == "recommend"){ %> class="select" <% } %>>推荐话题</a>
 		</div>
 	</div>
 	<% if(user){ %>
@@ -38,7 +38,7 @@
 					</p>
 				</div>
 				<div class="link">
-					<a href="/user/notice">See all notifications</a>
+					<a href="/user/notice">查看所有通知消息</a>
 				</div>
 			</div>
 		</div>
@@ -52,17 +52,17 @@
 				<ul>
 					<li>
 						<a href="/user/home">
-							Home Page
+							个人首页
 						</a>
 					</li>
 					<li>
 						<a href="/user/edit-avatar">
-							Edit Avatar
+							修改头像
 						</a>
 					</li>
 					<li>
 						<a href="/user/edit-info">
-							Edit Account
+							修改昵称
 						</a>
 					</li>
 
@@ -70,14 +70,14 @@
 					<li>
 						<a href="/user/bind-mail">
 							
-							Bind Email
+							绑定邮箱
 						</a>
 					</li>
 					<% } %>
 
 					<li>
 						<a class="login-out" href="/out">				
-							Login out
+							退出
 						</a>
 					</li>
 				</ul>
@@ -86,8 +86,8 @@
 	</div>
 	<% }else{ %>
 	<div class="pull-right header-unlogin">
-		<a href="/reg">Create an account</a>
-		<a href="/login">Sign in</a>
+		<a href="/reg">创建帐户</a>
+		<a href="/login">登录</a>
 	</div>
 	<% } %>
 </header>

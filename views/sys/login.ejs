@@ -59,7 +59,7 @@
 				<h1>
 					<a href="/home">vchat.co</a>	
 				</h1>
-				<p class="introduce">chat eachother base on topic</p>
+				<p class="introduce">便捷的多人讨论平台</p>
 			</div>
 
 			<div class="login-content">
@@ -77,8 +77,8 @@
 						<input placeholder="Password" id="pwd" type="password" name="pwd" maxlength="50">
 					</div>
 					
-					<button type="submit" class="btn form-btn strip-btn">Login In</button>
-					<a class="form-link tips" href="/reg">create my account</a>
+					<button type="submit" class="btn form-btn strip-btn">登录</button>
+					<a class="form-link tips" href="/reg">创建个人帐户</a>
 				</form>
 			</div>
 		
@@ -92,12 +92,12 @@
 		var json = [
 			{
 				id:"email",
-				email:{rule:true,msg:"Enter the correct email"}
+				email:{rule:true,msg:"填写正确的邮箱"}
 
 			},
 			{
 				id:"pwd",
-				minLength:{rule:6,msg:"Password length is not enough"}
+				minLength:{rule:6,msg:"密码长度不能少于6位"}
 			}
 		];
 

@@ -1,25 +1,25 @@
 <% pageName = pageName || "home"; %>
 <div class="l-aside">
 	<div class="create-btn">
-		<a href="/create-topic" class="btn btn-middle">Create Topic</a>
+		<a href="/create-topic" class="btn btn-middle">创建话题</a>
 	</div>
 	<span class="line"></span>
 	<div class="menu">
 		<ul>
 			<li>
-				<a <% if( pageName=="home"){ %> class="select" <% } %> href="/user/home">Home</a>
+				<a <% if( pageName=="home"){ %> class="select" <% } %> href="/user/home">首页</a>
 			</li>
 			<li>
-				<a <% if( pageName=="notice"){ %> class="select" <% } %> href="/user/notice">Notice</a>
+				<a <% if( pageName=="notice"){ %> class="select" <% } %> href="/user/notice">通知</a>
 			</li>
 			<li>
-				<a <% if( pageName=="topic"){ %> class="select" <% } %> href="/user/topic">Topics</a>
+				<a <% if( pageName=="topic"){ %> class="select" <% } %> href="/user/topic">话题</a>
 			</li>
 			<li>
-				<a <% if( pageName=="editAvatar"){ %> class="select" <% } %> href="/user/edit-avatar">Edit Avatar</a>
+				<a <% if( pageName=="editAvatar"){ %> class="select" <% } %> href="/user/edit-avatar">修改头像</a>
 			</li>
 			<li>
-				<a <% if( pageName=="editInfo"){ %> class="select" <% } %> href="/user/edit-info">Edit Account</a>
+				<a <% if( pageName=="editInfo"){ %> class="select" <% } %> href="/user/edit-info">修改昵称</a>
 			</li>
 		</ul>
 	</div>

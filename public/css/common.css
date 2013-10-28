@@ -55,7 +55,7 @@ header{height: 35px;background: red;position: relative;z-index: 30;}
 .icon-talk{width: 21px;height: 18px;display: inline-block;background: url(../images/all.png);background-position: 0px -18px;float: right;}
 .icon-back{width:9px;height:11px;background:url(../images/all.png);background-position:-5px -128px;display:inline-block;}
 .icon-down{width:17px;height:19px;background:url(../images/all.png);background-position:-3px -130px;display:inline-block;}
-.icon-larrow-black{width: 17px;height: 27px;;background:url(../images/all.png);background-position:-40px -49px;display:inline-block;}
+.icon-larrow-black{width: 17px;height: 27px;background:url(../images/all.png);background-position:-40px -49px;display:inline-block;}
 .icon-larrow-black:hover{background-position:-40px -78px;}
 .icon-go{width:18px;height:18px;display:inline-block;background:url(../images/all.png);background-position:-40px -115px;}
 .icon-go:hover,.icon-go-click{background-position:-40px -137px;}
@@ -69,10 +69,20 @@ header{height: 35px;background: red;position: relative;z-index: 30;}
 .icon-users{width:22px;height:17px;display:inline-block;background:url(../images/all.png);background-position: -74px -162px;vertical-align: middle}
 .icon-pen{width:11px;height:13px;display:inline-block;background:url(../images/all.png);background-position: -13px -692px;}
 .icon-list{width:13px;height:13px;display:inline-block;background:url(../images/all.png);background-position:-10px -732px;}
+.icon-offsound{width:16px;height:17px;display:inline-block;background:url(../images/all.png);background-position: -78px -183px;}
+.icon-onsound{width:17px;height:15px;display:inline-block;background:url(../images/all.png);background-position: -78px -205px;}
+.icon-onmike{width:8px;height:16px;display:inline-block;background:url(../images/all.png);background-position: -80px -229px;}
+.icon-offmike{width:11px;height:16px;display:inline-block;background:url(../images/all.png);background-position: -104px -9px;}
+
+.icon-video{width:21px;height:12px;display:inline-block;background:url(../images/all.png);background-position: -102px -43px}
+
+.icon-onnoticesound{width:19px;height:17px;display:inline-block;background:url(../images/all.png);background-position: -105px -89px;}
+.icon-offnoticesound{width:12px;height:17px;display:inline-block;background:url(../images/all.png);background-position: -105px -109px;}
 
 .color-user-dark{background-position:-42px -200px;}
 .color-user-white{background-position:-42px -216px;}
 .color-list-white{background-position:-10px -715px;}
+.color-video-red{background-position: -103px -68px;}
 
 
 .hidden{display:none;}
@@ -158,9 +168,10 @@ header{background:#545652;height:33px;border-bottom:#303030 solid 1px;box-shadow
 	
 	.header-menu .notice-box,.header-menu .account-box{display:inline-block;float: left}
 	.header-menu{position:relative;float:right;height:33px;}
-	.header-menu .account-box{margin-right:10px;}
-	.header-menu .notice-box .bell,.header-menu .account-box .nick-name{padding: 0px 20px;display: inline-block;;height:33px;line-height: 36px;color:#D8D8D8}
-	.header-menu .account-box .nick-name{font-size: 13px;color:#fff;white-space: nowrap;word-wrap: normal;word-break: normal;text-overflow: ellipsis;overflow: hidden;position:relative;padding-left:50px;padding-right: 11px;width: 6em}
+	.header-menu .account-box{margin-right:10px;height:100%;}
+	.header-menu .notice-box .bell,.header-menu .account-box .nick-name{padding: 0px 20px;display: inline-block;height:33px;line-height: 36px;color:#D8D8D8}
+	.header-menu .account-box .nick-name{font-size: 13px;color:#fff;white-space: nowrap;word-wrap: normal;word-break: normal;text-overflow: ellipsis;overflow: hidden;position:relative;padding-left:50px;padding-right: 11px;width: 6em;
+		float:left;}
 		.header-menu .notice-box i{vertical-align: middle;margin-bottom: 3px}
 		.header-menu .account-box .nick-name{border-left: #222 solid 1px;}
 		.header-menu .notice-box{border-right: #6B6B6B solid 1px;position:relative;}
@@ -190,7 +201,6 @@ header{background:#545652;height:33px;border-bottom:#303030 solid 1px;box-shadow
 	.header-menu .drop-list .login-out{border-top:#8F8E8E solid 1px;border-radius:0px 0px 4px 4px;padding: 10px 0px 10px 15px}
 
 	.header-menu .account-box:hover .drop-list{display:block;}
-	.header-menu .drop-list:hover .account-box{display:block;background:red}
 	.header-menu .account-box:hover{background:#222}
 
 	@media (max-width:700px){

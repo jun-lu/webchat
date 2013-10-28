@@ -3,6 +3,7 @@ WE.pageChat = {
 	isLoading:0,
 	lastTime:null,
 	replyTo:null,
+	isPosting:0,
 	init: function(){
 
 		this.ui = {
@@ -23,7 +24,7 @@ WE.pageChat = {
 
 				var text = $.trim( $(this).val() );
 
-				if( text !="" ){
+				if( text !="" && !_this.isPosting ){
 					_this.post( ROOM.id, text, _this.replyTo );
 
 					// WE.pageChat.timeLine.append( {
@@ -73,7 +74,6 @@ WE.pageChat = {
 	tipsTimeout:null,
 	noMoreTips: function(){
 
-		console.log('noMoreTips');
 		clearTimeout( this.tipsTimeout);
 
 		$('#more-talks .tips').text('没有更多信息了...');
@@ -140,6 +140,9 @@ WE.pageChat = {
 	 */
 	post: function(roomid, text, to){
 
+		var _this = this;
+		this.isPosting = true;
+
 		aim = to == null ? undefined : to;
 		var _this = this;
 		var model = new WE.api.RoomModel();
@@ -154,6 +157,7 @@ WE.pageChat = {
 			}
 
 			_this.replyTo = null;
+			_this.isPosting = false;
 		}
 		model.addObserver( ctrl );
 		model.postChat( roomid, text, aim );
@@ -254,7 +258,6 @@ WE.pageChat.login = {
 			var data = e.data;
 
 			if( data.code == 0 ){
-				console.log( _this.connectSocket);
 				$('#wall-room').removeClass('login-style');
 
 
@@ -338,7 +341,6 @@ WE.pageChat.timeLine = {
 
 		$('#timeline-talks').delegate('.chat-reply','click',function(){
 
-			console.log('_this.mapData[id]',_this.mapData[id]);
 			var id = $(this).attr('data-mid');
 			chat = _this.mapData[id];
 			if(chat){
@@ -584,6 +586,120 @@ WE.pageChat.historylist = {
 		},500);
 	}
 };
+
+
+/**
+	闪烁title通知
+*/
+WE.pageChat.notice = {
+
+	isSound:true,
+	isWindowFocus:true,
+	pointer:null,
+	init: function(){
+
+		this.ui = {
+			boot: $('#notice-sound'),
+			iconBoot: $('#notice-sound').find('.js-boot')
+		}
+
+		this.isSoundCookie = WE.cookie.getCookie('noticeSound');
+
+		if( this.isSoundCookie == "0" ){
+
+			this.ui.iconBoot.removeClass('icon-onnoticesound')
+							   .addClass('icon-offnoticesound');
+			this.isSound = false;
+		} 
+
+		this.ui.boot.find('.js-loading').remove();
+		this.ui.iconBoot.removeClass('hidden');
+
+		this.sound = document.createElement('audio');
+		this.sound.src = "/public/msg.mp3";
+
+		this.regEvent();
+
+		this.defaultTitle = document.title;
+
+	},
+
+	regEvent: function(){
+
+		var _this = this;
+
+		this.ui.boot.click(function(){
+
+			_this.isSound  ? _this.isSound = false :
+							 _this.isSound = true;
+
+			_this.isSound ? WE.cookie.setCookie('noticeSound','1') :
+							WE.cookie.setCookie('noticeSound','0') ;
+
+			_this.setBootUi( _this.isSound );
+			
+		});
+
+		$(window).click(function(){
+
+			_this.isWindowFocus = true;
+			document.title = _this.defaultTitle;
+
+			clearInterval( _this.pointer );
+		});
+
+		$(window).blur(function(){
+
+			_this.isWindowFocus = false;
+		});	
+
+	},
+
+	setBootUi: function( type ){
+
+		this.ui.iconBoot.removeClass('icon-onnoticesound')
+								  .addClass('icon-offnoticesound')
+								  .attr('title','点击开启新消息声音提示');
+
+		if( type ){
+
+			this.ui.iconBoot.removeClass('icon-offnoticesound')
+								  .addClass('icon-onnoticesound')
+								  .attr('title','点击关闭新消息声音提示');
+		}
+	},
+
+	onTitleNotice: function( text ){
+
+		var _this = this;
+			_this.noticeTitle = text;
+
+			clearInterval( this.pointer );
+
+
+		if( !_this.isWindowFocus ){
+
+			if( _this.isSound ){
+
+				this.onSound();
+			}
+			
+			this.pointer = setInterval(function(){
+
+				document.title == _this.noticeTitle ? document.title = _this.defaultTitle 
+													: document.title = _this.noticeTitle;
+
+			},1000);
+		}	
+	},
+
+	onSound: function(){
+
+		this.sound.currentTime = 0;
+		this.sound.play();
+
+	}
+}
 
 
 /**
@@ -844,16 +960,19 @@ WE.pageChat.inviteCell.prototype = {
 					<% if( typeof user.avatar != "undefined" ){ %>\
 					<img src="<%=user.avatar %>">\
 					<% } %>\
+					<% if( typeof user.name != "undefined" && user.name == "" ){ %>\
+						<% user.name = "(未设置昵称的小伙伴)"; %>\
+					<% } %>\
 					<%=user.name || user.mail %>\
 					<% if( select ){ %>\
 						<div class="invite-js-btn">\
 							<span class="select select-type">√</span>\
-							<span class="btn invite-type invite" style="display:none;">Invite</span>\
+							<span class="btn invite-type invite" style="display:none;">邀请</span>\
 						</div>\
 					<% }else{ %>\
 						<div class="invite-js-btn">\
 							<span class="select select-type hidden">√</span>\
-							<span class="btn invite-type invite">Invite</span>\
+							<span class="btn invite-type invite">邀请</span>\
 						</div>\
 					<% } %>\
 				</div>\
@@ -1020,4 +1139,138 @@ WE.pageChat.roomEdit = {
 	}
 
 
+}
+
+
+/* video chat */
+WE.pageChat.videoChat = {
+
+	init: function(){
+
+		this.ui = {
+
+			boot: $('#video-chat'),
+			roomWall: $('#wall-room'),
+			videoWall: $('#video-wall')
+		}
+
+		this.regEvent();
+	},
+
+	regEvent: function(){
+
+		var _this = this;
+
+		this.ui.boot.click(function(){
+
+			_this.boot();
+			_this.setOnVideoBoot();
+		});	
+	},
+
+	boot: function(){
+
+		var _this = this;
+
+		this.ui.roomWall.addClass('video-style');
+		this.ui.videoWall.show();
+
+		var videoChat = new WE.pageChat.VideoModule( 'video-wall' );
+			videoChat.onClose = function(){
+				_this.ui.roomWall.removeClass('video-style');
+				_this.setOffVideoBoot();
+				_this.ui.videoWall.hide();
+			}
+	},
+
+	setOnVideoBoot: function(){
+
+		this.ui.boot.find('i').addClass('video-active').attr('title','视频已经开启');
+
+	},
+
+	setOffVideoBoot: function(){
+
+		this.ui.boot.find('i').removeClass('video-active').attr('title','点击开启视频聊天');
+	}
+};
+
+WE.pageChat.VideoModule = function( parentId ){
+
+	var _this = this;
+
+	this.parentId = parentId;
+
+	WE.kit.getTmpl('video-chat.ejs',function( tmpl ){
+
+		var wall = $( tmpl );
+
+		_this.ui = {
+
+			wall: wall,
+			close: wall.find('.js-close'),
+			view: wall.find('.js-view'),
+			list: wall.find('.js-list')
+		};
+
+		_this.setList();
+		_this.html( _this.parentId );
+
+		_this.regEvent();
+	});
+}
+
+WE.pageChat.VideoModule.prototype = {
+
+
+	itemTmpl: '<div class="item <% if( typeof isMe != "undefined" ){ %> item-me <% } %>">\
+					<video></video>\
+					<div class="tabs">\
+						<i class="arrow"></i>\
+						<a class="name" target="_blank" title="CK.Ming" href="http://www.baidu.com">( Me )</a>\
+						<% if( typeof isMe != "undefined" ){ %>\
+							<span class="js-mike mike">\
+								<i class="icon-onmike"></i>\
+							</span>\
+						<% }else{ %>\
+							<span class="js-sound sound">\
+								<i class="icon-onsound"></i>\
+							</span>\
+						<% } %>\
+					</div>\
+				</div>',
+
+	regEvent: function(){
+
+		var _this = this;
+
+		_this.ui.close.click(function(){
+			_this.close();
+		});
+	},
+
+	close: function(){
+
+		this.ui.wall.remove();
+		this.onClose();
+	},
+
+	onClose: function(){},
+
+	html: function( id ){
+
+		$( '#'+id ).html( this.ui.wall );
+	},
+
+	setList: function(){
+
+		var html = '';
+			html += WE.kit.tmpl( this.itemTmpl,{isMe:true} );
+
+		for(var i=0; i<3;i++){
+
+			html += WE.kit.tmpl( this.itemTmpl,{} );
+		}
+		this.ui.list.html( html );
+	}
 }

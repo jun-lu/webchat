@@ -20,17 +20,17 @@
 		<div class="main">
 			<div class="main-inner">
 				<div class="main-header">
-					<h1>Bind Email</h1>
+					<h1>绑定邮箱</h1>
 				</div>	
 
 				<div class="main-content">
 					
 					<div class="bind-mail">
-						<div class="tips">Experience vchat.co time, the system will work for you to quickly create an anonymous user, the binding mailbox allows you to get more permissions</div>
+						<div class="tips">体验vchat.co的时候，系统会为你快速创建一个匿名用户，绑定邮箱你可以在其他设备使用该帐号</div>
 
 						<% if( /^[\w._\-]+@[\w_\-]+\.\w+$/.test(user.mail) ){ %>
 
-							<p style="padding: 30px 0px">Already bind Email : <%=user.mail %></p>
+							<p style="padding: 30px 0px">已经绑定该邮箱 : <%=user.mail %></p>
 						<% }else{ %>
 
 							<div class="edit">
@@ -41,16 +41,16 @@
 									</div>
 									<div class="input-box">
 										<i class="icon-email"></i>
-										<input autofocus id="bindMail-input" placeholder="Type your email">
+										<input autofocus id="bindMail-input" placeholder="登录邮箱">
 									</div>
 
 									<div class="input-box">
 										<i class="icon-lock"></i>
-										<input autofocus id="pwd-input" placeholder="Type your password">
+										<input autofocus id="pwd-input" placeholder="登录密码">
 									</div>
 									
 									
-									<button type="button" id="bindMail-submit" class="btn form-btn strip-btn">Submit</button>
+									<button type="button" id="bindMail-submit" class="btn form-btn strip-btn">提交</button>
 								</form>
 							</div>
 						<% } %>

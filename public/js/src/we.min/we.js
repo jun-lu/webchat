@@ -2,6 +2,7 @@ var WE = {
 	extend:$.extend,
 	ui:{},
 	kit:{},
+	cookie:{},
 	api:{},
 	page:{},
 	markdown:{},

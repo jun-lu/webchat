@@ -61,7 +61,8 @@
 	<header class="clearfix">
 		<img class="logo" src="/public/images/logo-white.png">
 		<h1 class="set-middle">
-			<strong>vchat.co,</strong>More convenient group chat
+			<p><strong>vchat.co</strong></p>
+			<p>便捷的多人讨论</p>
 		</h1>
 
 		<% if( user != null ){ %>
@@ -72,16 +73,15 @@
 			</a>
 		</div>
 		<% }else{ %>
-		<a class="btn btn-white login-btn" href="/login">Sign In</a>
+		<a class="btn btn-white login-btn" href="/login">登录</a>
 		<% } %>
 
 		<div class="create-box">
 			<a name="create-part" class="create-part" id="create-part"></a>
-			<p>Quickly create topic</p>
 			<div>
 				<form method="post" action="/api/room-create" >
 					<div class="create-input set-middle" id="create">
-						<input class="topic-input" name="topic" autofocus placeholder="Topic name">
+						<input class="topic-input" name="topic" autofocus placeholder="快速创建话题">
 						<a href="javascript:;" class="create-btn">
 							<i class="icon-go"></i>
 							<i class="icon-loading hidden"></i>
@@ -101,7 +101,7 @@
 			
 			<ul>
 				<li>
-					<a href="/recommend">Recommend</a>
+					<a href="/recommend">推荐话题</a>
 				</li>
 			</ul>
 		</div>

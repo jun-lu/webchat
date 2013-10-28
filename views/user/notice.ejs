@@ -29,7 +29,7 @@
 		<div class="main">
 			<div class="main-inner">
 				<div class="main-header">
-					<h1>Notice</h1>
+					<h1>通知</h1>
 				</div>	
 
 				<div class="main-content">
@@ -38,13 +38,13 @@
 						<div class="header">
 							<% if( status =="unread" ){ %>
 							<div class="btn-group">
-								<span class="btn btn-white clicked">Unread</span>
-								<a href="/user/notice?status=read" class="btn btn-white">Read</a>
+								<span class="btn btn-white clicked">未读</span>
+								<a href="/user/notice?status=read" class="btn btn-white">已读</a>
 							</div>
 							<% }else{ %>
 							<div class="btn-group">
-								<a href="/user/notice?status=unread" class="btn btn-white">Unread</a>
-								<span class="btn btn-white clicked">Read</span>
+								<a href="/user/notice?status=unread" class="btn btn-white">未读</a>
+								<span class="btn btn-white clicked">已读</span>
 							</div>
 							<% } %>
 						</div>

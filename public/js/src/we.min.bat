@@ -3,6 +3,7 @@
 
 set inputlist=%inputlist% --js we.min\we.js
 set inputlist=%inputlist% --js we.min\we.kit.js
+set inputlist=%inputlist% --js we.min\we.cookie.js
 set inputlist=%inputlist% --js we.min\we.ui.tips.js
 set inputlist=%inputlist% --js we.min\we.markdown.js
 set inputlist=%inputlist% --js we.ui\we.dialog.js
