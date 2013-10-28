@@ -38,7 +38,7 @@
 							<span class="des">
 								<%-tool.revertHtmlTag(user.summary)%>
 								<%if(!user.summary){%>
-									Introduce yourself
+									( 介绍一下自己 )
 								<%}%>
 							</span>
 						</div>
@@ -52,7 +52,7 @@
 					
 					<% if( !/^[\w._\-]+@[\w_\-]+\.\w+$/.test(user.mail) ){ %>
 					<div class="bind-email-tips">
-						If you want to use this account in another device, please bind your email&nbsp;&nbsp;<a href="bind-mail">Bind my Email</a>
+						如果想在其他设备继续使用该帐号，请绑定邮箱&nbsp;&nbsp;<a href="bind-mail">绑定我的邮箱</a>
 					</div>
 					<style type="text/css">
 					.main-header{height: auto;}
@@ -65,7 +65,7 @@
 					<div class="recent-topic">
 						<div class="title">
 							<i class="icon-chat"></i>
-							Recently Topics
+							最近话题
 						</div>
 
 						<div class="content">
@@ -95,7 +95,7 @@
 					<div class="recent-user">
 						<div class="title">
 							<i class="icon-users"></i>
-							Recently Chat With
+							最近联系人
 						</div>
 						<div class="content">
 							<ul class="clearfix" id="contacts">

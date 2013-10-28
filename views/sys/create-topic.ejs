@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>Create Topic - Vchat</title>
+	<title>创建话题 - Vchat</title>
 	<link rel="stylesheet" href="/public/css/common.css" />
 	<style type="text/css">
 		
@@ -60,9 +60,9 @@
 			<div class="create-header">
 				<div class="header-inner set-middle">
 					<h1>
-						<a href="/create-topic">Create Topic</a>	
+						<a href="/create-topic">创建话题</a>	
 					</h1>
-					<p class="introduce">create a topic to chat with anyone</p>
+					<p class="introduce">创建话题，邀请小伙伴们参与讨论</p>
 				</div>
 				
 			</div>
@@ -73,7 +73,7 @@
 
 					<div class="input-box">
 						<i class="icon-chat"></i>
-						<input autofocus placeholder="Topic name" type="text" name="topic" id="topic" maxlength="140">
+						<input autofocus placeholder="话题" type="text" name="topic" id="topic" maxlength="140">
 					</div>
 
 					<div class="info-box" id="info-box">
@@ -82,34 +82,33 @@
 								<li id="des-box">
 									<div class="arrow"></div>
 									<div class="header">
-										<span class="title">I want to describe my topic</span>
-										<button type="button" title="edit topic's describe" class="pull-right des-btn">
+										<span class="title">我想详细描述下话题</span>
+										<button type="button" title="编辑话题描述" class="pull-right des-btn">
 											<i class="icon-pen test"></i>
 										</button>
 									</div>
 									<div class="input-content clearfix hidden">
-										<textarea maxlength="300" name="des" id="des" placeholder="Describe my topic"></textarea>
+										<textarea maxlength="300" name="des" id="des" placeholder="描述下话题"></textarea>
 									</div>
 								</li>
 								<li id="pwd-box">
 									<div class="arrow"></div>
 									<div class="header clear-border">
-										<span>I want to set room password</span>
-										<button type="button" title="edit room's password" class="pull-right pwd-btn">
+										<span>我想为话题房间设置访问密码</span>
+										<button type="button" title="编辑房间密码" class="pull-right pwd-btn">
 											<i class="icon-pen"></i>
 										</button>
 									</div>
 									<div class="input-content clearfix hidden">
-										<input name="pwd" id="des" placeholder="Password" type="text" id="password" maxlength="16">
+										<input name="pwd" id="des" placeholder="访问密码" type="text" id="password" maxlength="16">
 									</div>
 								</li>
 							</ul>
 						</div>
 					</div>
 
-					<button tabindex="2" type="submit" class="btn form-btn ">Submit</button>
+					<button tabindex="2" type="submit" class="btn form-btn ">提交</button>
 
-					<p class="tips bottom-tips">Notice : successful registration you will receive a report containing a password Email</p>
 				</form>
 				
 			</div>
@@ -122,99 +121,11 @@
 	<script type="text/javascript" src="/public/js/lib/jquery-1.6.3.min.js"></script>
 	<script type="text/javascript" src="/public/js/lib/we.min.js"></script>
 	<script type="text/javascript" src="/public/js/we.top.min.js"></script>
+	<script type="text/javascript" src="/public/js/we.create.min.js"></script>
 
 	<script type="text/javascript">
-	WE.pageCreate = {
-		init: function(){
-
-			var form = $('#create');
-			this.ui = {
-				form: form,
-				topic: $('#topic'),
-				desBox: $('#des-box'),
-				pwdBox: $('#pwd-box'),
-				infoBox: $('#info-box')
-			};
-
-			this.regEvent();
-		},
-
-		regEvent: function(){
-
-			var _this = this,
-				isSettimeout = null;
-
-			this.ui.desBox.find('.des-btn').click(function(){
-
-				if( _this.ui.desBox.find('.input-content').is(':hidden') ){
-					_this.ui.desBox.find('.input-content').removeClass('hidden');
-					$(this).find('.icon-pen').removeClass('icon-pen').addClass('icon-close');
-
-				}else{
-					_this.ui.desBox.find('.input-content').addClass('hidden');
-					$(this).find('.icon-close').addClass('icon-pen').removeClass('icon-close');
-
-
-				}
-				return false;
-				
-			});
-
-			this.ui.pwdBox.find('.pwd-btn').click(function(){
-
-				if( _this.ui.pwdBox.find('.input-content').is(':hidden') ){
-
-					_this.ui.pwdBox.find('.input-content').removeClass('hidden');
-					_this.ui.pwdBox.find('.header').css({'border-bottom':'#F0E02F solid 1px'});
-					$(this).find('.icon-pen').removeClass('icon-pen').addClass('icon-close');
-
-				}else{
-
-					_this.ui.pwdBox.find('.input-content').addClass('hidden');
-					_this.ui.pwdBox.find('.header').css({'border-bottom':'0'});
-					$(this).find('.icon-close').addClass('icon-pen').removeClass('icon-close');
-
-				}
-				
-				return false;
-			});
-
-			this.ui.form.submit(function( e ){
-
-				e.preventDefault();
-				var topic = $.trim( _this.ui.topic.val() );
-
-				if( topic == "" ){
-					return false;
-					
-				}
-				
-				_this.createTopic();
-				
-			});
-		},
-
-		createTopic: function(){
-
-			var topic = $.trim( this.ui.topic.val() );
-			var des = $.trim( this.ui.desBox.find('textarea').val() );
-			var pwd = $.trim( this.ui.pwdBox.find('input').val() );
-
-			var model = new WE.api.RoomModel();
-			var ctrl = new WE.Controller();
-			ctrl.update = function(e){
-				var data = e.data;
-
-				if( data.code == 0 ){
-					location.href = "/t/"+data.result.id;
-				}
-			}
-			model.addObserver( ctrl );
-			model.create(topic, des, pwd);	
-		}
-	}
-
-	WE.pageCreate.init();
+	
+		WE.pageCreate.init();
 
 	</script>
 	

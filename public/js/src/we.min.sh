@@ -2,6 +2,7 @@
 inputlist=$inputlist\ \-\-js\ we.min/we.js
 inputlist=$inputlist\ \-\-js\ we.min/we.kit.js
 inputlist=$inputlist\ \-\-js\ we.min/we.ui.tips.js
+inputlist=$inputlist\ \-\-js\ we.min/we.cookie.js
 inputlist=$inputlist\ \-\-js\ we.min/we.markdown.js
 
 inputlist=$inputlist\ \-\-js\ we.ui/we.dialog.js

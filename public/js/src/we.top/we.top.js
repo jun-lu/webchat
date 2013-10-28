@@ -153,13 +153,11 @@ WE.top.search = {
 	},
 
 	resultTmpl:'<a href="/t/<%=name || id %>"><i class="icon-chat"></i><%=topic %></a>',
-	searchTmpl:'<a class="key" href="/search?key=<%=encodeURIComponent(key) %>">Search Topics for "<%=encodeURIComponent(key) %>"</a>',
+	searchTmpl:'<a class="key" href="/search?key=<%=encodeURIComponent(key) %>">Search Topics for "<%=key.replace(/</g,"&lt;").replace(/>/g,"&gt;") %>"</a>',
 	setResult: function( key, datas ){
 
 		var tmpl = '';
 		var len = datas.length;
-
-
 
 		if( datas.length > 0 ){
 
@@ -219,10 +217,10 @@ WE.top.notice = {
 	hasNotices:false,
 	noticeTmpl:'<li>\
 					<a href="/user/<%=from._id %>"><%=from.name %></a> 在 <a href="/d/<%=response %>?noticeid=<%=_id %>"><%=where.topic %></a> 回复了你\
-					<span class="know" data-nid="<%=_id %>">Do not reminde</span>\
+					<span class="know" data-nid="<%=_id %>">不再提醒</span>\
 				</li>',
 
-	noResultTmpl: '<p class="no-notice">No recent new notice...</p>',
+	noResultTmpl: '<p class="no-notice">没有最新的通知...</p>',
 
 	init: function(){
 

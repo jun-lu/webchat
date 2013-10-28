@@ -8,5 +8,5 @@ echo %inputlist%
 echo %outputfilename%
 
 java -jar compiler.jar %inputlist% %outputfilename%
-echo ÎÄ¼þÒÑÊä³öµ½ %outputfilename%
+echo ÃŽÃ„Â¼Ã¾Ã’Ã‘ÃŠÃ¤Â³Ã¶ÂµÂ½ %outputfilename%
 @pause>nul
