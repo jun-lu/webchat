@@ -71,6 +71,7 @@ module.exports = {
 
 					//console.log("idOrNameFind", status);
 					if(status.code == "0" && status.result){
+						//console.log("idOrNameFind", status.result )
 						output.room = status.result;
 						promise.ok( );
 
@@ -159,7 +160,7 @@ module.exports = {
 				ChatModel.count({roomid:roomid, to:"*"}, function( status ){
 
 					output.chats_count = status.result;
-					//console.log( output );
+					//console.log( output.room );
 					res.render('chat', output);
 				});
 			});
@@ -214,6 +215,26 @@ module.exports = {
 			};
 
 			promise = new Promise();
+
+			promise.then(function(){
+
+				RoomModel.findOne({id:roomid}, function( status ){
+
+					if( status.code != 0){
+						res.write( status.toString() );
+						res.end();
+					}else{
+						if( status.result.status != 1 ){
+							res.write( status.setResult(null).setMsg(" status = 0 无法提交").toString() );
+							res.end();
+						}else{
+							promise.ok();
+						}
+					}
+
+				});
+
+			});
 
 			promise.then(function(){
 
