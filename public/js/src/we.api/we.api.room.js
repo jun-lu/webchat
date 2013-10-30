@@ -20,6 +20,8 @@ WE.api.RoomModel = function(){
 	this.searchRoomURL = '/api/room-search';
 
 	this.inviteRoomURL = '/api/room-inviteh';
+	this.setRoomOpenURL = '/api/room-set-open';
+	this.setRoomCloseURL = '/api/room-set-close';
 };
 
 WE.api.RoomModel.prototype = WE.BaseModel.prototype;
@@ -74,8 +76,14 @@ WE.api.RoomModel.prototype.search = function(key){
 	this.get(this.searchRoomURL,{key:key});
 }
 
-
 WE.api.RoomModel.prototype.inviteChat = function(_ids, mails, roomid){
 	this.get(this.inviteRoomURL,{_ids:_ids, mails:mails, roomid:roomid})
 }
 
+WE.api.RoomModel.prototype.setRoomOpen = function(roomid){
+	this.post(this.setRoomOpenURL,{id:roomid});
+}
+
+WE.api.RoomModel.prototype.setRoomClose = function(roomid){
+	this.post(this.setRoomCloseURL,{id:roomid});
+}

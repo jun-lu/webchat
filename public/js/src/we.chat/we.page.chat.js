@@ -191,6 +191,64 @@ WE.pageChat = {
 				</div>'
 };
 
+/**
+	房间的开启
+*/
+WE.pageChat.activation = {
+
+	init: function(){
+
+		this.ui = {
+			openBtn: $('#activation-open-btn')
+		}
+
+		this.regEvent();
+	},
+
+	regEvent: function(){
+
+		var _this = this;
+
+		this.ui.openBtn.click(function(){
+
+			_this.open();
+		});
+	},
+
+	open: function(){
+
+		var model = new WE.api.RoomModel();
+		var ctrl = new WE.Controller();
+		ctrl.update = function( e ){
+
+			var data = e.data;
+
+			if( data.result ){
+
+				location.reload();
+			}
+		}
+		model.addObserver(ctrl);
+		model.setRoomOpen(ROOM.id);
+	},
+
+	close: function(){
+
+		var model = new WE.api.RoomModel();
+		var ctrl = new WE.Controller();
+		ctrl.update = function( e ){
+
+			var data = e.data;
+
+			if( data.result ){
+
+				location.reload();
+			}
+		}
+		model.addObserver(ctrl);
+		model.setRoomClose(ROOM.id);
+	}
+}
 
 /**
 	登录
@@ -431,9 +489,6 @@ WE.pageChat.userlist = {
 				<a href="/user/<%=_id%>" target="_blank"  class="name <% if(name == ""){ %>no-name<% } %>" >\
 					<img src="<%=avatar%>"><%= name == ""? "(暂无昵称)" : name%>\
 				</a>\
-				<% if( _id != USER._id ){ %>\
-				<a href="javascript:;" title="邀请加入私密聊天" class="icon-talk"></a>\
-				<% } %>\
 			</li>',
 	data: null,
 	init: function(data){
@@ -669,19 +724,21 @@ WE.pageChat.notice = {
 		}
 	},
 
-	onTitleNotice: function( text ){
+	onTitleNotice: function( text,sound ){
 
 		var _this = this;
 			_this.noticeTitle = text;
 
 			clearInterval( this.pointer );
 
-
 		if( !_this.isWindowFocus ){
 
 			if( _this.isSound ){
 
-				this.onSound();
+				if( sound == true ){
+
+					this.onSound();
+				}
 			}
 			
 			this.pointer = setInterval(function(){
@@ -904,6 +961,7 @@ WE.pageChat.invite = {
 			setTimeout(function(){
 
 				_this.ui.emailInput.find('.invite-tips').hide();
+				_this.addUsers(_this.datas);
 			},3000);
 		}
 		model.addObserver(ctrl);
