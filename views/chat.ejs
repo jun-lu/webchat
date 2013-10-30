@@ -37,7 +37,7 @@
 						<span class="title-txt"><%=tool.cutOff(room.topic,40)%></span>
 						&nbsp;&nbsp;<% if( room.master._id == user._id ){ %><span id="room-edit-boot" class="edit hidden">edit</span><% } %>
 
-						<span id="notice-sound" class="notice-sound" title="点击关闭新消息声音提示">
+						<span id="notice-sound" class="notice-sound" title="点击关闭声音提示">
 							<i class="icon-loading js-loading"></i>
 							<i class="icon-onnoticesound hidden js-boot"></i>
 						</span>
@@ -84,14 +84,30 @@
 				</div>
 
 				<div class="main-input" id="post-box">
-						<div class="hidden" id="replay-box">
+					<% if( room.status ){ %>
+					<div class="hidden" id="replay-box">
 
+					</div>
+					<div class="text-box">
+						<input type="text" tabindex="1" autofocus placeholder="type your message">
+					</div>
+					<% }else{ %>
+					<div class="not-input">
+						<span>该话题输入已经关闭</span>
+						<div class="mark">
+							<span class="mark-quest">?</span>
+							<div class="des hidden">
+								<i class="arrow"></i>
+								<span>如果48小时内没有任何信息发布，系统将会默认关闭该话题输入，<a class="owner" href="#">CK.Ming</a>有权力再次开启</span>
+							</div>
 						</div>
-						<!-- replay box -->
-						<div class="text-box">
-							<input type="text" tabindex="1" autofocus placeholder="type your message">
-						</div>
+						
+						<button id="activation-open-btn" class="btn btn-small btn-white">开启</button>
+					</div>
+					<% } %>
+					
 				</div>
+
 			</div>
 
 			<div class="main-wall video-wall hidden" id="video-wall">
@@ -204,7 +220,7 @@
 						WE.pageChat.userlist.append( data );
 
 						if( data._id != USER._id ){
-							WE.pageChat.notice.onTitleNotice( data.name +' 上线了' );
+							WE.pageChat.notice.onTitleNotice( data.name +' 上线了',false );
 						}
 						
 					},
@@ -212,7 +228,7 @@
 						WE.pageChat.userlist.remove( data );
 
 						if( data._id != USER._id ){
-							WE.pageChat.notice.onTitleNotice( data.name +' 下线了' );
+							WE.pageChat.notice.onTitleNotice( data.name +' 下线了',false );
 						}
 					},
 					"user-list":function( data ){
@@ -232,7 +248,7 @@
 							new WE.api.NoticeModel().noticeStatus( data.aim._id );
 						}
 
-						WE.pageChat.notice.onTitleNotice( data.from.name +' 说...' );
+						WE.pageChat.notice.onTitleNotice( data.from.name +' 说...',true );
 						
 					}
 				};
@@ -288,6 +304,7 @@
 		WE.pageChat.invite.init();
 		WE.pageChat.roomEdit.init();
 		WE.pageChat.videoChat.init();
+		WE.pageChat.activation.init();
 		WE.pageChat.timeLine.init( <%- JSON.stringify( indexChats ) %>,<%- chats_count %> );
 		
 		//WE.pageChat.notice.init();

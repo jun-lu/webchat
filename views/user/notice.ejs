@@ -58,14 +58,14 @@
 
 								%>
 								<li>
-									<a target="_blank" class="name" href="/user/<%=item.from._id %>"><%=item.from.name %></a> reply to you in 
-									<a target="_blank" href="/d/<%=item.response  %>?noticeid=<%=item._id %>"><%=item.where.topic %></a>
+									<a target="_blank" class="name" href="/user/<%=item.from._id %>"><%=item.from.name %></a> 在  
+									<a target="_blank" href="/d/<%=item.response  %>?noticeid=<%=item._id %>"><%=item.where.topic %></a> 回复了你
 								</li>
 								<% } %>
 
 								<% if( notices.length == 0 ){ %>
 								<li>
-									<span>No notice...</span>
+									<span>没有最新通知...</span>
 								</li>
 								<% } %>
 							</ul>
