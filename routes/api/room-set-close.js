@@ -14,7 +14,7 @@ var tools = require("../../lib/tools");
 
 module.exports = function( req, res ){
 
-	var id = tools.trim(req.query.id);
+	var id = tools.trim(req.body.id);
 	var status = new WebStatus();
 	var user = req.session.user;
 	var	promise = new Promise();
