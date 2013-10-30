@@ -42,7 +42,7 @@ if (navigator.webkitGetUserMedia) {
   }
   
   // Toggle debug mode (console.log)
-  rtc.debug = false;
+  rtc.debug = true;
   
   // Holds a connection to the server.
   rtc._socket = null;

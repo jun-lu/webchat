@@ -22,65 +22,66 @@
 </head>
 <body>
 	
+	<div>
+		<input value = "e3238e39e72fdb588d6e5bb360fa90b0|275fccab7935736ff68c95c3ddbfaaee|07871915a8107172b3b5dc15a6574ad3" id="sid1">
+		<input type="button" value="连接lujun" id="btn1">
+	</div>
+	<div>
+		<input value = "475ac64eeae2df7af6c235137309ad9e|056b3391c3f65a6685e4e9cb1b400e39|d3d9446802a44259755d38e6d163e820" id="sid2">
+		<input type="button" value="连接123" id="btn2">
+	</div>
+
 	
 	<video id="local" autoplay="autoplay" style="position:absolute;right:0;top:0;width:300px;height:200px;z-index:1000;"></video>
 	<video id="remote" autoplay="autoplay" style="position:absolute;right:300px;top:0;width:300px;height:200px;z-index:1000"></video>
 
-	<script src="/public/js/webrtc.io.js"></script>
-	<script>
+	<script src="/public/js/webchat-rtc.js"></script>
 
-	if( false ){
-	var elements = {};
+<script>
+
 	  // note: make sure hostname available to all connecting clients
 	  //192.168.1.3  10.6.0.170
 	  // (ie. probably not `localhost`)
-	  rtc.connect('ws://vchat-rtc.co:8002', ROOM.id);
+	  WE.rtc.attachStream = function( stream, element ){
+	  	if (typeof(element) === "string"){
+	      element = document.getElementById(element);
+	    }
 
-	  rtc.createStream({"video": true, "audio":false}, function(stream){
-	    // get local stream for manipulation
-	    rtc.attachStream(stream, 'local');
-	  });
+	    if (navigator.mozGetUserMedia) {
+	      if (rtc.debug) console.log("Attaching media stream");
+	      element.mozSrcObject = stream;
+	      element.play();
+	    } else {
+	      element.src = webkitURL.createObjectURL(stream);
+	    }
+	  };
 
-	  rtc.on('add remote stream', function(stream, id){
-	    // show the remote video
-	    if( elements[id] === undefined ){
-	    	elements[id] = document.createElement("video");
-	    	elements[id].autoplay = "autoplay";
-	    	document.body.appendChild( elements[id] );
-	    }	
+	  	$('#btn1').click(function(){
+				init( $("#sid1").val() );			  
+		});
 
-	    rtc.attachStream(stream, elements[id]);
+		$('#btn2').click(function(){
+				init( $("#sid2").val() );			  
+		});
 
-	    
-	  });
+		function  init( sid ){
 
+			WE.rtc.connect('ws://vchat-rtc.co:8001', sid);
+
+			WE.rtc.createStream({"video": true, "audio":false}, function(stream){
+				// get local stream for manipulation
+				WE.rtc.attachStream(stream, 'local');
+				
+			}, function(){});
+
+			WE.rtc.addRemoteStream = function(stream){
+					// show the remote video
+					WE.rtc.attachStream(stream, 'remote');
+			};
+
+		}	
 	  // more rtc callbacks are available
-	  }else{
-
-	  	var element = document.getElementById("local");
-	  	navigator.webkitGetUserMedia( 
-	  		{"video": true, "audio":false}, 
-	  		function(stream) {
-
-
-
-	  			if (typeof element.srcObject !== 'undefined') {
-				      element.srcObject = stream;
-			    } else if (typeof element.mozSrcObject !== 'undefined') {
-			      element.mozSrcObject = stream;
-			    } else if (typeof element.src !== 'undefined') {
-			      element.src = URL.createObjectURL(stream);
-			    } else {
-			      console.log('Error attaching stream to element.');
-			    }
-
-
-	  		}
-	  	);
-	  }
 	</script>
-
-
 
 </body>
 </html>
