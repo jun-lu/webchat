@@ -56,8 +56,10 @@ module.exports = function( app ){
 	app.get('/api/room-search', require("./roomSearch"));
 	//room-inviteh  23号
 	app.get('/api/room-inviteh', require("./roomInviteh"));
-	//room-set-close  23号
+	//room-set-close  24号
 	app.get('/api/room-set-close', require("./room-set-close"));
+	//room-set-close  25号
+	app.get('/api/room-set-open', require("./room-set-open"));
 
 
 

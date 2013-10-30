@@ -623,3 +623,17 @@ return {
 	} 
 ````
 
+####开启一个我自己创建的话题 topic 25
+````javascript
+	
+	url:"/api/room-set-open"
+	method:post
+	param:
+		id:Room.id
+	return {
+		code:0,// 304
+		msg:"",
+		result:true
+	} 
+````
+
