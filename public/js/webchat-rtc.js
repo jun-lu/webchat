@@ -61,11 +61,10 @@ WE.rtc = {
       socket.online = function( data ){
         console.log("online", data);
         if(data.data._id != USER._id){
+          console.log("new PeerConnection");
           var pc = self.createPeerConnection( data.data._id );
           pc.id = data.data._id;
           self.addStreams( pc );
-          //self.createDataChannel( pc );
-          //self.sendOffers( pc );
           self.connections[pc.id] = pc;
         }
       };
@@ -129,7 +128,7 @@ WE.rtc = {
       }
 
     },
-    connections:[],
+    connections:{},
     createPeerConnections:function( users ){
       var pc = null;
       for(var i=0; i<users.length; i++){
@@ -183,6 +182,12 @@ WE.rtc = {
       pc.onclose = function(){
         console.log("onclose")
       };
+
+      pc.ondatachannel = function(evt) {
+        //console.log('data channel connecting ' + id);
+        WE.rtc.addDataChannel(pc, evt.channel);
+      };
+      
       pc.id = id;
       return pc;
     },
