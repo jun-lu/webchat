@@ -44,7 +44,7 @@ module.exports = function( req, res ){
 				if( String(status.result.masterId) == String(user._id) ){
 					promise.ok();
 				}else{
-					res.write( new WebStatus("403") );
+					res.write( new WebStatus("403").toString() );
 					res.end();
 				}
 
