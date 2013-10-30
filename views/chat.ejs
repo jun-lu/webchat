@@ -35,7 +35,7 @@
 				<div class="main-title " id="title-box">
 					<h1 title="<%=room.topic %>">
 						<span class="title-txt"><%=tool.cutOff(room.topic,40)%></span>
-						&nbsp;&nbsp;<% if( room.master._id == user._id ){ %><span id="room-edit-boot" class="edit hidden">edit</span><% } %>
+						&nbsp;&nbsp;<% if( room.master._id == user._id ){ %><span id="room-edit-boot" class="edit hidden">编辑</span><% } %>
 
 						<span id="notice-sound" class="notice-sound" title="点击关闭声音提示">
 							<i class="icon-loading js-loading"></i>
@@ -102,7 +102,10 @@
 							</div>
 						</div>
 						
-						<button id="activation-open-btn" class="btn btn-small btn-white">开启</button>
+						<% if( room.masterId == user._id ){ %>
+							<button id="activation-open-btn" class="btn btn-small btn-white">开启</button>
+						<% } %>
+						
 					</div>
 					<% } %>
 					
