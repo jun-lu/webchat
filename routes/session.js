@@ -101,11 +101,35 @@ module.exports = {
 				return ;	
 			}
 
-		}
+		}else{
 
-		status.setCode("403");
-		status.setMsg("无法读取到用户cookie");
-		callback && callback( status );
+			status.setCode("403");
+			status.setMsg("无法读取到用户cookie");
+			callback && callback( status );
+
+		}
+		
+	},
+	//直接验证sid
+	verificationSID:function( sid, callback ){
+		var status = new WebStatus();
+		if( sid ){
+
+			var a = sid.split("|");
+
+			var hexMail = a[0];
+			var hexPwd = a[1];
+			var hexRandom = a[2];
+
+			UserModel.hexFind(hexMail, hexPwd, hexRandom, callback);
+
+		}else{
+
+			status.setCode("403");
+			status.setMsg("无法读取到用户cookie");
+			callback && callback( status );
+			
+		}
 		
 	}
 }

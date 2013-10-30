@@ -169,16 +169,11 @@ module.exports = {
 		},
 		test:function(req, res){
 
+			var user = req.session.user;
+
 			var output = {
-
-				user:{
-
-					_id:Date.now(),
-					name:"abcd"
-				},
-				room:{
-					id:req.params.key
-				}
+				room:{id:1382750151217,topic:"adfadfsa"},
+				user : user ? user.getInfo() : null
 			}
 
 			

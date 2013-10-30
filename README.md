@@ -608,3 +608,18 @@ return {
 	} 
 ````
 
+
+####关闭一个我自己创建的话题 topic 24
+````javascript
+	
+	url:"/api/room-set-close"
+	method:post
+	param:
+		id:Room.id
+	return {
+		code:0,// 304
+		msg:"",
+		result:true
+	} 
+````
+
