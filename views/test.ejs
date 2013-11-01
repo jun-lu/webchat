@@ -27,8 +27,8 @@
 		<input type="button" value="连接lujun" id="btn1">
 	</div>
 	<div>
-		<input value = "475ac64eeae2df7af6c235137309ad9e|056b3391c3f65a6685e4e9cb1b400e39|d3d9446802a44259755d38e6d163e820" id="sid2">
-		<input type="button" value="连接123" id="btn2">
+		<input value = "75398a9b2648701f56e4e3e82cdae79d|d2fa4b489e42cfccbbcfa053412c6fec|b534ba68236ba543ae44b22bd110a1d6" id="sid2">
+		<input type="button" value="连接afd" id="btn2">
 	</div>
 
 	
@@ -64,20 +64,24 @@
 				init( $("#sid2").val() );			  
 		});
 
-		function  init( sid ){
+		function init( sid ){
+
+			WE.rtc.socketReady = function(){
+
+				WE.rtc.createStream({"video": true, "audio":false}, function(stream){
+					// get local stream for manipulation
+					WE.rtc.attachStream(stream, 'local');
+					
+				}, function(){});
+
+				WE.rtc.addRemoteStream = function(stream){
+						// show the remote video
+						WE.rtc.attachStream(stream, 'remote');
+				};
+
+			};
 
 			WE.rtc.connect('ws://vchat-rtc.co:8001', sid);
-
-			WE.rtc.createStream({"video": true, "audio":false}, function(stream){
-				// get local stream for manipulation
-				WE.rtc.attachStream(stream, 'local');
-				
-			}, function(){});
-
-			WE.rtc.addRemoteStream = function(stream){
-					// show the remote video
-					WE.rtc.attachStream(stream, 'remote');
-			};
 
 		}	
 	  // more rtc callbacks are available
