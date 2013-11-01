@@ -37,7 +37,6 @@
 						<span class="title-txt"><%=tool.cutOff(room.topic,40)%></span>
 						&nbsp;&nbsp;<% if( room.master._id == user._id ){ %><span id="room-edit-boot" class="edit hidden">编辑</span><% } %>
 
-						
 						<!-- <span id="video-chat" class="video-boot" title="点击开启视频聊天">
 							<i class="icon-video"></i>
 						</span> -->
@@ -240,7 +239,7 @@
 						WE.pageChat.userlist.append( data );
 
 						if( data._id != USER._id ){
-							WE.pageChat.notice.onTitleNotice( data.name +' 上线了',false );
+							WE.top.msgNotice.onTitleNotice( data.name +' 上线了',false );
 						}
 						
 					},
@@ -248,7 +247,7 @@
 						WE.pageChat.userlist.remove( data );
 
 						if( data._id != USER._id ){
-							WE.pageChat.notice.onTitleNotice( data.name +' 下线了',false );
+							WE.top.msgNotice.onTitleNotice( data.name +' 下线了',false );
 						}
 					},
 					"user-list":function( data ){
@@ -268,7 +267,7 @@
 							new WE.api.NoticeModel().noticeStatus( data.aim._id );
 						}
 
-						WE.pageChat.notice.onTitleNotice( data.from.name +' 说...',true );
+						WE.top.msgNotice.onTitleNotice( data.from.name +' 说...',true );
 						
 					}
 				};
@@ -319,7 +318,6 @@
 		connectionSocketServer.init();
 
 		WE.pageChat.init();
-		WE.pageChat.notice.init();
 		WE.pageChat.historylist.init();
 		WE.pageChat.invite.init();
 		WE.pageChat.roomEdit.init();
