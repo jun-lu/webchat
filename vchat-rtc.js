@@ -43,8 +43,10 @@ var socketHashList = {
 	distribute:function( roomid, data, id ){
 
 		var list = this[roomid];
+		//console.log("distribute start", roomid, id)
 		for(var i=0; list && i<list.length; i++){
 			if( id == undefined || String(list[i].session.user._id) == id){
+				//console.log("distribute ok", roomid, id)
 				list[i].send( JSON.stringify(data) );//.toString()
 			}
 		}
@@ -106,6 +108,10 @@ wss.on('connection', function( ws ){
 	//ws.session.user.clientid = ++clientid;
 	ws.roomid = null;
 	ws.on("error", function(){});
+	ws.on("close", function(){
+		socketHashList.remove( ws.roomid, ws );
+	});
+
 	ws.on("message", function( message ){
 
 		console.log("onmessage", message);
@@ -145,7 +151,7 @@ wss.on('connection', function( ws ){
 					ws.send( JSON.stringify(data) );
 					promise.ok( user );
 				}else{
-					ws.close();
+					ws.setClose();
 				}
 			});
 
@@ -169,6 +175,31 @@ wss.on('connection', function( ws ){
 
 		promise.start();
 	});
+	//有人报告offer
+	ws.on("send_offer", function( data ){
+		var id = data.id;
+		//报告给对方我的 对外端口于ip
+		socketHashList.distribute(ws.roomid, {
+			"type":"receive_offer",
+			"data":{
+				"sdp":data.sdp,
+				"id":ws.id
+			}
+		}, id);
+	});
+	//对方受到offer，再报告回来
+	ws.on("send_answer", function( data ){
+		var id = data.id;
+		socketHashList.distribute(ws.roomid, {
+			"type":"receive_answer",
+			"data":{
+				"sdp":data.sdp,
+				"id":ws.id
+			}
+		}, id);
+	});
+
+	
 
 	ws.on("send_ice_candidate", function( data ){
 

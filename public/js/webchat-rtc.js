@@ -12,6 +12,7 @@ WE.rtc = {
 
     //链接服务器
     _socket:null,
+    users:[],
     connect:function( server, sid, roomid ){
       server = server || "ws://vchat-rtc.co:8001";
       sid = sid || "e3238e39e72fdb588d6e5bb360fa90b0|275fccab7935736ff68c95c3ddbfaaee|07871915a8107172b3b5dc15a6574ad3";
@@ -26,7 +27,6 @@ WE.rtc = {
       };
       socket.onopen = function( e ){
 
-        console.log("onopen");
         socket.send(
           JSON.stringify({
             type:"login",
@@ -42,6 +42,7 @@ WE.rtc = {
       socket.onmessage = function( e ){
         //console.log(e)
         var data = JSON.parse(e.data);
+        console.log("onmessage", data.type)
         this.emit( data.type, data );
       }
 
@@ -75,7 +76,7 @@ WE.rtc = {
         /**[
           {_id:"123456"} 
         ]*/
-        var users = [];
+        var users = self.users;
         var meid = data.data.me._id;
         var connections = data.data.connections;
         for(var i=0; i<connections.length; i++){
@@ -83,10 +84,14 @@ WE.rtc = {
             users.push( connections[i] );
           }
         }
+
+        self.socketReady();
+        /**
         if( users.length > 0 ){
           console.log("createPeerConnections", users);
           WE.rtc.createPeerConnections(data.data.connections);
         }
+        */
       };
       //有人发出ip和端口报告
       socket.receive_ice_candidate = function( data ){
@@ -95,9 +100,20 @@ WE.rtc = {
         var candidate = new nativeRTCIceCandidate(data.data);
         WE.rtc.connections[data.data.id].addIceCandidate( candidate );
 
-      }
-    },
+      };
 
+      socket.receive_offer = function( data ){
+        WE.rtc.receiveOffer( data );
+      };
+
+      socket.receive_answer = function( data ){
+        WE.rtc.receiveAnswer( data );
+      };
+    },
+    socketReady:function(){
+
+
+    },
 
     streams:[],//保存设备
     //请求创建视频
@@ -112,6 +128,7 @@ WE.rtc = {
         getUserMedia.call( navigator, options, function( stream ){
 
           self.streams.push( stream );
+          self.streamReady();
           success( stream );
 
         },function( error ){
@@ -128,9 +145,15 @@ WE.rtc = {
       }
 
     },
+    streamReady:function(){
+
+      this.createPeerConnections();
+
+    },
     connections:{},
-    createPeerConnections:function( users ){
+    createPeerConnections:function(){
       var pc = null;
+      var users = this.users;
       for(var i=0; i<users.length; i++){
          pc = this.createPeerConnection( users[i]._id );
          this.addStreams( pc );
@@ -187,7 +210,11 @@ WE.rtc = {
         //console.log('data channel connecting ' + id);
         WE.rtc.addDataChannel(pc, evt.channel);
       };
-      
+
+      pc.onerror = function(){
+        console.log("pc error");
+      }
+
       pc.id = id;
       return pc;
     },
@@ -223,30 +250,28 @@ WE.rtc = {
 
       var id = pc.id;
       channel.onopen = function() {
-        if (rtc.debug) console.log('data stream open ' + id);
-        rtc.fire('data stream open', channel);
+        console.log('data stream open ' + id);
+        //rtc.fire('data stream open', channel);
       };
 
       channel.onclose = function(event) {
         delete rtc.dataChannels[id];
         delete rtc.peerConnections[id];
         delete rtc.connections[id];
-        if (rtc.debug) console.log('data stream close ' + id);
-        rtc.fire('data stream close', channel);
+        console.log('data stream close ' + id);
+        //rtc.fire('data stream close', channel);
       };
 
       channel.onmessage = function(message) {
-        if (rtc.debug) console.log('data stream message ' + id);
-        rtc.fire('data stream data', channel, message.data);
+        console.log('data stream message ' + id);
+        //rtc.fire('data stream data', channel, message.data);
       };
 
       channel.onerror = function(err) {
-        if (rtc.debug) console.log('data stream error ' + id + ': ' + err);
-        rtc.fire('data stream error', channel, err);
+        console.log('data stream error ' + id + ': ' + err);
+        //rtc.fire('data stream error', channel, err);
       };
 
-      // track dataChannel
-      //this.dataChannels[id] = channel;
       return channel;
 
     },
@@ -289,13 +314,44 @@ WE.rtc = {
         session_description.sdp = preferOpus(session_description.sdp);
         pc.setLocalDescription(session_description);
         WE.rtc._socket.send(JSON.stringify({
-          "eventName": "send_offer",
+          "type": "send_offer",
           "data": {
             "id": pc.id,
             "sdp": session_description
           }
         }));
       }, null, sdpConstraints);
+    },
+    receiveOffer:function( data ){ 
+      var id = data.data.id;
+      var sdp = data.data.sdp;
+      var pc = WE.rtc.connections[id];
+      var sdpConstraints = {
+        'mandatory': {
+          'OfferToReceiveAudio': true,
+          'OfferToReceiveVideo': true
+        }
+      };
+      pc.setRemoteDescription(new nativeRTCSessionDescription(sdp));
+      pc.createAnswer(function(session_description) {
+        pc.setLocalDescription(session_description);
+        WE.rtc._socket.send(JSON.stringify({
+          "type": "send_answer",
+          "data": {
+            "id": id,
+            "sdp": session_description
+          }
+        }));
+        //TODO Unused variable!?
+        var offer = pc.remoteDescription;
+      }, null, sdpConstraints);
+    },
+
+    receiveAnswer: function(data) {
+      var id = data.data.id;
+      var sdp = data.data.sdp;
+      var pc = WE.rtc.connections[id];
+      pc.setRemoteDescription(new nativeRTCSessionDescription(sdp));
     }
 
 };

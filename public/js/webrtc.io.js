@@ -306,6 +306,7 @@ if (navigator.webkitGetUserMedia) {
         }
       }
     }
+    
     constraints = mergeConstraints(constraints, sdpConstraints);
 
     pc.createOffer(function(session_description) {
