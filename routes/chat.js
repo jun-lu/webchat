@@ -224,7 +224,7 @@ module.exports = {
 						res.write( status.toString() );
 						res.end();
 					}else{
-						if( status.result.status != 1 ){
+						if( status.result.status == 0 ){
 							res.write( status.setResult(null).setMsg(" status = 0 无法提交").toString() );
 							res.end();
 						}else{
