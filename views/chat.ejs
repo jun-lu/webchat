@@ -37,9 +37,9 @@
 						<span class="title-txt"><%=tool.cutOff(room.topic,40)%></span>
 						&nbsp;&nbsp;<% if( room.master._id == user._id ){ %><span id="room-edit-boot" class="edit hidden">编辑</span><% } %>
 
-						<!-- <span id="video-chat" class="video-boot" title="点击开启视频聊天">
+						<span id="video-chat" class="video-boot" title="点击开启视频聊天">
 							<i class="icon-video"></i>
-						</span> -->
+						</span>
 					</h1>
 					<div class="edit-topic clearfix hidden" id="room-edit-box">
 						<form action="/api/room-update" method="post" id="room-edit-form">
