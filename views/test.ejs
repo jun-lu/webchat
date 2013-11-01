@@ -23,11 +23,11 @@
 <body>
 	
 	<div>
-		<input value = "e3238e39e72fdb588d6e5bb360fa90b0|275fccab7935736ff68c95c3ddbfaaee|07871915a8107172b3b5dc15a6574ad3" id="sid1">
+		<input value = "e3238e39e72fdb588d6e5bb360fa90b0|275fccab7935736ff68c95c3ddbfaaee|35f4a8d465e6e1edc05f3d8ab658c551" id="sid1">
 		<input type="button" value="连接lujun" id="btn1">
 	</div>
 	<div>
-		<input value = "75398a9b2648701f56e4e3e82cdae79d|d2fa4b489e42cfccbbcfa053412c6fec|b534ba68236ba543ae44b22bd110a1d6" id="sid2">
+		<input value = "c066a06f41a272f9f8f0d3804c8484b5|474de851ef11b7c522acf9b72dbe791e|34173cb38f07f89ddbebc2ac9128303f" id="sid2">
 		<input type="button" value="连接afd" id="btn2">
 	</div>
 
@@ -42,10 +42,18 @@
 	  // note: make sure hostname available to all connecting clients
 	  //192.168.1.3  10.6.0.170
 	  // (ie. probably not `localhost`)
-	  WE.rtc.attachStream = function( stream, element ){
-	  	if (typeof(element) === "string"){
-	      element = document.getElementById(element);
-	    }
+	  var elements = {};
+	  WE.rtc.attachStream = function( stream, id ){
+
+	  	var element = elements[id];
+	  	if( element == undefined){
+	  		console.log("create video element");
+	  		element = elements[id] = document.createElement("video");
+	  		element.autoplay = "autoplay";
+	  		element.id = id;
+	  		document.body.appendChild( element );
+	  	}
+
 
 	    if (navigator.mozGetUserMedia) {
 	      if (rtc.debug) console.log("Attaching media stream");
@@ -55,6 +63,13 @@
 	      element.src = webkitURL.createObjectURL(stream);
 	    }
 	  };
+
+	  WE.rtc.removeRemoteSteam = function( user ){
+	  	var element = elements[user._id]; 
+	  	if( element ){
+	  		document.body.removeChild( element );
+	  	}
+	  }
 
 	  	$('#btn1').click(function(){
 				init( $("#sid1").val() );			  
@@ -74,9 +89,9 @@
 					
 				}, function(){});
 
-				WE.rtc.addRemoteStream = function(stream){
+				WE.rtc.addRemoteStream = function(stream, id){
 						// show the remote video
-						WE.rtc.attachStream(stream, 'remote');
+						WE.rtc.attachStream(stream, id);
 				};
 
 			};

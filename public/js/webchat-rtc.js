@@ -47,7 +47,8 @@ WE.rtc = {
       }
 
       socket.onclose = function(){
-        console.log("onclose");
+
+        //console.log("onclose");
       }; 
 
       /**自己定义事件*/
@@ -60,7 +61,12 @@ WE.rtc = {
       */
       //又新用户上线
       socket.online = function( data ){
-        console.log("online", data);
+
+        if( data.data == null ){
+          alert("无法登录到对话");
+          return false;
+        };
+
         if(data.data._id != USER._id){
           console.log("new PeerConnection");
           var pc = self.createPeerConnection( data.data._id );
@@ -93,11 +99,26 @@ WE.rtc = {
         }
         */
       };
+      //有人离线
+      /**
+        {
+          type:"offline",
+          data:user
+        }
+      */
+      socket.offline = function( data ){
+
+        if(self.connections[data.data._id]){
+          delete self.connections[data.data._id];
+          self.removeRemoteSteam( data.data );
+        }
+      };
       //有人发出ip和端口报告
       socket.receive_ice_candidate = function( data ){
 
         console.log( "receive_ice_candidate", data );
         var candidate = new nativeRTCIceCandidate(data.data);
+        //console.log( candidate );
         WE.rtc.connections[data.data.id].addIceCandidate( candidate );
 
       };
@@ -191,6 +212,14 @@ WE.rtc = {
           }
       };
 
+
+      pc.onChannelClosed = function( e ){
+              console.log("---onChannelClosed");
+      };
+      pc.onChannelError = function( e ){
+              console.log("---onChannelError");
+      };
+
       pc.onopen = function() {
         console.log("pc onopen")
       };
@@ -215,7 +244,15 @@ WE.rtc = {
         console.log("pc error");
       }
 
+      pc.onleave = function( ){
+        console.log('====onleave');
+      }
+
       pc.id = id;
+      window.onclose = function(){
+        pc.close();
+      };
+
       return pc;
     },
     addStreams:function( pc ){
@@ -239,6 +276,7 @@ WE.rtc = {
       try {
         console.log('createDataChannel ' + id);
         channel = pc.createDataChannel(label, options);
+        //console.log(" channel ", channel);
       } catch (error) {
         console.log('seems that DataChannel is NOT actually supported!');
         throw error;
@@ -255,9 +293,9 @@ WE.rtc = {
       };
 
       channel.onclose = function(event) {
-        delete rtc.dataChannels[id];
-        delete rtc.peerConnections[id];
-        delete rtc.connections[id];
+        //delete rtc.dataChannels[id];
+        //delete rtc.peerConnections[id];
+        //delete rtc.connections[id];
         console.log('data stream close ' + id);
         //rtc.fire('data stream close', channel);
       };
@@ -271,6 +309,11 @@ WE.rtc = {
         console.log('data stream error ' + id + ': ' + err);
         //rtc.fire('data stream error', channel, err);
       };
+
+      channel.onleave = function(){
+
+        console.log('channel leave');
+      }
 
       return channel;
 

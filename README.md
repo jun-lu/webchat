@@ -637,3 +637,35 @@ return {
 	} 
 ````
 
+####通知 text socket server 有人视频上线 topic 26  内部接口
+````javascript
+	
+	url:"/api/video-online"
+	method:get
+	param:
+		roomid:
+		uid:
+	return {
+		code:0,// 304
+		msg:"",
+		result:true
+	} 
+````
+
+####通知 text socket server 有人视频下线 topic 27  内部接口
+````javascript
+	
+	url:"/api/video-offline"
+	method:get
+	param:
+		roomid:
+		uid:
+	return {
+		code:0,// 304
+		msg:"",
+		result:true
+	} 
+````
+
+
+

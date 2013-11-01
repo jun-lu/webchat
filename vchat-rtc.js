@@ -110,6 +110,10 @@ wss.on('connection', function( ws ){
 	ws.on("error", function(){});
 	ws.on("close", function(){
 		socketHashList.remove( ws.roomid, ws );
+		socketHashList.distribute( ws.roomid, {
+			type:"offline",
+			data:ws.session.user.getPublicInfo(36)
+		});
 	});
 
 	ws.on("message", function( message ){
@@ -151,7 +155,11 @@ wss.on('connection', function( ws ){
 					ws.send( JSON.stringify(data) );
 					promise.ok( user );
 				}else{
-					ws.setClose();
+					ws.send( JSON.stringify({
+						type:"login",
+						data:null
+					}) );
+					//ws.setClose();
 				}
 			});
 
@@ -213,8 +221,6 @@ wss.on('connection', function( ws ){
 				"id":ws.id
 			}
 		}, id);
-		//var socket = socketHashList.
-		//ws.send()
 
 	});
 
