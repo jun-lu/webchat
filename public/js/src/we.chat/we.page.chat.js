@@ -11,6 +11,9 @@ WE.pageChat = {
 			replayBox: $('#replay-box')
 		};
 
+
+		WE.pageChat.tabSelect.init();
+
 		this.regEvent();
 	},
 
@@ -480,6 +483,32 @@ WE.pageChat.timeLine = {
 };
 
 
+WE.pageChat.tabSelect = {
+
+	init: function(){
+
+		this.ui = {
+
+			tab: $('#tab-select'),
+			content: $('#tab-content')
+		}
+
+		this.regEvent();
+	},
+
+	regEvent: function(){
+
+		var _this = this;
+
+		this.ui.tab.find('a').click(function(){
+
+			_this.ui.content.find('.tab-wall-cell').hide();
+			_this.ui.tab.find('a').removeClass('select');
+			$(this).addClass('select');
+		});
+	}
+}
+
 /**
 	用户在线列表
 */
@@ -511,6 +540,25 @@ WE.pageChat.userlist = {
 
 			$('#user-list').empty().html( html );
 		}
+
+		this.ui = {
+			onlineBtn: $('#online-btn'),
+			content: $('#online')
+		};
+		
+		this.regEvent();
+	},
+
+	regEvent: function(){
+
+		var _this = this;
+
+		this.ui.onlineBtn.click(function(){
+
+			_this.ui.content.show();
+		});
+
+
 	},
 
 
@@ -576,8 +624,7 @@ WE.pageChat.historylist = {
 		this.ui = {
 			wall: $('#history'),
 			list: $('#history-list'),
-			activeBtn: $('#history-btn'),
-			hideBtn: $('#history-hide')
+			activeBtn: $('#history-btn')
 		}
 
 		this.regEvent();
@@ -590,11 +637,6 @@ WE.pageChat.historylist = {
 		this.ui.activeBtn.click(function(){
 
 			_this.displayHistory();
-		});
-
-		this.ui.hideBtn.click(function(){
-
-			_this.hideHistory();
 		});
 	},
 
@@ -627,18 +669,8 @@ WE.pageChat.historylist = {
 			model.historyList( ROOM.id );
 		}
 
-		setTimeout(function(){
-			_this.ui.hideBtn.css('top','0px');
-		},500);
-		this.ui.wall.css('top','0px');
-	},
 
-	hideHistory: function(){
-		var _this = this;
-		this.ui.hideBtn.css('top','-30px');
-		setTimeout(function(){
-			_this.ui.wall.css('top','100%')
-		},500);
+		this.ui.wall.show();
 	}
 };
 
@@ -648,7 +680,7 @@ WE.pageChat.historylist = {
 */
 WE.pageChat.notice = {
 
-	isSound:true,
+	isSound:false,
 	isWindowFocus:true,
 	pointer:null,
 	init: function(){
@@ -658,14 +690,25 @@ WE.pageChat.notice = {
 			iconBoot: $('#notice-sound').find('.js-boot')
 		}
 
-		this.isSoundCookie = WE.cookie.getCookie('noticeSound');
+		if( window.localStorage ){
 
-		if( this.isSoundCookie == "0" ){
+			this.isSoundCookie = localStorage.getItem('noticeSound');
 
-			this.ui.iconBoot.removeClass('icon-onnoticesound')
-							   .addClass('icon-offnoticesound');
-			this.isSound = false;
-		} 
+		}else{
+
+			this.isSoundCookie = WE.cookie.getCookie('noticeSound');	
+		}
+		
+		if( this.isSoundCookie == "1" ){
+
+			this.ui.iconBoot.removeClass('icon-offnoticesound')
+				 .addClass('icon-onnoticesound');
+
+			this.isSound = true;
+
+		}
+
+
 
 		this.ui.boot.find('.js-loading').remove();
 		this.ui.iconBoot.removeClass('hidden');
@@ -688,9 +731,17 @@ WE.pageChat.notice = {
 			_this.isSound  ? _this.isSound = false :
 							 _this.isSound = true;
 
-			_this.isSound ? WE.cookie.setCookie('noticeSound','1') :
-							WE.cookie.setCookie('noticeSound','0') ;
+			if( window.localStorage ){
 
+				_this.isSound ? localStorage.setItem('noticeSound','1') : 
+								localStorage.setItem('noticeSound','0') ;
+			}else{
+
+				_this.isSound ? WE.cookie.setCookie('noticeSound','1') :
+								WE.cookie.setCookie('noticeSound','0') ;
+
+			}
+		
 			_this.setBootUi( _this.isSound );
 			
 		});
@@ -799,6 +850,7 @@ WE.pageChat.invite = {
 		this.ui.boot.click(function(){
 
 			_this.ui.wall.addClass('invite-style');
+			_this.ui.close.find('i').addClass('animate');
 
 			if( !_this.isGetData ){
 				_this.getUserList();
@@ -814,6 +866,7 @@ WE.pageChat.invite = {
 			_this.ui.emailInput.find('input').val('');
 			_this.selectList.mail = [];
 			_this.selectList.user = [];
+			_this.ui.close.removeClass('animate');
 		});
 
 		this.ui.usersList.find('.cell').click(function(){
@@ -855,7 +908,7 @@ WE.pageChat.invite = {
 
 					if( list[i].mail == value ){
 						flag = true;
-						_this.ui.emailTips.text('Email already exists').show();
+						_this.ui.emailTips.text('邮箱已经存在').show();
 						setTimeout(function(){
 							_this.ui.emailTips.hide();
 						},2000);
@@ -937,14 +990,14 @@ WE.pageChat.invite = {
 
 		this.isSending = true;
 
-		this.ui.submit.text('Sending...');
+		this.ui.submit.text('发送中...');
 
 		var model = new WE.api.RoomModel();
 		var ctrl = new WE.Controller();
 		ctrl.update = function( e ){
 
 			_this.isSending = false;
-			_this.ui.submit.text('Send Invite');
+			_this.ui.submit.text('发送邀请');
 			_this.ui.emailInput.find('input').val('');
 			_this.selectList.user = [];
 			_this.selectList.mail = [];
@@ -952,9 +1005,9 @@ WE.pageChat.invite = {
 			var data = e.data;
 
 			if( data.code == 0 ){
-				_this.ui.emailInput.find('.invite-tips').text('Success').show();
+				_this.ui.emailInput.find('.invite-tips').text('已经成功发送邀请').show();
 			}else{
-				_this.ui.emailInput.find('.invite-tips').text('Fail to send emails').show();
+				_this.ui.emailInput.find('.invite-tips').text('发送邀请失败').show();
 			}
 
 			_this.ui.usersList.empty();

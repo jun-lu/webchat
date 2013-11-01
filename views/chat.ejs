@@ -37,13 +37,10 @@
 						<span class="title-txt"><%=tool.cutOff(room.topic,40)%></span>
 						&nbsp;&nbsp;<% if( room.master._id == user._id ){ %><span id="room-edit-boot" class="edit hidden">编辑</span><% } %>
 
-						<span id="notice-sound" class="notice-sound" title="点击关闭声音提示">
-							<i class="icon-loading js-loading"></i>
-							<i class="icon-onnoticesound hidden js-boot"></i>
-						</span>
-						<span id="video-chat" class="video-boot" title="点击开启视频聊天">
+						
+						<!-- <span id="video-chat" class="video-boot" title="点击开启视频聊天">
 							<i class="icon-video"></i>
-						</span>
+						</span> -->
 					</h1>
 					<div class="edit-topic clearfix hidden" id="room-edit-box">
 						<form action="/api/room-update" method="post" id="room-edit-form">
@@ -93,12 +90,12 @@
 					</div>
 					<% }else{ %>
 					<div class="not-input">
-						<span>该话题输入已经关闭</span>
+						<span>该话题已锁定</span>
 						<div class="mark">
 							<span class="mark-quest">?</span>
 							<div class="des hidden">
 								<i class="arrow"></i>
-								<span>如果48小时内没有任何信息发布，系统将会默认关闭该话题输入，<a class="owner" href="/user/<%=room.master._id %>"><%=room.master.name %></a>有权力再次开启</span>
+								<span>如果48小时内没有任何信息发布，系统将会默认锁定该话题，<a class="owner" href="/user/<%=room.master._id %>"><%=room.master.name %></a>有权力再次开启</span>
 							</div>
 						</div>
 						
@@ -121,50 +118,70 @@
 
 		<div class="l-aside">
 
-			<div class="l-aside-wall online-wall" id="online">
-				<div class="l-aside-online">
-					<div class="title">
-						<span>在线的小伙伴</span>
-						<a title="点击邀请你小伙伴" class="invite-btn" id="invite-btn">
-							<i class="icon-add"></i>
-						</a>
-					</div>
-					<div class="users-box">
-						<div class="offline-tips hidden" id="offline-tips">正在重新连接服务器...</div>
-						<ul class="users" id="user-list">
-							<!-- online users -->				
-						</ul>
-					</div>
 
-					<div class="operation">
-						<a title="点击查看历史来访的小伙伴" class="history-btn" id="history-btn"></a>
+			<div class="l-aside-wall tab-wall">
+
+				<div class="tab-wall-title">
+					<ul class="tab-select" id="tab-select">
+						<li>
+							<a id="online-btn" class="select" title="在线的小伙伴">
+								<i class="icon-users color-users-dark"></i>
+							</a>
+						</li>
+						<li>
+							<a id="history-btn" title="历史来访的小伙伴">
+								<i class="icon-userlist"></i>
+							</a>
+						</li>
+					</ul>
+
+					<a class="invite-btn" id="invite-btn" title="点击邀请你的小伙伴">
+						<i class="icon-add"></i>
+					</a>
+				</div>
+				<div class="tab-wall-content"  id="tab-content">
+
+					<!--online s-->
+					<div class="l-aside-online online-wall tab-wall-cell" id="online">
+						<div class="title">
+							<span>
+								@ 在线的小伙伴
+							</span>
+						</div>
+						<div class="users-box">
+							<div class="offline-tips hidden" id="offline-tips">正在重新连接服务器...</div>
+							<ul class="users" id="user-list">
+								<!-- online users -->				
+							</ul>
+						</div>
+
 					</div>
+					<!--online e-->
+
+					<!--history s-->
+					<div class="l-aside-historyuser history-wall tab-wall-cell hidden" id="history">
+						<div class="title">
+							<span>历史来访的小伙伴</span>
+						</div>
+						<div class="users-box ">
+							<ul class="users clear-fix" id="history-list">
+								<li class="loading">
+									正在加载中...
+								</li>
+								<!-- history users -->
+							</ul>
+						</div>
+					</div>
+					<!--history e-->
+
 
 				</div>
 			</div>
 
-			<div class="l-aside-wall history-wall" id="history">
-				<div class="l-aside-historyuser">
-					<div class="title">
-						<span>历史来访的小伙伴</span>
-						<a title="收起" class="back-btn" id="history-hide">
-							<i class="icon-down"></i>
-						</a>
-					</div>
-					<div class="users-box ">
-						<ul class="users clear-fix" id="history-list">
-							<li class="loading">
-								正在加载中...
-							</li>
-							<!-- history users -->
-						</ul>
-					</div>
-				</div>
-			</div>
 
 			<div class="l-aside-wall invite-wall" id="invite">
-				<span class="close-btn js-close-btn">
-					<i class="icon-close"></i>
+				<span class="close-btn js-close-btn invite-btn">
+					<i class="icon-add"></i>
 				</span>
 
 				
