@@ -433,7 +433,7 @@ WE.top.msgNotice = {
 		this.ui.iconBoot.removeClass('hidden');
 
 		this.sound = document.createElement('audio');
-		this.sound.src = "/public/msg.mp3";
+		this.sound.src = "/msg.mp3";
 
 		this.regEvent();
 
