@@ -51,7 +51,7 @@ header{height: 35px;background: red;position: relative;z-index: 30;}
 .icon-close{width: 8px;height: 8px;background: url(../images/all.png);background-position: -6px -116px;display: inline-block;}
 .icon-clock{width: 12px;height: 12px;display: inline-block;vertical-align: middle;background: url(../images/all.png);background-position: -4px -79px;margin-right: 5px;margin-top: -2px}
 .icon-reply{width: 17px;height: 12px;display: inline-block;background: url(../images/all.png);background-position: -3px -99px;vertical-align: middle;}
-.icon-add{background: url(../images/all.png);width: 16px;height: 16px;display: inline-block;margin-top: 1px;vertical-align: text-top;background-position: -1px -1px}
+.icon-add{background: url(../images/all.png);width: 15px;height: 15px;display: inline-block;background-position:-3px -2px;}
 .icon-talk{width: 21px;height: 18px;display: inline-block;background: url(../images/all.png);background-position: 0px -18px;float: right;}
 .icon-back{width:9px;height:11px;background:url(../images/all.png);background-position:-5px -128px;display:inline-block;}
 .icon-down{width:17px;height:19px;background:url(../images/all.png);background-position:-3px -130px;display:inline-block;}
@@ -78,11 +78,14 @@ header{height: 35px;background: red;position: relative;z-index: 30;}
 
 .icon-onnoticesound{width:19px;height:17px;display:inline-block;background:url(../images/all.png);background-position: -105px -89px;}
 .icon-offnoticesound{width:12px;height:17px;display:inline-block;background:url(../images/all.png);background-position: -105px -109px;}
+.icon-userlist{width:20px;height:17px;display:inline-block;background:url(../images/all.png);background-position: -105px -135px;vertical-align: middle; }
+
 
 .color-user-dark{background-position:-42px -200px;}
 .color-user-white{background-position:-42px -216px;}
 .color-list-white{background-position:-10px -715px;}
 .color-video-red{background-position: -103px -68px;}
+.color-users-dark{background-position: -10px -165px;}
 
 
 .hidden{display:none;}
@@ -167,6 +170,8 @@ input:focus{background: #fff;border: #949494 solid 1px;box-shadow: 0px 0px 4px #
 header{background:#545652;height:33px;border-bottom:#303030 solid 1px;box-shadow: 0px 0px 3px #030303;z-index: 99}
 	.header-menu .account-box img{width:20px;height:20px;border-radius:3px;position: absolute;left: 18px;top: 7px}
 	
+
+	.header-menu .notice-sound{float:left;margin-top:8px;cursor:pointer;margin-right: 10px;}
 	.header-menu .notice-box,.header-menu .account-box{display:inline-block;float: left}
 	.header-menu{position:relative;float:right;height:33px;}
 	.header-menu .account-box{margin-right:10px;height:100%;}
