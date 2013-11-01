@@ -127,12 +127,15 @@ module.exports = {
 				//登录一个房间
 				ws.on('login', function( data ){
 
+					
 					//console.log( "roomid", data.roomid );
 					this.session.roomid = data.roomid;
 					//给当前连接推送在线用户列表
 					var haseoline = socketHashList.hasOnline(this.session.roomid, this.session.user._id);
 					socketHashList.add( data.roomid, this);
 					this.send( JSON.stringify({type:"user-list", data:socketHashList.getUserList( data.roomid )}) );
+					//视频在线列表
+					//this.send( JSON.stringify({type:"video-list", data:socketHashList.getUserList( data.roomid )}) );
 					//通知其他人他上线
 					if(haseoline == false){
 						socketHashList.distribute( data.roomid, {
@@ -156,7 +159,23 @@ module.exports = {
 			type:"new-chat",
 			data:data
 		});
+	},
+	//再video服务器有人上线了。
+	videoServerUserOnline:function( roomid, user ){
+
+		socketHashList.distribute( roomid, {
+			type:"video-online",
+			data:user
+		} );
+
+	},
+	videoServerUserOffline:function( roomid, user ){
+		socketHashList.distribute( roomid, {
+			type:"video-offline",
+			data:user
+		} );
 	}
+
 };
 
 //添加到队列
