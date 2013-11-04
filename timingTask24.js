@@ -48,7 +48,7 @@ promise.then(function( status ){
 
 			if( (status.code == 0 && 
 				status.result && 
-				status.result.time - now > 60*60*24) || 
+				now - status.result.time > 60*60*24) || 
 				status.code == 404){
 				//console.log("status", status);
 				//console.log("roomid", id);
