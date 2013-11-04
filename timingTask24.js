@@ -15,7 +15,7 @@ var promise = new Promise();
 //话题查询
 promise.then(function(){
 
-	RoomModel.find({status:1}, function( status ){
+	RoomModel.find({"$or":[{status:1},{status:null}]}, function( status ){
 
 		if( status.code == 0 && status.result.length > 0 ){
 
