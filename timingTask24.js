@@ -44,16 +44,12 @@ promise.then(function( status ){
 
 	function compareTime( id ){
 		//console.log(id)
-		ChatModel.findOne({roomid:String(id), time:1}, function( status ){
-
+		ChatModel.findSort({roomid:String(id)}, {time:-1}, function( status ){
 			if( (status.code == 0 && 
-				status.result && 
-				now - status.result.time > 60*60*24) || 
+				status.result[0] && 
+				now - status.result[0].time > 60*60*24) || 
 				status.code == 404){
-				//console.log("status", status);
-				//console.log("roomid", id);
-				//start();
-				console.log("clsoe", id);
+				console.log("close", id);
 				RoomModel.update({id:String(id)}, {status:0}, function(){
 					start();
 				});
