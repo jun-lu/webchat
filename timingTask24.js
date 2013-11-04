@@ -17,7 +17,7 @@ promise.then(function(){
 
 	RoomModel.find({status:1}, function( status ){
 
-		if( status.code ==0 && status.result.length > 0 ){
+		if( status.code == 0 && status.result.length > 0 ){
 
 			promise.ok( status );
 		}
@@ -36,6 +36,7 @@ promise.then(function( status ){
 
 	function start(){
 		if(++i < list.length){
+			console.log("topic, id", list[i].topic, list[i].id);
 			compareTime( list[i].id )
 		}else{
 			console.log("完成");
@@ -43,7 +44,6 @@ promise.then(function( status ){
 	}
 
 	function compareTime( id ){
-		//console.log(id)
 		ChatModel.findSort({roomid:String(id)}, {time:-1}, function( status ){
 			if( (status.code == 0 && 
 				status.result[0] && 
