@@ -44,7 +44,7 @@ promise.then(function( status ){
 
 	function compareTime( id ){
 		//console.log(id)
-		ChatModel.findOne({roomid:id, time:1}, function( status ){
+		ChatModel.findOne({roomid:String(id), time:1}, function( status ){
 
 			if( (status.code == 0 && 
 				status.result && 
@@ -54,7 +54,7 @@ promise.then(function( status ){
 				//console.log("roomid", id);
 				//start();
 				console.log("clsoe", id);
-				RoomModel.update({id:id}, {status:0}, function(){
+				RoomModel.update({id:String(id)}, {status:0}, function(){
 					start();
 				});
 			}else{
