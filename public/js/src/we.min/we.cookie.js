@@ -11,7 +11,7 @@ WE.extend( WE.cookie,{
 		for(; i<len; i++){
 
 			item = cookies[i].split('=');
-			if( name == item[0] ){
+			if( name == item[0].replace(/(^\s*)|(\s*$)/g, "") ){
 				result = item[1];
 				break;
 			}

@@ -4,6 +4,9 @@ WE.pageChat = {
 	lastTime:null,
 	replyTo:null,
 	isPosting:0,
+	eleId:1,
+	postList:[],
+	isPostInputFocus:true,
 	init: function(){
 
 		this.ui = {
@@ -30,21 +33,28 @@ WE.pageChat = {
 				if( text !="" && !_this.isPosting ){
 					_this.post( ROOM.id, text, _this.replyTo );
 
-					// WE.pageChat.timeLine.append( {
-					// 	_id: "",
-					// 	aim: null,
-					// 	del: 0,
-					// 	from:{
-					// 		_id: USER._id,
-					// 		avatar: USER.avatar,
-					// 		name: USER.name,
-					// 		summary: USER.summary
-					// 	},
-					// 	roomid: ROOM.id,
-					// 	text: text,
-					// 	time: null,
-					// 	to: "*"
-					// } )
+					_this.postList.push(_this.eleId);
+
+					WE.pageChat.timeLine.append( {
+						eleId:'my-talk-' + _this.eleId,
+						_id: "",
+						aim: null,
+						del: 0,
+						from:{
+							_id: USER._id,
+							avatar: USER.avatar,
+							name: USER.name,
+							summary: USER.summary
+						},
+						roomid: ROOM.id,
+						text: text,
+						time: '...',
+						to: "*"
+					} );
+
+
+
+					_this.eleId++;
 				}
 				
 			}
@@ -71,6 +81,35 @@ WE.pageChat = {
 					_this.noMoreTips();
 				}
 			}
+		});
+
+
+		this.ui.postBox.find('.text-box input').focus(function(){
+
+			_this.isPostInputFocus = true;
+
+		}).blur(function(){
+			_this.isPostInputFocus = false;
+		});
+
+
+		$(window).keydown(function( e ){
+
+			
+			if( e.keyCode == 13 ){
+				
+				if( !_this.isPostInputFocus ){
+					_this.ui.postBox.find('.text-box input').css('background','#FFF8C5');
+					setTimeout(function(){
+						_this.ui.postBox.find('.text-box input').css('background','none');
+					},1500);
+				}
+
+
+				_this.ui.postBox.find('.text-box input').focus();
+				_this.ui.postBox.find('.text-box input').keyup();
+			}
+				
 		});
 	},
 
@@ -352,7 +391,7 @@ WE.pageChat.timeLine = {
 			aim
 		}
 	*/
-	tmpl:  '<div class="talk <% if( from._id == USER._id ){ %> me <% } %>">\
+	tmpl:  '<div class="talk <% if( from._id == USER._id ){ %> me <% } %>" <% if( typeof obj.eleId != "undefined" ){ %> id="<%=obj.eleId %>" <% } %>>\
 				<div class="photo">\
 					<a href="/user/<%=from._id%>" target="_blank" data-uid="<%=from._id%>">\
 						<img src="<%=from.avatar%>">\
@@ -362,7 +401,11 @@ WE.pageChat.timeLine = {
 					<div class="head">\
 						<a href="/user/<%=from._id%>" target="_blank" class="name <% if(from.name==""){ %> no-name <% } %>"><%= from.name == ""? "(暂无昵称)" : from.name %></a>\
 						<a target="_blank" href="/d/<%=_id%>" class="time">\
-							<%=WE.kit.weFormat( time*1000 ) %>\
+							<% if( time == "..." ){ %>\
+								...\
+							<% }else{ %>\
+								<%=WE.kit.weFormat( time*1000 ) %>\
+							<% } %>\
 						</a>\
 					</div>\
 					<% if(obj.aim){ %>\
@@ -416,7 +459,12 @@ WE.pageChat.timeLine = {
 	 * @param {object} data : 对话数据
 	 */
 	append:function( data ){
-		this.mapData[ data._id ] = data;
+
+		if( this.mapData[ data._id ] != "" ){
+
+			this.mapData[ data._id ] = data;
+		}
+		
 		$('#timeline-talks').append( WE.kit.tmpl( this.tmpl, data ) );
 		$('#timeline-bar').scrollTop(99999);
 	},
@@ -479,6 +527,16 @@ WE.pageChat.timeLine = {
 			console.log( "lastTime 失败" );
 		}
 
+	},
+
+	updatePost: function( id, data ){
+
+		this.mapData[ data._id ] = data;
+
+
+		var talk = $('#my-talk-'+id);
+			talk.find('.chat-reply').attr('data-mid',data._id);
+			talk.find('.time').text( WE.kit.weFormat( data.time*1000 ) );
 	}
 };
 
@@ -1005,12 +1063,12 @@ WE.pageChat.inviteCell.prototype = {
 		for(var i=0; i<len; i++){
 
 			if( this.isUserList ){
-				if( this.data._id && this.data._id == this.list[i]._id ){
+				if( this.data._id && this.data._id == this.list[i] ){
 
 					this.list.splice(i,1);
 				}
 			}else{
-				if( this.data.mail && this.data.mail == this.list[i].mail ){
+				if( this.data.mail && this.data.mail == this.list[i] ){
 
 					this.list.splice(i,1);
 				}
@@ -1026,6 +1084,7 @@ WE.pageChat.inviteCell.prototype = {
 /* room edit */
 WE.pageChat.roomEdit = {
 
+	isEditType: false,
 	init: function(){
 
 		this.ui = {
@@ -1047,11 +1106,27 @@ WE.pageChat.roomEdit = {
 		var _this = this;
 
 		this.ui.boot.click(function(){
-			_this.clear();
 
-			_this.ui.titleBox.height('100%');
-			_this.ui.topic.focus();
-			_this.ui.box.show();
+			if( _this.isEditType ){
+
+				_this.isEditType = false;
+
+				_this.ui.boot.text('编辑');
+				_this.ui.box.find('.close-btn').click();
+
+			}else{
+
+				_this.isEditType = true;
+
+
+				_this.ui.boot.text('取消');
+				_this.clear();
+
+				_this.ui.titleBox.height('100%');
+				_this.ui.topic.focus();
+				_this.ui.box.show();
+			}
+			
 		});
 
 		this.ui.box.find('.close-btn').click(function(){
