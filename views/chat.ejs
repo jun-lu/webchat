@@ -83,6 +83,14 @@
 
 					</div>
 					<div class="text-box">
+						<!-- <div class="tips-box">
+							<div class="content hidden">
+								<i class="arrow"></i>
+								<span>输入框自动聚焦</span>
+							</div>
+							<span class="tips-boot">?</span>
+						</div> -->
+						
 						<input type="text" tabindex="1" autofocus placeholder="type your message">
 					</div>
 					<% }else{ %>
@@ -257,8 +265,10 @@
 					},
 					"new-chat":function( data ){
 						
-					
-						WE.pageChat.timeLine.append( data );
+						// update talk
+						var eleId = WE.pageChat.postList.shift();
+
+							WE.pageChat.timeLine.updatePost( eleId, data );
 						
 						//WE.pageChat.notice.onUpdate();
 						if( data.aim && data.aim._id == USER._id ){
