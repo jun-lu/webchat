@@ -45,9 +45,10 @@ promise.then(function( status ){
 
 	function compareTime( id ){
 		ChatModel.findSort({roomid:String(id)}, {time:-1}, function( status ){
+			//48小时未更新
 			if( (status.code == 0 && 
 				status.result[0] && 
-				now - status.result[0].time > 60*60*24) || 
+				now - status.result[0].time > 60*60*24*2) || 
 				status.code == 404){
 				console.log("close", id);
 				RoomModel.update({id:String(id)}, {status:0}, function(){
