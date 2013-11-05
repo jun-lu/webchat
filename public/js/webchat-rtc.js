@@ -69,7 +69,7 @@ WE.rtc = {
 
         if(data.data._id != USER._id){
           console.log("new PeerConnection");
-          var pc = self.createPeerConnection( data.data._id );
+          var pc = self.createPeerConnection( data.data._id, data.data );
           pc.id = data.data._id;
           self.addStreams( pc );
           self.connections[pc.id] = pc;
@@ -176,7 +176,7 @@ WE.rtc = {
       var pc = null;
       var users = this.users;
       for(var i=0; i<users.length; i++){
-         pc = this.createPeerConnection( users[i]._id );
+         pc = this.createPeerConnection( users[i]._id, users[i] );
          this.addStreams( pc );
          this.createDataChannel( pc );
          this.sendOffers( pc );
@@ -184,7 +184,7 @@ WE.rtc = {
       }
     },
     //创建链接
-    createPeerConnection:function( id ){
+    createPeerConnection:function( id, user ){
       var server = {
         "iceServers": [{
           "url":"stun:stun.l.google.com:19302"// "stun:23.21.150.121"
@@ -228,7 +228,7 @@ WE.rtc = {
         // TODO: Finalize this API
         console.log("-------- onaddstream")
         //rtc.fire('add remote stream', event.stream, id);
-        WE.rtc.addRemoteStream( event.stream, id );
+        WE.rtc.addRemoteStream( event.stream, user);
       };
 
       pc.onclose = function(){
