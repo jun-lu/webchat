@@ -16,7 +16,7 @@ WE.rtc = {
     connect:function( server, sid, roomid ){
       server = server || "ws://vchat-rtc.co:8001";
       sid = sid || "e3238e39e72fdb588d6e5bb360fa90b0|275fccab7935736ff68c95c3ddbfaaee|07871915a8107172b3b5dc15a6574ad3";
-      roomid = "abc";
+      roomid = roomid || "abc";
       var socket = new WebSocket( server );
       var self = this;
       this._socket = socket;
@@ -109,6 +109,7 @@ WE.rtc = {
       socket.offline = function( data ){
 
         if(self.connections[data.data._id]){
+          self.connections[data.data._id].clsoe();
           delete self.connections[data.data._id];
           self.removeRemoteSteam( data.data );
         }
