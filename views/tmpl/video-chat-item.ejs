@@ -1,0 +1,22 @@
+<div class="item <% if( _id == USER._id ){ %> item-me <% } %>" id="video-item-<%=_id %>">
+	<video autoplay="autoplay"></video>
+	<div class="tabs">
+		<i class="arrow"></i>
+		<a class="name" target="_blank" title="<%=name %>" href="/user/<%=_id %>">
+			<% if( _id == USER._id ){ %>
+			( 我 )
+			<% }else{ %>
+			<%=name %>
+			<% } %>
+		</a>
+		<% if( _id == USER._id ){ %>
+			<span class="js-mike mike">
+				<i class="icon-onmike"></i>
+		</span>
+		<% }else{ %>
+			<span class="js-sound sound">
+				<i class="icon-onsound"></i>
+			</span>
+		<% } %>
+	</div>
+</div>

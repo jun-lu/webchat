@@ -30,7 +30,9 @@ WE.pageChat = {
 
 				var text = $.trim( $(this).val() );
 
-				if( text !="" && !_this.isPosting ){
+				if( text !="" && !_this.isPosting &&
+					connectionSocketServer.isLink ){
+
 					_this.post( ROOM.id, text, _this.replyTo );
 
 					_this.postList.push(_this.eleId);
@@ -51,6 +53,13 @@ WE.pageChat = {
 						time: '...',
 						to: "*"
 					} );
+
+					_this.ui.postBox.find('.text-box input').val('');
+
+					_this.hideReply();
+
+					_this.replyTo = null;
+					_this.isPosting = false;
 
 
 
@@ -192,14 +201,14 @@ WE.pageChat = {
 		ctrl.update = function( e ){
 
 			var data = e.data;
-			if( data.code == 0 ){
-				_this.ui.postBox.find('.text-box input').val('');
+			// if( data.code == 0 ){
+			// 	_this.ui.postBox.find('.text-box input').val('');
 
-				_this.hideReply();
-			}
+			// 	_this.hideReply();
+			// }
 
-			_this.replyTo = null;
-			_this.isPosting = false;
+			// _this.replyTo = null;
+			// _this.isPosting = false;
 		}
 		model.addObserver( ctrl );
 		model.postChat( roomid, text, aim );
@@ -1192,20 +1201,158 @@ WE.pageChat.roomEdit = {
 	}
 
 
-}
+};
 
 
 /* video chat */
+// WE.pageChat.videoChat = {
+
+// 	init: function(){
+
+// 		this.ui = {
+
+// 			boot: $('#video-chat'),
+// 			roomWall: $('#wall-room'),
+// 			videoWall: $('#video-wall')
+// 		}
+
+// 		this.regEvent();
+// 	},
+
+// 	regEvent: function(){
+
+// 		var _this = this;
+
+// 		this.ui.boot.click(function(){
+
+// 			_this.boot();
+// 			_this.setOnVideoBoot();
+// 		});	
+// 	},
+
+// 	boot: function(){
+
+// 		var _this = this;
+
+// 		this.ui.roomWall.addClass('video-style');
+// 		this.ui.videoWall.show();
+
+// 		var videoChat = new WE.pageChat.VideoModule( 'video-wall' );
+// 			videoChat.onClose = function(){
+// 				_this.ui.roomWall.removeClass('video-style');
+// 				_this.setOffVideoBoot();
+// 				_this.ui.videoWall.hide();
+// 			}
+// 	},
+
+// 	setOnVideoBoot: function(){
+
+// 		this.ui.boot.find('i').addClass('video-active').attr('title','视频已经开启');
+
+// 	},
+
+// 	setOffVideoBoot: function(){
+
+// 		this.ui.boot.find('i').removeClass('video-active').attr('title','点击开启视频聊天');
+// 	}
+// };
+
+// WE.pageChat.VideoModule = function( parentId ){
+
+// 	var _this = this;
+
+// 	this.parentId = parentId;
+
+// 	WE.kit.getTmpl('video-chat.ejs',function( tmpl ){
+
+// 		var wall = $( tmpl );
+
+// 		_this.ui = {
+
+// 			wall: wall,
+// 			close: wall.find('.js-close'),
+// 			view: wall.find('.js-view'),
+// 			list: wall.find('.js-list')
+// 		};
+
+// 		_this.setList();
+// 		_this.html( _this.parentId );
+
+// 		_this.regEvent();
+// 	});
+// }
+
+// WE.pageChat.VideoModule.prototype = {
+
+
+// 	itemTmpl: '<div class="item <% if( typeof isMe != "undefined" ){ %> item-me <% } %>">\
+// 					<video autoplay="autoplay"></video>\
+// 					<div class="tabs">\
+// 						<i class="arrow"></i>\
+// 						<a class="name" target="_blank" title="CK.Ming" href="http://www.baidu.com">( Me )</a>\
+// 						<% if( typeof isMe != "undefined" ){ %>\
+// 							<span class="js-mike mike">\
+// 								<i class="icon-onmike"></i>\
+// 							</span>\
+// 						<% }else{ %>\
+// 							<span class="js-sound sound">\
+// 								<i class="icon-onsound"></i>\
+// 							</span>\
+// 						<% } %>\
+// 					</div>\
+// 				</div>',
+
+// 	regEvent: function(){
+
+// 		var _this = this;
+
+// 		_this.ui.close.click(function(){
+// 			_this.close();
+// 		});
+// 	},
+
+// 	close: function(){
+
+// 		this.ui.wall.remove();
+// 		this.onClose();
+// 	},
+
+// 	onClose: function(){},
+
+// 	html: function( id ){
+
+// 		$( '#'+id ).html( this.ui.wall );
+// 	},
+
+// 	setList: function(){
+
+// 		var html = '';
+// 			html += WE.kit.tmpl( this.itemTmpl,{isMe:true} );
+
+// 		for(var i=0; i<3;i++){
+
+// 			html += WE.kit.tmpl( this.itemTmpl,{} );
+// 		}
+// 		this.ui.list.html( html );
+// 	}
+// }
+
+
 WE.pageChat.videoChat = {
+
+	isPlay:false,
+	videoMap:{},
 
 	init: function(){
 
-		this.ui = {
+		var _this = this;
+
+		_this.ui = {
 
 			boot: $('#video-chat'),
-			roomWall: $('#wall-room'),
+ 			roomWall: $('#wall-room'),
 			videoWall: $('#video-wall')
-		}
+		};
 
 		this.regEvent();
 	},
@@ -1216,114 +1363,192 @@ WE.pageChat.videoChat = {
 
 		this.ui.boot.click(function(){
 
-			_this.boot();
-			_this.setOnVideoBoot();
-		});	
+			if( !_this.isPlay ){
+
+				_this.initWall();
+			}
+			
+		});
+
 	},
 
-	boot: function(){
+	initWall: function(){
 
 		var _this = this;
 
 		this.ui.roomWall.addClass('video-style');
 		this.ui.videoWall.show();
-
-		var videoChat = new WE.pageChat.VideoModule( 'video-wall' );
-			videoChat.onClose = function(){
-				_this.ui.roomWall.removeClass('video-style');
-				_this.setOffVideoBoot();
-				_this.ui.videoWall.hide();
-			}
-	},
-
-	setOnVideoBoot: function(){
-
 		this.ui.boot.find('i').addClass('video-active').attr('title','视频已经开启');
 
+		WE.kit.getTmpl('video-chat.ejs',function( tmpl ){
+
+			var wall = $( tmpl );
+
+			WE.extend(_this.ui,{
+				wall: wall,
+				close: wall.find('.js-close'),
+				list: wall.find('.js-list'),
+				view: wall.find('.js-view-area')
+			});
+
+			_this.ui.videoWall.empty().append( _this.ui.wall );
+
+			_this.initMineVideo();
+
+			_this.moduleRegEvent();
+
+			_this.isPlay = true;
+
+		});
+
+		
 	},
 
-	setOffVideoBoot: function(){
+	moduleRegEvent: function(){
 
-		this.ui.boot.find('i').removeClass('video-active').attr('title','点击开启视频聊天');
+		var _this = this;
+
+		this.ui.close.click(function(){
+
+			WE.rtc.stopCamera();
+
+			console.log('==== WE.rtc._socket',WE.rtc);
+			WE.rtc._socket.close();
+
+			_this.ui.videoWall.html('Loading...');
+			_this.ui.roomWall.removeClass('video-style');
+			_this.ui.videoWall.hide();
+			_this.ui.boot.find('i').removeClass('video-active').attr('title','点击开启视频聊天');
+
+			_this.isPlay = false;
+		});
+	},
+
+	initMineVideo: function(){
+
+		var _this = this;
+
+		WE.rtc.socketReady = function(){
+
+			_this.ui.list.empty();
+
+			WE.rtc.createStream({"video": true, "audio":false}, function(stream){
+
+				// 添加自己视频摄像头
+				_this.myStream = stream;
+				var cell = new WE.pageChat.videoChat.cell( USER , stream,  _this.ui.list );
+
+					_this.onViewVideo( stream );
+					//cell.onStream(stream);
+				
+			}, function(){});
+
+
+			WE.rtc.addRemoteStream = function(stream, user){
+				
+				console.log('================== addRemoteStream',user._id);
+				// 添加远程的视频摄像头
+				var cell = new WE.pageChat.videoChat.cell( user , stream,  _this.ui.list );
+					
+					//cell.onStream(stream);
+
+			};
+		}
+
+		WE.rtc.removeRemoteSteam = function( user ){
+
+			delete _this.videoMap[user._id];
+
+
+			$('#video-item-'+user._id).remove();
+
+			_this.onViewVideo(_this.myStream);
+
+
+		}	
+
+		WE.rtc.connect('ws://vchat-rtc.co:8001', WE.cookie.getCookie('sid') );
+	},
+
+
+	onViewVideo: function( stream ){
+		
+		var element = this.ui.view.find('video')[0];
+
+		if (navigator.mozGetUserMedia) {
+		    if (WE.rtc.debug) console.log("Attaching media stream");
+		    element.mozSrcObject = stream;
+		   	element.play();
+	    } else {
+	      	element.src = webkitURL.createObjectURL(stream);
+	    }
+
+
 	}
+
+
 };
 
-WE.pageChat.VideoModule = function( parentId ){
+
+WE.pageChat.videoChat.cell = function( user, stream, jDom ){
 
 	var _this = this;
 
-	this.parentId = parentId;
+	this.stream = stream;
 
-	WE.kit.getTmpl('video-chat.ejs',function( tmpl ){
+	WE.kit.getTmpl('video-chat-item.ejs',function( tmpl ){
 
-		var wall = $( tmpl );
+		var wall = $( WE.kit.tmpl( tmpl,user ) );
 
 		_this.ui = {
 
 			wall: wall,
-			close: wall.find('.js-close'),
-			view: wall.find('.js-view'),
-			list: wall.find('.js-list')
-		};
+			video: wall.find('video')
+		}
 
-		_this.setList();
-		_this.html( _this.parentId );
+		_this.append( jDom );
+		_this.onStream( stream );
 
 		_this.regEvent();
 	});
+
+	
+
 }
 
-WE.pageChat.VideoModule.prototype = {
-
-
-	itemTmpl: '<div class="item <% if( typeof isMe != "undefined" ){ %> item-me <% } %>">\
-					<video></video>\
-					<div class="tabs">\
-						<i class="arrow"></i>\
-						<a class="name" target="_blank" title="CK.Ming" href="http://www.baidu.com">( Me )</a>\
-						<% if( typeof isMe != "undefined" ){ %>\
-							<span class="js-mike mike">\
-								<i class="icon-onmike"></i>\
-							</span>\
-						<% }else{ %>\
-							<span class="js-sound sound">\
-								<i class="icon-onsound"></i>\
-							</span>\
-						<% } %>\
-					</div>\
-				</div>',
+WE.pageChat.videoChat.cell.prototype = {
 
 	regEvent: function(){
 
 		var _this = this;
 
-		_this.ui.close.click(function(){
-			_this.close();
+		this.ui.video.click(function(){
+
+			console.log('点击了');
+
+			WE.pageChat.videoChat.onViewVideo( _this.stream );
+
 		});
 	},
 
-	close: function(){
+	append: function( jDom ){
 
-		this.ui.wall.remove();
-		this.onClose();
+		jDom.append( this.ui.wall );
 	},
 
-	onClose: function(){},
 
-	html: function( id ){
+	onStream: function( stream ){
 
-		$( '#'+id ).html( this.ui.wall );
-	},
+		var element = this.ui.video[0]; 
 
-	setList: function(){
-
-		var html = '';
-			html += WE.kit.tmpl( this.itemTmpl,{isMe:true} );
-
-		for(var i=0; i<3;i++){
-
-			html += WE.kit.tmpl( this.itemTmpl,{} );
-		}
-		this.ui.list.html( html );
+		if (navigator.mozGetUserMedia) {
+		    if (WE.rtc.debug) console.log("Attaching media stream");
+		    element.mozSrcObject = stream;
+		   	element.play();
+	    } else {
+	      	element.src = webkitURL.createObjectURL(stream);
+	    }
 	}
+
+	
 }

@@ -37,7 +37,10 @@
 						<span class="title-txt"><%=tool.cutOff(room.topic,40)%></span>
 						&nbsp;&nbsp;<% if( room.master._id == user._id ){ %><span id="room-edit-boot" class="edit hidden">编辑</span><% } %>
 
-						
+						<span id="video-chat" class="video-boot" title="点击开启视频聊天">
+							<i class="icon-video"></i>
+						</span>
+
 					</h1>
 					<div class="edit-topic clearfix hidden" id="room-edit-box">
 						<form action="/api/room-update" method="post" id="room-edit-form">
@@ -221,7 +224,9 @@
 	<script type="text/javascript" src="/public/js/lib/we.min.js"></script>
 	<script type="text/javascript" src="/public/js/we.top.min.js"></script>
 	<script type="text/javascript" src="/public/js/we.chat.min.js"></script>
-	<!--<script type="text/javascript" src="/public/js/src/we.chat/we.page.chat.js"></script>-->
+
+
+	<script src="/public/js/webchat-rtc.js"></script>
 
 	<script type="text/javascript">
 
@@ -229,8 +234,10 @@
 		var connectionSocketServer = {
 			socket:null,
 			weightTime:0,
+			isLink:false,
 			init:function(){
 
+				var _this = this;
 				// add "/s" ie 10 bug?
 				var socket = this.socket = new WebSocket("wss://"+window.location.host+"/s");
 				var socketMessage = {
@@ -242,6 +249,7 @@
 					"on-line":function( data ){
 
 						// console.log('data',data);
+
 						WE.pageChat.userlist.append( data );
 
 						if( data._id != USER._id ){
@@ -283,6 +291,8 @@
 				socket.onopen = function( e ){
 
 					window.console && console.log("onopen");
+
+					_this.isLink = true;
 				};
 				
 				socket.onmessage = function( e ){
@@ -299,6 +309,7 @@
 					// $('#socketConnectioning').hide();
 				 	$('#offline-tips').fadeIn();
 					$('#user-list').hide();
+					_this.isLink = false;
 					connectionSocketServer.startDisconnectionWeightTraining();
 				}
 
@@ -333,7 +344,57 @@
 		WE.pageChat.activation.init();
 		WE.pageChat.timeLine.init( <%- JSON.stringify( indexChats ) %>,<%- chats_count %> );
 		
-		//WE.pageChat.notice.init();
+		//WE.pageChat.notice.init();	
+	</script>
+
+	<script type="text/javascript">
+
+		// WE.rtc.attachStream = function( stream, id ){
+
+		//   	var element = $('#'+id)[0];
+		//   	// if( element == undefined){
+		//   	// 	element = elements[id] = document.createElement("video");
+		//   	// 	element.autoplay = "autoplay";
+		//   	// 	element.id = id;
+		//   	// 	document.body.appendChild( element );
+		//   	// }
+
+
+		//     if (navigator.mozGetUserMedia) {
+		// 	    if (WE.rtc.debug) console.log("Attaching media stream");
+		// 	    element.mozSrcObject = stream;
+		// 	    element.play();
+		//     } else {
+		//       	element.src = webkitURL.createObjectURL(stream);
+		//     }
+	 //  	};
+
+
+	 //   	WE.rtc.removeRemoteSteam = function( id ){
+		//   	var element = elements[user._id]; 
+		//   	if( element ){
+		//   		document.body.removeChild( element );
+		//   	}
+	 //  	}
+
+
+
+		// WE.rtc.socketReady = function(){
+
+		// 	WE.rtc.createStream({"video": true, "audio":false}, function(stream){
+		// 		// get local stream for manipulation
+		// 		WE.rtc.attachStream(stream, 'local');
+				
+		// 	}, function(){});
+
+
+		// 	WE.rtc.addRemoteStream = function(stream, id){
+		// 		// show the remote video
+		// 		WE.rtc.attachStream(stream, id);
+		// 	};
+		// }
+
+		
 
 	</script>
 </body>

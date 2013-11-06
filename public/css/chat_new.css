@@ -334,7 +334,7 @@ left: 0px}
 		}
 
 
-		.video-wall  video{background:#858585;display:inline-block;max-height:400px;height:100%;width:70%;float:left;}
+		.video-wall  video{display:inline-block;max-height:400px;height:100%;width:70%;float:left;}
 		.video-wall .view-area video{margin-left:15%;}
 		.video-wall .operation{height:47px;}
 		.video-wall .list-area{position:absolute;bottom:0px;
@@ -349,7 +349,7 @@ left: 0px}
 		}
 			.video-wall .list-area ul li{float:left;margin-right:15px;}
 				.video-wall .list-area ul li:hover{border-bottom:#968efb solid 2px;cursor:pointer;}
-			.video-wall .list-area video{height:80px;width:100px;float:left;background:#ccc;}
+			.video-wall .list-area video{height:80px;width:100px;float:left;}
 			.video-style .talks .time{visibility:hidden;}
 			.video-wall .list-area .item{float:left;cursor:pointer;position:relative;margin-right:15px;}
 
