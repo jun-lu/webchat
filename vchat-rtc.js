@@ -109,6 +109,8 @@ wss.on('connection', function( ws ){
 	ws.roomid = null;
 	ws.on("error", function(){});
 	ws.on("close", function(){
+
+		console.log('Close tab',ws.roomid );
 		socketHashList.remove( ws.roomid, ws );
 		socketHashList.distribute( ws.roomid, {
 			type:"offline",

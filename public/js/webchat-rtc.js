@@ -153,6 +153,8 @@ WE.rtc = {
           self.streamReady();
           success( stream );
 
+          self.localMediaStream = stream;
+
         },function( error ){
 
           alert("Could not connect stream.");
@@ -166,6 +168,11 @@ WE.rtc = {
 
       }
 
+    },
+
+    stopCamera: function(){
+
+      this.localMediaStream.stop();
     },
     streamReady:function(){
 
