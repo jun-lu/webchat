@@ -26,7 +26,7 @@
 		.menu{width:100%;position:absolute;bottom:0px;left:0px;}
 		header .logo{margin-bottom:10px;}
 
-		.create-box{margin-top:100px;} .create-box p{margin-bottom:20px;}
+		.create-box{margin-top:60px;} .create-box p{margin-bottom:20px;}
 		.create-input{position:relative;width:30%;height: 40px;min-width:300px;}
 		.create-input input{font-size: 15px;padding:8px;border:0;color: #666;width: 100%;
 			box-sizing: border-box;
@@ -53,10 +53,22 @@
 
 		header .user-box img{width:25px;height:25px;border-radius:5px;vertical-align: middle;margin-right:5px}
 		header .user-box a{color:#fff;font-size:13px;margin-left:5px;}
+
+		/* chat-tips */
+		.chat-tips{margin-bottom:25px;}
+		.chat-tips .step{display:inline-block;width: 6em;background: #333333;padding: 6px 2px;position:relative;border-radius:5px;
+			margin-right:35px;
+		}
+		.chat-tips .arrow{position:relative;display:inline-block;line-height: 38px;height: 38px;}
+			.chat-tips .arrow span{ display:inline-block;}
+			.chat-tips .arrow .square{width:2em;height:20px;background:#333;}
+
+			.step:last-child{margin-right:0px;}
+		.step-title{display: inline-block;width: 20px;height: 20px;border-radius: 13px;background: #ccc;position: absolute;
+					left: -7px;top: -9px;line-height: 20px;font-weight: bold;color: #333;font-style: oblique;text-indent: -4px;}
 	</style>
 </head>
 <body>
-
 
 	<header class="clearfix">
 		<img class="logo" src="/public/images/logo-white.png">
@@ -73,11 +85,29 @@
 			</a>
 		</div>
 		<% }else{ %>
-		<a class="btn btn-white login-btn" href="/login">登录</a>
+		<a class="btn btn-white btn-small login-btn" href="/login">登录</a>
 		<% } %>
 
+
+		
 		<div class="create-box">
+
 			<a name="create-part" class="create-part" id="create-part"></a>
+			<div class="chat-tips">
+				<div class="line"></div>
+				<div class="step">
+					<span class="step-title">1</span>
+					创建话题
+				</div>
+				<div class="step">
+					<span class="step-title">2</span>
+					邀请小伙伴
+				</div>
+				<div class="step">
+					<span class="step-title">3</span>
+					一起畅聊
+				</div>
+			</div>
 			<div>
 				<form method="post" action="/api/room-create" >
 					<div class="create-input set-middle" id="create">

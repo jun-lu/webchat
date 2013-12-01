@@ -26,6 +26,12 @@ WE.pageChat = {
 
 		this.ui.postBox.find('.text-box input').keyup(function( e ){
 
+
+			if( !WE.top.msgNotice.isWindowFocus ){
+				
+				WE.top.msgNotice.isWindowFocus = true;
+			}
+
 			if( e.keyCode == 13 ){
 
 				var text = $.trim( $(this).val() );
@@ -1432,21 +1438,21 @@ WE.pageChat.videoChat = {
 
 			_this.ui.list.empty();
 
-			WE.rtc.createStream({"video": true, "audio":false}, function(stream){
+			WE.rtc.createStream({"video": true, "audio":true}, function(stream){
 
 				// 添加自己视频摄像头
 				_this.myStream = stream;
 				var cell = new WE.pageChat.videoChat.cell( USER , stream,  _this.ui.list );
 
-					_this.onViewVideo( stream );
+					_this.onViewVideo( stream, USER );
 					//cell.onStream(stream);
+
 				
 			}, function(){});
 
 
 			WE.rtc.addRemoteStream = function(stream, user){
 				
-				console.log('================== addRemoteStream',user._id);
 				// 添加远程的视频摄像头
 				var cell = new WE.pageChat.videoChat.cell( user , stream,  _this.ui.list );
 					
@@ -1462,7 +1468,7 @@ WE.pageChat.videoChat = {
 
 			$('#video-item-'+user._id).remove();
 
-			_this.onViewVideo(_this.myStream);
+			_this.onViewVideo(_this.myStream , USER );
 
 
 		}	
@@ -1471,9 +1477,11 @@ WE.pageChat.videoChat = {
 	},
 
 
-	onViewVideo: function( stream ){
+	onViewVideo: function( stream ,user ){
 		
 		var element = this.ui.view.find('video')[0];
+
+		user._id == USER._id ? element.muted = true : element.muted = false;
 
 		if (navigator.mozGetUserMedia) {
 		    if (WE.rtc.debug) console.log("Attaching media stream");
@@ -1495,6 +1503,7 @@ WE.pageChat.videoChat.cell = function( user, stream, jDom ){
 	var _this = this;
 
 	this.stream = stream;
+	this.user = user;
 
 	WE.kit.getTmpl('video-chat-item.ejs',function( tmpl ){
 
@@ -1526,7 +1535,7 @@ WE.pageChat.videoChat.cell.prototype = {
 
 			console.log('点击了');
 
-			WE.pageChat.videoChat.onViewVideo( _this.stream );
+			WE.pageChat.videoChat.onViewVideo( _this.stream, _this.user );
 
 		});
 	},
@@ -1546,7 +1555,14 @@ WE.pageChat.videoChat.cell.prototype = {
 		    element.mozSrcObject = stream;
 		   	element.play();
 	    } else {
-	      	element.src = webkitURL.createObjectURL(stream);
+	    	if( typeof element.srcObject !== "undefined" ){
+	    		element.srcObject = stream;
+	    	}else if(typeof element.mozSrcObject !== 'undefined'){
+	    		element.mozSrcObject = stream;
+	    	}else if( typeof element.src !== 'undefined' ){
+	    		element.src = webkitURL.createObjectURL(stream);
+	    	}
+	      	
 	    }
 	}
 

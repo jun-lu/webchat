@@ -1,5 +1,5 @@
 <div class="item <% if( _id == USER._id ){ %> item-me <% } %>" id="video-item-<%=_id %>">
-	<video autoplay="autoplay"></video>
+	<video autoplay="autoplay" <% if( _id == USER._id ){ %> muted = "true" <% } %>></video>
 	<div class="tabs">
 		<i class="arrow"></i>
 		<a class="name" target="_blank" title="<%=name %>" href="/user/<%=_id %>">
