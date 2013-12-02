@@ -5,6 +5,45 @@ var nativeRTCIceCandidate = (window.mozRTCIceCandidate || window.RTCIceCandidate
 var nativeRTCSessionDescription = (window.mozRTCSessionDescription || window.RTCSessionDescription); // order is very important: "RTCSessionDescription" defined in Nighly but useless
 
 
+if( navigator.webkitGetUserMedia ){
+
+    var attachMediaStream = function(a,b){
+        a && ( a.src = webkitURL.createObjectURL(b) );
+    }
+
+    getUserMedia = navigator.webkitGetUserMedia.bind(navigator);
+
+
+    webkitMediaStream.prototype.getVideoTracks = function(){
+      return this.videoTracks;
+    }
+
+    webkitMediaStream.prototype.getAudioTracks = function(){
+      return this.audioTracks;
+    }
+
+    webkitRTCPeerConnection.prototype.getRemoteStreams = function() {
+      return this.remoteStreams
+    }
+
+    webkitRTCPeerConnection.prototype.getLocalStreams = function(){
+        return this.localStreams;
+    }
+
+    if (!webkitRTCPeerConnection.prototype.getLocalStreams) {
+      webkitRTCPeerConnection.prototype.getLocalStreams = function() {
+        return this.localStreams;
+      };
+      webkitRTCPeerConnection.prototype.getRemoteStreams = function() {
+        return this.remoteStreams;
+      };
+    }
+
+
+}
+
+
+
 
 WE = window.WE || {};
 
@@ -109,7 +148,7 @@ WE.rtc = {
       socket.offline = function( data ){
 
         if(self.connections[data.data._id]){
-          self.connections[data.data._id].clsoe();
+          self.connections[data.data._id].close();
           delete self.connections[data.data._id];
           self.removeRemoteSteam( data.data );
         }

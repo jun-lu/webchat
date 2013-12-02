@@ -36,11 +36,6 @@
 					<h1 title="<%=room.topic %>">
 						<span class="title-txt"><%=tool.cutOff(room.topic,40)%></span>
 						&nbsp;&nbsp;<% if( room.master._id == user._id ){ %><span id="room-edit-boot" class="edit hidden">编辑</span><% } %>
-
-						<span id="video-chat" class="video-boot" title="点击开启视频聊天">
-							<i class="icon-video"></i>
-						</span>
-
 					</h1>
 					<div class="edit-topic clearfix hidden" id="room-edit-box">
 						<form action="/api/room-update" method="post" id="room-edit-form">
@@ -347,55 +342,6 @@
 		//WE.pageChat.notice.init();	
 	</script>
 
-	<script type="text/javascript">
 
-		// WE.rtc.attachStream = function( stream, id ){
-
-		//   	var element = $('#'+id)[0];
-		//   	// if( element == undefined){
-		//   	// 	element = elements[id] = document.createElement("video");
-		//   	// 	element.autoplay = "autoplay";
-		//   	// 	element.id = id;
-		//   	// 	document.body.appendChild( element );
-		//   	// }
-
-
-		//     if (navigator.mozGetUserMedia) {
-		// 	    if (WE.rtc.debug) console.log("Attaching media stream");
-		// 	    element.mozSrcObject = stream;
-		// 	    element.play();
-		//     } else {
-		//       	element.src = webkitURL.createObjectURL(stream);
-		//     }
-	 //  	};
-
-
-	 //   	WE.rtc.removeRemoteSteam = function( id ){
-		//   	var element = elements[user._id]; 
-		//   	if( element ){
-		//   		document.body.removeChild( element );
-		//   	}
-	 //  	}
-
-
-
-		// WE.rtc.socketReady = function(){
-
-		// 	WE.rtc.createStream({"video": true, "audio":false}, function(stream){
-		// 		// get local stream for manipulation
-		// 		WE.rtc.attachStream(stream, 'local');
-				
-		// 	}, function(){});
-
-
-		// 	WE.rtc.addRemoteStream = function(stream, id){
-		// 		// show the remote video
-		// 		WE.rtc.attachStream(stream, id);
-		// 	};
-		// }
-
-		
-
-	</script>
 </body>
 </html>
