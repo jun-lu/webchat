@@ -76,7 +76,6 @@ log.txt
 
 *.key
 
-Gruntfile.js
 
 dist/application-name.js
 
