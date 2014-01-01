@@ -1,5 +1,5 @@
 {
-  "name": "application-name",
+  "name": "vchat.co",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -15,6 +15,8 @@
   },
   "devDependencies": {
     "grunt": "~0.4.1",
-    "grunt-contrib-concat": "~0.3.0"
+    "grunt-contrib-concat": "~0.3.0",
+    "grunt-contrib-uglify": "~0.2.7",
+    "grunt-contrib-watch": "~0.5.3"
   }
 }
